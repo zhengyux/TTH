@@ -1,5 +1,29 @@
 [
     {
+        "outputFile": "C:\\Users\\BigGodKuan\\AndroidStudioProjects\\taotaohai-android\\photoSelector\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v16\\values-v16.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 65,
+                    "endOffset": 116
+                },
+                "from": {
+                    "file": "C:\\Users\\BigGodKuan\\.android\\build-cache\\59e0b2e3fb254c5fa3565bc89e2e66221cbfc7a7\\output\\res\\values-v16\\values-v16.xml",
+                    "position": {
+                        "startLine": 2,
+                        "startColumn": 4,
+                        "startOffset": 55,
+                        "endColumn": 65,
+                        "endOffset": 116
+                    }
+                }
+            }
+        ]
+    },
+    {
         "outputFile": "D:\\workspace\\TaoTaoHai\\photoSelector\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values-v16\\values-v16.xml",
         "map": [
             {
