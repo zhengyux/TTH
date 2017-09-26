@@ -63,7 +63,8 @@
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.MyBook" />
         <activity android:name=".activity.Search" />
-        <activity android:name=".activity.SearchGoods"></activity>
+        <activity android:name=".activity.SearchGoods" />
+        <activity android:name=".activity.Login"></activity>
     </application>
 
 </manifest>
