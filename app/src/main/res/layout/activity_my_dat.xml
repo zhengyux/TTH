@@ -1,0 +1,310 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/common"
+        android:orientation="vertical">
+
+        <include layout="@layout/title" />
+
+
+        <RelativeLayout
+            android:id="@+id/rela_jy"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@color/white"
+            android:onClick="onPhoto"
+            android:paddingLeft="@dimen/gap"
+
+            tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:text="头像"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/font_text1"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="44px"
+                android:layout_height="30px"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/gap"
+                app:srcCompat="@mipmap/right2"
+                tools:ignore="ContentDescription,RtlHardcoded" />
+
+
+            <ImageView
+                android:id="@+id/imag_photo"
+                android:layout_width="80px"
+                android:layout_height="80px"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toLeftOf="@+id/imageView12"
+                android:layout_toStartOf="@+id/imageView12"
+                app:srcCompat="@mipmap/home4"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rela_home"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="1px"
+            android:background="@color/white"
+            android:onClick="onName"
+            android:paddingLeft="@dimen/gap"
+            tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:layout_toLeftOf="@+id/imageView10"
+                android:layout_toStartOf="@+id/imageView10"
+                android:text="多雨的天空"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/font_text1"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_name"
+                android:layout_alignBottom="@+id/tv_name"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:text="昵称"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/font_text1"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="44px"
+                android:layout_height="30px"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/gap"
+                app:srcCompat="@mipmap/right2"
+                tools:ignore="ContentDescription,RtlHardcoded" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rela_home2"
+            android:layout_width="match_parent"
+            android:layout_height="100px"
+            android:layout_marginTop="1px"
+            android:background="@color/white"
+            android:onClick="onSex"
+            android:paddingLeft="@dimen/gap"
+
+            tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+            <TextView
+                android:id="@+id/tv_sex"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="20px"
+                android:layout_toLeftOf="@+id/imageView11"
+                android:layout_toStartOf="@+id/imageView11"
+                android:text="保密"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/font_text1"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/imageView11"
+                android:layout_alignParentStart="true"
+                android:text="性别"
+                android:textColor="@color/text_gray"
+                android:textSize="@dimen/font_text1"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="44px"
+                android:layout_height="30px"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/gap"
+                app:srcCompat="@mipmap/right2"
+                tools:ignore="ContentDescription,RtlHardcoded" />
+        </RelativeLayout>
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/choose"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/black_half99"
+        android:onClick="onChoose"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="650px"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/textView19"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/wite_rigs"
+            android:orientation="vertical"
+            tools:ignore="PxUsage">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="104px"
+                android:gravity="center"
+                android:onClick="onpaizhao"
+                android:text="相机"
+                android:textColor="#fea63f"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/text_gray" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="104px"
+                android:gravity="center"
+                android:onClick="onZhao"
+                android:text="从相册选"
+                android:textColor="#3faffe"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView19"
+            android:layout_width="match_parent"
+            android:layout_height="104px"
+            android:layout_alignEnd="@+id/linearLayout2"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/linearLayout2"
+            android:layout_marginBottom="50px"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@drawable/wite_rigs"
+            android:gravity="center"
+            android:onClick="onCancle"
+            android:text="取消"
+            android:textColor="#3faffe"
+            android:textSize="@dimen/font_text2"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/sex"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_half99"
+        android:onClick="onrela_Sex"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="420px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:background="@color/white"
+            android:orientation="vertical"
+            tools:ignore="PxUsage">
+
+            <TextView
+                android:id="@+id/men"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onMen"
+                android:text="男"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black_half99" />
+
+            <TextView
+                android:id="@+id/women"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onWomen"
+                android:text="女"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/black_half99" />
+
+            <TextView
+                android:id="@+id/scrite"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onScrite"
+                android:text="保密"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="20px"
+                android:background="@color/common" />
+
+            <TextView
+                android:id="@+id/cancle"
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:onClick="onCancle"
+                android:text="取消"
+                android:textColor="@color/text_black"
+                android:textSize="@dimen/font_text2"
+                tools:ignore="HardcodedText" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>

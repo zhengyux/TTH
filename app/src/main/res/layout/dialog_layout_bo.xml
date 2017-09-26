@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="640px"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical"
+    tools:ignore="PxUsage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110px">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="联系我们"
+            android:textColor="@color/text_black"
+            android:textSize="36px"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/cancle"
+            android:layout_width="96px"
+            android:layout_height="96px"
+            android:layout_alignParentRight="true"
+            android:padding="@dimen/gap"
+            android:src="@mipmap/guanbi2" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40px">
+
+        <TextView
+            android:id="@+id/information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="400-8888-555"
+            android:textColor="@color/text_black"
+            android:textSize="36px"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40px">
+
+        <Button
+            android:id="@+id/sure"
+            android:layout_width="match_parent"
+            android:layout_height="70px"
+            android:background="@color/white"
+            android:text="拨号"
+            android:textColor="@color/them"
+            android:textSize="36px"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+</LinearLayout>

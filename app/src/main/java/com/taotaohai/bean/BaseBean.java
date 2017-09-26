@@ -7,7 +7,7 @@ package com.taotaohai.bean;
 public class BaseBean {
     protected String message;
     protected boolean success;
-    protected String code;
+    protected int code;
 
     public String getMessage() {
         return message;
@@ -25,11 +25,11 @@ public class BaseBean {
         this.success = success;
     }
 
-    public String getCode() {
+    public int getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public void setCode(int code) {
         this.code = code;
     }
 }

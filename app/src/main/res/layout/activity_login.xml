@@ -1,9 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.taotaohai.activity.Login">
 
-</android.support.constraint.ConstraintLayout>
+    <ImageView
+        android:onClick="onFinish"
+        android:layout_width="68px"
+        android:layout_height="68px"
+        android:layout_marginTop="60px"
+        android:padding="@dimen/gap"
+        android:src="@mipmap/guanbi"
+        tools:ignore="ContentDescription,PxUsage" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="48px"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginTop="100px"
+        android:text="手机号登录"
+        android:textColor="@color/text_black"
+        tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+    <EditText
+        android:id="@+id/edit_phone"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginTop="70px"
+        android:gravity="left|center"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:hint="请输入手机号"
+        android:inputType="phone"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_bac"
+        android:textSize="32px"
+        tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:gravity="left|center"
+        android:hint="请输入密码"
+        android:inputType="textPassword"
+        android:textColor="@color/text_black"
+        android:textColorHint="@color/hint_bac"
+        android:layout_marginBottom="70px"
+        android:textSize="32px"
+        tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+    <Button
+        android:onClick="onLogin"
+        style="@style/button"
+        android:text="登录"
+        android:layout_margin="@dimen/gap"
+        tools:ignore="HardcodedText" />
+</LinearLayout>

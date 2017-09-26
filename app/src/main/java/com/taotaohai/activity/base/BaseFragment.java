@@ -1,12 +1,14 @@
 package com.taotaohai.activity.base;
 
 
+import android.app.PendingIntent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.WindowManager;
 
 import com.taotaohai.ConstantValue;
+import com.taotaohai.activity.Home;
 import com.taotaohai.dilog_toast.CustomToast;
 import com.taotaohai.httputil.Http;
 import com.taotaohai.httputil.IHttp;
@@ -47,7 +49,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
     }
 
     public void get(String url, final int code) {
-
+        ((BaseActivity)getActivity()).showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -55,6 +57,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
         iHttp.Get(p, code);
 
     }
+
 
     public void Http(HttpMethod moth, String url, HashMap<String, String> hashMap, final int code) {
 
@@ -93,7 +96,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
 
     @Override
     public void onFinished(int code) {
-
+        ((BaseActivity)getActivity()).setSpotNull();
     }
 
     public void inithttp() {

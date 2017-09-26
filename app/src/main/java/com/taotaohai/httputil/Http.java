@@ -6,10 +6,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
+import com.bumptech.glide.util.Util;
+import com.taotaohai.ConstantValue;
+import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.listener.OnHttpDownListener;
 import com.taotaohai.listener.OnHttpListener;
 import com.taotaohai.util.FileSizeUtil;
 import com.taotaohai.util.MD5Utils;
+import com.taotaohai.util.SPUtils;
+import com.taotaohai.util.util;
 
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
@@ -194,6 +200,22 @@ public class Http implements IHttp {
         @Override
         public void onError(Throwable ex, boolean isOnCallback) {
             mOnloginListener.onError(ex, postcode);
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class), (BaseActivity) mOnloginListener);
+            }
+            try {
+                if (ex.toString().contains("401")) {
+                    if (SPUtils.get((BaseActivity) mOnloginListener, "username", null) != null) {
+                        RequestParams p = new RequestParams(ConstantValue.URL + "api/auth/login");
+                        p.addBodyParameter("username", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
+                        p.addBodyParameter("password", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
+                        Post(p, 0);
+                    }
+
+                }
+            } catch (Exception e) {
+            }
 
         }
 

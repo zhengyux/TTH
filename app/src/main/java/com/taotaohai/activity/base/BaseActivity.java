@@ -59,7 +59,7 @@ import static com.taotaohai.GlobalParams.NET_CODE;
 public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpListener {
     TextView tv_title;
     TextView tv_two;
-
+    public static HashMap<String, String> has = new HashMap<>();
     /*dialog*/
     Dialog dialog;
 
@@ -131,7 +131,6 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     public void onError(Throwable ex, int postcode) {
 
     }
-
 
 
     @Override

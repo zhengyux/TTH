@@ -28,4 +28,5 @@
     <color name="glay_text">#b9b9b9</color>
     <color name="class_bac">#f6f6f6</color>
     <color name="search_bac">#f5f5f5</color>
+    <color name="hint_bac">#b4b4b4</color>
 </resources>

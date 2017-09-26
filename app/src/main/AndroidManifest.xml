@@ -64,7 +64,12 @@
         <activity android:name=".activity.MyBook" />
         <activity android:name=".activity.Search" />
         <activity android:name=".activity.SearchGoods" />
-        <activity android:name=".activity.Regist"></activity>
+        <activity android:name=".activity.Regist" />
+        <activity android:name=".activity.Login" />
+        <activity android:name=".activity.ReNameActivity" />
+        <activity android:name=".activity.MyDataActivity" />
+        <activity android:name=".activity.SetActivity" />
+        <activity android:name=".activity.RePassword"></activity>
     </application>
 
 </manifest>

@@ -3,6 +3,7 @@ package com.taotaohai.fragment;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,7 +12,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.taotaohai.R;
+import com.taotaohai.activity.Login;
+import com.taotaohai.activity.MyDataActivity;
+import com.taotaohai.activity.Regist;
+import com.taotaohai.activity.SetActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.Mine;
+import com.taotaohai.util.util;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +26,7 @@ import com.taotaohai.activity.base.BaseFragment;
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
+    private Mine mine;
 
     public static MineFragment newInstance() {
         return new MineFragment();
@@ -36,7 +44,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         // Inflate the layout for this fragment
         initview();
+        inithttp();
         return view;
+    }
+
+    @Override
+    public void inithttp() {
+        super.inithttp();
+        get("api/user/", 0);
+    }
+
+    @Override
+    public void onSuccess(String data, int postcode) {
+        super.onSuccess(data, postcode);
+        mine = util.getgson(data, Mine.class);
+        if (mine.getSuccess()) {
+
+        }
+
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        super.onError(ex, postcode);
     }
 
     private void initview() {
@@ -50,10 +80,17 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rela23).setOnClickListener(this);
         view.findViewById(R.id.rela24).setOnClickListener(this);
         view.findViewById(R.id.rela25).setOnClickListener(this);
+        view.findViewById(R.id.tv_login).setOnClickListener(this);
+        view.findViewById(R.id.tv_regist).setOnClickListener(this);
+        view.findViewById(R.id.image_photo).setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
+//        if (mine == null && v.getId() != R.id.tv_regist) {///如果没有登录，先登录
+//            startActivityForResult(new Intent(getActivity(), Login.class), 10);
+//            return;
+//        }
         switch (v.getId()) {
             case R.id.rela1:
                 break;
@@ -65,6 +102,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 showDialog("快去分享给好友吧，burden");
                 break;
             case R.id.rela5:
+                startActivityForResult(new Intent(getActivity(), SetActivity.class), 10);
+
                 break;
             case R.id.rela21:
                 break;
@@ -76,10 +115,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rela25:
                 break;
+            case R.id.tv_login:
+                startActivityForResult(new Intent(getActivity(), Login.class), 10);
+                break;
+            case R.id.tv_regist:
+                startActivityForResult(new Intent(getActivity(), Regist.class), 11);
+                break;
+            case R.id.image_photo:
+                startActivityForResult(new Intent(getActivity(), MyDataActivity.class)
+                                .putExtra("photo", mine.getData().getExt().getAvatarUrl())
+                                .putExtra("name", mine.getData().getUsername())
+                        , 10);
+                break;
 
         }
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 10) {
+            inithttp();
+        }
+    }
 
     /**
      * 一般dialog
