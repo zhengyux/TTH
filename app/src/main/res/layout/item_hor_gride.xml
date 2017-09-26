@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="220px"
+            android:scaleType="fitXY"
+
+            android:src="@mipmap/ic_launcher"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:layout_width="64px"
+            android:layout_height="32px"
+            android:src="@mipmap/suo"/>
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text28"
+        android:layout_marginTop="10px"
+        android:maxLength="10"
+        android:text="泉州港万隆商sasasasa"
+        android:textColor="#3f3f3f"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        style="@style/text20"
+        android:layout_marginTop="10px"
+        android:text="净重20kg 毛重22kg" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10px">
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/text28"
+            android:text="￥：300 "
+            android:textColor="#0090ff"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/text24"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView8"
+            android:text="/箱"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            style="@style/text20"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_alignParentEnd="true"
+            android:text="已有10人购买"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_marginTop="@dimen/gap" />
+</LinearLayout>

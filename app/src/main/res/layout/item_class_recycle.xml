@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/gap">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="118px"
+        android:layout_height="118px"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView10"
+        style="@style/text18"
+        android:layout_alignBottom="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:text="净重20，毛重22kg" />
+
+    <TextView
+        android:id="@+id/textView12"
+        style="@style/text18"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_toStartOf="@+id/imageView4"
+        android:text="已购买四件" />
+
+    <TextView
+        android:id="@+id/textView13"
+        style="@style/text28"
+
+        android:layout_alignTop="@+id/imageView3"
+        android:layout_toEndOf="@+id/imageView3"
+        android:text="知晓物恋"
+        android:textColor="#404040" />
+
+    <TextView
+        android:id="@+id/textView11"
+        style="@style/text26"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/imageView3"
+        android:text="￥1800.00"
+        android:textColor="@color/them" />
+
+    <TextView
+        style="@style/text20"
+        android:text="/箱"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/textView11" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="54px"
+        android:layout_height="54px"
+        android:src="@mipmap/shopc"
+        android:layout_above="@+id/textView14"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_alignStart="@+id/imageView3"
+        android:layout_below="@+id/imageView3"
+        android:layout_marginTop="@dimen/gap"
+        android:id="@+id/textView14" />
+</RelativeLayout>

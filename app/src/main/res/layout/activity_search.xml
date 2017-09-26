@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    tools:context="com.taotaohai.activity.Search">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="118px"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/them">
+
+        <EditText
+            android:id="@+id/edit_search"
+            style="@style/text28"
+            android:hint="收索全部视频"
+            android:paddingLeft="@dimen/gap"
+            android:gravity="center|left"
+            android:textColorHint="#dadada"
+            android:layout_width="match_parent"
+            android:layout_height="56px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginLeft="@dimen/gap"
+            android:imeOptions="actionSearch"
+            android:singleLine="true"
+            android:layout_toStartOf="@+id/textView18"
+            android:background="@drawable/searchbac" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/text30"
+            android:gravity="center"
+            android:padding="@dimen/gap"
+            android:onClick="onCancle"
+            android:paddingLeft="@dimen/gap"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:layout_alignBaseline="@+id/edit_search"
+            android:layout_alignBottom="@+id/edit_search"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+</RelativeLayout>

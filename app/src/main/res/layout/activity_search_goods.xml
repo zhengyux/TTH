@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    tools:context="com.taotaohai.activity.Search">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="118px"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/them"
+        tools:ignore="PxUsage,UselessParent">
+
+
+        <EditText
+            android:id="@+id/edit_search"
+            style="@style/text28"
+            android:layout_width="match_parent"
+            android:layout_height="56px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_toStartOf="@+id/textView18"
+            android:background="@drawable/searchbac"
+            android:gravity="center|left"
+            android:hint="输入关键字收索"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="120px"
+            android:singleLine="true"
+            android:textColorHint="#dadada"
+            tools:ignore="Deprecated,HardcodedText,RtlHardcoded,RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/textView18"
+            style="@style/text30"
+            android:onClick="onCancle"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginBottom="10px"
+            android:gravity="center"
+            android:padding="@dimen/gap"
+            android:paddingLeft="@dimen/gap"
+            android:text="取消"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
+
+        <TextView
+            style="@style/text28"
+            android:layout_alignBottom="@+id/edit_search"
+            android:layout_alignParentStart="true"
+            android:layout_alignTop="@+id/edit_search"
+            android:layout_marginLeft="50px"
+            android:gravity="center"
+            android:text="商品"
+            android:textColor="#b4b4b4" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/text28"
+        android:layout_margin="@dimen/gap"
+        android:text="历史收索"
+        android:textColor="@color/text_black" />
+
+    <com.taotaohai.myview.WordWrapView
+        android:id="@+id/wordwarp"
+        android:layout_margin="@dimen/gap"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"></com.taotaohai.myview.WordWrapView>
+
+</LinearLayout>

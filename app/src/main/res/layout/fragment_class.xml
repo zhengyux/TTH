@@ -1,0 +1,204 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.taotaohai.fragment.ClassFragment">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="118px"
+        android:background="@color/them"
+        android:paddingTop="30px"
+        tools:ignore="PxUsage,UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout2"
+            android:layout_width="44px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/gap"
+            tools:ignore="RtlHardcoded,UselessParent">
+
+            <ImageView
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/shopcart"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text36"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:text="分类"
+            tools:ignore="HardcodedText" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout3"
+            android:layout_width="44px"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_toStartOf="@+id/relativeLayout2"
+            tools:ignore="RtlHardcoded,UselessParent">
+
+            <ImageView
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/message"
+                tools:ignore="ContentDescription" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listview"
+        android:layout_width="182px"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout"
+        android:background="@color/class_bac"
+        android:divider="@color/text_gray"
+        android:layout_marginTop="1px"
+        android:dividerHeight="1px"
+        android:scrollbars="none"
+        tools:ignore="PxUsage"></ListView>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56px"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:layout_marginTop="@dimen/gap"
+        android:layout_toEndOf="@+id/listview"
+        android:background="@drawable/bac_class"
+        android:orientation="horizontal"
+        tools:ignore="PxUsage">
+
+        <RelativeLayout
+            android:id="@+id/rela1"
+            android:layout_width="176px"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_1"
+                style="@style/text26"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="最新"
+                tools:ignore="HardcodedText" />
+
+        </RelativeLayout>
+
+        <TextView style="@style/textgap2" />
+
+
+        <RelativeLayout
+            android:id="@+id/rela2"
+            android:layout_width="176px"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/tv_2"
+                    style="@style/text26"
+                    android:text="价格"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/image1"
+                    android:layout_width="16px"
+                    android:layout_height="16px"
+                    android:layout_alignTop="@+id/tv_2"
+                    android:layout_marginLeft="10px"
+                    android:layout_toEndOf="@+id/tv_2"
+                    android:src="@mipmap/clickup"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+
+                <ImageView
+                    android:id="@+id/image2"
+                    android:layout_width="16px"
+                    android:layout_height="16px"
+                    android:layout_alignBottom="@+id/tv_2"
+                    android:layout_alignStart="@+id/image1"
+                    android:src="@mipmap/clickbutton"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+
+        </RelativeLayout>
+
+        <TextView style="@style/textgap2" />
+
+        <RelativeLayout
+            android:id="@+id/rela3"
+            android:layout_width="176px"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                tools:ignore="UselessParent">
+
+                <TextView
+                    android:id="@+id/tv_3"
+                    style="@style/text26"
+                    android:text="销量"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="16px"
+                    android:layout_height="16px"
+                    android:layout_alignTop="@+id/tv_3"
+                    android:layout_marginLeft="10px"
+                    android:layout_toEndOf="@+id/tv_3"
+                    android:src="@mipmap/clickup"
+                    tools:ignore="ContentDescription,RtlHardcoded" />
+
+                <ImageView
+                    android:id="@+id/image4"
+                    android:layout_width="16px"
+                    android:layout_height="16px"
+                    android:layout_alignBottom="@+id/tv_3"
+                    android:layout_alignStart="@+id/image3"
+                    android:src="@mipmap/clickbutton"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <com.andview.refreshview.XRefreshView
+        android:id="@+id/xrefreshview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/linearLayout"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_alignEnd="@+id/linearLayout"
+        android:layout_toEndOf="@+id/listview">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycleview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+    </com.andview.refreshview.XRefreshView>
+
+</RelativeLayout>
