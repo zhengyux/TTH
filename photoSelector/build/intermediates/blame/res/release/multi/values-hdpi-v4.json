@@ -1,31 +1,5 @@
 [
     {
-        "outputFile": "C:\\Users\\BigGodKuan\\AndroidStudioProjects\\taotaohai-android\\photoSelector\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-hdpi-v4\\values-hdpi-v4.xml",
-        "map": [
-            {
-                "to": {
-                    "startLine": 2,
-                    "startColumn": 4,
-                    "startOffset": 55,
-                    "endLine": 6,
-                    "endColumn": 13,
-                    "endOffset": 327
-                },
-                "from": {
-                    "file": "C:\\Users\\BigGodKuan\\.android\\build-cache\\59e0b2e3fb254c5fa3565bc89e2e66221cbfc7a7\\output\\res\\values-hdpi-v4\\values-hdpi-v4.xml",
-                    "position": {
-                        "startLine": 2,
-                        "startColumn": 4,
-                        "startOffset": 55,
-                        "endLine": 6,
-                        "endColumn": 13,
-                        "endOffset": 327
-                    }
-                }
-            }
-        ]
-    },
-    {
         "outputFile": "D:\\workspace\\TaoTaoHai\\photoSelector\\build\\intermediates\\incremental\\mergeReleaseResources\\merged.dir\\values-hdpi-v4\\values-hdpi-v4.xml",
         "map": [
             {
