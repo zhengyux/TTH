@@ -8,10 +8,10 @@
     tools:context="com.taotaohai.activity.Login">
 
     <ImageView
-        android:onClick="onFinish"
         android:layout_width="68px"
         android:layout_height="68px"
         android:layout_marginTop="60px"
+        android:onClick="onFinish"
         android:padding="@dimen/gap"
         android:src="@mipmap/guanbi"
         tools:ignore="ContentDescription,PxUsage" />
@@ -19,21 +19,21 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="48px"
         android:layout_marginLeft="@dimen/gap"
         android:layout_marginTop="100px"
         android:text="手机号登录"
         android:textColor="@color/text_black"
+        android:textSize="48px"
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
         android:id="@+id/edit_phone"
         android:layout_width="match_parent"
         android:layout_height="88px"
-        android:layout_marginTop="70px"
-        android:gravity="left|center"
         android:layout_marginLeft="@dimen/gap"
         android:layout_marginRight="@dimen/gap"
+        android:layout_marginTop="70px"
+        android:gravity="left|center"
         android:hint="请输入手机号"
         android:inputType="phone"
         android:textColor="@color/text_black"
@@ -46,6 +46,7 @@
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="88px"
+        android:layout_marginBottom="70px"
         android:layout_marginLeft="@dimen/gap"
         android:layout_marginRight="@dimen/gap"
         android:gravity="left|center"
@@ -53,13 +54,34 @@
         android:inputType="textPassword"
         android:textColor="@color/text_black"
         android:textColorHint="@color/hint_bac"
-        android:layout_marginBottom="70px"
         android:textSize="32px"
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
     <Button
-        android:onClick="onLogin"
         style="@style/button"
-        android:text="登录"
         android:layout_margin="@dimen/gap"
+        android:onClick="onLogin"
+        android:text="登录"
         tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/gap">
+
+        <TextView
+            android:id="@+id/textView20"
+            style="@style/text24"
+            android:onClick="onForget"
+            android:layout_alignParentRight="true"
+            android:text="忘记密码？" />
+
+        <TextView
+            style="@style/text24"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/textView20"
+            android:text="立即注册 / "
+            android:onClick="onRegist"
+            android:textColor="@color/them" />
+    </RelativeLayout>
 </LinearLayout>

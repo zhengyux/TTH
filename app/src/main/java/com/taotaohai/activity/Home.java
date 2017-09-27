@@ -42,7 +42,7 @@ public class Home extends BaseActivity {
         tabView.setOnTabChildClickListener(new TabView.OnTabChildClickListener() {
             @Override
             public void onTabChildClick(int position, ImageView currentImageIcon, TextView currentTextView) {
-                Toast.makeText(getApplicationContext(), "position:" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getApplicationContext(), "position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
     }

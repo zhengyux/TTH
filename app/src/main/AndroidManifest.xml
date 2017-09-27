@@ -69,7 +69,12 @@
         <activity android:name=".activity.ReNameActivity" />
         <activity android:name=".activity.MyDataActivity" />
         <activity android:name=".activity.SetActivity" />
-        <activity android:name=".activity.RePassword"></activity>
+        <activity android:name=".activity.RePassword" />
+        <activity android:name=".activity.OpinionActivity" />
+        <activity android:name=".activity.AddressManeger" />
+        <activity android:name=".activity.AddAdressActivity" />
+        <activity android:name=".activity.MyfocusActivity" />
+        <activity android:name=".activity.ShopActivity"></activity>
     </application>
 
 </manifest>

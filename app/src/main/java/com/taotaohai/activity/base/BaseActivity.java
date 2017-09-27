@@ -89,6 +89,12 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                         2);
             }
+            i = ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},
+                        2);
+            }
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {

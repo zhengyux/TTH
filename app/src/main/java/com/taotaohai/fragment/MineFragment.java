@@ -12,8 +12,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.taotaohai.R;
+import com.taotaohai.activity.AddressManeger;
 import com.taotaohai.activity.Login;
+import com.taotaohai.activity.MyBook;
 import com.taotaohai.activity.MyDataActivity;
+import com.taotaohai.activity.MyfocusActivity;
 import com.taotaohai.activity.Regist;
 import com.taotaohai.activity.SetActivity;
 import com.taotaohai.activity.base.BaseFragment;
@@ -83,6 +86,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.tv_login).setOnClickListener(this);
         view.findViewById(R.id.tv_regist).setOnClickListener(this);
         view.findViewById(R.id.image_photo).setOnClickListener(this);
+        view.findViewById(R.id.allbooks).setOnClickListener(this);
     }
 
     @Override
@@ -95,8 +99,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.rela1:
                 break;
             case R.id.rela2:
+                startActivity(new Intent(getActivity(), MyfocusActivity.class));
+
                 break;
             case R.id.rela3:
+                startActivity(new Intent(getActivity(), AddressManeger.class));
                 break;
             case R.id.rela4:
                 showDialog("快去分享给好友吧，burden");
@@ -122,10 +129,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), Regist.class), 11);
                 break;
             case R.id.image_photo:
-                startActivityForResult(new Intent(getActivity(), MyDataActivity.class)
-                                .putExtra("photo", mine.getData().getExt().getAvatarUrl())
-                                .putExtra("name", mine.getData().getUsername())
-                        , 10);
+
+                Intent intent = new Intent(getActivity(), MyDataActivity.class);
+                if (mine != null) ;
+                intent.putExtra("photo", mine.getData().getExt().getAvatarUrl())
+                        .putExtra("name", mine.getData().getUsername());
+                startActivityForResult(intent, 10);
+                break;
+            case R.id.allbooks:
+                startActivity(new Intent(getActivity(), MyBook.class));
+
                 break;
 
         }

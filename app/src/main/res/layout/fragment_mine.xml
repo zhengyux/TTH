@@ -72,23 +72,23 @@
             android:id="@+id/tv_login"
             style="@style/text30"
             android:layout_height="80px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/image_photo"
             android:src="@mipmap/ic_launcher"
             android:text="登录/ "
             android:textColor="@color/white"
-            tools:ignore="HardcodedText"
-            android:layout_alignParentBottom="true"
-            android:layout_alignStart="@+id/image_photo" />
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_regist"
             style="@style/text30"
             android:layout_height="80px"
+            android:layout_alignEnd="@+id/image_photo"
+            android:layout_alignParentBottom="true"
             android:src="@mipmap/ic_launcher"
             android:text="注册 "
             android:textColor="@color/white"
-            tools:ignore="HardcodedText"
-            android:layout_alignParentBottom="true"
-            android:layout_alignEnd="@+id/image_photo" />
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
@@ -101,12 +101,13 @@
         tools:ignore="PxUsage">
 
         <TextView
+            android:id="@+id/allbooks"
             style="@style/text26"
-            android:layout_alignBaseline="@+id/textView15"
-            android:layout_alignBottom="@+id/textView15"
+            android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginRight="@dimen/gap"
             android:layout_toStartOf="@+id/imageView5"
+            android:gravity="center"
             android:text="查看全部订单"
             tools:ignore="HardcodedText,RtlHardcoded" />
 

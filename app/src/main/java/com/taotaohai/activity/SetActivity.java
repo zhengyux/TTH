@@ -27,20 +27,21 @@ public class SetActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
+        setTitle("设置");
         initview();
 
     }
 
     private void initview() {
-        startActivityForResult(new Intent(this, RePassword.class), 10);
+//        startActivityForResult(new Intent(this, RePassword.class), 10);
     }
 
     public void onOne(View v) {
-
+        startActivity(new Intent(this,RePassword.class));
     }
 
     public void onTwo(View v) {
-
+        startActivity(new Intent(this, OpinionActivity.class));
     }
 
     public void onThree(View v) {
@@ -54,6 +55,7 @@ public class SetActivity extends BaseActivity {
     public void onFive(View v) {
 
     }
+
 
     protected void showDialog() {
         backgroundAlpha(0.5f);
@@ -81,6 +83,7 @@ public class SetActivity extends BaseActivity {
                     return;
                 }
                 startActivity(intent);
+                dialog.dismiss();
             }
         });
         dialog.show();

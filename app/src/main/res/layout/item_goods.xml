@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingBottom="@dimen/gap"
+    android:paddingTop="@dimen/gap">
+
+    <ImageView
+        android:id="@+id/image_photo"
+        android:layout_width="118px"
+        android:layout_height="118px"
+        android:src="@mipmap/ic_launcher"
+        tools:ignore="ContentDescription,PxUsage" />
+
+    <TextView
+        android:id="@+id/tv_num"
+        style="@style/text18"
+        android:layout_marginLeft="10px"
+        android:text="净重20，毛重22kg"
+        tools:ignore="HardcodedText"
+        android:layout_alignTop="@+id/textView24"
+        android:layout_toEndOf="@+id/textView24" />
+
+    <TextView
+        android:id="@+id/tv_people"
+        style="@style/text18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@+id/image_photo"
+        android:text="已有1.2万人购买"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/text28"
+
+        android:layout_alignTop="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
+        android:text="知晓物恋"
+        android:textColor="#404040"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tv_money"
+        style="@style/text26"
+        android:layout_alignBottom="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
+        android:text="￥1800.00"
+        android:textColor="@color/them"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/textView24"
+        style="@style/text20"
+        android:layout_alignBaseline="@+id/tv_money"
+        android:layout_alignBottom="@+id/tv_money"
+        android:layout_toEndOf="@+id/tv_money"
+        android:text="/箱"
+        tools:ignore="HardcodedText" />
+
+
+</RelativeLayout>

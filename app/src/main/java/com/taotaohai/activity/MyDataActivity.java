@@ -2,7 +2,6 @@ package com.taotaohai.activity;
 
 import android.app.Dialog;
 import android.content.ContentValues;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.Image;
 import android.net.Uri;
@@ -94,6 +93,21 @@ public class MyDataActivity extends BaseActivity {
 
     public void onChoose(View view) {
         choose.setVisibility(View.GONE);
+    }
+
+    public void onMen(View v) {
+        choose.setVisibility(View.GONE);
+        tv_sex.setText("男");
+    }
+
+    public void onWomen(View v) {
+        choose.setVisibility(View.GONE);
+        tv_sex.setText("女");
+    }
+
+    public void onScrite(View v) {
+        choose.setVisibility(View.GONE);
+        tv_sex.setText("保密");
     }
 
 

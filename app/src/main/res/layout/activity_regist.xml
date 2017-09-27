@@ -111,5 +111,25 @@
         android:onClick="onLogin"
         android:text="注册"
         tools:ignore="HardcodedText" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/gap"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/textView21"
+            style="@style/text24"
+            android:text="注册既是同意，" />
+
+        <TextView
+            style="@style/text24"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/textView21"
+            android:text="《海淘淘注册手册》"
+            android:textColor="@color/them" />
+    </RelativeLayout>
 </LinearLayout>
 

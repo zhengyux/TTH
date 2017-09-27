@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -67,6 +68,15 @@ public class Login extends BaseActivity {
     }
 
     public void onFinish(View v) {
+        finish();
+    }
+
+    public void onForget(View v) {
+//        finish();
+    }
+
+    public void onRegist(View v) {
+        startActivity(new Intent(this,Regist.class));
         finish();
     }
 }

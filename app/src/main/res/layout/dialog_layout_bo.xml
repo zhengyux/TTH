@@ -31,10 +31,7 @@
             android:src="@mipmap/guanbi2" />
     </RelativeLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:background="@color/gray_line" />
+    <TextView style="@style/textgap1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,6 +48,8 @@
             android:textSize="36px"
             tools:ignore="HardcodedText" />
     </RelativeLayout>
+
+    <TextView style="@style/textgap1" />
 
     <RelativeLayout
         android:layout_width="match_parent"
