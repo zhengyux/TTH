@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -7,17 +8,17 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
-import com.taotaohai.fragment.BookFragment;
+import com.taotaohai.bean.Book;
+import com.taotaohai.fragment.ItemBookFragment;
 import com.taotaohai.util.ViewFindUtils;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 
 import java.util.ArrayList;
 
-public class MyBook extends BaseActivity implements OnTabSelectListener {
+public class MyBook extends BaseActivity implements OnTabSelectListener, View.OnClickListener,ItemBookFragment.OnListFragmentInteractionListener{
     private ArrayList<Fragment> mFragments = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private final String[] mTitles = {
@@ -53,14 +54,14 @@ public class MyBook extends BaseActivity implements OnTabSelectListener {
             public void run() {
                 mMsvLayout.content();
             }
-        },2000);
+        }, 2000);
     }
 
     private void initview() {
         for (String title : mTitles) {
-            mFragments.add(BookFragment.getInstance());
+            mFragments.add(ItemBookFragment.newInstance(0));
         }
-
+        findViewById(R.id.back).setOnClickListener(this);
         View decorView = getWindow().getDecorView();
         ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -78,6 +79,35 @@ public class MyBook extends BaseActivity implements OnTabSelectListener {
 
     @Override
     public void onTabReselect(int position) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.back:
+                finish();
+                break;
+        }
+    }
+
+    @Override
+    public void onListFragmentInteraction(Book.Data item) {
+        startActivity(new Intent(MyBook.this, Bookdetial.class).putExtra("id", item.getId()));
+    }
+
+    @Override
+    public void onListFragmentButton2(Book.Data item) {//第2个按钮
+
+    }
+
+    @Override
+    public void onListFragmentButton1(Book.Data item) {//第一个按钮
+
+    }
+
+    @Override
+    public void onListFragmentButton3(Book.Data mItem) {//第3个按钮
 
     }
 

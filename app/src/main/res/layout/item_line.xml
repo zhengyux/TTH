@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@id/text"
+        style="@style/text30"
+        android:layout_height="100px"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:text="185651" />
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_below="@+id/text"/>
+</RelativeLayout>

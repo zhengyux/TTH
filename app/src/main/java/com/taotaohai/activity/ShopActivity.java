@@ -1,6 +1,7 @@
 package com.taotaohai.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
@@ -8,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -26,6 +28,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private TextView tv_focus;
     private View rela_focus, image_focus;
+    private View rela_class;
+    private LinearLayout line_class;
 
     @Override
     protected void inithttp() {
@@ -62,8 +66,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         rela_focus.setOnClickListener(this);
         tv_focus = (TextView) findViewById(R.id.tv_focus);
 
-
+        rela_class = findViewById(R.id.rela_class);
+        line_class = (LinearLayout) findViewById(R.id.line_class);
+        findViewById(R.id.rela_class).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
+        findViewById(R.id.relaclick_1).setOnClickListener(this);
+        findViewById(R.id.relaclick_2).setOnClickListener(this);
+        findViewById(R.id.relaclick_3).setOnClickListener(this);
 
         xrefreshview = (XRefreshView) findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
@@ -75,6 +84,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initdata() {
+
+        for (int i = 0; i < 3; i++) {
+            View v = getLayoutInflater().inflate(R.layout.item_line, null);
+            TextView text = (TextView) v.findViewById(R.id.text);
+            text.setText("分类" + i);
+            text.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            line_class.addView(v);
+        }
+
 
         List<String> lista = Arrays.asList("1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1");
         CommonAdapter adapter = new CommonAdapter<String>(this, R.layout.item_hor_gride2, lista) {
@@ -137,6 +160,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 } else {
                     focus();
                 }
+                break;
+            case R.id.relaclick_1:
+
+                break;
+            case R.id.relaclick_2:
+                startActivity(new Intent(this, ShopIntroducActivity.class));
+                break;
+            case R.id.relaclick_3:
+                if (rela_class.isShown()) {
+                    rela_class.setVisibility(View.GONE);
+                } else {
+                    rela_class.setVisibility(View.VISIBLE);
+                }
+
+                break;
+            case R.id.rela_class:
+                rela_class.setVisibility(View.GONE);
                 break;
 
         }
