@@ -69,10 +69,11 @@
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/gap"
             android:layout_below="@+id/textView27"
-            android:layout_margin="@dimen/gap"
-            android:background="@color/common">
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@color/common"
+            android:paddingBottom="@dimen/gap">
 
             <ImageView
                 android:id="@+id/image_photo"
@@ -148,7 +149,6 @@
             android:layout_height="1px"
             android:layout_alignStart="@+id/relativeLayout"
             android:layout_below="@+id/relativeLayout"
-            android:layout_marginRight="30px"
             android:layout_marginTop="80px"
             android:background="@color/text_gray"
             tools:ignore="PxUsage,RtlHardcoded" />
@@ -163,9 +163,10 @@
             android:layout_toStartOf="@+id/btn_2"
             android:background="@drawable/bac_class_glay"
             android:gravity="center"
-            android:paddingLeft="40px"
-            android:paddingRight="40px"
+            android:paddingLeft="@dimen/gap"
+            android:paddingRight="30px"
             android:text="删除"
+            android:textColor="@color/text_black"
             tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
         <TextView
@@ -176,10 +177,12 @@
             android:layout_alignTop="@+id/btn_1"
             android:layout_marginLeft="20px"
             android:layout_toStartOf="@+id/btn_1"
+            android:background="@drawable/bac_class_glay"
             android:gravity="center"
-            android:paddingLeft="40px"
-            android:paddingRight="40px"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
             android:text="删除"
+            android:textColor="@color/text_black"
             android:visibility="gone" />
 
         <TextView
@@ -191,10 +194,11 @@
             android:layout_marginBottom="20px"
             android:layout_marginLeft="20px"
             android:layout_marginTop="30px"
+            android:layout_marginRight="@dimen/gap"
             android:background="@drawable/bac_class_glay"
             android:gravity="center"
-            android:paddingLeft="40px"
-            android:paddingRight="40px"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
             android:text="退款"
             android:textColor="@color/text_black"
             tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
@@ -213,6 +217,7 @@
             android:layout_above="@+id/btn_2"
             android:layout_alignEnd="@+id/textView49"
             android:layout_marginBottom="30px"
+            android:layout_marginRight="@dimen/gap"
             android:text="共两件商品 小计：￥1000"
             android:textSize="30px"
             tools:ignore="HardcodedText,PxUsage" />

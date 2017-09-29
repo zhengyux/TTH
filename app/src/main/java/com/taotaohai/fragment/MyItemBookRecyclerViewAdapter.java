@@ -37,13 +37,13 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.text_title.setText(mValues.get(position).getShopName());
-        holder.text_content.setText(mValues.get(position).getGoodsName());
-        holder.text_stata.setText(getstata(mValues.get(position).getOrderStatus(), holder.btn_1, holder.btn_2,holder.btn_3));
-        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getPrice());
-        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
-        holder.tv_guige.setText(mValues.get(position).getColor() + "," + mValues.get(position).getSize() + "," + mValues.get(position).getAcount() + "件");
-        Glide.with(mcontent).load(mValues.get(position).getMd5()).error(R.mipmap.ic_launcher).into(holder.image_photo);
+//        holder.text_title.setText(mValues.get(position).getShopName());
+//        holder.text_content.setText(mValues.get(position).getGoodsName());
+        holder.text_stata.setText(getstata(mValues.get(position).getCount(), holder.btn_1, holder.btn_2,holder.btn_3));
+//        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getPrice());
+//        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
+//        holder.tv_guige.setText(mValues.get(position).getColor() + "," + mValues.get(position).getSize() + "," + mValues.get(position).getAcount() + "件");
+//        Glide.with(mcontent).load(mValues.get(position).getMd5()).error(R.mipmap.ic_launcher).into(holder.image_photo);
 
         holder.btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,7 +146,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
                 return "待付款";
             case 2:
                 btn_1.setText("售后/退款");
-                btn_2.setText("提醒商家发货");
+                btn_2.setText("提醒发货");
                 return "待发货";
             case 3:
                 btn_3.setVisibility(View.VISIBLE);

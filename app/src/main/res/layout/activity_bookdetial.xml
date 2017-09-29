@@ -28,6 +28,31 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
+                    android:layout_height="152px"
+                    android:background="@color/junhuang"
+                    tools:ignore="PxUsage">
+
+                    <TextView
+                        android:id="@+id/textView38"
+                        style="@style/text32"
+                        android:layout_marginLeft="40px"
+                        android:layout_marginTop="@dimen/gap"
+                        android:text="待付款"
+                        android:textColor="@color/white"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
+
+                    <TextView
+                        style="@style/text24"
+                        android:layout_alignStart="@+id/textView38"
+                        android:layout_below="@+id/textView38"
+                        android:layout_marginTop="@dimen/gap"
+                        android:text="还有1:25:29 关闭交易"
+                        android:textColor="@color/white"
+                        tools:ignore="HardcodedText" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white">
 
@@ -324,6 +349,16 @@
             android:layout_alignParentBottom="true"
             tools:ignore="PxUsage">
 
+            <ImageView
+                android:id="@+id/imageView17"
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_alignBottom="@+id/btn_1"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="10px"
+                android:layout_marginLeft="@dimen/gap"
+                android:src="@mipmap/lianxi" />
+
             <TextView
                 android:id="@+id/btn_1"
                 android:layout_width="wrap_content"
@@ -332,9 +367,10 @@
                 android:layout_alignTop="@+id/btn_2"
                 android:layout_marginLeft="20px"
                 android:layout_toStartOf="@+id/btn_2"
+                android:background="@drawable/bac_class_glay"
                 android:gravity="center"
-                android:paddingLeft="40px"
-                android:paddingRight="40px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
                 android:text="删除"
                 tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
@@ -346,24 +382,28 @@
                 android:layout_alignTop="@+id/btn_1"
                 android:layout_marginLeft="20px"
                 android:layout_toStartOf="@+id/btn_1"
+                android:background="@drawable/bac_class_glay"
                 android:gravity="center"
-                android:paddingLeft="40px"
-                android:paddingRight="40px"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
                 android:text="删除"
+                android:visibility="gone"
                 tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
             <TextView
                 android:id="@+id/btn_2"
-                android:layout_width="170px"
+                android:layout_width="wrap_content"
                 android:layout_height="48px"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="20px"
                 android:layout_marginRight="@dimen/gap"
-                android:background="@drawable/button_r2"
+                android:background="@drawable/bac_class_them"
                 android:gravity="center"
+                android:paddingLeft="30px"
+                android:paddingRight="30px"
                 android:text="退款"
-                android:textColor="@color/white"
+                android:textColor="@color/them"
                 tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
         </RelativeLayout>
     </RelativeLayout>

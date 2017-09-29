@@ -119,7 +119,8 @@
 
                     <RadioButton
                         style="@style/text30"
-                        android:text="仅退款" />
+                        android:text="仅退款"
+                        android:checked="true"/>
 
                     <RadioButton
                         style="@style/text30"
@@ -214,7 +215,7 @@
         android:layout_margin="@dimen/gap"
         android:background="@drawable/button_r2"
         android:onClick="onComment"
-        android:text="发表评论"
+        android:text="提交"
         android:textColor="@color/white"
         android:textSize="@dimen/font_text2"
         tools:ignore="HardcodedText,PxUsage" />

@@ -56,8 +56,6 @@ public class Refund extends BaseActivity {
     //    private PopHuaTi popHuaTi;
     String coliyi = "";
     private String content;
-    private RatingBar ratingBar;
-    int count_rating = 0;
 
     @Override
     protected void inithttp() {
@@ -79,13 +77,7 @@ public class Refund extends BaseActivity {
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;
-        ratingBar = (RatingBar) findViewById(R.id.ratingBar);
-        ratingBar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
-            @Override
-            public void onRatingChange(float RatingCount) {
-                count_rating = (int) (RatingCount+0.6);
-            }
-        });
+
         gridview = (MyGridView) findViewById(R.id.noScrollgridview);
         gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         editText = (EditText) findViewById(R.id.editText);
@@ -419,7 +411,6 @@ public class Refund extends BaseActivity {
         }
         JsonObject object = new JsonObject();
 
-        object.addProperty("commentLevel", (int) ratingBar.getChildCount());
         object.addProperty("comment", editText.getText().toString().trim());
         object.addProperty("orderId", getintent("id"));
         object.add("cImgUrl", jsonArray);

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.taotaohai">
 
@@ -76,10 +75,15 @@
         <activity android:name=".activity.AddAdressActivity" />
         <activity android:name=".activity.MyfocusActivity" />
         <activity android:name=".activity.ShopActivity" />
-        <activity android:name=".activity.ShopIntroducActivity"></activity>
-        <activity android:name=".activity.PhotoActivity"></activity>
-        <activity android:name=".activity.Evaluation"></activity>
-        <activity android:name=".activity.Refund"></activity>
+        <activity android:name=".activity.ShopIntroducActivity" />
+        <activity android:name=".activity.PhotoActivity" />
+        <activity android:name=".activity.Evaluation" />
+        <activity android:name=".activity.Refund" />
+        <activity android:name=".activity.LogisActivity" />
+        <activity android:name=".activity.Bookdetial" />
+        <activity android:name=".activity.ReFundListActivity" />
+        <activity android:name=".activity.ReFundDetialActivity"></activity>
+        <activity android:name=".activity.ShopCarActivity"></activity>
     </application>
 
 </manifest>

@@ -63,9 +63,9 @@ dependencies {
     compile 'com.huxq17.xrefreshview:xrefreshview:3.6.9'
     compile 'com.hyphenate:hyphenate-sdk-lite:3.3.0'
     compile 'com.youth.banner:banner:1.4.10'
-    testCompile 'junit:junit:4.12'
     compile 'com.hedgehog.ratingbar:app:1.1.2'
-
+    compile 'com.contrarywind:Android-PickerView:3.2.4'
+    testCompile 'junit:junit:4.12'
 }
 allprojects {
     repositories {

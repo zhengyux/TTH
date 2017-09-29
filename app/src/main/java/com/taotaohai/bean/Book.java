@@ -1,5 +1,6 @@
 package com.taotaohai.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +37,16 @@ public class Book extends BaseBean {
                 "username":""*/
     private List<Data> data;
 
+    public Book(List<Integer> list) {
+        super();
+        if (data == null) {
+            data = new ArrayList<>();
+        }
+        for (int i = 0; i < list.size(); i++) {
+            data.add(new Data().setCount(list.get(i)));
+        }
+    }
+
     public List<Data> getData() {
         return data;
     }
@@ -45,6 +56,17 @@ public class Book extends BaseBean {
     }
 
     public class Data {
+        private int count;
+
+        public int getCount() {
+            return count;
+        }
+
+        public Data setCount(int count) {
+            this.count = count;
+            return this;
+        }
+
         private int acount;
         private String color;
         private String gmtCreate;

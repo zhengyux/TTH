@@ -13,6 +13,10 @@ import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.Book;
 import com.taotaohai.util.util;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 
 /**
  * A fragment representing a list of Items.
@@ -36,6 +40,7 @@ public class ItemBookFragment extends BaseFragment {
      */
     public ItemBookFragment() {
     }
+
     // TODO: Customize parameter initialization
     @SuppressWarnings("unused")
     public static ItemBookFragment newInstance(int columnCount) {
@@ -77,9 +82,18 @@ public class ItemBookFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
 //        inithttp();
+        //测试数据
+        List<Integer> list = Arrays.asList(1, 2, 3, 4);
+
+        Book book = new Book(list);
+        adapter = new MyItemBookRecyclerViewAdapter(book.getData(), mListener).setcontent(getActivity());
+        recyclerView.setAdapter(adapter); 
     }
 
     public void inithttp() {
+
+
+
         switch (stata) {
             case 0:
                 get("api/GoodsOrder/allOrderList", 0);

@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
@@ -366,6 +367,36 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
             @Override
             public void onClick(View v) {
                 backgroundAlpha(1);
+                sure();
+            }
+        });
+        dialog.show();
+    }
+    protected void showDialog2(String st, String title) {
+        backgroundAlpha(0.5f);
+        dialog = new Dialog(this, R.style.MyDialog);
+        dialog.setContentView(R.layout.dialog_layout2);
+        TextView textView = (TextView) dialog.findViewById(R.id.information);
+        TextView tv_title = (TextView) dialog.findViewById(R.id.tv_title);
+        tv_title.setText(title);
+        textView.setText(st);
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                backgroundAlpha(1);
+            }
+        });
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.findViewById(R.id.sure).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
                 sure();
             }
         });

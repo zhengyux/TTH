@@ -17,6 +17,7 @@ import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MyBook;
 import com.taotaohai.activity.MyDataActivity;
 import com.taotaohai.activity.MyfocusActivity;
+import com.taotaohai.activity.ReFundListActivity;
 import com.taotaohai.activity.Regist;
 import com.taotaohai.activity.SetActivity;
 import com.taotaohai.activity.base.BaseFragment;
@@ -113,14 +114,29 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 break;
             case R.id.rela21:
+                startActivity(new Intent(getActivity(), MyBook.class)
+                        .putExtra("stata", 1)
+                );
                 break;
             case R.id.rela22:
+                startActivity(new Intent(getActivity(), MyBook.class)
+                        .putExtra("stata", 2)
+                );
                 break;
             case R.id.rela23:
+                startActivity(new Intent(getActivity(), MyBook.class)
+                        .putExtra("stata", 3)
+                );
                 break;
             case R.id.rela24:
+                startActivity(new Intent(getActivity(), MyBook.class)
+                        .putExtra("stata", 4)
+                );
                 break;
             case R.id.rela25:
+                startActivity(new Intent(getActivity(), ReFundListActivity.class)
+                        .putExtra("stata", 4)
+                );
                 break;
             case R.id.tv_login:
                 startActivityForResult(new Intent(getActivity(), Login.class), 10);
@@ -137,7 +153,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(intent, 10);
                 break;
             case R.id.allbooks:
-                startActivity(new Intent(getActivity(), MyBook.class));
+                startActivity(new Intent(getActivity(), MyBook.class)
+                        .putExtra("stata", 0)
+                );
 
                 break;
 

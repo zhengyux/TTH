@@ -1,21 +1,31 @@
 package com.taotaohai.activity;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
+import com.taotaohai.bean.Book;
 import com.taotaohai.bean.BookDet;
 import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
 
-public class Bookdetial extends BaseActivity {
-    TextView tv_1, tv_2, tv_3, tv_4, tv_5, tv_6, tv_7, tv_8, btn_1, btn_2, btn_3;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Bookdetial extends BaseActivity implements View.OnClickListener {
+    TextView tv_1, tv_2, tv_3, tv_4, tv_5, tv_6, tv_7, tv_8, tv_9, tv_10, tv_11, tv_12, tv_13, tv_14, btn_1, btn_2, btn_3;
     ImageView image_1;
     private BookDet bookd;
 
@@ -25,7 +35,9 @@ public class Bookdetial extends BaseActivity {
         setContentView(R.layout.activity_bookdetial);
         setTitle("订单详情");
         initview();
-        inithttp();
+        stata = getIntent().getIntExtra("stata", 0);
+        getstata(stata);
+//        inithttp();
     }
 
     private void initview() {
@@ -37,11 +49,19 @@ public class Bookdetial extends BaseActivity {
         tv_6 = (TextView) findViewById(R.id.tv_6);
         tv_7 = (TextView) findViewById(R.id.tv_7);
         tv_8 = (TextView) findViewById(R.id.tv_8);
+        tv_9 = (TextView) findViewById(R.id.tv_9);
+        tv_10 = (TextView) findViewById(R.id.tv_10);
+        tv_11 = (TextView) findViewById(R.id.tv_11);
+        tv_12 = (TextView) findViewById(R.id.tv_12);
+        tv_13 = (TextView) findViewById(R.id.tv_13);
+        tv_14 = (TextView) findViewById(R.id.tv_14);
         image_1 = (ImageView) findViewById(R.id.image_1);
         btn_1 = (TextView) findViewById(R.id.btn_1);
         btn_2 = (TextView) findViewById(R.id.btn_2);
         btn_3 = (TextView) findViewById(R.id.btn_3);
-
+        btn_1.setOnClickListener(this);
+        btn_2.setOnClickListener(this);
+        btn_3.setOnClickListener(this);
     }
 
     protected void inithttp() {
@@ -149,7 +169,7 @@ public class Bookdetial extends BaseActivity {
                 break;
             case 2:
                 btn_1.setText("售后/退款");
-                btn_2.setText("提醒商家发货");
+                btn_2.setText("提醒发货");
                 break;
             case 3:
                 btn_3.setVisibility(View.VISIBLE);
@@ -164,4 +184,138 @@ public class Bookdetial extends BaseActivity {
         }
     }
 
+    int stata = 0;
+
+    public void conlick3() {//第3个按钮
+        startActivity(new Intent(this, LogisActivity.class));
+    }
+
+    public void conlick2() {//第2个按钮
+        switch (stata) {
+            case 1:
+                showpay("800");
+                break;
+            case 2:
+                showToast("提醒成功");
+                break;
+            case 3:
+                showDialog2("您确定已收到货？", "确定收货");
+                break;
+            case 4://再次购买
+                startActivity(new Intent(Bookdetial.this, Evaluation.class));
+
+                break;
+
+        }
+    }
+
+    public void conlick1() {//第一个按钮
+        switch (stata) {
+            case 1:
+                showchoose();
+                break;
+            case 2:
+                startActivity(new Intent(Bookdetial.this, Refund.class));
+                break;
+            case 3:
+                startActivity(new Intent(Bookdetial.this, Refund.class));
+                break;
+            case 4://再次购买
+//                startActivity(new Intent(MyBook.this, Refund.class));
+                break;
+
+        }
+    }
+
+    private void showchoose() {
+        final List<String> options1Items = new ArrayList<>();
+        options1Items.clear();
+        options1Items.add("托儿索");
+        options1Items.add("儿童劫");
+        options1Items.add("小学生之手");
+        options1Items.add("德玛西亚大保健");
+        options1Items.add("面对疾风吧");
+        options1Items.add("天王盖地虎");
+        options1Items.add("我发一米五");
+        options1Items.add("爆刘继芬");
+
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String s = options1Items.get(options1);
+//                button4.setText(s);
+            }
+        })
+                .setSubCalSize(15)//确定和取消文字大小
+                .setSubmitColor(R.color.glay_text)//确定按钮文字颜色
+                .setCancelColor(R.color.them)//取消按钮文字颜色
+                .setTextColorCenter(Color.BLACK)//设置选中项的颜色
+                .setTitleText("选择退款原因")
+                .setTitleSize(15)
+                .isDialog(true)//是否显示为对话框样式
+                .build();
+        pvOptions.setPicker(options1Items);
+        pvOptions.show();
+    }
+
+    boolean iszfb = true;
+
+    protected void showpay(String st) {
+        backgroundAlpha(0.5f);
+        final Dialog dialog = new Dialog(this, R.style.MyDialog_holo);
+        dialog.setContentView(R.layout.dialog_pay);
+        TextView textView = (TextView) dialog.findViewById(R.id.information);
+        final View rela_1 = dialog.findViewById(R.id.rela_1);
+        final View rela_2 = dialog.findViewById(R.id.rela_2);
+        rela_1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iszfb = true;
+                rela_1.setBackgroundResource(R.drawable.button_r32);
+                rela_2.setBackground(null);
+            }
+        });
+        rela_2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                iszfb = false;
+                rela_2.setBackgroundResource(R.drawable.button_r32);
+                rela_1.setBackground(null);
+            }
+        });
+
+        textView.setText(st);
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+
+            }
+        });
+        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                backgroundAlpha(1f);
+            }
+        });
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialog.show();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_1:
+                conlick1();
+                break;
+            case R.id.btn_2:
+                conlick2();
+                break;
+            case R.id.btn_3:
+                conlick3();
+                break;
+        }
+    }
 }
