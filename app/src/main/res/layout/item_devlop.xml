@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/gap">
+
+    <ImageView
+        android:id="@+id/imageView20"
+        android:layout_width="66px"
+        android:layout_height="66px"
+        android:layout_marginRight="@dimen/gap"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/textView51"
+        style="@style/text28"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/imageView20"
+        android:text="张高丽"
+        android:textColor="@color/text_black" />
+
+    <TextView
+        android:id="@+id/textView53"
+        style="@style/text28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/ratingBar"
+        android:layout_marginTop="30px"
+        android:text="商品很好"
+        android:textColor="@color/text_black" />
+
+    <TextView
+        android:id="@+id/textView52"
+        style="@style/text28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="昨天"
+        android:textColor="@color/text_black" />
+
+    <com.hedgehog.ratingbar.RatingBar
+        android:id="@+id/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView51"
+        android:layout_toEndOf="@+id/imageView20"
+        android:numStars="5"
+        android:progressTint="@color/junhuang"
+        android:stepSize="1"
+        hedgehog:clickable="false"
+        hedgehog:halfstart="true"
+        hedgehog:starCount="5"
+        hedgehog:starEmpty="@mipmap/xinno"
+        hedgehog:starFill="@mipmap/xinyes"
+        hedgehog:starHalf="@mipmap/xinyes"
+        hedgehog:starImageHeight="20dp"
+        hedgehog:starImageWidth="20dp" />
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView53"
+        android:layout_marginTop="@dimen/gap" />
+</RelativeLayout>

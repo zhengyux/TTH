@@ -120,7 +120,7 @@
                     <RadioButton
                         style="@style/text30"
                         android:text="仅退款"
-                        android:checked="true"/>
+                        />
 
                     <RadioButton
                         style="@style/text30"

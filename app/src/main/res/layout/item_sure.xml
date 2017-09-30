@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView27"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
+        android:layout_marginTop="@dimen/gap"
+        android:background="@color/common">
+
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="130px"
+            android:layout_height="130px"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="30px"
+            android:layout_marginTop="@dimen/gap"
+            android:layout_marginBottom="@dimen/gap"
+            app:srcCompat="@mipmap/ic_launcher"
+            tools:ignore="ContentDescription,PxUsage" />
+
+        <TextView
+            android:id="@+id/text_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_photo"
+            android:layout_toEndOf="@+id/image_photo"
+            android:text="野生黑鱼好吃又好卖"
+            android:textColor="@color/text_black"
+            android:textSize="30px"
+            tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />
+
+        <TextView
+            android:id="@+id/tv_28"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/tv_sigalmoney"
+            android:layout_alignBottom="@+id/tv_sigalmoney"
+            android:layout_toEndOf="@+id/tv_sigalmoney"
+            android:text="/箱"
+            android:textSize="30px"
+            tools:ignore="HardcodedText,PxUsage" />
+
+        <TextView
+            android:id="@+id/textView29"
+            style="@style/text20"
+            android:layout_alignBaseline="@+id/tv_28"
+            android:layout_alignBottom="@+id/tv_28"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="@dimen/gap"
+            android:text="x2"
+            tools:ignore="HardcodedText,PxUsage" />
+
+        <TextView
+            android:id="@+id/tv_sigalmoney"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/image_photo"
+
+            android:layout_toEndOf="@+id/image_photo"
+            android:text="￥22.00"
+            android:textColor="@color/junhuang"
+            android:textSize="30px"
+            tools:ignore="HardcodedText,PxUsage" />
+
+        <TextView
+            android:id="@+id/tv_guige"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_sigalmoney"
+            android:layout_marginBottom="10px"
+            android:layout_toEndOf="@+id/image_photo"
+            android:text="净重20kg 毛重20kg"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage" />
+    </RelativeLayout>
+</RelativeLayout>

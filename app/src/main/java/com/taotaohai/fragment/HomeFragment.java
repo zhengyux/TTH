@@ -21,7 +21,9 @@ import com.andview.refreshview.XRefreshViewHeader;
 import com.andview.refreshview.XScrollView;
 import com.bumptech.glide.Glide;
 import com.taotaohai.R;
+import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.SearchGoods;
+import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.myview.HorizontalListView;
 import com.taotaohai.myview.MyGridView;
@@ -59,6 +61,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void initview() {
         view.findViewById(R.id.tv_search).setOnClickListener(this);
+        view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
+        view.findViewById(R.id.rela_1).setOnClickListener(this);
         Banner banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new
@@ -86,6 +90,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.tv_search:
                 startActivityForResult(new Intent(getActivity(), SearchGoods.class), 1);
+                break;
+            case R.id.rela_shopcar:
+                startActivityForResult(new Intent(getActivity(), ShopCarActivity.class), 1);
+                break;
+            case R.id.rela_1:
+                startActivityForResult(new Intent(getActivity(), GoodsDetialActivity.class), 1);
                 break;
         }
     }

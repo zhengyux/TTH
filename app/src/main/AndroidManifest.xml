@@ -82,8 +82,10 @@
         <activity android:name=".activity.LogisActivity" />
         <activity android:name=".activity.Bookdetial" />
         <activity android:name=".activity.ReFundListActivity" />
-        <activity android:name=".activity.ReFundDetialActivity"></activity>
-        <activity android:name=".activity.ShopCarActivity"></activity>
+        <activity android:name=".activity.ReFundDetialActivity" />
+        <activity android:name=".activity.ShopCarActivity" />
+        <activity android:name=".activity.OrderSureActivity" />
+        <activity android:name=".activity.GoodsDetialActivity"></activity>
     </application>
 
 </manifest>
