@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/gap"
+    android:paddingRight="@dimen/gap">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30px"
+        tools:ignore="PxUsage" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="416px"
+        tools:ignore="PxUsage,UselessParent">
+
+
+        <com.xiao.nicevideoplayer.NiceVideoPlayer
+            android:id="@+id/niceplayer"
+            android:layout_width="match_parent"
+            android:layout_height="416px"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true" />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        android:minHeight="50px"
+        android:minLines="2"
+        android:text="干虾的制造方法"
+        android:textColor="@color/text_black"
+        android:textSize="40px" />
+
+</LinearLayout>
