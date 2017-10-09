@@ -2,6 +2,7 @@ package com.taotaohai.activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -28,10 +29,14 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_1;
     private TextView tv_2;
     private TextView tv_3;
+    private TextView tv_num;
     private View lin_1;
     private View lin_2;
     private View lin_3;
     private MyAdapter adapter;
+    private ImageView image_like;
+    private View rela_buy;
+    private TextView tv_gotoshop;
 
     @Override
     protected void inithttp() {
@@ -48,8 +53,13 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initview() {
+        image_like = (ImageView) findViewById(R.id.image_like);
+        rela_buy = findViewById(R.id.rela_buy);
+        tv_num = (TextView) findViewById(R.id.tv_num);
         ListView listview = (ListView) findViewById(R.id.listview);
         View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
+        tv_gotoshop = (TextView) headview.findViewById(R.id.tv_gotoshop);
+        tv_gotoshop.setOnClickListener(this);
         Banner banner = (Banner) headview.findViewById(R.id.banner);
         //设置图片加载器
         banner.setImageLoader(new GlideImageLoader());
@@ -79,6 +89,43 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         listview.setAdapter(adapter);
     }
 
+    boolean isLike = false;
+
+    public void onLike(View view) {
+        if (isLike) {
+            image_like.setImageResource(R.mipmap.xinno);
+        } else {
+            image_like.setImageResource(R.mipmap.xinyes);
+        }
+        isLike = !isLike;
+    }
+
+    public void onDismis(View view) {
+        rela_buy.setVisibility(View.GONE);
+    }
+
+    public void onBuy(View view) {
+        rela_buy.setVisibility(View.VISIBLE);
+    }
+
+    public void onDefult(View view) {
+        //zzmkbls
+    }
+
+    int count = 1;
+
+    public void onAdd(View view) {
+        count++;
+        tv_num.setText(String.valueOf(count));
+    }
+
+    public void onReduc(View view) {
+        if (count > 1) {
+            count--;
+        }
+        tv_num.setText(String.valueOf(count));
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -93,6 +140,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             case R.id.rela_click_3:
                 stata = 3;
                 setdefult();
+                break;
+            case R.id.tv_gotoshop:
+                startActivity(new Intent(this, ShopMoreActivity.class));
                 break;
 
         }
@@ -156,7 +206,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 view = getLayoutInflater().inflate(R.layout.item_cpxq, null);
             }
             if (stata == 2) {
-                view = getLayoutInflater().inflate(R.layout.item_list, null);
+                view = getLayoutInflater().inflate(R.layout.item_list2, null);
             }
             if (stata == 3) {
                 view = getLayoutInflater().inflate(R.layout.item_devlop, null);

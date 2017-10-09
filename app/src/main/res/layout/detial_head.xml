@@ -254,6 +254,7 @@
             android:textColor="@color/them" />
 
         <TextView
+            android:id="@+id/tv_gotoshop"
             style="@style/text24"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="30px"
