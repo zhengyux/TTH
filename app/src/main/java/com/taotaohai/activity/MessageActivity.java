@@ -4,8 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 
 import com.taotaohai.R;
+import com.taotaohai.activity.base.BaseActivity;
 
-public class MessageActivity extends Activity {
+public class MessageActivity extends BaseActivity {
+
+    @Override
+    protected void inithttp() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

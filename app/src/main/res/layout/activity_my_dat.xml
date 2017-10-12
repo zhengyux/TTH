@@ -227,7 +227,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/black_half99"
-        android:onClick="onrela_Sex"
+        android:onClick="onCancle"
         android:visibility="gone">
 
         <LinearLayout

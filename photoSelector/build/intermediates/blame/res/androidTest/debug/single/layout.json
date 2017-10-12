@@ -24,12 +24,12 @@
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\510beb1bc35b42d677852bcb142c6478a6caf5d3\\output\\res\\layout\\notification_template_media.xml"
     },
     {
-        "merged": "D:\\workspace\\kaote\\TaoTaoHai\\photoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_chronometer.xml",
-        "source": "C:\\Users\\Administrator\\.android\\build-cache\\510beb1bc35b42d677852bcb142c6478a6caf5d3\\output\\res\\layout\\notification_template_part_chronometer.xml"
-    },
-    {
         "merged": "D:\\workspace\\kaote\\TaoTaoHai\\photoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\abc_screen_simple_overlay_action_mode.xml",
         "source": "C:\\Users\\Administrator\\.android\\build-cache\\510beb1bc35b42d677852bcb142c6478a6caf5d3\\output\\res\\layout\\abc_screen_simple_overlay_action_mode.xml"
+    },
+    {
+        "merged": "D:\\workspace\\kaote\\TaoTaoHai\\photoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_part_chronometer.xml",
+        "source": "C:\\Users\\Administrator\\.android\\build-cache\\510beb1bc35b42d677852bcb142c6478a6caf5d3\\output\\res\\layout\\notification_template_part_chronometer.xml"
     },
     {
         "merged": "D:\\workspace\\kaote\\TaoTaoHai\\photoSelector\\build\\intermediates\\res\\merged\\androidTest\\debug\\layout\\notification_template_media_custom.xml",

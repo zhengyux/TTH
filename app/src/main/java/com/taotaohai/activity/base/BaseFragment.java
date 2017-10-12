@@ -27,7 +27,7 @@ import java.util.Map;
  */
 
 public class BaseFragment extends Fragment implements OnHttpListener {
-
+    public static HashMap<String, String> has = new HashMap<>();
     /*网络接口*/
     IHttp iHttp;
 
@@ -49,7 +49,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
     }
 
     public void get(String url, final int code) {
-        ((BaseActivity)getActivity()).showSpot();
+        ((BaseActivity) getActivity()).showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -75,6 +75,22 @@ public class BaseFragment extends Fragment implements OnHttpListener {
 
     }
 
+    public void post(String url, HashMap<String, String> hashMap, final int code) {
+//        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
+//        Http.post(url, hashMap, this, code);
+        RequestParams p = new RequestParams(ConstantValue.URL + url);
+        Iterator iter = hashMap.entrySet().iterator();
+        while (iter.hasNext()) {
+            Map.Entry entry = (Map.Entry) iter.next();
+            String key = (String) entry.getKey();
+            String val = (String) entry.getValue();
+            p.addBodyParameter(key, val);
+        }
+
+        iHttp.Post(p, code);
+
+    }
+
     public void Http(HttpMethod moth, String url, String BodyContent, final int code) {
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
@@ -96,7 +112,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
 
     @Override
     public void onFinished(int code) {
-        ((BaseActivity)getActivity()).setSpotNull();
+        ((BaseActivity) getActivity()).setSpotNull();
     }
 
     public void inithttp() {

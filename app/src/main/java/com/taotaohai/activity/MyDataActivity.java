@@ -59,7 +59,7 @@ public class MyDataActivity extends BaseActivity {
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_sex = (TextView) findViewById(R.id.tv_sex);
         tv_name.setText(getintent("name"));
-        tv_sex.setText(getintent("sex"));
+        tv_sex.setText(getsex(getIntent().getIntExtra("sex", 2)));
         Glide.with(getApplicationContext())
                 .load(getintent("photo"))
                 .asBitmap()
@@ -68,6 +68,20 @@ public class MyDataActivity extends BaseActivity {
                 .error(getResources().getDrawable(R.mipmap.home4))
                 .into(new MyBitmapImageViewTarget(imag_photo));//图片不变形
 //        inithttp();
+    }
+
+    private String getsex(int sex) {
+        switch (sex) {
+            case 0:
+                return "男";
+            case 1:
+                return "女";
+            case 2:
+                return "保密";
+        }
+        return "保密";
+
+
     }
 
 //    private void inithttp() {
@@ -98,16 +112,22 @@ public class MyDataActivity extends BaseActivity {
     public void onMen(View v) {
         choose.setVisibility(View.GONE);
         tv_sex.setText("男");
+        sex.setVisibility(View.GONE);
+        put("api/user/gender/0", null, 100);
     }
 
     public void onWomen(View v) {
         choose.setVisibility(View.GONE);
         tv_sex.setText("女");
+        sex.setVisibility(View.GONE);
+        put("api/user/gender/1", null, 100);
     }
 
     public void onScrite(View v) {
         choose.setVisibility(View.GONE);
         tv_sex.setText("保密");
+        sex.setVisibility(View.GONE);
+        put("api/user/gender/2", null, 100);
     }
 
 
@@ -169,7 +189,7 @@ public class MyDataActivity extends BaseActivity {
 //        has.put("username", "18750222148");
 //        has.put("password", MD5Utils.md5Password("123456"));
         String imageurl = new PhotoModel(CommonUtils.query(this, mPhotoUri)).getOriginalPath();
-        sendImage("api/userInfo/setImg", has, 0, imageurl, getApplicationContext(), 200, 200, "file");
+        sendImage("api/user/avatar", has, 0, imageurl, getApplicationContext(), 200, 200, "file");
     }
 
     @Override

@@ -39,7 +39,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         holder.mItem = mValues.get(position);
 //        holder.text_title.setText(mValues.get(position).getShopName());
 //        holder.text_content.setText(mValues.get(position).getGoodsName());
-        holder.text_stata.setText(getstata(mValues.get(position).getCount(), holder.btn_1, holder.btn_2,holder.btn_3));
+//        holder.text_stata.setText(getstata(mValues.get(position).getCount(), holder.btn_1, holder.btn_2,holder.btn_3));
 //        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getPrice());
 //        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
 //        holder.tv_guige.setText(mValues.get(position).getColor() + "," + mValues.get(position).getSize() + "," + mValues.get(position).getAcount() + "件");

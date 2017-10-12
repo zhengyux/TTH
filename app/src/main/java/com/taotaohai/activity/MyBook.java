@@ -61,9 +61,10 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     }
 
     private void initview() {
-        for (String title : mTitles) {
-            mFragments.add(ItemBookFragment.newInstance(0));
+        for (int i = 0; i < 5; i++) {
+            mFragments.add(ItemBookFragment.newInstance(i));
         }
+
         findViewById(R.id.back).setOnClickListener(this);
         View decorView = getWindow().getDecorView();
         ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
@@ -73,7 +74,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         SlidingTabLayout tab = ViewFindUtils.find(decorView, R.id.tab);
         tab.setViewPager(vp);
         tab.setOnTabSelectListener(this);
-        vp.setCurrentItem(getIntent().getIntExtra("stata",0));
+        vp.setCurrentItem(getIntent().getIntExtra("stata", 0));
     }
 
     @Override
@@ -101,10 +102,12 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 .putExtra("stata", item.getCount())
         );
     }
+
     @Override
     public void onListFragmentButton3(Book.Data mItem) {//第3个按钮
         startActivity(new Intent(this, LogisActivity.class));
     }
+
     @Override
     public void onListFragmentButton2(Book.Data item) {//第2个按钮
         switch (item.getCount()) {
@@ -176,7 +179,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         pvOptions.setPicker(options1Items);
         pvOptions.show();
     }
-
 
 
     private class MyPagerAdapter extends FragmentPagerAdapter {

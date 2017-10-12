@@ -9,20 +9,30 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.taotaohai.R;
 import com.taotaohai.activity.AddressManeger;
 import com.taotaohai.activity.Login;
+import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.MyBook;
 import com.taotaohai.activity.MyDataActivity;
 import com.taotaohai.activity.MyfocusActivity;
 import com.taotaohai.activity.ReFundListActivity;
 import com.taotaohai.activity.Regist;
 import com.taotaohai.activity.SetActivity;
+import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.LoginBean;
 import com.taotaohai.bean.Mine;
+import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
+
+import static android.R.attr.password;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,7 +40,10 @@ import com.taotaohai.util.util;
 public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
-    private Mine mine;
+    private ImageView image_photo;
+    private View tv_login, tv_regist;
+    private TextView tv_name;
+
 
     public static MineFragment newInstance() {
         return new MineFragment();
@@ -40,6 +53,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
+    LoginBean loginBean = null;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,22 +63,36 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         // Inflate the layout for this fragment
         initview();
-        inithttp();
+//        inithttp();
         return view;
+    }
+
+    public void onNewIntent(Intent intent) {
+        loginBean = (LoginBean) intent.getSerializableExtra("login");
+        if (loginBean != null)
+            initdata();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        inithttp();
     }
 
     @Override
     public void inithttp() {
         super.inithttp();
-        get("api/user/", 0);
+        has.put("username", (String) SPUtils.get(getActivity(),"username",""));
+        has.put("password",  (String) SPUtils.get(getActivity(),"password",""));
+        post("api/auth/login", has, 0);
     }
 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
-        mine = util.getgson(data, Mine.class);
-        if (mine.getSuccess()) {
-
+        loginBean = util.getgson(data, LoginBean.class);
+        if (loginBean.getSuccess()) {
+            initdata();
         }
 
     }
@@ -74,6 +103,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initview() {
+        image_photo = (ImageView) view.findViewById(R.id.image_photo);
+        tv_name = (TextView) view.findViewById(R.id.tv_name);
+
         view.findViewById(R.id.rela1).setOnClickListener(this);
         view.findViewById(R.id.rela2).setOnClickListener(this);
         view.findViewById(R.id.rela3).setOnClickListener(this);
@@ -84,10 +116,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rela23).setOnClickListener(this);
         view.findViewById(R.id.rela24).setOnClickListener(this);
         view.findViewById(R.id.rela25).setOnClickListener(this);
-        view.findViewById(R.id.tv_login).setOnClickListener(this);
-        view.findViewById(R.id.tv_regist).setOnClickListener(this);
-        view.findViewById(R.id.image_photo).setOnClickListener(this);
+        tv_login = view.findViewById(R.id.tv_login);
+        tv_login.setOnClickListener(this);
+        tv_regist = view.findViewById(R.id.tv_regist);
+        tv_regist.setOnClickListener(this);
+        image_photo.setOnClickListener(this);
+        view.findViewById(R.id.rela_message).setOnClickListener(this);
+        view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
         view.findViewById(R.id.allbooks).setOnClickListener(this);
+    }
+
+    private void initdata() {
+        GlideUtil.loadRoundImg(loginBean.getData().getExt().getAvatarUrl(), image_photo);//偶然得到的glid再次封装，，贼好用
+        tv_login.setVisibility(View.GONE);
+        tv_regist.setVisibility(View.GONE);
+        tv_name.setVisibility(View.VISIBLE);
+        tv_name.setText(loginBean.getData().getName());
+
     }
 
     @Override
@@ -110,7 +155,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 showDialog("快去分享给好友吧，burden");
                 break;
             case R.id.rela5:
-                startActivityForResult(new Intent(getActivity(), SetActivity.class), 10);
+                startActivity(new Intent(getActivity(), SetActivity.class));
 
                 break;
             case R.id.rela21:
@@ -139,34 +184,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 );
                 break;
             case R.id.tv_login:
-                startActivityForResult(new Intent(getActivity(), Login.class), 10);
+                startActivity(new Intent(getActivity(), Login.class));
                 break;
             case R.id.tv_regist:
-                startActivityForResult(new Intent(getActivity(), Regist.class), 11);
+                startActivity(new Intent(getActivity(), Regist.class));
                 break;
             case R.id.image_photo:
 
                 Intent intent = new Intent(getActivity(), MyDataActivity.class);
-                if (mine != null) ;
-                intent.putExtra("photo", mine.getData().getExt().getAvatarUrl())
-                        .putExtra("name", mine.getData().getUsername());
-                startActivityForResult(intent, 10);
+                if (loginBean != null) ;
+                intent.putExtra("photo", loginBean.getData().getExt().getAvatarUrl())
+                        .putExtra("name", loginBean.getData().getName())
+                        .putExtra("sex", loginBean.getData().getExt().getGender());
+                startActivity(intent);
                 break;
             case R.id.allbooks:
                 startActivity(new Intent(getActivity(), MyBook.class)
                         .putExtra("stata", 0)
                 );
-
+                break;
+            case R.id.rela_message:
+                startActivity(new Intent(getActivity(), MessageActivity.class));
+                break;
+            case R.id.rela_shopcar:
+                startActivity(new Intent(getActivity(), ShopCarActivity.class)
+                        .putExtra("stata", 0)
+                );
                 break;
 
-        }
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 10) {
-            inithttp();
         }
     }
 
@@ -195,4 +240,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
         dialog.show();
     }
+
+
 }

@@ -13,10 +13,14 @@ import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.Contact;
+import com.taotaohai.util.util;
 
 
 public class SetActivity extends BaseActivity {
 
+
+    private Contact contact;
 
     @Override
     protected void inithttp() {
@@ -37,7 +41,7 @@ public class SetActivity extends BaseActivity {
     }
 
     public void onOne(View v) {
-        startActivity(new Intent(this,RePassword.class));
+        startActivity(new Intent(this, RePassword.class));
     }
 
     public void onTwo(View v) {
@@ -49,7 +53,8 @@ public class SetActivity extends BaseActivity {
     }
 
     public void onFour(View v) {
-        showDialog();
+
+        get("api/base/contact", 3);
     }
 
     public void onFive(View v) {
@@ -61,6 +66,8 @@ public class SetActivity extends BaseActivity {
         backgroundAlpha(0.5f);
         final Dialog dialog = new Dialog(this, R.style.MyDialog);
         dialog.setContentView(R.layout.dialog_layout_bo);
+        TextView information= (TextView) dialog.findViewById(R.id.information);
+        information.setText(contact.getData());
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialog) {
@@ -77,7 +84,7 @@ public class SetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
-                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:4008888555"));
+                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+contact.getData()));
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     return;
@@ -87,5 +94,14 @@ public class SetActivity extends BaseActivity {
             }
         });
         dialog.show();
+    }
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        super.onSuccess(result, postcode);
+        contact = util.getgson(result, Contact.class);
+        if (contact.getSuccess()) {
+            showDialog();
+        }
     }
 }

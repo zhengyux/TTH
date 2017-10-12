@@ -81,34 +81,33 @@ public class ItemBookFragment extends BaseFragment {
     @Override
     public void onStart() {
         super.onStart();
-//        inithttp();
+        inithttp();
         //测试数据
         List<Integer> list = Arrays.asList(1, 2, 3, 4);
 
-        Book book = new Book(list);
-        adapter = new MyItemBookRecyclerViewAdapter(book.getData(), mListener).setcontent(getActivity());
-        recyclerView.setAdapter(adapter); 
+//        Book book = new Book(list);
+//        adapter = new MyItemBookRecyclerViewAdapter(book.getData(), mListener).setcontent(getActivity());
+//        recyclerView.setAdapter(adapter);
     }
 
     public void inithttp() {
 
 
-
         switch (stata) {
             case 0:
-                get("api/GoodsOrder/allOrderList", 0);
+                get("api/GoodsOrder", 0);
                 break;
             case 2:
-                get("api/GoodsOrder/orderList/2", 0);
+                get("api/GoodsOrder/1", 0);
                 break;
             case 3:
-                get("api/GoodsOrder/orderList/3", 0);
+                get("api/GoodsOrder/2", 0);
                 break;
             case 4:
-                get("api/GoodsOrder/orderList/4", 0);
+                get("api/GoodsOrder/3", 0);
                 break;
             case 5:
-                get("api/GoodsOrder/orderList/5", 0);
+                get("api/GoodsOrder/4", 0);
                 break;
 
         }
@@ -121,10 +120,10 @@ public class ItemBookFragment extends BaseFragment {
         Book book = util.getgson(data, Book.class);
         if (util.isSuccess(book, getActivity())) {
             if (adapter == null) {
-                adapter = new MyItemBookRecyclerViewAdapter(book.getData(), mListener).setcontent(getActivity());
+                adapter = new MyItemBookRecyclerViewAdapter(book.getData2().getData(), mListener).setcontent(getActivity());
                 recyclerView.setAdapter(adapter);
             } else {
-                adapter.setdata(book.getData());
+                adapter.setdata(book.getData2().getData());
             }
         }
     }

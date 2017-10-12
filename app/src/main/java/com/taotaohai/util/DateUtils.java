@@ -277,7 +277,7 @@ public class DateUtils {
                 }
             }
         }
-        return ConstantValue.IMGURL + url;
+        return ConstantValue.URL + url;
     }
 
     public static String hasURLHttp(String url) {

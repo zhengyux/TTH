@@ -1,6 +1,7 @@
 package com.taotaohai.bean;
 
-import java.util.ArrayList;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -9,126 +10,86 @@ import java.util.List;
 
 public class Book extends BaseBean {
 
-    /*   "acount":1,
-                "color":"白色",
-                "gmtCreate":null,
-                "gmtDelivery":null,
-                "gmtModify":null,
-                "goodsId":"1",
-                "goodsName":"连衣裙",
-                "goodsSpec":"",
-                "id":"",
-                "lastChangeUser":"",
-                "linkAddress":"",
-                "linkName":"",
-                "linkTel":"",
-                "md5":"f4b69af0b284e4c5ac05b6b9976843ca",
-                "orderExpressCompany":"",
-                "orderExpressNo":"",
-                "orderId":"1",
-                "orderStatus":3,
-                "payType":"",
-                "price":0,
-                "properties":null,
-                "shopName":"优衣库（湖里）",
-                "size":"M",
-                "submitTime":null,
-                "totalPrice":99.99,
-                "username":""*/
-    private List<Data> data;
+    @SerializedName("code")
+    private int code;
+    @SerializedName("data2")
+    private Data2 data2;
+    @SerializedName("message")
+    private String message;
+    @SerializedName("success")
+    private boolean success;
 
-    public Book(List<Integer> list) {
-        super();
-        if (data == null) {
-            data = new ArrayList<>();
-        }
-        for (int i = 0; i < list.size(); i++) {
-            data.add(new Data().setCount(list.get(i)));
-        }
+    public int getCode() {
+        return code;
     }
 
-    public List<Data> getData() {
-        return data;
+    public void setCode(int code) {
+        this.code = code;
     }
 
-    public void setData(List<Data> data) {
-        this.data = data;
+    public Data2 getData2() {
+        return data2;
     }
 
-    public class Data {
-        private int count;
+    public void setData2(Data2 data2) {
+        this.data2 = data2;
+    }
 
-        public int getCount() {
-            return count;
-        }
+    public String getMessage() {
+        return message;
+    }
 
-        public Data setCount(int count) {
-            this.count = count;
-            return this;
-        }
+    public void setMessage(String message) {
+        this.message = message;
+    }
 
+    public boolean getSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public static class Ext {
+        @SerializedName("acount")
         private int acount;
-        private String color;
+        @SerializedName("dealTime")
+        private String dealTime;
+        @SerializedName("gmtCreate")
         private String gmtCreate;
+        @SerializedName("gmtDelivery")
         private String gmtDelivery;
-        private String gmtModify;
-        private String gmtRefund;
-        private String goodsId;
+        @SerializedName("goodsName")
         private String goodsName;
-        private String goodsSpec;
+        @SerializedName("id")
         private String id;
-        private String lastChangeUser;
+        @SerializedName("linkAddress")
         private String linkAddress;
+        @SerializedName("linkName")
         private String linkName;
+        @SerializedName("linkTel")
         private String linkTel;
-        private String md5;
+        @SerializedName("orderExpressCompany")
         private String orderExpressCompany;
+        @SerializedName("orderExpressNo")
         private String orderExpressNo;
+        @SerializedName("orderId")
         private String orderId;
+        @SerializedName("orderStatus")
         private int orderStatus;
-        private String pageIndex;
-        private String pageSize;
-        private String payType;
+        @SerializedName("payType")
+        private int payType;
+        @SerializedName("price")
         private String price;
-        private String properties;
-        private String refundStatus;
+        @SerializedName("remark")
+        private String remark;
+        @SerializedName("shopName")
         private String shopName;
-        private String size;
-        private String submitTime;
-        private String totalPrice;
-        private String username;
-
-        public String getGmtRefund() {
-            return gmtRefund;
-        }
-
-        public void setGmtRefund(String gmtRefund) {
-            this.gmtRefund = gmtRefund;
-        }
-
-        public String getPageIndex() {
-            return pageIndex;
-        }
-
-        public void setPageIndex(String pageIndex) {
-            this.pageIndex = pageIndex;
-        }
-
-        public String getPageSize() {
-            return pageSize;
-        }
-
-        public void setPageSize(String pageSize) {
-            this.pageSize = pageSize;
-        }
-
-        public String getRefundStatus() {
-            return refundStatus;
-        }
-
-        public void setRefundStatus(String refundStatus) {
-            this.refundStatus = refundStatus;
-        }
+        @SerializedName("totalPrice")
+        private int totalPrice;
+        @SerializedName("unit")
+        private String unit;
 
         public int getAcount() {
             return acount;
@@ -138,12 +99,12 @@ public class Book extends BaseBean {
             this.acount = acount;
         }
 
-        public String getColor() {
-            return color;
+        public String getDealTime() {
+            return dealTime;
         }
 
-        public void setColor(String color) {
-            this.color = color;
+        public void setDealTime(String dealTime) {
+            this.dealTime = dealTime;
         }
 
         public String getGmtCreate() {
@@ -162,22 +123,6 @@ public class Book extends BaseBean {
             this.gmtDelivery = gmtDelivery;
         }
 
-        public String getGmtModify() {
-            return gmtModify;
-        }
-
-        public void setGmtModify(String gmtModify) {
-            this.gmtModify = gmtModify;
-        }
-
-        public String getGoodsId() {
-            return goodsId;
-        }
-
-        public void setGoodsId(String goodsId) {
-            this.goodsId = goodsId;
-        }
-
         public String getGoodsName() {
             return goodsName;
         }
@@ -186,28 +131,12 @@ public class Book extends BaseBean {
             this.goodsName = goodsName;
         }
 
-        public String getGoodsSpec() {
-            return goodsSpec;
-        }
-
-        public void setGoodsSpec(String goodsSpec) {
-            this.goodsSpec = goodsSpec;
-        }
-
         public String getId() {
             return id;
         }
 
         public void setId(String id) {
             this.id = id;
-        }
-
-        public String getLastChangeUser() {
-            return lastChangeUser;
-        }
-
-        public void setLastChangeUser(String lastChangeUser) {
-            this.lastChangeUser = lastChangeUser;
         }
 
         public String getLinkAddress() {
@@ -232,14 +161,6 @@ public class Book extends BaseBean {
 
         public void setLinkTel(String linkTel) {
             this.linkTel = linkTel;
-        }
-
-        public String getMd5() {
-            return md5;
-        }
-
-        public void setMd5(String md5) {
-            this.md5 = md5;
         }
 
         public String getOrderExpressCompany() {
@@ -274,11 +195,11 @@ public class Book extends BaseBean {
             this.orderStatus = orderStatus;
         }
 
-        public String getPayType() {
+        public int getPayType() {
             return payType;
         }
 
-        public void setPayType(String payType) {
+        public void setPayType(int payType) {
             this.payType = payType;
         }
 
@@ -290,12 +211,12 @@ public class Book extends BaseBean {
             this.price = price;
         }
 
-        public String getProperties() {
-            return properties;
+        public String getRemark() {
+            return remark;
         }
 
-        public void setProperties(String properties) {
-            this.properties = properties;
+        public void setRemark(String remark) {
+            this.remark = remark;
         }
 
         public String getShopName() {
@@ -306,12 +227,149 @@ public class Book extends BaseBean {
             this.shopName = shopName;
         }
 
-        public String getSize() {
-            return size;
+        public int getTotalPrice() {
+            return totalPrice;
         }
 
-        public void setSize(String size) {
-            this.size = size;
+        public void setTotalPrice(int totalPrice) {
+            this.totalPrice = totalPrice;
+        }
+
+        public String getUnit() {
+            return unit;
+        }
+
+        public void setUnit(String unit) {
+            this.unit = unit;
+        }
+    }
+
+    public static class Data {
+        @SerializedName("ext")
+        private Ext ext;
+        @SerializedName("gmtCreate")
+        private String gmtCreate;
+        @SerializedName("gmtModify")
+        private String gmtModify;
+        @SerializedName("gmtRefund")
+        private String gmtRefund;
+        @SerializedName("goodsId")
+        private String goodsId;
+        @SerializedName("id")
+        private String id;
+        @SerializedName("lastChangeUser")
+        private String lastChangeUser;
+        @SerializedName("orderStatus")
+        private int orderStatus;
+        @SerializedName("payType")
+        private int payType;
+        @SerializedName("refundStatus")
+        private int refundStatus;
+        @SerializedName("remarks")
+        private String remarks;
+        @SerializedName("shopId")
+        private String shopId;
+        @SerializedName("submitTime")
+        private String submitTime;
+        @SerializedName("totalPrice")
+        private String totalPrice;
+        @SerializedName("userId")
+        private String userId;
+
+        public Ext getExt() {
+            return ext;
+        }
+
+        public void setExt(Ext ext) {
+            this.ext = ext;
+        }
+
+        public String getGmtCreate() {
+            return gmtCreate;
+        }
+
+        public void setGmtCreate(String gmtCreate) {
+            this.gmtCreate = gmtCreate;
+        }
+
+        public String getGmtModify() {
+            return gmtModify;
+        }
+
+        public void setGmtModify(String gmtModify) {
+            this.gmtModify = gmtModify;
+        }
+
+        public String getGmtRefund() {
+            return gmtRefund;
+        }
+
+        public void setGmtRefund(String gmtRefund) {
+            this.gmtRefund = gmtRefund;
+        }
+
+        public String getGoodsId() {
+            return goodsId;
+        }
+
+        public void setGoodsId(String goodsId) {
+            this.goodsId = goodsId;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getLastChangeUser() {
+            return lastChangeUser;
+        }
+
+        public void setLastChangeUser(String lastChangeUser) {
+            this.lastChangeUser = lastChangeUser;
+        }
+
+        public int getOrderStatus() {
+            return orderStatus;
+        }
+
+        public void setOrderStatus(int orderStatus) {
+            this.orderStatus = orderStatus;
+        }
+
+        public int getPayType() {
+            return payType;
+        }
+
+        public void setPayType(int payType) {
+            this.payType = payType;
+        }
+
+        public int getRefundStatus() {
+            return refundStatus;
+        }
+
+        public void setRefundStatus(int refundStatus) {
+            this.refundStatus = refundStatus;
+        }
+
+        public String getRemarks() {
+            return remarks;
+        }
+
+        public void setRemarks(String remarks) {
+            this.remarks = remarks;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
         }
 
         public String getSubmitTime() {
@@ -330,12 +388,35 @@ public class Book extends BaseBean {
             this.totalPrice = totalPrice;
         }
 
-        public String getUsername() {
-            return username;
+        public String getUserId() {
+            return userId;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+    }
+
+    public static class Data2 {
+        @SerializedName("data")
+        private List<Data> data;
+        @SerializedName("total")
+        private int total;
+
+        public List<Data> getData() {
+            return data;
+        }
+
+        public void setData(List<Data> data) {
+            this.data = data;
+        }
+
+        public int getTotal() {
+            return total;
+        }
+
+        public void setTotal(int total) {
+            this.total = total;
         }
     }
 }

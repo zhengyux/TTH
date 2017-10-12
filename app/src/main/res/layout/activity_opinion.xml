@@ -38,7 +38,7 @@
             android:padding="@dimen/gap"
             android:paddingTop="@dimen/gap"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/font_text2"
+            android:textSize="30px"
             tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
         <TextView
@@ -83,7 +83,7 @@
             android:paddingTop="@dimen/gap"
             android:singleLine="true"
             android:textColor="@color/text_black"
-            android:textSize="@dimen/font_text2"
+            android:textSize="35px"
             tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     </RelativeLayout>

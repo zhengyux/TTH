@@ -244,7 +244,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         }
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
-        RequestParams p = new RequestParams(ConstantValue.IMGURL + url);
+        RequestParams p = new RequestParams(ConstantValue.URL + url);
         Iterator iter = hashMap.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();
@@ -261,7 +261,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         }
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
-        RequestParams p = new RequestParams(ConstantValue.IMGURL + url);
+        RequestParams p = new RequestParams(ConstantValue.URL + url);
         Iterator iter = hashMap.entrySet().iterator();
         while (iter.hasNext()) {
             Map.Entry entry = (Map.Entry) iter.next();

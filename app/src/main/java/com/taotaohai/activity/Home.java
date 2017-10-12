@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.widget.ImageView;
@@ -25,12 +26,14 @@ public class Home extends BaseActivity {
 
     }
 
+    MineFragment mineFragment;
+
     protected void initview() {
         List<TabViewChild> tabViewChildList = new ArrayList<>();
         TabViewChild tabViewChild01 = new TabViewChild(R.mipmap.home1, R.mipmap.home11, "首页", HomeFragment.newInstance());
         TabViewChild tabViewChild02 = new TabViewChild(R.mipmap.home2, R.mipmap.home21, "分类", ClassFragment.newInstance());
         TabViewChild tabViewChild03 = new TabViewChild(R.mipmap.home3, R.mipmap.home31, "视频", VideoFragment.newInstance());
-        TabViewChild tabViewChild04 = new TabViewChild(R.mipmap.home4, R.mipmap.home41, "我的", MineFragment.newInstance());
+        TabViewChild tabViewChild04 = new TabViewChild(R.mipmap.home4, R.mipmap.home41, "我的", mineFragment=MineFragment.newInstance());
         tabViewChildList.add(tabViewChild01);
         tabViewChildList.add(tabViewChild02);
         tabViewChildList.add(tabViewChild03);
@@ -54,4 +57,11 @@ public class Home extends BaseActivity {
         initview();
     }
 
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        mineFragment.onNewIntent(intent);
+
+    }
 }

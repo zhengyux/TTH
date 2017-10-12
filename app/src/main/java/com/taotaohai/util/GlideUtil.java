@@ -76,6 +76,7 @@ public final class GlideUtil {
         Glide.with(context)
                 .load(imgUrl)
 //                .placeholder(R.drawable.ic_avater_placeholder)
+                .error(R.mipmap.ic_launcher)
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(context))

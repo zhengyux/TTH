@@ -8,6 +8,7 @@ import android.widget.EditText;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.LoginBean;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 
@@ -39,10 +40,10 @@ public class Login extends BaseActivity {
     }
 
     public void onLogin(View v) {
-        if (!util.isMobileNO(phone.getText().toString().trim())) {
-            showToast("请输入正确手机号码");
-            return;
-        }
+//        if (!util.isMobileNO(phone.getText().toString().trim())) {
+//            showToast("请输入正确手机号码");
+//            return;
+//        }
         if (password.getText().toString().length() == 0) {
             showToast("请输入密码");
             return;
@@ -57,10 +58,15 @@ public class Login extends BaseActivity {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
-        if (util.isSuccess(result)) {
+        LoginBean loginBean = util.getgson(result, LoginBean.class);
+        if (loginBean.getSuccess()) {
             showToast("登录成功");
             SPUtils.put(this, "username", phone.getText().toString().trim());
             SPUtils.put(this, "password", password.getText().toString().trim());
+
+
+            startActivity(new Intent(this, Home.class)
+                    .putExtra("login", loginBean));
             finish();
         } else {
             showToast("账户名或密码错误");
@@ -76,7 +82,7 @@ public class Login extends BaseActivity {
     }
 
     public void onRegist(View v) {
-        startActivity(new Intent(this,Regist.class));
+        startActivity(new Intent(this, Regist.class));
         finish();
     }
 }
