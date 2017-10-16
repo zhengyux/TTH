@@ -102,7 +102,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 @Override
                 public void onClick(View v) {
                     switch (bookd.getData().getOrderStatus()) {
-                        case 6:
+                        case 5:
                             dialog_count = 0;
                             showDialog("删除订单", "确定要删除本条订单吗");
                             break;
@@ -137,7 +137,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     protected void sure() {
         super.sure();
         if (dialog_count == 0) {
-            Http(HttpMethod.DELETE, "api/GoodsOrder/delete/" + bookd.getData().getOrderId(), 10);
+            Http(HttpMethod.DELETE, "api/GoodsOrder/" + bookd.getData().getOrderId(), 10);
         }
         if (dialog_count == 1) {
             Http(HttpMethod.PUT, "api/GoodsOrder/cancleOrder/" + bookd.getData().getOrderId(), 11);

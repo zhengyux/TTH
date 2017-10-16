@@ -29,10 +29,10 @@ public class ItemBookFragment extends BaseFragment {
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
     // TODO: Customize parameters
-    private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private RecyclerView recyclerView;
     private MyItemBookRecyclerViewAdapter adapter = null;
+    private Book book;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -56,8 +56,9 @@ public class ItemBookFragment extends BaseFragment {
         super.onCreate(savedInstanceState);
 
         if (getArguments() != null) {
-            mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
+            stata = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
     }
 
     @Override
@@ -65,48 +66,29 @@ public class ItemBookFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_itembook_list, container, false);
 
-        // Set the adapter
-//        if (view instanceof RecyclerView) {
         Context context = view.getContext();
         recyclerView = (RecyclerView) view;
-//            if (mColumnCount <= 1) {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
-//            } else {
-//                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-//            }
-//        }
+        inithttp();
         return view;
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-        inithttp();
-        //测试数据
-        List<Integer> list = Arrays.asList(1, 2, 3, 4);
-
-//        Book book = new Book(list);
-//        adapter = new MyItemBookRecyclerViewAdapter(book.getData(), mListener).setcontent(getActivity());
-//        recyclerView.setAdapter(adapter);
-    }
 
     public void inithttp() {
-
-
         switch (stata) {
             case 0:
                 get("api/GoodsOrder", 0);
                 break;
-            case 2:
+            case 1:
                 get("api/GoodsOrder/1", 0);
                 break;
-            case 3:
+            case 2:
                 get("api/GoodsOrder/2", 0);
                 break;
-            case 4:
+            case 3:
                 get("api/GoodsOrder/3", 0);
                 break;
-            case 5:
+            case 4:
                 get("api/GoodsOrder/4", 0);
                 break;
 
@@ -117,12 +99,15 @@ public class ItemBookFragment extends BaseFragment {
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
-        Book book = util.getgson(data, Book.class);
-        if (util.isSuccess(book, getActivity())) {
-            if (adapter == null) {
-                adapter = new MyItemBookRecyclerViewAdapter(book.getData2().getData(), mListener).setcontent(getActivity());
+//        data = "{\"code\":200,\"data2\":{\"data\":[{\"ext\":{\"acount\":4,\"dealTime\":null,\"gmtCreate\":\"2017-10-12 17:18:27\",\"gmtDelivery\":null,\"goodsName\":\"野生三文鱼\",\"id\":\"\",\"linkAddress\":\"\",\"linkName\":\"\",\"linkTel\":\"\",\"orderExpressCompany\":\"\",\"orderExpressNo\":\"\",\"orderId\":\"vlP9tTb6\",\"orderStatus\":0,\"payType\":0,\"price\":\"59.92\",\"remark\":\"\",\"shopName\":\"中南海\",\"totalPrice\":0,\"unit\":\"箱\"},\"gmtCreate\":\"2017-10-09 10:04:04\",\"gmtModify\":\"2017-10-09 10:04:08\",\"gmtRefund\":null,\"goodsId\":\"0ub70x\",\"id\":\"vlP9tTb6\",\"lastChangeUser\":\"\",\"orderStatus\":3,\"payType\":2,\"refundStatus\":0,\"remarks\":\"备注\",\"shopId\":\"SSP777\",\"submitTime\":\"2017-10-11 10:11:11\",\"totalPrice\":\"59.99\",\"userId\":\"PSD939\"}],\"total\":11},\"message\":\"\",\"success\":true}";
+        if (util.isSuccess(data)) {
+            book = util.getgson(data, Book.class);
+            if (recyclerView.getAdapter() == null) {
+                if (adapter == null)
+                    adapter = new MyItemBookRecyclerViewAdapter(book.getData2().getData(), mListener).setcontent(getActivity());
                 recyclerView.setAdapter(adapter);
             } else {
+//                recyclerView.setAdapter(adapter);
                 adapter.setdata(book.getData2().getData());
             }
         }

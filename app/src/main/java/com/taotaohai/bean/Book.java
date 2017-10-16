@@ -8,12 +8,12 @@ import java.util.List;
  * Created by Administrator on 2017/8/23.
  */
 
-public class Book extends BaseBean {
+public class Book {
 
     @SerializedName("code")
     private int code;
-    @SerializedName("data2")
-    private Data2 data2;
+    @SerializedName("data")
+    private Data2 data;
     @SerializedName("message")
     private String message;
     @SerializedName("success")
@@ -28,11 +28,11 @@ public class Book extends BaseBean {
     }
 
     public Data2 getData2() {
-        return data2;
+        return data;
     }
 
     public void setData2(Data2 data2) {
-        this.data2 = data2;
+        this.data = data2;
     }
 
     public String getMessage() {
@@ -245,6 +245,16 @@ public class Book extends BaseBean {
     }
 
     public static class Data {
+        private int count;
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
         @SerializedName("ext")
         private Ext ext;
         @SerializedName("gmtCreate")

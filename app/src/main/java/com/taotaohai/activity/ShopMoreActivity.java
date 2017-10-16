@@ -36,7 +36,6 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
 
     private void initview() {
 
-
         xrefreshview = (XRefreshView) findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
@@ -48,7 +47,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     private void initdata() {
 
         List<String> lista = Arrays.asList("1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1");
-        CommonAdapter adapter = new CommonAdapter<String>(this, R.layout.item_hor, lista) {
+        CommonAdapter adapter = new CommonAdapter<String>(this, R.layout.item_hor_gride3, lista) {
             @Override
             protected void convert(ViewHolder holder, final String s, int position) {
             }

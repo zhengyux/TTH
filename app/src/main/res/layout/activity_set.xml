@@ -210,7 +210,7 @@
         tools:ignore="UselessLeaf">
 
         <Button
-            android:id="@+id/button7"
+            android:id="@+id/btn_logout"
             android:layout_width="match_parent"
             android:layout_height="88px"
             android:layout_centerHorizontal="true"

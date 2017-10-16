@@ -1,23 +1,25 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Check;
 import com.taotaohai.util.util;
 
+import org.xutils.http.HttpMethod;
+
 import java.util.HashMap;
 
 import static com.taotaohai.util.util.isMobileNO;
 
-public class Regist extends BaseActivity {
+public class ForgetPassword extends BaseActivity {
 
     private TextView button;
     String scheck = "";
@@ -33,7 +35,7 @@ public class Regist extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist);
+        setContentView(R.layout.activity_forget);
         button = (TextView) findViewById(R.id.button);
         ed_1 = (EditText) findViewById(R.id.ed_1);
         ed_2 = (EditText) findViewById(R.id.ed_2);
@@ -55,11 +57,16 @@ public class Regist extends BaseActivity {
                     showToast("两次密码不一样");
                     return;
                 }
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("username", ed_1.getText().toString().trim());
-                hashMap.put("password", ed_3.getText().toString().trim());
-                hashMap.put("verifyCode", scheck);
-                post("api/auth/register", hashMap, 1);
+                JsonObject jsonObject=new JsonObject();
+                jsonObject.addProperty("username", ed_1.getText().toString().trim());
+                jsonObject.addProperty("password", ed_3.getText().toString().trim());
+                jsonObject.addProperty("code", scheck);
+//                HashMap<String, String> hashMap = new HashMap<>();
+//                hashMap.put("username", ed_1.getText().toString().trim());
+//                hashMap.put("password", ed_3.getText().toString().trim());
+//                hashMap.put("verifyCode", scheck);
+//                post("/", hashMap, 1);
+                Http(HttpMethod.PUT,"api/user/forgePassword",jsonObject.toString(),1);
             }
         });
 
@@ -107,7 +114,7 @@ public class Regist extends BaseActivity {
         if (postcode == 1) {
             BaseBean baseBean = util.getgson(result, BaseBean.class);
             if (util.isSuccess(baseBean, this)) {
-                showToast("注册成功");
+                showToast("修改成功");
                 startActivity(new Intent(this, Login.class));
                 finish();
 

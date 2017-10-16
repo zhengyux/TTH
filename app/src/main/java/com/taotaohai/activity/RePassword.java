@@ -22,7 +22,7 @@ public class RePassword extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_re_password);
+        setContentView(R.layout.activity_forget);
         edit_old = (EditText) findViewById(R.id.edit_old);
         edit_new = (EditText) findViewById(R.id.edit_new);
         findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {

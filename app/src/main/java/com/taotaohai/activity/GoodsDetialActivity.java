@@ -14,11 +14,14 @@ import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.Goods;
 import com.taotaohai.fragment.HomeFragment;
 import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.util;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -37,6 +40,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private ImageView image_like;
     private View rela_buy;
     private TextView tv_gotoshop;
+    private Banner banner;
 
     @Override
     protected void inithttp() {
@@ -48,6 +52,25 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detial);
         initview();
+        get("api/goods/0ub70x");
+    }
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        super.onSuccess(result, postcode);
+        Goods goods = util.getgson(result, Goods.class);
+        if (goods.getSuccess()) {
+            //设置图片加载器
+            banner.setImageLoader(new GlideImageLoader());
+            //设置图片集合
+            List<String> images = new ArrayList<>();
+            for (int i = 0; i < goods.getData().getImagesUrl().size(); i++) {
+                images.add(goods.getData().getImagesUrl().get(i));
+            }
+            banner.setImages(images);
+            //banner设置方法全部调用完毕时最后调用
+            banner.start();
+        }
 
 
     }
@@ -60,18 +83,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
         tv_gotoshop = (TextView) headview.findViewById(R.id.tv_gotoshop);
         tv_gotoshop.setOnClickListener(this);
-        Banner banner = (Banner) headview.findViewById(R.id.banner);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        List<String> images = Arrays.asList("http://pic1.bbzhi.com/dongwubizhi/maomigougoudequguaishentai/animal_funny_cats_dogs_31452_9.jpg",
-                "http://pic1.bbzhi.com/dongwubizhi/xiaogougoudejiaoyou/animal_mx069_pretty_puppies_puppy_garden_adventure_15202_11.jpg",
-                "http://pic5.bbzhi.com/dongwubizhi/maorongrongxiaogougoubizhi/maorongrongxiaogougoubizhi_413538_11.jpg",
-                "http://img.61gequ.com/allimg/2011-4/201142013451843547.jpg"
-        );
-        banner.setImages(images);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
+        banner = (Banner) headview.findViewById(R.id.banner);
+
         tv_1 = (TextView) headview.findViewById(R.id.tv_1);
         tv_2 = (TextView) headview.findViewById(R.id.tv_2);
         tv_3 = (TextView) headview.findViewById(R.id.tv_3);
@@ -142,7 +155,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 setdefult();
                 break;
             case R.id.tv_gotoshop:
-                startActivity(new Intent(this, ShopMoreActivity.class));
+                startActivity(new Intent(this, ShopActivity.class));
                 break;
 
         }

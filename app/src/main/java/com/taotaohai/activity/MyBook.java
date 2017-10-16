@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MyBook extends BaseActivity implements OnTabSelectListener, View.OnClickListener, ItemBookFragment.OnListFragmentInteractionListener {
-    private ArrayList<Fragment> mFragments = new ArrayList<>();
+    private ArrayList<ItemBookFragment> mFragments = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private final String[] mTitles = {
             "全部", "待付款", "代发货"
@@ -70,7 +70,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(mAdapter);
-
         SlidingTabLayout tab = ViewFindUtils.find(decorView, R.id.tab);
         tab.setViewPager(vp);
         tab.setOnTabSelectListener(this);
@@ -79,12 +78,12 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     @Override
     public void onTabSelect(int position) {
-
+        mFragments.get(position).refresh();
     }
 
     @Override
     public void onTabReselect(int position) {
-
+        mFragments.get(position).refresh();
     }
 
     @Override

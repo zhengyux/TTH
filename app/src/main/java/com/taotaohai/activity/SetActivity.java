@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Contact;
+import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 
 
@@ -61,12 +62,17 @@ public class SetActivity extends BaseActivity {
 
     }
 
+    public void onLogout(View v) {
+        has.clear();
+        post("api/auth/logout", has, 2);
+    }
+
 
     protected void showDialog() {
         backgroundAlpha(0.5f);
         final Dialog dialog = new Dialog(this, R.style.MyDialog);
         dialog.setContentView(R.layout.dialog_layout_bo);
-        TextView information= (TextView) dialog.findViewById(R.id.information);
+        TextView information = (TextView) dialog.findViewById(R.id.information);
         information.setText(contact.getData());
         dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
@@ -84,7 +90,7 @@ public class SetActivity extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = null;
-                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:"+contact.getData()));
+                intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + contact.getData()));
                 if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                     // TODO: Consider calling
                     return;
@@ -99,6 +105,13 @@ public class SetActivity extends BaseActivity {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if (postcode == 2) {
+            if (util.isSuccess(result)) {
+                SPUtils.clear(this);
+                removeAllActivity();
+                startActivity(new Intent(this, Login.class));
+            }
+        }
         contact = util.getgson(result, Contact.class);
         if (contact.getSuccess()) {
             showDialog();

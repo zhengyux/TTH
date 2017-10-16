@@ -78,11 +78,12 @@ public class Login extends BaseActivity {
     }
 
     public void onForget(View v) {
+        startActivity(new Intent(this, ForgetPassword.class));
 //        finish();
     }
 
     public void onRegist(View v) {
         startActivity(new Intent(this, Regist.class));
-        finish();
+//        finish();
     }
 }

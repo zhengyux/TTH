@@ -112,297 +112,316 @@
 
     </RelativeLayout>
 
-    <ScrollView
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/relativeLayout"
-        tools:ignore="UselessParent">
+        android:layout_below="@+id/relativeLayout">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:ignore="ScrollViewSize">
-
-
-            <com.youth.banner.Banner
-                android:id="@+id/banner"
-                android:layout_width="match_parent"
-                android:layout_height="354px"
-                tools:ignore="PxUsage" />
-
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/textgap" />
+            tools:ignore="UselessParent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="360px"
-                android:orientation="horizontal"
-                tools:ignore="PxUsage">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="ScrollViewSize">
 
-                <RelativeLayout
-                    android:id="@+id/rela_1"
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:padding="@dimen/gap">
 
-                    <TextView
-                        android:id="@+id/textView4"
-                        style="@style/text30"
-                        android:text="生鲜龙虾"
-                        android:textColor="#ff5216"
-                        tools:ignore="HardcodedText" />
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="354px"
+                    tools:ignore="PxUsage" />
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        style="@style/text24"
-                        android:layout_alignParentStart="true"
-                        android:layout_below="@+id/textView4"
-                        android:layout_marginBottom="10px"
-                        android:layout_marginTop="10px"
-                        android:text="生鲜龙虾"
-                        tools:ignore="HardcodedText" />
-
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/textView5"
-                        android:background="@mipmap/ic_launcher"
-                        tools:ignore="ContentDescription" />
-                </RelativeLayout>
-
-                <TextView style="@style/textgap2" />
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/textgap" />
 
                 <LinearLayout
-                    android:layout_width="0px"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:layout_width="match_parent"
+                    android:layout_height="360px"
+                    android:orientation="horizontal"
+                    tools:ignore="PxUsage">
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0px"
+                        android:id="@+id/rela_1"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:paddingBottom="10px"
-                        android:paddingLeft="10px"
-                        android:paddingRight="20px"
-                        android:paddingTop="10px"
-                        tools:ignore="NestedWeights,RtlHardcoded">
+                        android:padding="@dimen/gap">
 
                         <TextView
+                            android:id="@+id/tv_11"
                             style="@style/text30"
-                            android:layout_marginTop="10px"
-                            android:maxLength="8"
-                            android:text="野生鲤鱼"
-                            android:textColor="#ff9f16"
+                            android:text="生鲜龙虾"
+                            android:textColor="#ff5216"
                             tools:ignore="HardcodedText" />
 
                         <TextView
+                            android:id="@+id/tv_12"
                             style="@style/text24"
-                            android:layout_alignParentBottom="true"
                             android:layout_alignParentStart="true"
+                            android:layout_below="@+id/tv_11"
                             android:layout_marginBottom="10px"
-                            android:maxLength="10"
-                            android:text="特色海鲜来挑"
+                            android:layout_marginTop="10px"
+                            android:text="生鲜龙虾"
                             tools:ignore="HardcodedText" />
+
 
                         <ImageView
-                            android:layout_width="130px"
+                            android:id="@+id/tv_13"
+                            android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
+                            android:layout_below="@+id/tv_12"
                             android:background="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
+                            tools:ignore="ContentDescription" />
                     </RelativeLayout>
 
-                    <TextView style="@style/textgap1" />
+                    <TextView style="@style/textgap2" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0px"
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:paddingBottom="10px"
-                        android:paddingLeft="10px"
-                        android:paddingRight="20px"
-                        android:paddingTop="10px"
-                        tools:ignore="RtlHardcoded">
+                        android:orientation="vertical">
 
-                        <TextView
-                            style="@style/text30"
-                            android:layout_marginTop="10px"
-                            android:maxLength="8"
-                            android:text="野生鲤鱼"
-                            android:textColor="#c234fd"
-                            tools:ignore="HardcodedText" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="NestedWeights,RtlHardcoded">
 
-                        <TextView
-                            style="@style/text24"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginBottom="10px"
-                            android:maxLength="10"
-                            android:text="特色海鲜来挑"
-                            tools:ignore="HardcodedText" />
+                            <TextView
+                                android:id="@+id/tv_21"
+                                style="@style/text30"
+                                android:layout_marginTop="10px"
+                                android:maxLength="8"
+                                android:text="野生鲤鱼"
+                                android:textColor="#ff9f16"
+                                tools:ignore="HardcodedText" />
 
-                        <ImageView
-                            android:layout_width="130px"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:background="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_22"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:maxLength="10"
+                                android:text="特色海鲜来挑"
+                                tools:ignore="HardcodedText" />
 
-                    <TextView style="@style/textgap1" />
+                            <ImageView
+                                android:id="@+id/tv_23"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:background="@mipmap/ic_launcher"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </RelativeLayout>
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="0px"
-                        android:layout_weight="1"
-                        android:paddingBottom="10px"
-                        android:paddingLeft="10px"
-                        android:paddingRight="20px"
-                        android:paddingTop="10px"
-                        tools:ignore="RtlHardcoded">
+                        <TextView style="@style/textgap1" />
 
-                        <TextView
-                            style="@style/text30"
-                            android:layout_marginTop="10px"
-                            android:maxLength="8"
-                            android:text="野生鲤鱼"
-                            android:textColor="@color/them"
-                            tools:ignore="HardcodedText" />
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="RtlHardcoded">
 
-                        <TextView
-                            style="@style/text24"
-                            android:layout_alignParentBottom="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_marginBottom="10px"
-                            android:maxLength="10"
-                            android:text="特色海鲜来挑"
-                            tools:ignore="HardcodedText" />
+                            <TextView
+                                android:id="@+id/tv_31"
+                                style="@style/text30"
+                                android:layout_marginTop="10px"
+                                android:maxLength="8"
+                                android:text="野生鲤鱼"
+                                android:textColor="#c234fd"
+                                tools:ignore="HardcodedText" />
 
-                        <ImageView
-                            android:layout_width="130px"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentRight="true"
-                            android:background="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription,RtlHardcoded" />
-                    </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_32"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:maxLength="10"
+                                android:text="特色海鲜来挑"
+                                tools:ignore="HardcodedText" />
+
+                            <ImageView
+                                android:id="@+id/tv_33"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:background="@mipmap/ic_launcher"
+                                tools:ignore="ContentDescription,RtlHardcoded"
+                                android:layout_alignParentTop="true"
+                                android:layout_alignParentEnd="true" />
+                        </RelativeLayout>
+
+                        <TextView style="@style/textgap1" />
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="RtlHardcoded">
+
+                            <TextView
+                                android:id="@+id/tv_41"
+                                style="@style/text30"
+                                android:layout_marginTop="10px"
+                                android:maxLength="8"
+                                android:text="野生鲤鱼"
+                                android:textColor="@color/them"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tv_42"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:maxLength="10"
+                                android:text="特色海鲜来挑"
+                                tools:ignore="HardcodedText" />
+
+                            <ImageView
+                                android:id="@+id/tv_43"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:background="@mipmap/ic_launcher"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </RelativeLayout>
 
 
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
-            <TextView style="@style/textgap" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="400px"
-                tools:ignore="PxUsage">
-
-                <TextView
-                    android:id="@+id/textView6"
-                    android:layout_width="4px"
-                    android:layout_height="40px"
-                    android:layout_marginLeft="@dimen/gap"
-                    android:layout_marginTop="30px"
-                    android:background="#0090ff"
-
-                    tools:ignore="RtlHardcoded" />
-
-                <TextView
-                    android:id="@+id/textView7"
-                    style="@style/text34"
-                    android:layout_alignTop="@+id/textView6"
-                    android:layout_marginLeft="@dimen/gap"
-                    android:layout_toEndOf="@+id/textView6"
-                    android:text="放心商家"
-                    tools:ignore="HardcodedText,RtlHardcoded" />
+                <TextView style="@style/textgap" />
 
                 <RelativeLayout
-                    android:layout_width="200px"
-                    android:layout_height="100px"
-                    android:layout_alignParentRight="true"
-                    android:paddingBottom="30px"
-                    android:paddingRight="@dimen/gap"
-                    tools:ignore="RtlHardcoded,RtlSymmetry">
+                    android:layout_width="match_parent"
+                    android:layout_height="400px"
+                    tools:ignore="PxUsage">
 
-                    <ImageView
-                        android:id="@+id/imageView2"
-                        android:layout_width="12px"
-                        android:layout_height="24px"
-                        android:layout_alignParentBottom="true"
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="4px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_marginTop="30px"
+                        android:background="#0090ff"
+
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        style="@style/text34"
+                        android:layout_alignTop="@+id/textView6"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView6"
+                        android:text="放心商家"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
+
+                    <RelativeLayout
+                        android:id="@+id/rela_more"
+                        android:layout_width="200px"
+                        android:layout_height="100px"
                         android:layout_alignParentRight="true"
-                        android:background="@mipmap/ic_launcher"
-                        tools:ignore="ContentDescription" />
+                        android:paddingBottom="30px"
+                        android:paddingRight="@dimen/gap"
+                        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="12px"
+                            android:layout_height="24px"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@mipmap/ic_launcher"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/text24"
+                            android:layout_alignTop="@+id/imageView2"
+                            android:layout_marginRight="10px"
+                            android:layout_toStartOf="@+id/imageView2"
+                            android:text="更多商家"
+                            tools:ignore="HardcodedText,RtlHardcoded" />
+                    </RelativeLayout>
+
+                    <com.taotaohai.myview.HorizontalListView
+                        android:id="@+id/horizonlist"
+
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="110px"></com.taotaohai.myview.HorizontalListView>
+                </RelativeLayout>
+
+                <TextView style="@style/textgap" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="PxUsage">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="4px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_marginTop="30px"
+                        android:background="@color/them"
+
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        style="@style/text34"
+                        android:layout_alignTop="@+id/textView16"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView16"
+                        android:text="热销商品"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
 
                     <TextView
                         style="@style/text24"
-                        android:layout_alignTop="@+id/imageView2"
-                        android:layout_marginRight="10px"
-                        android:layout_toStartOf="@+id/imageView2"
-                        android:text="更多商家"
-                        tools:ignore="HardcodedText,RtlHardcoded" />
+                        android:layout_alignBaseline="@+id/textView16"
+                        android:layout_alignBottom="@+id/textView16"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView17"
+                        android:text="特色海鲜等" />
+
+                    <com.taotaohai.myview.MyGridView
+                        android:id="@+id/mygridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="110px"
+                        android:background="@color/white"
+                        android:horizontalSpacing="@dimen/gap"
+                        android:numColumns="2"
+                        android:paddingLeft="@dimen/gap"
+                        android:paddingRight="@dimen/gap"
+                        android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
                 </RelativeLayout>
+            </LinearLayout>
 
-                <com.taotaohai.myview.HorizontalListView
-                    android:id="@+id/horizonlist"
+        </ScrollView>
 
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="110px"></com.taotaohai.myview.HorizontalListView>
-            </RelativeLayout>
-
-            <TextView style="@style/textgap" />
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:ignore="PxUsage">
-
-                <TextView
-                    android:id="@+id/textView16"
-                    android:layout_width="4px"
-                    android:layout_height="40px"
-                    android:layout_marginLeft="@dimen/gap"
-                    android:layout_marginTop="30px"
-                    android:background="@color/them"
-
-                    tools:ignore="RtlHardcoded" />
-
-                <TextView
-                    android:id="@+id/textView17"
-                    style="@style/text34"
-                    android:layout_alignTop="@+id/textView16"
-                    android:layout_marginLeft="@dimen/gap"
-                    android:layout_toEndOf="@+id/textView16"
-                    android:text="热销商品"
-                    tools:ignore="HardcodedText,RtlHardcoded" />
-
-                <TextView
-                    style="@style/text24"
-                    android:layout_alignBaseline="@+id/textView16"
-                    android:layout_alignBottom="@+id/textView16"
-                    android:layout_marginLeft="@dimen/gap"
-                    android:layout_toEndOf="@+id/textView17"
-                    android:text="特色海鲜等" />
-
-                <com.taotaohai.myview.MyGridView
-                    android:id="@+id/mygridview"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="110px"
-                    android:background="@color/white"
-                    android:horizontalSpacing="@dimen/gap"
-                    android:numColumns="2"
-                    android:paddingLeft="@dimen/gap"
-                    android:paddingRight="@dimen/gap"
-                    android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
-            </RelativeLayout>
-        </LinearLayout>
-
-    </ScrollView>
-
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

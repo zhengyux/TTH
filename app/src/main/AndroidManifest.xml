@@ -89,6 +89,7 @@
         <activity android:name=".activity.GoodsDetialActivity" />
         <activity android:name=".activity.ShopMoreActivity" />
         <activity android:name=".activity.MessageActivity"></activity>
+        <activity android:name=".activity.ForgetPassword"></activity>
     </application>
 
 </manifest>

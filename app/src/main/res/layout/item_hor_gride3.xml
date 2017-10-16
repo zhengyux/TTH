@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="278px"
-    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingLeft="@dimen/gap"
+    android:padding="@dimen/gap"
     tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
 
     <ImageView
-        android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="149px"
         android:scaleType="fitXY"
@@ -16,7 +15,6 @@
         tools:ignore="ContentDescription" />
 
     <TextView
-        android:id="@+id/tv_title"
         style="@style/text28"
         android:text="泉州港万隆商家"
         android:textColor="#3f3f3f"
@@ -55,17 +53,19 @@
         android:paddingTop="10px">
 
         <TextView
-            android:id="@+id/tv_scor"
             style="@style/text18"
             android:text="4.6分"
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/tv_juli"
             style="@style/text18"
             android:layout_alignParentRight="true"
             android:text="12.0km"
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_marginTop="@dimen/gap" />
 </LinearLayout>

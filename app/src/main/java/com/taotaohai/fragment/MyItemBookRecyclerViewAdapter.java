@@ -35,16 +35,16 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
     }
 
     @Override
-    public void onBindViewHolder(final ViewHolder holder, int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.mItem = mValues.get(position);
-//        holder.text_title.setText(mValues.get(position).getShopName());
-//        holder.text_content.setText(mValues.get(position).getGoodsName());
-//        holder.text_stata.setText(getstata(mValues.get(position).getCount(), holder.btn_1, holder.btn_2,holder.btn_3));
-//        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getPrice());
-//        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
-//        holder.tv_guige.setText(mValues.get(position).getColor() + "," + mValues.get(position).getSize() + "," + mValues.get(position).getAcount() + "件");
-//        Glide.with(mcontent).load(mValues.get(position).getMd5()).error(R.mipmap.ic_launcher).into(holder.image_photo);
-
+        holder.text_title.setText(mValues.get(position).getExt().getShopName());
+        holder.text_content.setText(mValues.get(position).getExt().getGoodsName());
+        holder.text_stata.setText(getstata(mValues.get(position).getOrderStatus(), holder.btn_1, holder.btn_2, holder.btn_3));
+        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getExt().getPrice());
+        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
+        holder.tv_guige.setText(mValues.get(position).getRemarks());
+        holder.mItem.setCount(mValues.get(position).getOrderStatus());
+        Glide.with(mcontent).load(mValues.get(position).getExt().getLinkAddress()).error(R.mipmap.ic_launcher).into(holder.image_photo);
         holder.btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

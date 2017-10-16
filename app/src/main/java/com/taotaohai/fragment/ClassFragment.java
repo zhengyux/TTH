@@ -18,7 +18,9 @@ import android.widget.TextView;
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.ClassPage;
 import com.taotaohai.myview.Mylistview;
+import com.taotaohai.util.util;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -39,6 +41,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     int position = -1;
     private XRefreshView xrefreshview;
     private RecyclerView recyclerView;
+    private ListView list;
+    private ClassPage classPage;
 
     public static ClassFragment newInstance() {
         return new ClassFragment();
@@ -54,9 +58,28 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_class, container, false);
-
+        inithttp();
         initview();
         return view;
+    }
+
+    @Override
+    public void inithttp() {
+        super.inithttp();
+        get("api/goods/class", 0);
+
+    }
+
+    @Override
+    public void onSuccess(String data, int postcode) {
+        super.onSuccess(data, postcode);
+        classPage = util.getgson(data, ClassPage.class);
+        if (classPage.getSuccess()) {
+            list = (ListView) view.findViewById(R.id.listview);
+            list.setAdapter(new ListAdapter());
+        }
+
+
     }
 
     private void initview() {
@@ -86,8 +109,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
         onClick(v1);
 //        views.get(0).setBackgroundResource(R.drawable.bac_class_left);
-        ListView list = (ListView) view.findViewById(R.id.listview);
-        list.setAdapter(new ListAdapter());
+
     }
 
     @Override
@@ -142,7 +164,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     class ListAdapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 10;
+            return classPage.getData().size()+1;
         }
 
         @Override
@@ -164,11 +186,14 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 view = convertView;
             }
             final TextView text1 = (TextView) view.findViewById(R.id.text1);
+
             final LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
             if (position == 0) {
                 first_click = text1;
                 first_click.setTextColor(getResources().getColor(R.color.white));
                 first_click.setBackgroundColor(getResources().getColor(R.color.them));
+            }else{
+                text1.setText(classPage.getData().get(position-1).getClassName());
             }
             text1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -177,9 +202,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 }
             });
             if (position != 0) {
-                for (int i = 0; i < 3; i++) {
+                for (int i = 0; i < classPage.getData().get(position-1).getChildren().size(); i++) {
                     View view1 = getActivity().getLayoutInflater().inflate(R.layout.item_class_list2, null);
                     final TextView text = (TextView) view1.findViewById(R.id.text);
+                    text.setText(classPage.getData().get(position-1).getChildren().get(i).getClassName());
                     text.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
