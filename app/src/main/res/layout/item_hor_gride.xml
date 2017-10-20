@@ -11,6 +11,7 @@
         android:layout_height="wrap_content">
 
         <ImageView
+            android:id="@+id/image_photo"
             android:layout_width="match_parent"
             android:layout_height="220px"
             android:scaleType="fitXY"
@@ -19,12 +20,15 @@
             tools:ignore="ContentDescription" />
 
         <ImageView
+            android:id="@+id/su"
             android:layout_width="64px"
             android:layout_height="32px"
-            android:src="@mipmap/suo"/>
+            android:src="@mipmap/suo"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/tv_tite"
         style="@style/text28"
         android:layout_marginTop="10px"
         android:maxLength="10"
@@ -33,9 +37,11 @@
         tools:ignore="HardcodedText" />
 
     <TextView
+        android:id="@+id/tv_remorke"
         style="@style/text20"
         android:layout_marginTop="10px"
-        android:text="净重20kg 毛重22kg" />
+        android:text="净重20kg 毛重22kg"
+        tools:ignore="HardcodedText" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -43,23 +49,24 @@
         android:paddingTop="10px">
 
         <TextView
-            android:id="@+id/textView8"
+            android:id="@+id/tv_money"
             style="@style/text28"
             android:text="￥：300 "
             android:textColor="#0090ff"
             tools:ignore="HardcodedText" />
 
         <TextView
-            android:id="@+id/textView9"
+            android:id="@+id/tv_unit"
             style="@style/text24"
             android:layout_alignParentTop="true"
-            android:layout_toEndOf="@+id/textView8"
+            android:layout_toEndOf="@+id/tv_money"
             android:text="/箱"
             tools:ignore="HardcodedText" />
 
         <TextView
+            android:id="@+id/tv_people"
             style="@style/text20"
-            android:layout_alignBottom="@+id/textView9"
+            android:layout_alignBottom="@+id/tv_unit"
             android:layout_alignParentEnd="true"
             android:text="已有10人购买"
             tools:ignore="HardcodedText" />

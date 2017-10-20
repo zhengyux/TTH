@@ -15,15 +15,20 @@ import com.taotaohai.fragment.MineFragment;
 import com.taotaohai.fragment.VideoFragment;
 import com.heima.tabview.library.TabView;
 import com.heima.tabview.library.TabViewChild;
+import com.taotaohai.util.SPUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Home extends BaseActivity {
 
+    public TabView tabView;
+
     @Override
     protected void inithttp() {
-
+        has.put("username", (String) SPUtils.get(this, "username", ""));
+        has.put("password", (String) SPUtils.get(this, "password", ""));
+        post("api/auth/login", has, 0);
     }
 
     MineFragment mineFragment;
@@ -33,12 +38,14 @@ public class Home extends BaseActivity {
         TabViewChild tabViewChild01 = new TabViewChild(R.mipmap.home1, R.mipmap.home11, "首页", HomeFragment.newInstance());
         TabViewChild tabViewChild02 = new TabViewChild(R.mipmap.home2, R.mipmap.home21, "分类", ClassFragment.newInstance());
         TabViewChild tabViewChild03 = new TabViewChild(R.mipmap.home3, R.mipmap.home31, "视频", VideoFragment.newInstance());
-        TabViewChild tabViewChild04 = new TabViewChild(R.mipmap.home4, R.mipmap.home41, "我的", mineFragment=MineFragment.newInstance());
+        TabViewChild tabViewChild04 = new TabViewChild(R.mipmap.home4, R.mipmap.home41, "我的", mineFragment = MineFragment.newInstance());
         tabViewChildList.add(tabViewChild01);
         tabViewChildList.add(tabViewChild02);
         tabViewChildList.add(tabViewChild03);
         tabViewChildList.add(tabViewChild04);
-        TabView tabView = (TabView) findViewById(R.id.tabView);
+
+        tabView = (TabView) findViewById(R.id.tabView);
+
         tabView.setTextViewSelectedColor(getResources().getColor(R.color.them));
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         tabView.setTabViewChild(tabViewChildList, supportFragmentManager);
@@ -48,6 +55,7 @@ public class Home extends BaseActivity {
 //                Toast.makeText(getApplicationContext(), "position:" + position, Toast.LENGTH_SHORT).show();
             }
         });
+        tabView.setVerticalScrollbarPosition(2);
     }
 
     @Override
@@ -55,6 +63,7 @@ public class Home extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         initview();
+        inithttp();
     }
 
 

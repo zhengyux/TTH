@@ -111,19 +111,19 @@
                 tools:ignore="HardcodedText,PxUsage" />
 
             <TextView
-                android:id="@+id/textView42"
+                android:id="@+id/tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/gap"
                 android:text="x2"
                 android:textSize="18px"
                 tools:ignore="HardcodedText,PxUsage"
-                android:layout_alignBottom="@+id/textView40"
+                android:layout_alignBottom="@+id/tv_price"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="11dp" />
 
             <TextView
-                android:id="@+id/textView40"
+                android:id="@+id/tv_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/image_photo"
@@ -134,12 +134,12 @@
                 tools:ignore="HardcodedText,PxUsage" />
 
             <TextView
-                android:id="@+id/textView41"
+                android:id="@+id/tv_util"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@+id/textView40"
-                android:layout_alignBottom="@+id/textView40"
-                android:layout_toEndOf="@+id/textView40"
+                android:layout_alignBaseline="@+id/tv_price"
+                android:layout_alignBottom="@+id/tv_price"
+                android:layout_toEndOf="@+id/tv_price"
                 android:text="/箱"
                 android:textColor="@color/text_black"
                 android:textSize="20px"
@@ -151,12 +151,13 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/image_photo"
                 android:background="@color/white"
-                android:visibility="gone"
+               android:visibility="gone"
+
                 >
 
 
                 <TextView
-                    android:id="@+id/textView43"
+                    android:id="@+id/tv_delect"
                     android:layout_width="120px"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -189,6 +190,7 @@
                         android:src="@mipmap/add" />
 
                     <TextView
+                        android:id="@+id/tv_count1"
                         android:layout_width="wrap_content"
                         android:layout_height="60px"
                         android:layout_centerHorizontal="true"

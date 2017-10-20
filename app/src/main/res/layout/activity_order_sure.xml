@@ -41,7 +41,8 @@
                     android:id="@+id/rela_address"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:onClick="onaddress">
+                    android:onClick="onaddress"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_phone"
@@ -161,7 +162,7 @@
                 android:layout_marginBottom="40px">
 
                 <TextView
-                    android:id="@+id/textView57"
+                    android:id="@+id/tv_price"
                     style="@style/text30"
                     android:layout_height="match_parent"
                     android:layout_alignParentRight="true"
@@ -172,11 +173,12 @@
                     android:textColor="@color/them" />
 
                 <TextView
+                    android:id="@+id/tv_count"
                     style="@style/text30"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
-                    android:layout_toStartOf="@+id/textView57"
+                    android:layout_toStartOf="@+id/tv_price"
                     android:gravity="center"
                     android:text="共两件商品 ：小计" />
 
@@ -191,6 +193,8 @@
         android:layout_height="88px"
         android:layout_alignParentBottom="true">
 
+        <TextView style="@style/textgap1" />
+
         <TextView
             android:id="@+id/tv_settlement"
             style="@style/text30"
@@ -204,7 +208,7 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/textView47"
+            android:id="@+id/tv_price2"
             style="@style/text30"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -220,7 +224,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/textView47"
+            android:layout_toStartOf="@+id/tv_price2"
             android:gravity="center"
             android:text="合计 ：" />
 

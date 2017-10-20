@@ -9,7 +9,6 @@ import java.util.List;
  */
 
 public class HotShop {
-
     @SerializedName("code")
     private int code;
     @SerializedName("data")
@@ -91,8 +90,10 @@ public class HotShop {
         private String brandId;
         @SerializedName("brc")
         private String brc;
+        @SerializedName("businessAbsUrlList")
+        private List<String> businessAbsUrlList;
         @SerializedName("businessList")
-        private List<BusinessList> businessList;
+        private List<String> businessList;
         @SerializedName("businessUrl")
         private String businessUrl;
         @SerializedName("creatorId")
@@ -113,6 +114,8 @@ public class HotShop {
         private String logo;
         @SerializedName("logoId")
         private String logoId;
+        @SerializedName("logoIdAbsUrl")
+        private String logoIdAbsUrl;
         @SerializedName("longitude")
         private String longitude;
         @SerializedName("name")
@@ -125,6 +128,16 @@ public class HotShop {
         private String remark;
         @SerializedName("status")
         private int status;
+        @SerializedName("totalBuy")
+        private String totalBuy;
+        @SerializedName("totalCommonLevel")
+        private String totalCommonLevel;
+        @SerializedName("totalGoods")
+        private String totalGoods;
+        @SerializedName("totalLike")
+        private String totalLike;
+        @SerializedName("totalSourceGoods")
+        private String totalSourceGoods;
         @SerializedName("user")
         private User user;
 
@@ -152,12 +165,12 @@ public class HotShop {
             this.brc = brc;
         }
 
-        public List<BusinessList> getBusinessList() {
-            return businessList;
+        public List<String> getBusinessAbsUrlList() {
+            return businessAbsUrlList;
         }
 
-        public void setBusinessList(List<BusinessList> businessList) {
-            this.businessList = businessList;
+        public void setBusinessAbsUrlList(List<String> businessAbsUrlList) {
+            this.businessAbsUrlList = businessAbsUrlList;
         }
 
         public String getBusinessUrl() {
@@ -240,6 +253,14 @@ public class HotShop {
             this.logoId = logoId;
         }
 
+        public String getLogoIdAbsUrl() {
+            return logoIdAbsUrl;
+        }
+
+        public void setLogoIdAbsUrl(String logoIdAbsUrl) {
+            this.logoIdAbsUrl = logoIdAbsUrl;
+        }
+
         public String getLongitude() {
             return longitude;
         }
@@ -286,6 +307,46 @@ public class HotShop {
 
         public void setStatus(int status) {
             this.status = status;
+        }
+
+        public String getTotalBuy() {
+            return totalBuy;
+        }
+
+        public void setTotalBuy(String totalBuy) {
+            this.totalBuy = totalBuy;
+        }
+
+        public String getTotalCommonLevel() {
+            return totalCommonLevel;
+        }
+
+        public void setTotalCommonLevel(String totalCommonLevel) {
+            this.totalCommonLevel = totalCommonLevel;
+        }
+
+        public String getTotalGoods() {
+            return totalGoods;
+        }
+
+        public void setTotalGoods(String totalGoods) {
+            this.totalGoods = totalGoods;
+        }
+
+        public String getTotalLike() {
+            return totalLike;
+        }
+
+        public void setTotalLike(String totalLike) {
+            this.totalLike = totalLike;
+        }
+
+        public String getTotalSourceGoods() {
+            return totalSourceGoods;
+        }
+
+        public void setTotalSourceGoods(String totalSourceGoods) {
+            this.totalSourceGoods = totalSourceGoods;
         }
 
         public User getUser() {

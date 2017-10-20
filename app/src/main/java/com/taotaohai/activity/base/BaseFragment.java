@@ -60,7 +60,7 @@ public class BaseFragment extends Fragment implements OnHttpListener {
 
 
     public void Http(HttpMethod moth, String url, HashMap<String, String> hashMap, final int code) {
-
+        ((BaseActivity) getActivity()).showSpot();
         RequestParams p = new RequestParams(ConstantValue.URL + url);
         if (hashMap != null) {
             Iterator iter = hashMap.entrySet().iterator();

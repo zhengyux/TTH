@@ -97,7 +97,7 @@
             android:textColor="@color/white" />
 
         <TextView
-            android:id="@+id/textView47"
+            android:id="@+id/tv_all"
             style="@style/text30"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -113,7 +113,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/textView47"
+            android:layout_toStartOf="@+id/tv_all"
             android:gravity="center"
             android:text="合计 ：" />
 

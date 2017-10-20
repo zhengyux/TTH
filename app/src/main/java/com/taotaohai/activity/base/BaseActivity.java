@@ -186,7 +186,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void put(String url, HashMap<String, String> hashMap, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);

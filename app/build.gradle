@@ -27,20 +27,23 @@ android {
 
 
 dependencies {
+
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-//        compile 'com.zhy:okhttputils:2.0.0'
+    //        compile 'com.zhy:okhttputils:2.0.0'
     compile project(path: ':photoSelector')
-//dialog
+    //dialog
+
     //公用
-//table
 
-
+    //table
     compile project(path: ':nicevideoplayer')
     //环信
+
     //banner
+    compile files('libs/locSDK_4.2.jar')
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'

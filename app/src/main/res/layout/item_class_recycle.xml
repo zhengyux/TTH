@@ -5,51 +5,54 @@
     android:paddingTop="@dimen/gap">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/image_photo"
         android:layout_width="118px"
         android:layout_height="118px"
+        android:layout_marginRight="10px"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/tv_remaker"
         style="@style/text18"
-        android:layout_alignBottom="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
+        android:layout_alignBottom="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
         android:text="净重20，毛重22kg" />
 
     <TextView
-        android:id="@+id/textView12"
+        
+        android:id="@+id/tv_count"
         style="@style/text18"
-        android:layout_alignBaseline="@+id/textView10"
-        android:layout_alignBottom="@+id/textView10"
-        android:layout_toStartOf="@+id/imageView4"
+        android:layout_alignBaseline="@+id/tv_remaker"
+        android:layout_alignBottom="@+id/tv_remaker"
+        android:layout_toStartOf="@+id/image_car"
         android:text="已购买四件" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/tv_name"
         style="@style/text28"
 
-        android:layout_alignTop="@+id/imageView3"
-        android:layout_toEndOf="@+id/imageView3"
+        android:layout_alignTop="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
         android:text="知晓物恋"
         android:textColor="#404040" />
 
     <TextView
-        android:id="@+id/textView11"
+        android:id="@+id/tv_money"
         style="@style/text26"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/imageView3"
+        android:layout_toEndOf="@+id/image_photo"
         android:text="￥1800.00"
         android:textColor="@color/them" />
 
     <TextView
+        android:id="@+id/tv_unit"
         style="@style/text20"
         android:text="/箱"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/textView11" />
+        android:layout_toEndOf="@+id/tv_money" />
 
     <ImageView
-        android:id="@+id/imageView4"
+        android:id="@+id/image_car"
         android:layout_width="54px"
         android:layout_height="54px"
         android:src="@mipmap/shopc"
@@ -58,8 +61,8 @@
 
     <TextView
         style="@style/textgap1"
-        android:layout_alignStart="@+id/imageView3"
-        android:layout_below="@+id/imageView3"
+        android:layout_alignStart="@+id/image_photo"
+        android:layout_below="@+id/image_photo"
         android:layout_marginTop="@dimen/gap"
         android:id="@+id/textView14" />
 </RelativeLayout>

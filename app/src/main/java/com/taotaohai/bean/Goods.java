@@ -9,8 +9,6 @@ import java.util.List;
  */
 
 public class Goods {
-
-
     @SerializedName("code")
     private int code;
     @SerializedName("data")
@@ -165,8 +163,10 @@ public class Goods {
         private String brandId;
         @SerializedName("brc")
         private String brc;
+        @SerializedName("businessAbsUrlList")
+        private List<String> businessAbsUrlList;
         @SerializedName("businessList")
-        private String businessList;
+        private List<String> businessList;
         @SerializedName("businessUrl")
         private String businessUrl;
         @SerializedName("creatorId")
@@ -187,6 +187,8 @@ public class Goods {
         private String logo;
         @SerializedName("logoId")
         private String logoId;
+        @SerializedName("logoIdAbsUrl")
+        private String logoIdAbsUrl;
         @SerializedName("longitude")
         private String longitude;
         @SerializedName("name")
@@ -199,6 +201,16 @@ public class Goods {
         private String remark;
         @SerializedName("status")
         private int status;
+        @SerializedName("totalBuy")
+        private String totalBuy;
+        @SerializedName("totalCommonLevel")
+        private String totalCommonLevel;
+        @SerializedName("totalGoods")
+        private String totalGoods;
+        @SerializedName("totalLike")
+        private String totalLike;
+        @SerializedName("totalSourceGoods")
+        private String totalSourceGoods;
         @SerializedName("user")
         private User user;
 
@@ -226,11 +238,19 @@ public class Goods {
             this.brc = brc;
         }
 
-        public String getBusinessList() {
+        public List<String> getBusinessAbsUrlList() {
+            return businessAbsUrlList;
+        }
+
+        public void setBusinessAbsUrlList(List<String> businessAbsUrlList) {
+            this.businessAbsUrlList = businessAbsUrlList;
+        }
+
+        public List<String> getBusinessList() {
             return businessList;
         }
 
-        public void setBusinessList(String businessList) {
+        public void setBusinessList(List<String> businessList) {
             this.businessList = businessList;
         }
 
@@ -314,6 +334,14 @@ public class Goods {
             this.logoId = logoId;
         }
 
+        public String getLogoIdAbsUrl() {
+            return logoIdAbsUrl;
+        }
+
+        public void setLogoIdAbsUrl(String logoIdAbsUrl) {
+            this.logoIdAbsUrl = logoIdAbsUrl;
+        }
+
         public String getLongitude() {
             return longitude;
         }
@@ -362,6 +390,46 @@ public class Goods {
             this.status = status;
         }
 
+        public String getTotalBuy() {
+            return totalBuy;
+        }
+
+        public void setTotalBuy(String totalBuy) {
+            this.totalBuy = totalBuy;
+        }
+
+        public String getTotalCommonLevel() {
+            return totalCommonLevel;
+        }
+
+        public void setTotalCommonLevel(String totalCommonLevel) {
+            this.totalCommonLevel = totalCommonLevel;
+        }
+
+        public String getTotalGoods() {
+            return totalGoods;
+        }
+
+        public void setTotalGoods(String totalGoods) {
+            this.totalGoods = totalGoods;
+        }
+
+        public String getTotalLike() {
+            return totalLike;
+        }
+
+        public void setTotalLike(String totalLike) {
+            this.totalLike = totalLike;
+        }
+
+        public String getTotalSourceGoods() {
+            return totalSourceGoods;
+        }
+
+        public void setTotalSourceGoods(String totalSourceGoods) {
+            this.totalSourceGoods = totalSourceGoods;
+        }
+
         public User getUser() {
             return user;
         }
@@ -378,12 +446,8 @@ public class Goods {
         private ClassInfo classInfo;
         @SerializedName("creatorId")
         private String creatorId;
-        @SerializedName("desck")
-        private String desck;
         @SerializedName("describe")
         private String describe;
-        @SerializedName("descv")
-        private String descv;
         @SerializedName("gmtCreate")
         private String gmtCreate;
         @SerializedName("gmtModify")
@@ -404,6 +468,8 @@ public class Goods {
         private int quality;
         @SerializedName("remark")
         private String remark;
+        @SerializedName("saleVolume")
+        private int saleVolume;
         @SerializedName("shopId")
         private String shopId;
         @SerializedName("shopInfo")
@@ -416,8 +482,12 @@ public class Goods {
         private String sourceVideo;
         @SerializedName("sourceVideoUrl")
         private String sourceVideoUrl;
+        @SerializedName("stock")
+        private int stock;
         @SerializedName("title")
         private String title;
+        @SerializedName("totalCommonLevel")
+        private String totalCommonLevel;
         @SerializedName("unit")
         private String unit;
         @SerializedName("unitMin")
@@ -447,28 +517,12 @@ public class Goods {
             this.creatorId = creatorId;
         }
 
-        public String getDesck() {
-            return desck;
-        }
-
-        public void setDesck(String desck) {
-            this.desck = desck;
-        }
-
         public String getDescribe() {
             return describe;
         }
 
         public void setDescribe(String describe) {
             this.describe = describe;
-        }
-
-        public String getDescv() {
-            return descv;
-        }
-
-        public void setDescv(String descv) {
-            this.descv = descv;
         }
 
         public String getGmtCreate() {
@@ -495,9 +549,6 @@ public class Goods {
             this.id = id;
         }
 
-        public List<String> getImageIds() {
-            return imageIds;
-        }
 
         public void setImageIds(List<String> imageIds) {
             this.imageIds = imageIds;
@@ -551,6 +602,14 @@ public class Goods {
             this.remark = remark;
         }
 
+        public int getSaleVolume() {
+            return saleVolume;
+        }
+
+        public void setSaleVolume(int saleVolume) {
+            this.saleVolume = saleVolume;
+        }
+
         public String getShopId() {
             return shopId;
         }
@@ -599,12 +658,28 @@ public class Goods {
             this.sourceVideoUrl = sourceVideoUrl;
         }
 
+        public int getStock() {
+            return stock;
+        }
+
+        public void setStock(int stock) {
+            this.stock = stock;
+        }
+
         public String getTitle() {
             return title;
         }
 
         public void setTitle(String title) {
             this.title = title;
+        }
+
+        public String getTotalCommonLevel() {
+            return totalCommonLevel;
+        }
+
+        public void setTotalCommonLevel(String totalCommonLevel) {
+            this.totalCommonLevel = totalCommonLevel;
         }
 
         public String getUnit() {

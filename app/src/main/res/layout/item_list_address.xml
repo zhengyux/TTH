@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -12,7 +13,8 @@
         <TextView
             android:id="@+id/tv_name"
             style="@style/text30"
-            android:text="欧基金" />
+            android:text="欧基金"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_phone"
@@ -21,7 +23,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:text="欧基金" />
+            android:text="欧基金"
+            tools:ignore="HardcodedText" />
 
         <TextView
             android:id="@+id/tv_address"
@@ -29,8 +32,9 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="@dimen/gap"
-            android:text="欧基金"
-            android:textColor="@color/text_black" />
+            android:text="欧基金欧基金欧基金欧基金欧基金"
+            android:textColor="@color/text_black"
+            tools:ignore="HardcodedText" />
 
     </RelativeLayout>
 
@@ -46,7 +50,8 @@
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/gap"
-            android:text="设置为默认" />
+            android:text="设置为默认"
+            tools:ignore="HardcodedText,RtlHardcoded" />
 
         <RelativeLayout
 
@@ -56,7 +61,8 @@
             android:layout_alignParentEnd="true"
 
             android:layout_centerVertical="true"
-            android:layout_marginRight="@dimen/gap">
+            android:layout_marginRight="@dimen/gap"
+            tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/textView22"
@@ -64,7 +70,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/imageView13"
                 android:text="删除"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:id="@+id/imageView13"
@@ -72,7 +79,8 @@
                 android:layout_height="36px"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10px"
-                android:src="@mipmap/delect" />
+                android:src="@mipmap/delect"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
 
         </RelativeLayout>
 
@@ -83,7 +91,8 @@
             android:layout_centerVertical="true"
             android:layout_marginEnd="@dimen/gap"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/rela_delect">
+            android:layout_toStartOf="@+id/rela_delect"
+            tools:ignore="RtlHardcoded">
 
             <TextView
                 android:id="@+id/textView25"
@@ -91,7 +100,8 @@
                 android:layout_centerVertical="true"
                 android:layout_toEndOf="@+id/imageView15"
                 android:text="编辑"
-                android:textColor="@color/text_black" />
+                android:textColor="@color/text_black"
+                tools:ignore="HardcodedText" />
 
             <ImageView
                 android:id="@+id/imageView15"
@@ -99,7 +109,8 @@
                 android:layout_height="36px"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="10px"
-                android:src="@mipmap/edit" />
+                android:src="@mipmap/edit"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
 
         </RelativeLayout>
     </RelativeLayout>

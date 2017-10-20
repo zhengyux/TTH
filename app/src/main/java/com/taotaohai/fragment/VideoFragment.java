@@ -13,11 +13,19 @@ import android.view.ViewGroup;
 
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
+import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.Search;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.Video;
+import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.TxVideoPlayerController;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import org.xutils.http.HttpMethod;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +38,9 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     private RecyclerView recyclerView;
     private XRefreshView xrefreshview;
     private MultipleStatusView mMsvLayout;
+    private CommonAdapter adapter;
+    private Video video;
+    int totle = 0;
 
     public static VideoFragment newInstance() {
         return new VideoFragment();
@@ -39,21 +50,56 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         // Required empty public constructor
     }
 
+    @Override
+    public void inithttp() {
+        super.inithttp();
+        inithttpdata();
+    }
+
+    void inithttpdata() {
+        has.clear();
+        has.put("pageSize", String.valueOf(pageSize));
+        has.put("pageIndex", String.valueOf(pageIndex));
+        Http(HttpMethod.GET, "api/video", has, 0);
+    }
+
+    @Override
+    public void onSuccess(String data, int postcode) {
+        super.onSuccess(data, postcode);
+        if (postcode == 0) {
+            if (pageIndex == 0) {
+                video = util.getgson(data, Video.class);
+                if (video.getSuccess()) {
+                    initdata();
+                    totle = video.getData().getTotal();
+                    xrefreshview.stopRefresh();
+                }
+            } else {
+                Video video2 = util.getgson(data, Video.class);
+                if (video2.getData().getData().size() > 0) {
+                    video.getData().getData().addAll(video2.getData().getData());
+                    adapter.notifyDataSetChanged();
+                    xrefreshview.stopLoadMore();
+                } else {
+                    xrefreshview.setLoadComplete(true);
+                }
+
+            }
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_video, container, false);
-
         initview(view);
+        inithttp();
         return view;
     }
 
     private void initview(View view) {
         view.findViewById(R.id.search_).setOnClickListener(this);
-
-
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
         mMsvLayout.loading();
         new Handler().postDelayed(new Runnable() {
@@ -66,21 +112,32 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-        initdata();//初始化数据
-
-
+//        initdata();//初始化数据
 
 
     }
 
+    int pageSize = 10;
+    int pageIndex = 0;//第多少个
+
     private void initdata() {
-
-        List<String> lista = Arrays.asList("1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1");
-        CommonAdapter adapter = new CommonAdapter<String>(getActivity(), R.layout.item_list, lista) {
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            return;
+        }
+        adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
             @Override
-            protected void convert(ViewHolder holder, final String s, int position) {
-
-
+            protected void convert(ViewHolder holder, final Video.Data data, int position) {
+                NiceVideoPlayer niceVideoPlayer = holder.getView(R.id.niceplayer);
+                niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
+                niceVideoPlayer.setUp(data.getVideoAbsUrl(), null);
+                TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
+                controller.textsetviso();
+                GlideUtil.loadImg(data.getImageAbsUrl(), controller.imageView());
+                niceVideoPlayer.setController(controller);
+                holder.setText(R.id.tv_count, "播放" + data.getPlayNum() + "次");
+                holder.setText(R.id.tv_title, data.getDescribe());
+                holder.setText(R.id.tv_updata, data.getUploadTime() + "更新");
             }
         };
         // 设置静默加载模式
@@ -98,24 +155,19 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        xrefreshview.stopRefresh();
-                    }
-                }, 1000);
+                pageIndex = 0;//第多少个
+                inithttpdata();
             }
 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        xrefreshview.setLoadComplete(true);//已无更多数据
-                        xrefreshview.stopLoadMore();//还有数据
-                    }
-                }, 1000);
+                pageIndex += 10;//第多少个
+                if (pageIndex >= totle) {
+                    xrefreshview.setLoadComplete(true);
+                    return;
+                }
+                inithttpdata();
             }
         });
 
@@ -124,9 +176,9 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.search_:
-                startActivityForResult(new Intent(getActivity(), Search.class),0);
+                startActivityForResult(new Intent(getActivity(), Search.class), 0);
         }
     }
 }

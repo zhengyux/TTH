@@ -9,9 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.util.util;
+
+import org.xutils.http.HttpMethod;
 
 import java.util.HashMap;
 
@@ -96,23 +99,26 @@ public class AddAdressActivity extends BaseActivity implements CityPickerListene
             showToast("收货人地址不能为空");
             return;
         }
-        HashMap<String, String> has = new HashMap<>();
-        has.put("default", checked + "");
-        has.put("linkName", et_name.getText().toString().trim());
-        has.put("linkTel", et_phone.getText().toString().trim());
-        has.put("linkAddress", et_address.getText().toString().toString());
+        JsonObject jsonObject = new JsonObject();
+        jsonObject.addProperty("isdefault", checked + "");
+        jsonObject.addProperty("linkName", et_name.getText().toString().trim());
+        jsonObject.addProperty("linkTel", et_phone.getText().toString().trim());
+        jsonObject.addProperty("linkAddress", et_address.getText().toString().toString());
         String[] addresss = tv_area.getText().toString().trim().split(" ");
-        has.put("linkProvince", addresss[0]);
-        has.put("linkCity", addresss[1]);
+        if (addresss.length == 0) {
+            addresss = tv_area.getText().toString().split(" ");
+        }
+        jsonObject.addProperty("linkProvince", addresss[0]);
+        jsonObject.addProperty("linkCity", addresss[1]);
         if (addresss.length > 2) {
-            has.put("linkArea", addresss[2]);
+            jsonObject.addProperty("linkArea", addresss[2]);
         } else {
-            has.put("linkArea", "");
+            jsonObject.addProperty("linkArea", "");
         }
         if (getintent("id").length() > 0) {
-            put("api/orderaddress/" + getintent("id"), has, 1);
+            Http(HttpMethod.POST, "api/user/userAddress/" + getintent("id"), jsonObject.toString(), 1);
         } else {
-            post("api/orderaddress", has, 0);
+            Http(HttpMethod.POST, "api/user/userAddress", jsonObject.toString(), 0);
         }
     }
 
@@ -130,19 +136,14 @@ public class AddAdressActivity extends BaseActivity implements CityPickerListene
 //            return;
 //        }
 //
-//        AddId b = util.getgson(result, AddId.class);
-//        if (util.isSuccess(b, getApplicationContext())) {
-//            if (getintent("morenid2").length() > 0) {
-//                get("api/orderaddress/defaultAddress", 15);
-//            } else {
-//                if (getintent("name").length() > 0) {//编辑过来的
-//                    GlobalParams.MORENID = getintent("id");
-//                } else {
-//                    GlobalParams.MORENID = b.getData();
-//                }
-//                finish();
-//            }
-//        }
+        if (util.isSuccess(result)) {
+            if (postcode == 0) {
+                showToast("添加成功");
+            } else {
+                showToast("修改成功");
+            }
+            finish();
+        }
     }
 
     @Override

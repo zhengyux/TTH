@@ -50,7 +50,7 @@
             tools:ignore="HardcodedText,PxUsage" />
 
         <TextView
-            android:id="@+id/textView29"
+            android:id="@+id/tv_num"
             style="@style/text20"
             android:layout_alignBaseline="@+id/tv_28"
             android:layout_alignBottom="@+id/tv_28"

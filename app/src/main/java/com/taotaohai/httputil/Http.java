@@ -153,6 +153,23 @@ public class Http implements IHttp {
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
                 mOnHttpDownListener.onError(ex, postcode);
+                String[] st = ex.toString().split("result:");
+                if (st.length > 1) {
+                    util.isSuccess(util.getgson(st[1], BaseBean.class), (BaseActivity) mOnloginListener);
+                }
+                try {
+                    if (ex.toString().contains("401")) {
+                        if (SPUtils.get((BaseActivity) mOnloginListener, "username", null) != null) {
+                            RequestParams p = new RequestParams(ConstantValue.URL + "api/auth/login");
+                            p.addBodyParameter("username", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
+                            p.addBodyParameter("password", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
+                            Post(p, 0);
+                        }
+
+                    }
+                } catch (Exception e) {
+                }
+
             }
 
             @Override

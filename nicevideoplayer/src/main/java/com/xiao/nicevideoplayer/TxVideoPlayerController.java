@@ -160,6 +160,11 @@ public class TxVideoPlayerController
         mLength.setText(NiceUtil.formatTime(length));
     }
 
+
+    public void textsetviso() {
+        mLength.setVisibility(GONE);
+    }
+
     @Override
     public void setNiceVideoPlayer(INiceVideoPlayer niceVideoPlayer) {
         super.setNiceVideoPlayer(niceVideoPlayer);
@@ -333,7 +338,7 @@ public class TxVideoPlayerController
         mBottom.setVisibility(View.GONE);
         mFullScreen.setImageResource(R.drawable.ic_player_enlarge);
 
-        mLength.setVisibility(View.VISIBLE);
+//        mLength.setVisibility(View.VISIBLE);
 
         mTop.setVisibility(View.VISIBLE);
         mBack.setVisibility(View.GONE);

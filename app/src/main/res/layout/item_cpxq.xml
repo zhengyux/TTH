@@ -17,6 +17,7 @@
             android:textColor="@color/text_black" />
 
         <TextView
+            android:id="@+id/tv_name"
             style="@style/text28"
             android:layout_alignParentRight="true"
             android:text="黑鱼"
@@ -35,6 +36,7 @@
             android:textColor="@color/text_black" />
 
         <TextView
+            android:id="@+id/tv_address"
             style="@style/text28"
             android:layout_alignParentRight="true"
             android:text="漳州"
@@ -64,6 +66,7 @@
     </RelativeLayout>
 
     <ImageView
+        android:id="@+id/image_logo"
         android:layout_width="match_parent"
         android:layout_height="354px"
         android:src="@mipmap/ic_launcher" />

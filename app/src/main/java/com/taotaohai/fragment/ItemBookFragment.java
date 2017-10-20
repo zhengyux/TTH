@@ -80,16 +80,16 @@ public class ItemBookFragment extends BaseFragment {
                 get("api/GoodsOrder", 0);
                 break;
             case 1:
-                get("api/GoodsOrder/1", 0);
+                get("api/GoodsOrder/list/1", 0);
                 break;
             case 2:
-                get("api/GoodsOrder/2", 0);
+                get("api/GoodsOrder/list/2", 0);
                 break;
             case 3:
-                get("api/GoodsOrder/3", 0);
+                get("api/GoodsOrder/list/3", 0);
                 break;
             case 4:
-                get("api/GoodsOrder/4", 0);
+                get("api/GoodsOrder/list/4", 0);
                 break;
 
         }

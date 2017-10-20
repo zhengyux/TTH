@@ -176,7 +176,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/tv_12"
-                            android:background="@mipmap/ic_launcher"
+                            android:src="@mipmap/ic_launcher"
                             tools:ignore="ContentDescription" />
                     </RelativeLayout>
 
@@ -189,6 +189,7 @@
                         android:orientation="vertical">
 
                         <RelativeLayout
+                            android:id="@+id/rela_2"
                             android:layout_width="match_parent"
                             android:layout_height="0px"
                             android:layout_weight="1"
@@ -222,13 +223,14 @@
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
-                                android:background="@mipmap/ic_launcher"
+                                android:src="@mipmap/ic_launcher"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
                         <TextView style="@style/textgap1" />
 
                         <RelativeLayout
+                            android:id="@+id/rela_3"
                             android:layout_width="match_parent"
                             android:layout_height="0px"
                             android:layout_weight="1"
@@ -261,15 +263,16 @@
                                 android:id="@+id/tv_33"
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
-                                android:background="@mipmap/ic_launcher"
-                                tools:ignore="ContentDescription,RtlHardcoded"
+                                android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"
-                                android:layout_alignParentEnd="true" />
+                                android:src="@mipmap/ic_launcher"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
                         <TextView style="@style/textgap1" />
 
                         <RelativeLayout
+                            android:id="@+id/rela_4"
                             android:layout_width="match_parent"
                             android:layout_height="0px"
                             android:layout_weight="1"
@@ -303,7 +306,7 @@
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
-                                android:background="@mipmap/ic_launcher"
+                                android:src="@mipmap/ic_launcher"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -352,7 +355,7 @@
                             android:layout_height="24px"
                             android:layout_alignParentBottom="true"
                             android:layout_alignParentRight="true"
-                            android:background="@mipmap/ic_launcher"
+                            android:background="@mipmap/right"
                             tools:ignore="ContentDescription" />
 
                         <TextView

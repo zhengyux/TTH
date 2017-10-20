@@ -20,7 +20,7 @@
 
 
         <com.xiao.nicevideoplayer.NiceVideoPlayer
-            android:id="@+id/niceplayer"
+            android:id="@+id/nice_video_player"
             android:layout_width="match_parent"
             android:layout_height="416px"
             android:layout_alignParentStart="true"
@@ -29,6 +29,7 @@
     </RelativeLayout>
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:maxLines="2"

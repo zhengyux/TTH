@@ -22,6 +22,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.GET_TASKS" />
+    <!-- 这个权限用于获取wifi的获取权限，wifi信息会用来进行网络定位 -->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
     //支付宝
     <application
         android:name=".MyApplication"
@@ -88,8 +92,20 @@
         <activity android:name=".activity.OrderSureActivity" />
         <activity android:name=".activity.GoodsDetialActivity" />
         <activity android:name=".activity.ShopMoreActivity" />
-        <activity android:name=".activity.MessageActivity"></activity>
-        <activity android:name=".activity.ForgetPassword"></activity>
+        <activity android:name=".activity.MessageActivity" />
+        <activity android:name=".activity.ForgetPassword" />
+        <activity android:name=".activity.LocationActivity"></activity>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote" />
+
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="XDTyjLmvCK3xX4Hf6Ty9Mnh1gFRw4Sws" />
+
+        <activity android:name=".activity.JiLiangActivity"></activity>
     </application>
 
 </manifest>

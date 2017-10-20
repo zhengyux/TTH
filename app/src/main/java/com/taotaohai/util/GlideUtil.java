@@ -34,7 +34,7 @@ public final class GlideUtil {
                 .load(imgUrl)
                 .centerCrop()
                 .dontAnimate()
-//                .placeholder(R.drawable.shape_placeholder)
+                .placeholder(R.mipmap.ic_launcher)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(imageView);
     }

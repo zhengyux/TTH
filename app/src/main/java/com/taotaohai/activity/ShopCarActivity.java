@@ -5,12 +5,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.Car;
+import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.util;
+
+import org.xutils.http.HttpMethod;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +27,28 @@ public class ShopCarActivity extends BaseActivity {
     private Mydapter adapter;
     boolean isall = false;
     private RadioButton radioall;
+    private ListView listView;
+    private Car car;
+    private Car car_buy;
+    private TextView tv_all, tv_settlment;
 
     @Override
     protected void inithttp() {
+        get("api/shopCar", 0);
+    }
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        super.onSuccess(result, postcode);
+        car = util.getgson(result, Car.class);
+        car_buy = util.getgson(result, Car.class);
+        car_buy.getData().getData().clear();
+        if (car.getSuccess()) {
+            for (int i = 0; i < car.getData().getData().size(); i++) {
+                isclicks.add(false);
+            }
+            listView.setAdapter(adapter);
+        }
 
     }
 
@@ -33,9 +58,8 @@ public class ShopCarActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopcar);
-        for (int i = 0; i < 10; i++) {
-            isclicks.add(false);
-        }
+
+        inithttp();
         initview();
 
 
@@ -46,29 +70,41 @@ public class ShopCarActivity extends BaseActivity {
         tv_settlement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(ShopCarActivity.this,OrderSureActivity.class));
+                if (car_buy.getData().getData().size() == 0) {
+                    showToast("请选择您要结算的商品");
+                    return;
+                }
+
+                startActivity(new Intent(ShopCarActivity.this, OrderSureActivity.class)
+                        .putExtra("car", car_buy)
+                        .putExtra("price", tv_all.getText().toString())
+                        .putExtra("num", String.valueOf(num))
+                );
             }
         });
-        ListView listView = (ListView) findViewById(R.id.list);
+        listView = (ListView) findViewById(R.id.list);
         adapter = new Mydapter();
-        listView.setAdapter(adapter);
+
         radioall = (RadioButton) findViewById(R.id.radioall);
+        tv_all = (TextView) findViewById(R.id.tv_all);
+
         radioall.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isall) {
                     radioall.setChecked(false);
                     isclicks.clear();
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < car.getData().getData().size(); i++) {
                         isclicks.add(false);
                     }
                 } else {
                     radioall.setChecked(true);
                     isclicks.clear();
-                    for (int i = 0; i < 10; i++) {
+                    for (int i = 0; i < car.getData().getData().size(); i++) {
                         isclicks.add(true);
                     }
                 }
+                getall();
                 adapter.notifyDataSetChanged();
                 isall = !isall;
             }
@@ -79,7 +115,7 @@ public class ShopCarActivity extends BaseActivity {
     class Mydapter extends BaseAdapter {
         @Override
         public int getCount() {
-            return 10;
+            return car.getData().getData().size();
         }
 
         @Override
@@ -99,6 +135,22 @@ public class ShopCarActivity extends BaseActivity {
             final RadioButton radioButton = (RadioButton) convertView.findViewById(R.id.radio);
             final TextView tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
             final View rela_edit = convertView.findViewById(R.id.rela_edit);
+            TextView tv_price = (TextView) convertView.findViewById(R.id.tv_price);
+            TextView tv_util = (TextView) convertView.findViewById(R.id.tv_util);
+            final TextView tv_count = (TextView) convertView.findViewById(R.id.tv_count);
+            final TextView tv_count1 = (TextView) convertView.findViewById(R.id.tv_count1);
+            final ImageView image_photo = (ImageView) convertView.findViewById(R.id.image_photo);
+            tv_price.setText(car.getData().getData().get(position).getPrice());
+            tv_util.setText("/" + car.getData().getData().get(position).getUnit());
+            GlideUtil.loadImg(car.getData().getData().get(position).getImgId(), image_photo);
+            int count = car.getData().getData().get(position).getCount();
+            if (count == 0) {
+                car.getData().getData().get(position).setCount(1);
+                count = car.getData().getData().get(position).getCount();
+            }
+            tv_count.setText(String.valueOf("x" + count));
+            tv_count1.setText(String.valueOf(count));
+
             tv_edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -108,6 +160,46 @@ public class ShopCarActivity extends BaseActivity {
                     } else {
                         rela_edit.setVisibility(View.VISIBLE);
                         tv_edit.setText("完成");
+                    }
+                }
+            });
+            convertView.findViewById(R.id.tv_delect).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Http(HttpMethod.DELETE, "api/shopCar/" + car.getData().getData().get(position).getId(), 11);
+                    car.getData().getData().remove(position);
+                    isclicks.remove(position);
+                    all();
+                    notifyDataSetChanged();
+                }
+            });
+            convertView.findViewById(R.id.tv_reduct).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (car.getData().getData().get(position).getCount() > 1) {
+                        car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() - 1);
+                        tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
+                        tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
+                        getall();
+                        has.clear();
+                        has.put("shopCarId", car.getData().getData().get(position).getId());
+                        has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
+                        put("api/shopCar", has, 10);
+                    }
+                }
+            });
+            convertView.findViewById(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (car.getData().getData().get(position).getCount() < 100) {
+                        car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() + 1);
+                        tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
+                        tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
+                        getall();
+                        has.clear();
+                        has.put("shopCarId", car.getData().getData().get(position).getId());
+                        has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
+                        put("api/shopCar", has, 10);
                     }
                 }
             });
@@ -130,7 +222,25 @@ public class ShopCarActivity extends BaseActivity {
         }
     }
 
+    int num = 0;//一共多少件
+
+    private void getall() {
+        double count = 0;
+        num = 0;
+        car_buy.getData().getData().clear();
+        for (int i = 0; i < isclicks.size(); i++) {
+            if (isclicks.get(i)) {
+                count = count + car.getData().getData().get(i).getCount() * Double.valueOf(car.getData().getData().get(i).getPrice());
+                num = num + car.getData().getData().get(i).getCount();
+                car_buy.getData().getData().add(car.getData().getData().get(i));
+            }
+        }
+        tv_all.setText(String.valueOf(count));
+
+    }
+
     private void all() {
+        getall();
         for (int i = 0; i < isclicks.size(); i++) {
             if (!isclicks.get(i)) {
                 isall = false;

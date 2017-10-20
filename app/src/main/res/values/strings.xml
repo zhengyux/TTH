@@ -16,4 +16,8 @@
     <string name="title_activity_mybook">MybookActivity</string>
     <string name="action_settings">Settings</string>
     <string name="section_format">Hello World from section: %1$d</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="startlocation">开启定位</string>
+    <string name="stoplocation">停止定位</string>
 </resources>

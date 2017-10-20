@@ -14,5 +14,7 @@ public class GlobalParams {
     public static boolean isLogin = false;
     public static int NET_CODE = 789789789;
     public static String MORENID = "";
+    public static Double latitude = 24.607814;
+    public static Double longitude = 118.051922;
 
 }
