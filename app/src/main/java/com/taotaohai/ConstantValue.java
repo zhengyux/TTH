@@ -18,6 +18,7 @@ public interface ConstantValue {
      */
 //    public String URL = "http://192.168.199.20:8080/";//测试域名
     public String URL = "http://open.been.works/";//测试域名
+//    public String URL = "git.loacg.com/";//测试域名
 //    public String URL = "http://test.been.works/";
     /**
      * 图片请求接口
