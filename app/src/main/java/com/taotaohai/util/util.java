@@ -64,7 +64,7 @@ public class util {
     电信：133、153、180、189、（1349卫通）
     总结起来就是第一位必定为1，第二位必定为3或5或8，其他位置的可以为0-9
     */
-        String telRegex = "^((13[0-9])|(15[^4,\\D])|(17[0-9])|(18[0,5-9]))\\d{8}$";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
+        String telRegex = "^((13[0-9])|(15[^4,\\D])|(17[0-9])|(18[0-9]))\\d{8}$";//"[1]"代表第1位为数字1，"[358]"代表第二位可以为3、5、8中的一个，"\\d{9}"代表后面是可以是0～9的数字，有9位。
         if (TextUtils.isEmpty(mobiles)) return false;
         else return mobiles.matches(telRegex);
     }
@@ -81,9 +81,9 @@ public class util {
         return distance;
     }
 
-    public static String getdouboletwo(double longt1) {
+    public static String getdouboletwo(double longt1, double lat1, double longt2, double lat2) {
         DecimalFormat df = new DecimalFormat("#####0.0");
-        return df.format(longt1);
+        return df.format(getDistance(longt1, lat1, longt2, lat2) / 1000);
     }
 }
 

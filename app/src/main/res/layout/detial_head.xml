@@ -252,7 +252,7 @@
         android:padding="10px">
 
         <TextView
-            android:id="@+id/textView48"
+            android:id="@+id/tv_allgoods"
             style="@style/text24"
             android:layout_marginLeft="30px"
             android:background="@drawable/button_r3"
@@ -269,7 +269,7 @@
             style="@style/text24"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="30px"
-            android:layout_toEndOf="@+id/textView48"
+            android:layout_toEndOf="@+id/tv_allgoods"
             android:background="@drawable/button_r3"
             android:gravity="center"
             android:paddingBottom="10px"

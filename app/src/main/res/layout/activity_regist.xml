@@ -49,16 +49,16 @@
             android:id="@+id/button"
             android:layout_width="180px"
             android:layout_height="70px"
-            android:layout_alignBaseline="@+id/ed_1"
-            android:layout_alignBottom="@+id/ed_1"
-            android:layout_alignEnd="@+id/ed_1"
-            android:layout_marginEnd="@dimen/gap"
             android:background="@drawable/button_r2"
             android:gravity="center"
+            android:layout_marginTop="50px"
+            android:layout_marginRight="@dimen/gap"
             android:text="获取验证码"
             android:textColor="@color/white"
             android:textSize="30px"
-            tools:ignore="HardcodedText" />
+            tools:ignore="HardcodedText"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 

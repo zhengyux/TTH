@@ -25,22 +25,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Bookdetial extends BaseActivity implements View.OnClickListener {
-    TextView tv_1, tv_2, tv_3, tv_4, tv_5, tv_6, tv_7, tv_8, tv_9, tv_10, tv_11, tv_12, tv_13, tv_14, btn_1, btn_2, btn_3;
+    TextView tv_1, tv_2, tv_3, tv_4, tv_5, tv_6, tv_7, tv_8, tv_9, tv_10, tv_11, tv_12, tv_13, tv_14, btn_1, btn_2, btn_3, tv_stata2, tv_stata;
     ImageView image_1;
     private BookDet bookd;
+    Book.Data data;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookdetial);
+        data = (Book.Data) getIntent().getSerializableExtra("data");
         setTitle("订单详情");
         initview();
-        stata = getIntent().getIntExtra("stata", 0);
-        getstata(stata);
+        stata = data.getCount();
+
 //        inithttp();
     }
 
     private void initview() {
+        tv_stata2 = (TextView) findViewById(R.id.tv_stata2);
+        tv_stata = (TextView) findViewById(R.id.tv_stata);
         tv_1 = (TextView) findViewById(R.id.tv_1);
         tv_2 = (TextView) findViewById(R.id.tv_2);
         tv_3 = (TextView) findViewById(R.id.tv_3);
@@ -62,6 +67,27 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
+        tv_stata.setText(getstata(data.getExt().getOrderStatus()));
+        if (data.getExt().getOrderStatus() == 1) {
+        } else {
+            tv_stata2.setText("");
+        }
+        tv_stata.setText(String.valueOf(data.getExt().getOrderStatus()));
+        tv_1.setText("收货人：" + data.getExt().getLinkName());
+        tv_2.setText("电话：" + data.getExt().getLinkTel());
+        tv_3.setText("收货地址：" + data.getExt().getLinkAddress());
+        tv_4.setText(data.getExt().getShopName());
+        tv_5.setText(tv_stata2.getText().toString());
+        tv_6.setText(data.getExt().getGoodsName());
+        tv_7.setText(data.getExt().getRemark());
+        tv_8.setText("￥" + data.getExt().getPrice());
+        tv_9.setText("/" + data.getExt().getUnit());
+        tv_10.setText("x" + data.getExt().getAcount());
+        tv_11.setText("￥" + data.getExt().getPrice());
+        tv_12.setText("￥" + data.getExt().getTotalPrice());
+        tv_13.setText("￥" + data.getExt().getTotalPrice());
+        tv_14.setText("订单编号:" + data.getExt().getOrderId() + "\n交易时间：" + data.getGmtCreate() + "\n成交时间：" + data.getGmtModify() + "\n交易时间：" + data.getGmtRefund());
+        tv_1.setText("收货人：" + data.getExt().getLinkName());
     }
 
     protected void inithttp() {
@@ -89,7 +115,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             tv_6.setText("¥" + bookd.getData().getPrice());
             tv_7.setText("¥" + bookd.getData().getTotalPrice());
             tv_8.setText("订单编号：" + bookd.getData().getOrderId() + "\n交易单号：" + "\n成交时间：" + bookd.getData().getGmtCreate() + "\n支付方式：" + gettype(bookd.getData().getPayType()) + "\n发货时间：");
-            getstata(bookd.getData().getOrderStatus());
+//            getstata(bookd.getData().getOrderStatus());
 
             btn_1.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -158,7 +184,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         return "余额";
     }
 
-    void getstata(int i) {
+    String getstata(int i) {
 
         switch (i) {
             case 1:
@@ -166,22 +192,27 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_2.setText("立即支付");
                 btn_2.setTextColor(getResources().getColor(R.color.them));
                 btn_2.setBackgroundResource(R.drawable.bac_class_them);
-                break;
+                return "待付款";
             case 2:
                 btn_1.setText("售后/退款");
                 btn_2.setText("提醒发货");
-                break;
+                return "代发货";
             case 3:
                 btn_3.setVisibility(View.VISIBLE);
                 btn_3.setText("查看物流");
                 btn_1.setText("售后/退款");
                 btn_2.setText("确认收货");
-                break;
+                return "待收货";
             case 4:
                 btn_1.setText("再次购买");
                 btn_2.setText("评价");
-                break;
+                return "待评价";
+            default:
+                btn_1.setVisibility(View.GONE);
+                btn_2.setVisibility(View.GONE);
+
         }
+        return "关闭";
     }
 
     int stata = 0;
@@ -215,10 +246,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 showchoose();
                 break;
             case 2:
-                startActivity(new Intent(Bookdetial.this, Refund.class));
+                startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 3:
-                startActivity(new Intent(Bookdetial.this, Refund.class));
+                startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 4://再次购买
 //                startActivity(new Intent(MyBook.this, Refund.class));

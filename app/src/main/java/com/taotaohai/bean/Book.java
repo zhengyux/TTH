@@ -2,13 +2,15 @@ package com.taotaohai.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by Administrator on 2017/8/23.
  */
 
-public class Book {
+public class Book implements Serializable {
+
 
     @SerializedName("code")
     private int code;
@@ -51,7 +53,7 @@ public class Book {
         this.success = success;
     }
 
-    public static class Ext {
+    public static class Ext implements Serializable{
         @SerializedName("acount")
         private int acount;
         @SerializedName("dealTime")
@@ -60,16 +62,24 @@ public class Book {
         private String gmtCreate;
         @SerializedName("gmtDelivery")
         private String gmtDelivery;
+        @SerializedName("gmtModify")
+        private String gmtModify;
         @SerializedName("goodsName")
         private String goodsName;
         @SerializedName("id")
         private String id;
+        @SerializedName("imgId")
+        private String imgId;
+        @SerializedName("lastChangeUser")
+        private String lastChangeUser;
         @SerializedName("linkAddress")
         private String linkAddress;
         @SerializedName("linkName")
         private String linkName;
         @SerializedName("linkTel")
         private String linkTel;
+        @SerializedName("name")
+        private String name;
         @SerializedName("orderExpressCompany")
         private String orderExpressCompany;
         @SerializedName("orderExpressNo")
@@ -82,6 +92,16 @@ public class Book {
         private int payType;
         @SerializedName("price")
         private String price;
+        @SerializedName("refundImgId")
+        private String refundImgId;
+        @SerializedName("refundImgIds")
+        private String refundImgIds;
+        @SerializedName("refundReason")
+        private String refundReason;
+        @SerializedName("refundReasonDetail")
+        private String refundReasonDetail;
+        @SerializedName("refundType")
+        private int refundType;
         @SerializedName("remark")
         private String remark;
         @SerializedName("shopName")
@@ -123,6 +143,14 @@ public class Book {
             this.gmtDelivery = gmtDelivery;
         }
 
+        public String getGmtModify() {
+            return gmtModify;
+        }
+
+        public void setGmtModify(String gmtModify) {
+            this.gmtModify = gmtModify;
+        }
+
         public String getGoodsName() {
             return goodsName;
         }
@@ -137,6 +165,22 @@ public class Book {
 
         public void setId(String id) {
             this.id = id;
+        }
+
+        public String getImgId() {
+            return imgId;
+        }
+
+        public void setImgId(String imgId) {
+            this.imgId = imgId;
+        }
+
+        public String getLastChangeUser() {
+            return lastChangeUser;
+        }
+
+        public void setLastChangeUser(String lastChangeUser) {
+            this.lastChangeUser = lastChangeUser;
         }
 
         public String getLinkAddress() {
@@ -161,6 +205,14 @@ public class Book {
 
         public void setLinkTel(String linkTel) {
             this.linkTel = linkTel;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
 
         public String getOrderExpressCompany() {
@@ -211,6 +263,46 @@ public class Book {
             this.price = price;
         }
 
+        public String getRefundImgId() {
+            return refundImgId;
+        }
+
+        public void setRefundImgId(String refundImgId) {
+            this.refundImgId = refundImgId;
+        }
+
+        public String getRefundImgIds() {
+            return refundImgIds;
+        }
+
+        public void setRefundImgIds(String refundImgIds) {
+            this.refundImgIds = refundImgIds;
+        }
+
+        public String getRefundReason() {
+            return refundReason;
+        }
+
+        public void setRefundReason(String refundReason) {
+            this.refundReason = refundReason;
+        }
+
+        public String getRefundReasonDetail() {
+            return refundReasonDetail;
+        }
+
+        public void setRefundReasonDetail(String refundReasonDetail) {
+            this.refundReasonDetail = refundReasonDetail;
+        }
+
+        public int getRefundType() {
+            return refundType;
+        }
+
+        public void setRefundType(int refundType) {
+            this.refundType = refundType;
+        }
+
         public String getRemark() {
             return remark;
         }
@@ -244,16 +336,8 @@ public class Book {
         }
     }
 
-    public static class Data {
+    public static class Data implements Serializable{
         private int count;
-
-        public int getCount() {
-            return count;
-        }
-
-        public void setCount(int count) {
-            this.count = count;
-        }
 
         @SerializedName("ext")
         private Ext ext;
@@ -292,6 +376,14 @@ public class Book {
 
         public void setExt(Ext ext) {
             this.ext = ext;
+        }
+
+        public int getCount() {
+            return count;
+        }
+
+        public void setCount(int count) {
+            this.count = count;
         }
 
         public String getGmtCreate() {
@@ -407,8 +499,7 @@ public class Book {
         }
     }
 
-    public static class Data2 {
-        @SerializedName("data")
+    public static class Data2 implements Serializable{
         private List<Data> data;
         @SerializedName("total")
         private int total;

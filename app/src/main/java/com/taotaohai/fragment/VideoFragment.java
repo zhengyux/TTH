@@ -42,10 +42,14 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     private Video video;
     int totle = 0;
 
-    public static VideoFragment newInstance() {
-        return new VideoFragment();
-    }
+    private static VideoFragment fragment;
 
+    public static VideoFragment newInstance() {
+        if (fragment == null) {
+            fragment = new VideoFragment();
+        }
+        return fragment;
+    }
     public VideoFragment() {
         // Required empty public constructor
     }
@@ -72,8 +76,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 if (video.getSuccess()) {
                     initdata();
                     totle = video.getData().getTotal();
-                    xrefreshview.stopRefresh();
                 }
+                pageIndex += 10;//第多少个
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {
@@ -86,6 +90,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
             }
         }
+    }
+
+    @Override
+    public void onFinished(int code) {
+        super.onFinished(code);
+        xrefreshview.stopRefresh();
     }
 
     @Override
@@ -162,7 +172,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                pageIndex += 10;//第多少个
                 if (pageIndex >= totle) {
                     xrefreshview.setLoadComplete(true);
                     return;

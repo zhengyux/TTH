@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     android:minWidth="300px"
     android:orientation="vertical"
+    android:id="@+id/rela_all"
     android:paddingLeft="@dimen/gap"
     tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
 

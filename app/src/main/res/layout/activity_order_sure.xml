@@ -34,8 +34,7 @@
                     android:layout_height="170px"
                     android:onClick="onaddress"
                     android:scaleType="center"
-                    android:src="@mipmap/address"
-                    android:visibility="gone" />
+                    android:src="@mipmap/address" />
 
                 <RelativeLayout
                     android:id="@+id/rela_address"

@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.taotaohai.activity.ReFundListActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="118px"
+        android:layout_height="130px"
         android:background="@color/them"
         android:paddingTop="30px"
         tools:ignore="PxUsage,UselessParent">
@@ -60,9 +66,10 @@
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0px"
         android:layout_above="@+id/relativeLayout8"
         android:layout_below="@+id/relativeLayout"
+        android:layout_weight="1"
         android:divider="@color/common"
         android:dividerHeight="@dimen/gap">
 
@@ -79,8 +86,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:text="全部"
             android:layout_marginLeft="@dimen/gap"
+            android:text="全部"
             android:textColor="@color/text_black"
             android:textSize="28px" />
 
@@ -101,11 +108,11 @@
             style="@style/text30"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/gap"
             android:layout_toStartOf="@+id/tv_settlement"
             android:gravity="center"
-            android:textColor="@color/them"
-            android:layout_marginRight="@dimen/gap"
-            android:text="￥0" />
+            android:text="￥0"
+            android:textColor="@color/them" />
 
         <TextView
             android:id="@+id/textView46"
@@ -120,4 +127,4 @@
     </RelativeLayout>
 
 
-</RelativeLayout>
+</LinearLayout>

@@ -44,11 +44,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private View tv_login, tv_regist;
     private TextView tv_name;
 
+    private static MineFragment fragment;
 
     public static MineFragment newInstance() {
-        return new MineFragment();
+        if (fragment == null) {
+            fragment = new MineFragment();
+        }
+        return fragment;
     }
-
     public MineFragment() {
         // Required empty public constructor
     }

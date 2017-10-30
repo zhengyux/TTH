@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
@@ -25,6 +26,7 @@ import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.Home;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.SearchGoods;
+import com.taotaohai.activity.ShopActivity;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.ShopMoreActivity;
 import com.taotaohai.activity.base.BaseFragment;
@@ -58,9 +60,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private MyListAdapter myListAdapter;
     private HotShopmore hotshop2;
     private MyGridView mygridview;
+    private static HomeFragment fragment;
 
     public static HomeFragment newInstance() {
-        return new HomeFragment();
+        if (fragment == null) {
+            fragment = new HomeFragment();
+        }
+        return fragment;
     }
 
     public HomeFragment() {
@@ -68,13 +74,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     public LocationClient mLocationClient = null;
+    ScrollView scrollView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
-
+        scrollView = (ScrollView) view.findViewById(R.id.scrollView);
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
         InitLocation();
@@ -82,6 +89,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //注册监听函数
         inithttp();
         initview();
+
         return view;
     }
 
@@ -112,6 +120,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 inithotshopmore(data);
                 break;
         }
+
 
     }
 
@@ -234,19 +243,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
                 break;
             case R.id.rela_1:
-                startActivityForResult(new Intent(getActivity(), Home.class)
-                        , 1);
+                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_2:
-                ((Home) getActivity()).tabView.setTabViewDefaultPosition(1);
+                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_3:
-                ((Home) getActivity()).tabView.setTabViewDefaultPosition(1);
+                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_4:
-                startActivityForResult(new Intent(getActivity(), GoodsDetialActivity.class)
-                                .putExtra("id", hotclass.getData().get(0).getId())
-                        , 1);
+                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_more:
                 startActivityForResult(new Intent(getActivity(), ShopMoreActivity.class), 1);
@@ -297,7 +303,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             TextView tv_people = (TextView) view.findViewById(R.id.tv_people);
 
 
-            HotShopmore.Data data = hotshop2.getData().get(position);
+            final HotShopmore.Data data = hotshop2.getData().get(position);
+            view.findViewById(R.id.rela_all).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                            .putExtra("id", data.getId())
+                    );
+                }
+            });
             if (data.getSourceVideo().length() > 0) {
                 su.setVisibility(View.VISIBLE);
             } else {
@@ -306,7 +320,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             if (data.getImagesUrl().size() > 0) {
                 GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);
             }
-            tv_tite.setText(data.getShopInfo().getName());
+            tv_tite.setText(data.getClassInfo().getClassName());
             tv_remorke.setText(data.getShopInfo().getRemark());
             tv_money.setText("￥：" + data.getPrice());
             tv_unit.setText("/" + data.getUnit());
@@ -333,17 +347,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_hor, null);
             ImageView image = (ImageView) view.findViewById(R.id.image);
             TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
             TextView tv_scor = (TextView) view.findViewById(R.id.tv_scor);
             TextView tv_juli = (TextView) view.findViewById(R.id.tv_juli);
-            if (hotshop.getData().get(position).getBusinessAbsUrlList().size() > 0)
-                GlideUtil.loadImg(hotshop.getData().get(position).getBusinessAbsUrlList().get(0), image);
+            GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), image);
             tv_title.setText(hotshop.getData().get(position).getName());
             tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
-            tv_juli.setText(util.getdouboletwo(util.getDistance(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) / 1000) + "km");
+            tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
+            view.findViewById(R.id.rela_all).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
+                }
+            });
+
 
             return view;
         }

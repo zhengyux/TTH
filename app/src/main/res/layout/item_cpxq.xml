@@ -5,65 +5,13 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/common"
-        android:padding="@dimen/gap">
-
-        <TextView
-            style="@style/text28"
-            android:text="名称"
-            android:textColor="@color/text_black" />
-
-        <TextView
-            android:id="@+id/tv_name"
-            style="@style/text28"
-            android:layout_alignParentRight="true"
-            android:text="黑鱼"
-            android:textColor="@color/text_black" />
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/lin_1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:padding="@dimen/gap">
+        android:orientation="vertical" />
 
-        <TextView
-            style="@style/text28"
-            android:text="产地"
-            android:textColor="@color/text_black" />
-
-        <TextView
-            android:id="@+id/tv_address"
-            style="@style/text28"
-            android:layout_alignParentRight="true"
-            android:text="漳州"
-            android:textColor="@color/text_black" />
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/common"
-        android:padding="@dimen/gap">
-
-        <TextView
-            android:id="@+id/textView50"
-            style="@style/text28"
-            android:layout_centerVertical="true"
-            android:text="保鲜"
-            android:textColor="@color/text_black" />
-
-        <TextView
-            style="@style/text28"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="50px"
-            android:layout_toEndOf="@+id/textView50"
-            android:text="保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜保鲜"
-            android:textColor="@color/text_black" />
-    </RelativeLayout>
 
     <ImageView
         android:id="@+id/image_logo"

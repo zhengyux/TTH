@@ -129,12 +129,14 @@
                     </LinearLayout>
 
                     <TextView
-                        android:id="@+id/textView23"
+                        android:id="@+id/tv_count"
                         style="@style/text30"
                         android:layout_alignTop="@+id/rela_focus"
-                        android:layout_toStartOf="@+id/rela_focus"
                         android:text="188"
-                        tools:ignore="HardcodedText" />
+                        android:gravity="center"
+                        tools:ignore="HardcodedText"
+                        android:layout_alignStart="@+id/textView26"
+                        android:layout_toStartOf="@+id/rela_focus" />
 
                     <TextView
                         android:id="@+id/textView26"
@@ -186,6 +188,7 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
+                    android:id="@+id/tv_title"
                     style="@style/text30"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="150px"

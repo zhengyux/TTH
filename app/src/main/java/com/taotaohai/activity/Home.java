@@ -22,7 +22,9 @@ import java.util.List;
 
 public class Home extends BaseActivity {
 
-    public TabView tabView;
+
+    private List<TabViewChild> tabViewChildList;
+    private TabView tabView;
 
     @Override
     protected void inithttp() {
@@ -33,8 +35,8 @@ public class Home extends BaseActivity {
 
     MineFragment mineFragment;
 
-    protected void initview() {
-        List<TabViewChild> tabViewChildList = new ArrayList<>();
+    private void initview() {
+        tabViewChildList = new ArrayList<>();
         TabViewChild tabViewChild01 = new TabViewChild(R.mipmap.home1, R.mipmap.home11, "首页", HomeFragment.newInstance());
         TabViewChild tabViewChild02 = new TabViewChild(R.mipmap.home2, R.mipmap.home21, "分类", ClassFragment.newInstance());
         TabViewChild tabViewChild03 = new TabViewChild(R.mipmap.home3, R.mipmap.home31, "视频", VideoFragment.newInstance());
@@ -49,13 +51,15 @@ public class Home extends BaseActivity {
         tabView.setTextViewSelectedColor(getResources().getColor(R.color.them));
         FragmentManager supportFragmentManager = getSupportFragmentManager();
         tabView.setTabViewChild(tabViewChildList, supportFragmentManager);
-        tabView.setOnTabChildClickListener(new TabView.OnTabChildClickListener() {
-            @Override
-            public void onTabChildClick(int position, ImageView currentImageIcon, TextView currentTextView) {
-//                Toast.makeText(getApplicationContext(), "position:" + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        tabView.setVerticalScrollbarPosition(2);
+    }
+
+    public void initview2() {
+        TabViewChild tabViewChild02 = new TabViewChild(R.mipmap.home2, R.mipmap.home21, "分类", ClassFragment.newInstance());
+        tabViewChildList.remove(1);
+        tabViewChildList.add(1, tabViewChild02);
+        tabView.setTabViewDefaultPosition(1);
+        FragmentManager supportFragmentManager = getSupportFragmentManager();
+        tabView.setTabViewChild(tabViewChildList, supportFragmentManager);
     }
 
     @Override

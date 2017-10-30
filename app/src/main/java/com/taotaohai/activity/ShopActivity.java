@@ -16,6 +16,11 @@ import android.widget.TextView;
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.Focus;
+import com.taotaohai.bean.Shop;
+import com.taotaohai.bean.ShopGoods;
+import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.util;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -30,22 +35,83 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private View rela_focus, image_focus;
     private View rela_class;
     private LinearLayout line_class;
+    private ShopGoods shopGoods;
+    private Shop shop;
+    private ImageView image_photo;
+    private TextView tv_name;
+    private TextView tv_scor;
+    private TextView tv_count;
 
     @Override
     protected void inithttp() {
+        get("api/shop/" + getintent("id") + "/goods");
+        get("api/shop/" + getintent("id"), 1);
+        get("api/shop/follow/" + getintent("id") + "/1", 2);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (isfocus) {
+            count--;
+            focus();
+        } else {
+            count++;
+            unfocus();
+        }
+        tv_count.setText(String.valueOf(count));
+    }
+
+    public static int count = 0;
+    public static boolean isfocus = false;
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        super.onSuccess(result, postcode);
+        if (postcode == 0) {
+            shopGoods = util.getgson(result, ShopGoods.class);
+            initdata();//初始化数据
+        }
+        if (postcode == 1) {
+            shop = util.getgson(result, Shop.class);
+            initdata();//初始化数据
+            count = Integer.valueOf(shop.getData().getTotalLike());
+        }
+        if (postcode == 2) {
+            Focus focus = util.getgson(result, Focus.class);
+            if (focus.getData().getFollow() == 0) {
+                isfocus = false;
+                count++;
+                unfocus();
+            } else {
+                isfocus = true;
+                count--;
+                focus();
+            }
+        }
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
         initview();
+        inithttp();
     }
 
-    boolean isfocus = false;
+    public void onMessage(View view) {
+        startActivity(new Intent(this, MessageActivity.class));
+    }
+
+    public void onShopcar(View view) {
+        startActivity(new Intent(this, ShopCarActivity.class));
+    }
+
 
     private void focus() {
+        count++;
         isfocus = true;
         image_focus.setVisibility(View.GONE);
         tv_focus.setText("已关注");
@@ -53,6 +119,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void unfocus() {
+        count--;
         isfocus = false;
         image_focus.setVisibility(View.VISIBLE);
         tv_focus.setText("关注");
@@ -60,6 +127,10 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initview() {
+        image_photo = (ImageView) findViewById(R.id.image_photo);
+        tv_name = (TextView) findViewById(R.id.tv_name);
+        tv_scor = (TextView) findViewById(R.id.tv_scor);
+        tv_count = (TextView) findViewById(R.id.tv_count);
 
         rela_focus = findViewById(R.id.rela_focus);
         image_focus = findViewById(R.id.image_focus);
@@ -78,12 +149,15 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-        initdata();//初始化数据
 
 
     }
 
     private void initdata() {
+        GlideUtil.loadImg(shop.getData().getLogoIdAbsUrl(), image_photo);
+        tv_name.setText(shop.getData().getName());
+        tv_scor.setText(shop.getData().getTotalCommonLevel() + "分");
+        tv_count.setText(shop.getData().getTotalLike());
 
         for (int i = 0; i < 3; i++) {
             View v = getLayoutInflater().inflate(R.layout.item_line, null);
@@ -97,14 +171,33 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             });
             line_class.addView(v);
         }
-
-
-        List<String> lista = Arrays.asList("1", "1", "1", "1", "1", "1", "1", "1", "1", "1", "1");
-        CommonAdapter adapter = new CommonAdapter<String>(this, R.layout.item_hor_gride2, lista) {
+        if (shopGoods.getData().size() == 0) {
+            return;
+        }
+        CommonAdapter adapter = new CommonAdapter<ShopGoods.Data>(this, R.layout.item_hor_gride2, shopGoods.getData()) {
             @Override
-            protected void convert(ViewHolder holder, final String s, int position) {
-
-
+            protected void convert(ViewHolder holder, final ShopGoods.Data data, int position) {
+                ImageView imageView = holder.getView(R.id.image_photo);
+                if (data.getImagesUrl() != null && data.getImagesUrl().size() > 0)
+                    GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);
+                if (data.getSourceVideo() != null && data.getSourceVideo().length() > 0) {
+                    holder.setVisible(R.id.image_1, true);
+                } else {
+                    holder.setVisible(R.id.image_1, false);
+                }
+                holder.setText(R.id.tv_1, data.getTitle());
+                holder.setText(R.id.tv_2, data.getRemark());
+                holder.setText(R.id.tv_3, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_4, "/" + data.getUnit());
+                holder.setText(R.id.tv_5, "已有" + data.getSaleVolume() + "人购买");
+                holder.setOnClickListener(R.id.rela_all, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        startActivity(new Intent(ShopActivity.this, GoodsDetialActivity.class)
+                                .putExtra("id", data.getId())
+                        );
+                    }
+                });
             }
         };
         // 设置静默加载模式
@@ -155,17 +248,21 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.rela_focus:
+                get("api/follow/" + getintent("id") + "/shop");
                 if (isfocus) {
                     unfocus();
                 } else {
                     focus();
                 }
+                tv_count.setText(String.valueOf(count));
                 break;
             case R.id.relaclick_1:
 
                 break;
             case R.id.relaclick_2:
-                startActivity(new Intent(this, ShopIntroducActivity.class));
+                startActivity(new Intent(this, ShopIntroducActivity.class)
+                        .putExtra("data", shop)
+                );
                 break;
             case R.id.relaclick_3:
                 if (rela_class.isShown()) {

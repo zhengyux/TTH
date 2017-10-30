@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "26.0.0"
+    buildToolsVersion "26.0.2"
     defaultConfig {
         applicationId "com.taotaohai"
         minSdkVersion 19
@@ -20,8 +20,8 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -44,6 +44,7 @@ dependencies {
 
     //banner
     compile files('libs/locSDK_4.2.jar')
+
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
@@ -68,6 +69,7 @@ dependencies {
     compile 'com.youth.banner:banner:1.4.10'
     compile 'com.hedgehog.ratingbar:app:1.1.2'
     compile 'com.contrarywind:Android-PickerView:3.2.4'
+    compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     testCompile 'junit:junit:4.12'
 }
 allprojects {

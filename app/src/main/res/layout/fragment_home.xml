@@ -4,40 +4,27 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.taotaohai.fragment.HomeFragment">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them"
+        android:id="@+id/textView4" />
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="118px"
+        android:layout_height="130px"
         android:background="@color/them"
         android:paddingTop="30px"
-        tools:ignore="PxUsage">
+        tools:ignore="PxUsage"
+        android:layout_below="@+id/textView4">
 
         <RelativeLayout
             android:id="@+id/relativeLayout4"
-            android:layout_width="130px"
+            android:layout_width="40px"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
 
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/text30"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/gap"
-                android:text="厦门"
-                android:textColor="@color/white"
-                tools:ignore="HardcodedText,RtlHardcoded" />
 
-            <ImageView
-                android:layout_width="22px"
-                android:layout_height="12px"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10px"
-                android:layout_toEndOf="@+id/textView2"
-                android:scaleType="fitXY"
-                android:src="@mipmap/tobottom"
-                tools:ignore="ContentDescription,RtlHardcoded" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -119,6 +106,7 @@
         android:layout_below="@+id/relativeLayout">
 
         <ScrollView
+            android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tools:ignore="UselessParent">
@@ -134,6 +122,8 @@
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
                     android:layout_height="354px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     tools:ignore="PxUsage" />
 
                 <TextView

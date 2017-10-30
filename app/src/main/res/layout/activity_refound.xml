@@ -68,7 +68,7 @@
                     tools:ignore="HardcodedText,PxUsage" />
 
                 <TextView
-                    android:id="@+id/textView29"
+                    android:id="@+id/tv_count"
                     style="@style/text20"
                     android:layout_alignBaseline="@+id/tv_28"
                     android:layout_alignBottom="@+id/tv_28"
@@ -118,11 +118,12 @@
                     android:orientation="horizontal">
 
                     <RadioButton
+                        android:id="@+id/radio1"
                         style="@style/text30"
-                        android:text="仅退款"
-                        />
+                        android:text="仅退款" />
 
                     <RadioButton
+                        android:id="@+id/radio2"
                         style="@style/text30"
                         android:text="退货退款" />
                 </RadioGroup>
@@ -137,8 +138,9 @@
                 android:padding="@dimen/gap">
 
                 <TextView
+                    android:id="@+id/tv_refund"
                     style="@style/text30"
-                    android:text="选着退款原退" />
+                    android:text="选着退款原因" />
 
                 <ImageView
                     android:layout_width="34px"
@@ -160,6 +162,7 @@
                     android:text="退款金额" />
 
                 <TextView
+                    android:id="@+id/tv_money"
                     style="@style/text30"
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/gap"

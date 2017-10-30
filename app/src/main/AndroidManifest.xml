@@ -94,7 +94,7 @@
         <activity android:name=".activity.ShopMoreActivity" />
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.ForgetPassword" />
-        <activity android:name=".activity.LocationActivity"></activity>
+        <activity android:name=".activity.LocationActivity" />
 
         <service
             android:name="com.baidu.location.f"
@@ -105,7 +105,10 @@
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="XDTyjLmvCK3xX4Hf6Ty9Mnh1gFRw4Sws" />
 
-        <activity android:name=".activity.JiLiangActivity"></activity>
+        <activity android:name=".activity.JiLiangActivity" />
+        <activity android:name=".wxapi.WXEntryActivity" />
+        <activity android:name=".activity.Seachend"></activity>
+        <activity android:name=".activity.SeachendGoods"></activity>
     </application>
 
 </manifest>

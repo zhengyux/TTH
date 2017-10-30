@@ -43,8 +43,9 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getExt().getPrice());
         holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
         holder.tv_guige.setText(mValues.get(position).getRemarks());
+        holder.tv_count.setText("x" + mValues.get(position).getExt().getAcount());
         holder.mItem.setCount(mValues.get(position).getOrderStatus());
-        Glide.with(mcontent).load(mValues.get(position).getExt().getLinkAddress()).error(R.mipmap.ic_launcher).into(holder.image_photo);
+        Glide.with(mcontent).load(mValues.get(position).getExt().getImgId()).error(R.mipmap.ic_launcher).into(holder.image_photo);
         holder.btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -103,6 +104,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         public final TextView tv_all;
         public final TextView tv_sigalmoney;
         public final TextView tv_guige;
+        public final TextView tv_count;
         public final ImageView image_photo;
 
         public Book.Data mItem;
@@ -117,6 +119,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
             btn_2 = (TextView) view.findViewById(R.id.btn_2);
             btn_3 = (TextView) view.findViewById(R.id.btn_3);
             tv_all = (TextView) view.findViewById(R.id.tv_all);
+            tv_count = (TextView) view.findViewById(R.id.tv_count);
             tv_sigalmoney = (TextView) view.findViewById(R.id.tv_sigalmoney);
             tv_guige = (TextView) view.findViewById(R.id.tv_guige);
             image_photo = (ImageView) view.findViewById(R.id.image_photo);

@@ -17,7 +17,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
+import android.widget.RadioButton;
+import android.widget.TextView;
 
+import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -29,9 +32,11 @@ import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
+import com.taotaohai.bean.Book;
 import com.taotaohai.bean.Photo;
 import com.taotaohai.myview.MyBitmapImageViewTarget;
 import com.taotaohai.myview.MyGridView;
+import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
@@ -56,6 +61,10 @@ public class Refund extends BaseActivity {
     //    private PopHuaTi popHuaTi;
     String coliyi = "";
     private String content;
+    Book.Data data;
+    private TextView tv_refund;
+    private RadioButton radio1;
+    private RadioButton radio2;
 
     @Override
     protected void inithttp() {
@@ -65,6 +74,7 @@ public class Refund extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        data = (Book.Data) getIntent().getSerializableExtra("data");
         init();
 
     }
@@ -74,6 +84,7 @@ public class Refund extends BaseActivity {
         setTitle("评价");
         /*time*/
 
+
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         width = metrics.widthPixels;
@@ -81,6 +92,32 @@ public class Refund extends BaseActivity {
         gridview = (MyGridView) findViewById(R.id.noScrollgridview);
         gridview.setSelector(new ColorDrawable(Color.TRANSPARENT));
         editText = (EditText) findViewById(R.id.editText);
+
+        ImageView image_photo = (ImageView) findViewById(R.id.image_photo);
+        TextView text_content = (TextView) findViewById(R.id.text_content);
+        TextView tv_guige = (TextView) findViewById(R.id.tv_guige);
+        TextView tv_sigalmoney = (TextView) findViewById(R.id.tv_sigalmoney);
+        TextView tv_28 = (TextView) findViewById(R.id.tv_28);
+        TextView tv_count = (TextView) findViewById(R.id.tv_count);
+        radio1 = (RadioButton) findViewById(R.id.radio1);
+        radio2 = (RadioButton) findViewById(R.id.radio2);
+        TextView tv_money = (TextView) findViewById(R.id.tv_money);
+        tv_refund = (TextView) findViewById(R.id.tv_refund);
+        tv_refund.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showchoose();
+            }
+        });
+
+        GlideUtil.loadImg(data.getExt().getImgId(), image_photo);
+        text_content.setText(data.getExt().getGoodsName());
+        tv_guige.setText(data.getExt().getRemark());
+        tv_sigalmoney.setText("￥：" + data.getExt().getPrice());
+        tv_28.setText("/" + data.getExt().getUnit());
+        tv_count.setText("x" + data.getExt().getAcount());
+        tv_money.setText("￥" + data.getExt().getTotalPrice());
+
 
         gridviewInit();
 
@@ -376,7 +413,7 @@ public class Refund extends BaseActivity {
             case 10:
                 BaseBean bean = util.getgson(result, BaseBean.class);
                 if (util.isSuccess(bean, getApplication())) {
-                    showToast("评论成功");
+                    showToast("退款请求成功");
                     finish();
                 }
                 break;
@@ -404,22 +441,74 @@ public class Refund extends BaseActivity {
     }
 
     private void pot() {
+        if (!radio1.isChecked() && !radio2.isChecked()) {
+            showToast("请选择退款类型");
+            return;
+        }
+        if (!ischoose) {
+            showToast("请选择退款原因");
+            return;
+        }
         HashMap<String, String> has = new HashMap<>();
         JsonArray jsonArray = new JsonArray();
         for (int i = 0; i < image_urls.size(); i++) {
             jsonArray.add(image_urls.get(i));
         }
         JsonObject object = new JsonObject();
-
-        object.addProperty("comment", editText.getText().toString().trim());
+        object.add("refundImgIds", jsonArray);
+        object.addProperty("refundReason", tv_refund.getText().toString());
+        object.addProperty("refundReasonDetail", editText.getText().toString().trim());
+        object.addProperty("refundType", editText.getText().toString().trim());
+        if (radio1.isChecked()) {
+            object.addProperty("refundType", "0");
+        } else {
+            object.addProperty("refundType", "1");
+        }
         object.addProperty("orderId", getintent("id"));
-        object.add("cImgUrl", jsonArray);
+
         if (getintent("goods").length() > 0) {
             object.addProperty("goodsspcInfo", getintent("goods"));
         } else {
             object.addProperty("goodsspcInfo", "红色，xl");
         }
 
-        Http(HttpMethod.POST, "api/goods/addGoodsComment?goodsId=" + getintent("goodid"), object.toString(), 10);
+        Http(HttpMethod.PUT, "api/goodsorder/refund/" + data.getId(), object.toString(), 10);
+    }
+
+    private static final List<String> options1Items = new ArrayList<>();
+    boolean ischoose = false;
+
+    private void showchoose() {
+        options1Items.clear();
+        options1Items.add("托儿索");
+        options1Items.add("儿童劫");
+        options1Items.add("小学生之手");
+        options1Items.add("德玛西亚大保健");
+        options1Items.add("面对疾风吧");
+        options1Items.add("天王盖地虎");
+        options1Items.add("我发一米五");
+        options1Items.add("爆刘继芬");
+
+        OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3, View v) {
+                //返回的分别是三个级别的选中位置
+                String s = options1Items.get(options1);
+//                button4.setText(s);
+                ischoose = true;
+                tv_refund.setText(s);
+
+            }
+        })
+                .setSubCalSize(15)//确定和取消文字大小
+                .setSubmitColor(R.color.glay_text)//确定按钮文字颜色
+                .setCancelColor(R.color.them)//取消按钮文字颜色
+                .setTextColorCenter(Color.BLACK)//设置选中项的颜色
+                .setTitleText("选择退款原因")
+                .setTitleSize(15)
+                .isDialog(true)//是否显示为对话框样式
+                .build();
+        pvOptions.setPicker(options1Items);
+        pvOptions.show();
     }
 }

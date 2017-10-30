@@ -197,7 +197,6 @@ public class MyDataActivity extends BaseActivity {
         super.onSuccess(result, postcode);
         BaseBean bean = util.getgson(result, BaseBean.class);
         if (util.isSuccess(bean, getApplication())) {
-
             switch (postcode) {
                 case 0://上传图片
                     showToast("头像上传成功");

@@ -26,7 +26,8 @@
         <RelativeLayout
             android:layout_width="150px"
             android:layout_height="match_parent"
-            android:gravity="center">
+            android:gravity="center"
+            android:onClick="onMessage">
 
             <ImageView
                 android:id="@+id/imageView21"
@@ -88,6 +89,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/junhuang"
                 android:gravity="center"
+                android:onClick="onCar"
                 android:text="加入购物车"
                 android:textColor="@color/white"
                 tools:ignore="HardcodedText" />
@@ -116,9 +118,11 @@
         android:layout_height="match_parent"
         android:background="@color/black_half"
         android:onClick="onDefult"
-        android:visibility="gone">
+        android:visibility="gone"
+       >
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="500px"
             android:layout_alignParentBottom="true"
@@ -139,10 +143,11 @@
                     android:onClick="onDismis"
                     android:padding="@dimen/gap"
                     android:src="@mipmap/guanbi2"
-                    tools:ignore="ContentDescription,RtlHardcoded" />
+                    tools:ignore="ContentDescription,RtlHardcoded"
+                    android:id="@+id/imageView4" />
 
                 <TextView
-                    android:id="@+id/textView55"
+                    android:id="@+id/tv_11"
                     style="@style/text30"
                     android:layout_marginLeft="210px"
                     android:layout_marginTop="20px"
@@ -152,34 +157,34 @@
 
 
                 <TextView
-                    android:id="@+id/textView58"
+                    android:id="@+id/tv_31"
                     style="@style/text22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView55"
-                    android:layout_below="@+id/textView55"
-                    android:layout_marginTop="20px"
                     android:text="三箱起批，净重20kg，毛重23kg"
                     android:textColor="@color/text_black"
-                    tools:ignore="HardcodedText" />
+                    tools:ignore="HardcodedText"
+                    android:layout_below="@+id/imageView4"
+                    android:layout_alignStart="@+id/tv_11" />
 
                 <TextView
+                    android:id="@+id/tv_count"
                     style="@style/text22"
-                    android:layout_alignStart="@+id/textView58"
-                    android:layout_below="@+id/textView58"
+                    android:layout_alignStart="@+id/tv_31"
+                    android:layout_below="@+id/tv_31"
                     android:layout_marginTop="10px"
-                    android:text="请选择购买数量"
+                    android:text="请选择购买数量  库存3"
                     android:textColor="@color/text_black"
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/textView56"
+                    android:id="@+id/tv_21"
                     style="@style/text26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/textView55"
-                    android:layout_alignBottom="@+id/textView55"
-                    android:layout_toEndOf="@+id/textView55"
+                    android:layout_alignBaseline="@+id/tv_11"
+                    android:layout_alignBottom="@+id/tv_11"
+                    android:layout_toEndOf="@+id/tv_11"
                     android:text="/箱"
                     android:textColor="@color/text_black"
                     tools:ignore="HardcodedText" />
@@ -207,7 +212,6 @@
                         android:textSize="28px" />
 
                     <ImageView
-                        android:onClick="onAdd"
                         android:id="@+id/imageView22"
                         android:layout_width="58px"
                         android:layout_height="match_parent"
@@ -216,6 +220,7 @@
                         android:layout_marginRight="@dimen/gap"
                         android:layout_marginTop="@dimen/gap"
                         android:background="#f5f5f5"
+                        android:onClick="onAdd"
                         android:padding="5px"
                         android:src="@mipmap/add" />
 
@@ -259,12 +264,14 @@
                     android:layout_alignParentBottom="true"
                     android:background="@color/them"
                     android:gravity="center"
+                    android:onClick="onOK"
                     android:text="确定"
                     android:textColor="@color/white"
                     android:textSize="35px"></TextView>
             </RelativeLayout>
 
             <ImageView
+                android:id="@+id/image_1"
                 android:layout_width="170px"
                 android:layout_height="170px"
                 android:layout_margin="@dimen/gap"

@@ -3,7 +3,9 @@ package com.taotaohai;
 
 public class GlobalParams {
     //网络
+
     public static String access_token = "123456";
+    public static final String WX_PAYID = "wx5e3eb81681aeb136";
     public static String userid = "da4d8faaf5f142a4839c496f20640b4c";
     public static final int NOSPOT_CODE = 1000;
     public static final String CHENGYUAN = "3d4faa79c0614997a7f20e1bf91cbc36";

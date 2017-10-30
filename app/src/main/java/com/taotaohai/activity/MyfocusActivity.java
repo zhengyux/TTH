@@ -13,6 +13,8 @@ import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.Focus;
 import com.taotaohai.fragment.BookFragment;
 import com.taotaohai.fragment.FocuGoodsFragment;
 import com.taotaohai.fragment.FocuShopkFragment;
@@ -23,7 +25,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MyfocusActivity extends BaseActivity implements OnTabSelectListener {
-    private List<Fragment> mFragments = Arrays.asList(FocuShopkFragment.getInstance(), FocuGoodsFragment.getInstance());
+    private List<BaseFragment> mFragments = Arrays.asList(FocuShopkFragment.getInstance(), FocuGoodsFragment.getInstance());
     private MyPagerAdapter mAdapter;
     private final String[] mTitles = {
             "关注的商家", "关注的商品"
@@ -32,7 +34,9 @@ public class MyfocusActivity extends BaseActivity implements OnTabSelectListener
     @Override
     protected void inithttp() {
 
+
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -33,7 +33,7 @@
                     tools:ignore="PxUsage">
 
                     <TextView
-                        android:id="@+id/textView38"
+                        android:id="@+id/tv_stata"
                         style="@style/text32"
                         android:layout_marginLeft="40px"
                         android:layout_marginTop="@dimen/gap"
@@ -42,9 +42,10 @@
                         tools:ignore="HardcodedText,RtlHardcoded" />
 
                     <TextView
+                        android:id="@+id/tv_stata2"
                         style="@style/text24"
-                        android:layout_alignStart="@+id/textView38"
-                        android:layout_below="@+id/textView38"
+                        android:layout_alignStart="@+id/tv_stata"
+                        android:layout_below="@+id/tv_stata"
                         android:layout_marginTop="@dimen/gap"
                         android:text="还有1:25:29 关闭交易"
                         android:textColor="@color/white"
@@ -307,7 +308,7 @@
 
                     <TextView
                         style="@style/text24"
-                        android:text="商品单价"
+                        android:text="实际付款"
                         android:textColor="@color/text_black"
                         tools:ignore="HardcodedText" />
 

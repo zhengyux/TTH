@@ -1,27 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.taotaohai.activity.ShopActivity">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
-        android:layout_height="118px"
+        android:layout_height="130px"
         android:background="@color/them"
         android:paddingTop="30px"
         tools:ignore="PxUsage,UselessParent">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout2"
+            android:onClick="onShopcar"
+            android:id="@+id/rela_shopcar"
             android:layout_width="44px"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/gap"
-            tools:ignore="RtlHardcoded,UselessParent">
+            tools:ignore="RtlHardcoded,UselessParent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true">
 
             <ImageView
                 android:layout_width="44px"
@@ -42,12 +47,13 @@
             tools:ignore="HardcodedText" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout3"
+            android:onClick="onMessage"
+            android:id="@+id/rela_message"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/relativeLayout2"
+            android:layout_toStartOf="@+id/rela_shopcar"
             tools:ignore="RtlHardcoded,UselessParent">
 
             <ImageView
@@ -186,10 +192,12 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/textView23"
+                    android:id="@+id/tv_count"
                     style="@style/text30"
+                    android:layout_alignStart="@+id/textView26"
                     android:layout_alignTop="@+id/rela_focus"
                     android:layout_toStartOf="@+id/rela_focus"
+                    android:gravity="center"
                     android:text="188"
                     tools:ignore="HardcodedText" />
 
@@ -232,6 +240,7 @@
             tools:ignore="PxUsage,UselessLeaf">
 
             <RelativeLayout
+                android:onClick="onMessage"
                 android:id="@+id/relaclick_1"
                 android:layout_width="130px"
                 android:layout_height="match_parent"
@@ -309,4 +318,4 @@
             android:orientation="vertical"></LinearLayout>
 
     </RelativeLayout>
-</RelativeLayout>
+</LinearLayout>

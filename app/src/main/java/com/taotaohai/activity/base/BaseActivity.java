@@ -11,6 +11,7 @@ import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -43,10 +44,12 @@ import com.zhy.autolayout.AutoLayoutActivity;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import static com.taotaohai.GlobalParams.NET_CODE;
 
@@ -77,6 +80,17 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     public MultipleStatusView mMsvLayout;
 
     protected abstract void inithttp();
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    public void distinctPrimary(String... numbers) {//lambda表达式
+        List<String> l = Arrays.asList(numbers);
+        List<Integer> r = l.stream()
+                .map(e -> Integer.valueOf(e))
+                .filter(e -> e == null)
+                .distinct()//j只显示一次。
+                .collect(Collectors.toList());
+        System.out.println("distinctPrimary result is: " + r);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -372,6 +386,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         });
         dialog.show();
     }
+
     protected void showDialog2(String st, String title) {
         backgroundAlpha(0.5f);
         dialog = new Dialog(this, R.style.MyDialog);

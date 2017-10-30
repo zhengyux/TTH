@@ -19,8 +19,8 @@
         android:layout_marginLeft="10px"
         android:text="净重20，毛重22kg"
         tools:ignore="HardcodedText"
-        android:layout_alignTop="@+id/textView24"
-        android:layout_toEndOf="@+id/textView24" />
+        android:layout_alignTop="@+id/tv_unit"
+        android:layout_toEndOf="@+id/tv_unit" />
 
     <TextView
         android:id="@+id/tv_people"
@@ -52,7 +52,7 @@
         tools:ignore="HardcodedText" />
 
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/tv_unit"
         style="@style/text20"
         android:layout_alignBaseline="@+id/tv_money"
         android:layout_alignBottom="@+id/tv_money"

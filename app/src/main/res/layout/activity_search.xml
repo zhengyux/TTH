@@ -1,15 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
+    android:orientation="vertical"
     tools:context="com.taotaohai.activity.Search">
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="118px"
+        android:layout_height="130px"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/them">
@@ -17,32 +20,32 @@
         <EditText
             android:id="@+id/edit_search"
             style="@style/text28"
-            android:hint="收索全部视频"
-            android:paddingLeft="@dimen/gap"
-            android:gravity="center|left"
-            android:textColorHint="#dadada"
             android:layout_width="match_parent"
             android:layout_height="56px"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/gap"
             android:layout_marginLeft="@dimen/gap"
-            android:imeOptions="actionSearch"
-            android:singleLine="true"
             android:layout_toStartOf="@+id/textView18"
-            android:background="@drawable/searchbac" />
+            android:background="@drawable/searchbac"
+            android:gravity="center|left"
+            android:hint="收索全部视频"
+            android:imeOptions="actionSearch"
+            android:paddingLeft="@dimen/gap"
+            android:singleLine="true"
+            android:textColorHint="#dadada" />
 
         <TextView
             android:id="@+id/textView18"
             style="@style/text30"
-            android:gravity="center"
-            android:padding="@dimen/gap"
-            android:onClick="onCancle"
-            android:paddingLeft="@dimen/gap"
-            android:text="取消"
-            android:textColor="@color/white"
             android:layout_alignBaseline="@+id/edit_search"
             android:layout_alignBottom="@+id/edit_search"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:gravity="center"
+            android:onClick="onCancle"
+            android:padding="@dimen/gap"
+            android:paddingLeft="@dimen/gap"
+            android:text="取消"
+            android:textColor="@color/white" />
     </RelativeLayout>
 
-</RelativeLayout>
+</LinearLayout>

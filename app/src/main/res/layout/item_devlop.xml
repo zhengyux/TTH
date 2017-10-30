@@ -6,22 +6,22 @@
     android:padding="@dimen/gap">
 
     <ImageView
-        android:id="@+id/imageView20"
+        android:id="@+id/image_photo"
         android:layout_width="66px"
         android:layout_height="66px"
         android:layout_marginRight="@dimen/gap"
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView51"
+        android:id="@+id/tv_name"
         style="@style/text28"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/imageView20"
+        android:layout_toEndOf="@+id/image_photo"
         android:text="张高丽"
         android:textColor="@color/text_black" />
 
     <TextView
-        android:id="@+id/textView53"
+        android:id="@+id/tv_content"
         style="@style/text28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
         android:textColor="@color/text_black" />
 
     <TextView
-        android:id="@+id/textView52"
+        android:id="@+id/tv_time"
         style="@style/text28"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -45,8 +45,8 @@
         android:id="@+id/ratingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView51"
-        android:layout_toEndOf="@+id/imageView20"
+        android:layout_below="@+id/tv_name"
+        android:layout_toEndOf="@+id/image_photo"
         android:numStars="5"
         android:progressTint="@color/junhuang"
         android:stepSize="1"
@@ -59,9 +59,53 @@
         hedgehog:starImageHeight="20dp"
         hedgehog:starImageWidth="20dp" />
 
+    <LinearLayout
+        android:id="@+id/rela_all"
+        android:layout_width="match_parent"
+        android:layout_height="70px"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tv_content"
+        android:layout_marginTop="@dimen/gap"
+        android:background="@color/common">
+
+        <TextView
+            android:id="@+id/text1"
+            style="@style/text28"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:text="1321231"
+            android:textColor="@color/text_black" />
+
+        <TextView
+            android:id="@+id/text2"
+            style="@style/text28"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10px"
+            android:layout_marginRight="10px"
+            android:gravity="center"
+            android:text="1321231"
+            android:textColor="@color/them" />
+
+        <TextView
+            android:id="@+id/text3"
+            style="@style/text28"
+            android:layout_height="match_parent"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="1321231"
+            android:textColor="@color/text_black" />
+
+    </LinearLayout>
+
     <TextView
         style="@style/textgap1"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView53"
+        android:layout_below="@+id/rela_all"
         android:layout_marginTop="@dimen/gap" />
 </RelativeLayout>

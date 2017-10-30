@@ -58,6 +58,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private int pageSize = 100;
     private String id = "-1";
 
+
+    private static ClassFragment fragment;
+
     public static ClassFragment newInstance() {
         return new ClassFragment();
     }
@@ -115,7 +118,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             if (util.isSuccess(data)) {
                 View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
                 CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
-            }else{
+            } else {
                 showToast("加入商品失败，商品数量不足");
             }
         }
@@ -320,6 +323,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     }
                 });
                 holder.setText(R.id.tv_money, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_name,  data.getTitle());
                 holder.setText(R.id.tv_unit, "/" + data.getUnit());
                 holder.setText(R.id.tv_remaker, data.getRemark());
                 holder.setText(R.id.tv_count, "已购买" + data.getShopInfo().getTotalBuy() + "件");
