@@ -180,7 +180,7 @@ public class HotClass {
         private String latitude;
         @SerializedName("legalName")
         private String legalName;
-        @SerializedName("logo")
+        @SerializedName("logo_home")
         private String logo;
         @SerializedName("logoId")
         private String logoId;

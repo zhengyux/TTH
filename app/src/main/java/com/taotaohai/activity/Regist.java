@@ -1,6 +1,5 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +44,10 @@ public class Regist extends BaseActivity {
                 username = ed_1.getText().toString().trim();
                 if (!isMobileNO(username)) {
                     showToast("请输入正确的手机号");
+                    return;
+                }
+                if (ed_2.getText().toString().trim().length() == 0) {
+                    showToast("请输入验证码");
                     return;
                 }
                 if (!scheck.equals(ed_2.getText().toString().trim())) {

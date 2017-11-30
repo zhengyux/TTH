@@ -3,18 +3,17 @@ package com.taotaohai.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.heima.tabview.library.TabView;
+import com.heima.tabview.library.TabViewChild;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.fragment.ClassFragment;
 import com.taotaohai.fragment.HomeFragment;
 import com.taotaohai.fragment.MineFragment;
 import com.taotaohai.fragment.VideoFragment;
-import com.heima.tabview.library.TabView;
-import com.heima.tabview.library.TabViewChild;
 import com.taotaohai.util.SPUtils;
 
 import java.util.ArrayList;
@@ -75,6 +74,29 @@ public class Home extends BaseActivity {
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         mineFragment.onNewIntent(intent);
+        if (getintent("type") != null) {
+            initview2();
+        }
+
 
     }
+
+    private long mExitTime;
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - mExitTime) > 2000) {
+                Object mHelperUtils;
+                Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+                mExitTime = System.currentTimeMillis();
+
+            } else {
+                finish();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+
 }

@@ -68,9 +68,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     @Override
     protected void onStart() {
         super.onStart();
-        mMsvLayout.loading();
-
-        new Handler().postDelayed(() -> mMsvLayout.content(), 2000);
+//        mMsvLayout.loading();
+//
+//        new Handler().postDelayed(() -> mMsvLayout.content(), 2000);
     }
 
     @Override
@@ -135,7 +135,12 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     @Override
     public void onListFragmentButton2(Book.Data item) {//第2个按钮
-        this.itemBookFragment = mFragments.get(item.getCount());
+        if (item.getCount() == 99) {
+            this.itemBookFragment = mFragments.get(0);
+        } else {
+            this.itemBookFragment = mFragments.get(item.getCount());
+        }
+
         this.item = item;
         switch (item.getCount()) {
             case 1:
@@ -151,19 +156,22 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 startActivity(new Intent(MyBook.this, Evaluation.class)
                         .putExtra("id", item.getExt().getOrderId())
                 );
-
+            case 99://删除
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
                 break;
 
         }
     }
 
+    boolean isdelect = false;
 
     @Override
     public void onListFragmentButton1(Book.Data item) {//第一个按钮
-        if (item.getCount() > 4) {
-            showToast("状态异常");
-            return;
-        }
+//        if (item.getCount() > 4) {
+//            showToast("状态异常");
+//            return;
+//        }
         this.itemBookFragment = mFragments.get(item.getCount());
         this.item = item;
         switch (item.getCount()) {
@@ -182,6 +190,13 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             case 4://再次购买
 //                startActivity(new Intent(MyBook.this, Refund.class));
                 break;
+//            case 5://退款
+//                startActivity(new Intent(MyBook.this, ReFundDetialActivity.class)
+//                        .putExtra("data", item));
+//                break;
+            case 99://关闭
+//                startActivity(new Intent(MyBook.this, Refund.class));
+                break;
 
         }
     }
@@ -190,10 +205,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     private void showchoose() {
         options1Items.clear();
-        options1Items.add("不想买了");
-        options1Items.add("货物有问题");
-        options1Items.add("降价了");
-        options1Items.add("快递太慢");
+        options1Items.add("品质问题");
+        options1Items.add("产品与描述不符");
+        options1Items.add("数量、重量不符");
         options1Items.add("其他");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
@@ -292,8 +306,13 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     @Override
     protected void sure() {
         super.sure();
-        has.clear();
-        Http(HttpMethod.PUT, "api/goodsorder/received/" + item.getId(), has, 15);
+        if (isdelect) {
+            Http(HttpMethod.DELETE, "api/goodsorder/" + item.getId(), 99);
+            isdelect = false;
+        } else {
+            has.clear();
+            Http(HttpMethod.PUT, "api/goodsorder/received/" + item.getId(), has, 15);
+        }
 
 
     }
@@ -301,6 +320,11 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if (postcode == 99) {
+            itemBookFragment.inithttp();
+            showToast("删除成功");
+            return;
+        }
         if (postcode == 15) {
             showToast("收货成功");
             mFragments.get(vp.getCurrentItem()).refresh();

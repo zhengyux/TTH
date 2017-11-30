@@ -13,10 +13,6 @@ import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.Book;
 import com.taotaohai.util.util;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 
 /**
  * A fragment representing a list of Items.
@@ -77,7 +73,7 @@ public class ItemBookFragment extends BaseFragment {
     public void inithttp() {
         switch (stata) {
             case 0:
-                get("api/GoodsOrder", 1);
+                get("api/GoodsOrder/list/-1", 1);
                 break;
             case 1:
                 get("api/GoodsOrder/list/1", 0);

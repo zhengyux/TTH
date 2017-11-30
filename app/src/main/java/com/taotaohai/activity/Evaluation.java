@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 
 import com.bumptech.glide.Glide;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.hedgehog.ratingbar.RatingBar;
 import com.photoselector.model.PhotoModel;
@@ -111,7 +110,7 @@ public class Evaluation extends BaseActivity {
 //        if (drr.size() == images.size()) {
 //            pot();
 //        }
-//    }
+//    }lianxi
 
 //
 //    @Override
@@ -216,14 +215,11 @@ public class Evaluation extends BaseActivity {
 //                        .crossFade()
 //                        .diskCacheStrategy(DiskCacheStrategy.RESULT)
 //                        .into(holder.image);
-                holder.bt.setOnClickListener(new View.OnClickListener() {
-
-                    public void onClick(View v) {
+                holder.bt.setOnClickListener(v -> {
 //                        drr.remove(sign);
-                        images.remove(sign);
-                        PhotoActivity.bitmap.remove(sign);
-                        gridviewInit();
-                    }
+                    images.remove(sign);
+                    PhotoActivity.bitmap.remove(sign);
+                    gridviewInit();
                 });
             }
             return convertView;
@@ -412,15 +408,15 @@ public class Evaluation extends BaseActivity {
     }
 
     private void pot() {
-        HashMap<String, String> has = new HashMap<>();
-        String st = "";
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < image_urls.size(); i++) {
-            st = image_urls.get(i) + ",";
+            sb.append(image_urls.get(i)).append(",");
         }
-        st = st.substring(0, st.length() - 1);
+
+        String st = sb.toString().substring(0, sb.toString().length() - 1);
         JsonObject object = new JsonObject();
 
-        object.addProperty("level", ratingBar.getChildCount());
+        object.addProperty("level", String.valueOf(count_rating));
         object.addProperty("comment", editText.getText().toString().trim());
         object.addProperty("images", st);
 

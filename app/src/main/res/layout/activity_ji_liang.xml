@@ -10,6 +10,7 @@
     <include layout="@layout/title" />
 
     <TextView
+        android:id="@+id/text1"
         style="@style/text30"
         android:text="
 1.含冰块    重量约15斤   单价为25元

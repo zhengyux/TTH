@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
@@ -16,14 +14,12 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
-import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Car;
 import com.taotaohai.bean.Defult;
 import com.taotaohai.bean.OrderInfo;
@@ -42,7 +38,6 @@ import org.xutils.http.HttpMethod;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.DecimalFormat;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -55,6 +50,8 @@ public class OrderSureActivity extends BaseActivity {
     List<String> list = null;
     private Dialog dialog;
     private TextView tv_price;
+    private TextView tv_price2;
+    private TextView tv_count;
 
     @Override
     protected void inithttp() {
@@ -87,18 +84,16 @@ public class OrderSureActivity extends BaseActivity {
         tv_address = (TextView) findViewById(R.id.tv_address);
         img_add = findViewById(R.id.img_add);
         rela_address = findViewById(R.id.rela_address);
-
+        tv_price = (TextView) findViewById(R.id.tv_price);
+        tv_price2 = (TextView) findViewById(R.id.tv_price2);
         car = (Car) getIntent().getSerializableExtra("car");
         list = (List<String>) getIntent().getSerializableExtra("list");
+        tv_count = (TextView) findViewById(R.id.tv_count);
         if (car != null) {
-            tv_price = (TextView) findViewById(R.id.tv_price);
-            TextView tv_price2 = (TextView) findViewById(R.id.tv_price2);
-            TextView tv_count = (TextView) findViewById(R.id.tv_count);
             DecimalFormat df = new DecimalFormat("#####0.00");
             tv_price.setText(df.format(Double.valueOf(getintent("price"))));
             tv_price2.setText(df.format(Double.valueOf(getintent("price"))));
             tv_count.setText("共" + getintent("num") + "件商品 ：小计");
-
             LinearLayout lin_goods = (LinearLayout) findViewById(R.id.lin_goods);
             for (int i = 0; i < car.getData().getData().size(); i++) {
                 View view = getLayoutInflater().inflate(R.layout.item_sure, null);
@@ -118,11 +113,9 @@ public class OrderSureActivity extends BaseActivity {
                 lin_goods.addView(view);
             }
         } else {
-            TextView tv_price = (TextView) findViewById(R.id.tv_price);
-            TextView tv_price2 = (TextView) findViewById(R.id.tv_price2);
-            TextView tv_count = (TextView) findViewById(R.id.tv_count);
-            tv_price.setText(String.valueOf(Double.valueOf(list.get(3)) * Double.valueOf(list.get(5))));
-            tv_price2.setText(String.valueOf(Double.valueOf(list.get(3)) * Double.valueOf(list.get(5))));
+            DecimalFormat df = new DecimalFormat("#####0.00");
+            tv_price.setText(df.format(Double.valueOf(list.get(3)) * Double.valueOf(list.get(5))));
+            tv_price2.setText(df.format(Double.valueOf(list.get(3)) * Double.valueOf(list.get(5))));
             tv_count.setText("共" + list.get(5) + "件商品 ：小计");
 
             LinearLayout lin_goods = (LinearLayout) findViewById(R.id.lin_goods);
@@ -155,7 +148,7 @@ public class OrderSureActivity extends BaseActivity {
                     jsonaray2.add(list.get(6));
                     json.add("goodsIds", jsonaray2);
                     json.add("counts", jsonaray);
-                    if (defult == null) {
+                    if (defult == null || defult.getData() == null) {
                         showToast("请添加收货地址");
                         return;
                     }
@@ -204,9 +197,9 @@ public class OrderSureActivity extends BaseActivity {
         }
         if (postcode == 15) {
             OrderInfo orderInfo = util.getgson(result, OrderInfo.class);
-            if (util.getgson(result)) {
+            if (orderInfo.getSuccess()) {
                 showpay(tv_price.getText().toString(), orderInfo.getData().getOrderInfo());
-            }else{
+            } else {
                 showToast(orderInfo.getMessage());
             }
         }
@@ -299,7 +292,6 @@ public class OrderSureActivity extends BaseActivity {
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
-                    showToast("付款成功");
                     startActivity(new Intent(OrderSureActivity.this, MyBook.class));
 
                     // 判断resultStatus 为9000则代表支付成功
@@ -359,7 +351,7 @@ public class OrderSureActivity extends BaseActivity {
     public void onFinished(int code) {
         super.onFinished(code);
         if (code == 0) {
-            if (defult == null) {
+            if (defult == null || defult.getData() == null) {
                 img_add.setVisibility(View.VISIBLE);
                 rela_address.setVisibility(View.GONE);
             } else {

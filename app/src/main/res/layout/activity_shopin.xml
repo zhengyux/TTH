@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.taotaohai.activity.RePassword">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include layout="@layout/title" />
+
+        <EditText
+            android:id="@+id/edit_old"
+            style="@style/text26"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@drawable/bac_edit"
+            android:hint="请输入店铺名"
+            android:paddingLeft="@dimen/gap" />
+
+        <EditText
+            android:id="@+id/edit_new"
+            style="@style/text26"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@drawable/bac_edit"
+            android:hint="请输入姓名"
+            android:paddingLeft="@dimen/gap" />
+
+        <TextView
+            style="@style/text22"
+            android:layout_margin="@dimen/gap"
+            android:text="*必填"
+            android:textColor="#ff0400" />
+
+        <EditText
+            android:id="@+id/edit_phone"
+            style="@style/text26"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:background="@drawable/bac_edit"
+            android:hint="请输入联系方式"
+            android:inputType="phone"
+            android:paddingLeft="@dimen/gap" />
+
+        <EditText
+            android:id="@+id/edit_code"
+            style="@style/text26"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@drawable/bac_edit"
+            android:hint="请输入验证码"
+            android:inputType="phone"
+            android:paddingLeft="@dimen/gap" />
+
+
+        <Button
+            android:id="@+id/btn_save"
+            style="@style/button"
+            android:layout_margin="@dimen/gap"
+            android:text="提交" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_num"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="160px"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/imageView20"
+            android:layout_width="100px"
+            android:layout_height="100px"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150px"
+            android:src="@mipmap/dinggou" />
+
+        <TextView
+            android:id="@+id/textView8"
+            style="@style/text30"
+            android:layout_below="@+id/imageView20"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="48px"
+            android:text="提交成功,等待平台审核..." />
+
+        <TextView
+            android:id="@+id/textView9"
+            style="@style/text30"
+            android:layout_alignStart="@+id/imageView20"
+            android:layout_below="@+id/textView8"
+            android:text="秒后,自动返回" />
+
+        <TextView
+            android:id="@+id/tv_num"
+            style="@style/text30"
+            android:layout_alignBaseline="@+id/textView9"
+            android:layout_alignBottom="@+id/textView9"
+            android:layout_marginRight="10px"
+            android:layout_toStartOf="@+id/textView9"
+            android:text="3"
+            android:textColor="#00f1ff" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btn_verify"
+        android:layout_width="180px"
+        android:layout_height="70px"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="30px"
+        android:layout_marginTop="455px"
+        android:background="@drawable/button_r2"
+        android:gravity="center"
+        android:text="获取验证码"
+        android:textColor="@color/white"
+        android:textSize="30px"
+        tools:ignore="HardcodedText" />
+</RelativeLayout>

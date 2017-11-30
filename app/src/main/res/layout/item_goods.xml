@@ -12,17 +12,17 @@
         android:layout_height="118px"
         android:layout_marginLeft="@dimen/gap"
         android:layout_marginRight="@dimen/gap"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_bac"
         tools:ignore="ContentDescription,PxUsage" />
 
     <TextView
         android:id="@+id/tv_num"
         style="@style/text18"
-        android:layout_marginLeft="10px"
-        android:text="净重20，毛重22kg"
-        tools:ignore="HardcodedText"
         android:layout_alignTop="@+id/tv_unit"
-        android:layout_toEndOf="@+id/tv_unit" />
+        android:layout_marginLeft="10px"
+        android:layout_toEndOf="@+id/tv_unit"
+        android:text="净重20，毛重22kg"
+        tools:ignore="HardcodedText" />
 
     <TextView
         android:id="@+id/tv_people"
@@ -37,9 +37,12 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/text28"
-
+        android:layout_width="match_parent"
         android:layout_alignTop="@+id/image_photo"
+        android:layout_marginRight="100px"
+
         android:layout_toEndOf="@+id/image_photo"
+        android:maxLines="1"
         android:text="知晓物恋"
         android:textColor="#404040"
         tools:ignore="HardcodedText" />
@@ -62,5 +65,25 @@
         android:text="/箱"
         tools:ignore="HardcodedText" />
 
+    <ImageView
+        android:id="@+id/image_more"
+        android:layout_width="74px"
+        android:layout_height="118px"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/gap"
+        android:src="@mipmap/more" />
 
+    <TextView
+        android:id="@+id/tv_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="118px"
+        android:layout_alignParentRight="true"
+        android:background="@color/junhuang"
+        android:gravity="center"
+        android:padding="10px"
+        android:src="@mipmap/more"
+        android:text="取消关注"
+        android:textColor="@color/white"
+        android:textSize="24px"
+        android:visibility="gone" />
 </RelativeLayout>

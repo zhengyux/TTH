@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="88px"
         android:gravity="center"
-        android:text="热门推荐"
+        android:text="全部商品"
         android:textColor="#3f3f3f"
         android:textSize="28px" />
 

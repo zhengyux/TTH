@@ -19,7 +19,7 @@
         tools:ignore="PxUsage,UselessParent">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout2"
+            android:id="@+id/rela_shopcar"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -45,12 +45,12 @@
             tools:ignore="HardcodedText" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout3"
+            android:id="@+id/rela_message"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/relativeLayout2"
+            android:layout_toStartOf="@+id/rela_shopcar"
             tools:ignore="RtlHardcoded,UselessParent">
 
             <ImageView

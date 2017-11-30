@@ -24,7 +24,6 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.hedgehog.ratingbar.RatingBar;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
 import com.photoselector.util.CommonUtils;
@@ -81,7 +80,7 @@ public class Refund extends BaseActivity {
 
     protected void init() {
         setContentView(R.layout.activity_refound);
-        setTitle("评价");
+        setTitle("售后退款");
         /*time*/
 
 
@@ -475,14 +474,10 @@ public class Refund extends BaseActivity {
 
     private void showchoose() {
         options1Items.clear();
-        options1Items.add("托儿索");
-        options1Items.add("儿童劫");
-        options1Items.add("小学生之手");
-        options1Items.add("德玛西亚大保健");
-        options1Items.add("面对疾风吧");
-        options1Items.add("天王盖地虎");
-        options1Items.add("我发一米五");
-        options1Items.add("爆刘继芬");
+        options1Items.add("品质问题");
+        options1Items.add("产品与描述不符");
+        options1Items.add("数量、重量不符");
+        options1Items.add("其他");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override

@@ -1,12 +1,12 @@
 package com.taotaohai.fragment;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +19,15 @@ import android.widget.TextView;
 import com.andview.refreshview.XRefreshView;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
+import com.taotaohai.activity.GoodsDetialActivity;
+import com.taotaohai.activity.MessageActivity;
+import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.ClassGoods;
 import com.taotaohai.bean.ClassPage;
-import com.taotaohai.myview.Mylistview;
-import com.taotaohai.util.CustomToast;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.taotaohai.widgets.MultipleStatusView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -58,6 +60,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private int pageSize = 100;
     private String id = "-1";
 
+    private MultipleStatusView mMsvLayout;
 
     private static ClassFragment fragment;
 
@@ -76,16 +79,35 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         // Inflate the layout for this fragment
 
         view = inflater.inflate(R.layout.fragment_class, container, false);
-        inithttp();
         initview();
+        inithttp();
         return view;
     }
 
     @Override
     public void inithttp() {
         super.inithttp();
+        mMsvLayout.loading();
         get("api/goods/class", 0);
         gohttp();
+    }
+
+    @Override
+    public void onFinished(int code) {
+        super.onFinished(code);
+        if (code == 0 && classPage == null) {
+            get("api/goods/class", 0);
+            return;
+        }
+        if (code == 1 && classGoods == null) {
+            gohttp();
+            return;
+        }
+        if (classPage != null && classGoods != null) {
+            mMsvLayout.content();
+        }
+
+
     }
 
     void gohttp() {
@@ -116,8 +138,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         }
         if (postcode == 99) {
             if (util.isSuccess(data)) {
-                View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
-                CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
+//                View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
+//                CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
+                addtocar(image_photo, imag_photo2);
             } else {
                 showToast("加入商品失败，商品数量不足");
             }
@@ -127,6 +150,15 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initview() {
+        mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
+//        mMsvLayout.setOnClickListener((l) -> {
+//            if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
+//                inithttp();
+//            }
+//        });
+        view.findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(getActivity(), MessageActivity.class)));
+        view.findViewById(R.id.rela_shopcar).setOnClickListener((l) -> startActivity(new Intent(getActivity(), ShopCarActivity.class)));
+        imag_photo2 = (ImageView) view.findViewById(R.id.imag_photo2);
         View v1 = view.findViewById(R.id.rela1);
         View v2 = view.findViewById(R.id.rela2);
         View v3 = view.findViewById(R.id.rela3);
@@ -180,6 +212,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 } else {
                     images.get(0).setImageResource(R.mipmap.clickup);
                     position = 1;
+                    ordertype = "price";
                     ordertype2 = "asc";
                 }
                 gohttp();
@@ -191,6 +224,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     images.get(3).setImageResource(R.mipmap.clickbutton);
                     position = -1;
                     ordertype2 = "desc";
+                    ordertype = "sale_volume";
                 } else {
                     images.get(2).setImageResource(R.mipmap.clickup);
                     position = 2;
@@ -249,13 +283,14 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             } else {
                 text1.setText(classPage.getData().get(position - 1).getClassName());
             }
-            text1.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (position == 0)
-                        return;
-                    onclick2(list, text1);
+            text1.setOnClickListener(v -> {
+                onclick2(list, text1);
+                if (position == 0) {
+                    id = "-1";
+                } else {
+                    id = classPage.getData().get(position - 1).getId();
                 }
+                gohttp();
             });
             if (position != 0) {
                 for (int i = 0; i < classPage.getData().get(position - 1).getChildren().size(); i++) {
@@ -263,13 +298,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     final TextView text = (TextView) view1.findViewById(R.id.text);
                     text.setText(classPage.getData().get(position - 1).getChildren().get(i).getClassName());
                     final int finalI = i;
-                    text.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            id = classPage.getData().get(position - 1).getChildren().get(finalI).getId();
-                            onclick(text, text1);
-                            gohttp();
-                        }
+                    text.setOnClickListener(v -> {
+                        id = classPage.getData().get(position - 1).getChildren().get(finalI).getId();
+                        onclick(text, text1);
+                        gohttp();
                     });
                     list.addView(view1);
                 }
@@ -281,9 +313,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     void onclick(TextView text, TextView text1) {
         first_click.setTextColor(getResources().getColor(R.color.text_black));
         first_click.setBackgroundColor(getResources().getColor(R.color.class_bac));
-        first_click = text1;
-        first_click.setTextColor(getResources().getColor(R.color.white));
-        first_click.setBackgroundColor(getResources().getColor(R.color.them));
+//        first_click = text1;
+//        first_click.setTextColor(getResources().getColor(R.color.white));
+//        first_click.setBackgroundColor(getResources().getColor(R.color.them));
 
         if (text_click != null) {
             text_click.setTextColor(getResources().getColor(R.color.text_black));
@@ -303,31 +335,33 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         first_click = text1;
         first_click.setTextColor(getResources().getColor(R.color.white));
         first_click.setBackgroundColor(getResources().getColor(R.color.them));
-        if (position == 0 && text_click != null) {//清空小弟变色
+        if (text_click != null) {//清空小弟变色
             text_click.setTextColor(getResources().getColor(R.color.text_black));
         }
     }
 
-    private void initdata() {
+    ImageView image_photo;
+    ImageView imag_photo2;
 
+    private void initdata() {
         adapter = new CommonAdapter<ClassGoods.Data>(getActivity(), R.layout.item_class_recycle, classGoods.getData2().getData()) {
             @Override
             protected void convert(ViewHolder holder, final ClassGoods.Data data, int position) {
-                holder.setOnClickListener(R.id.image_car, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        JsonObject object = new JsonObject();
-                        object.addProperty("goodsId", data.getId());
-                        object.addProperty("count", "1");
-                        Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
-                    }
+                holder.setOnClickListener(R.id.image_car, v -> {
+                    image_photo = holder.getView(R.id.image_car);
+                    JsonObject object = new JsonObject();
+                    object.addProperty("goodsId", data.getId());
+                    object.addProperty("count", "1");
+                    Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
                 });
+                holder.setOnClickListener(R.id.rela_all, (l) -> startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                        .putExtra("id", data.getId())));
                 holder.setText(R.id.tv_money, "￥：" + data.getPrice());
                 holder.setText(R.id.tv_name, data.getTitle());
                 holder.setText(R.id.tv_unit, "/" + data.getUnit());
                 holder.setText(R.id.tv_remaker, data.getRemark());
                 if (data.getShopInfo() != null)
-                    holder.setText(R.id.tv_count, "已购买" + data.getShopInfo().getTotalBuy() + "件");
+                    holder.setText(R.id.tv_count, "已购买" + data.getSaleVolume() + "件");
                 ImageView imageView = holder.getView(R.id.image_photo);
                 if (data.getImagesUrl().size() > 0)
                     GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);
@@ -352,27 +386,21 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        xrefreshview.stopRefresh();
-                    }
-                }, 1000);
+                new Handler().postDelayed(() -> xrefreshview.stopRefresh(), 1000);
             }
 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                new Handler().postDelayed(() -> {
 //                        xrefreshview.setLoadComplete(true);//已无更多数据
-                        xrefreshview.stopLoadMore();//还有数据
-                    }
+                    xrefreshview.stopLoadMore();//还有数据
                 }, 1000);
             }
         });
 
 
     }
+
+
 }

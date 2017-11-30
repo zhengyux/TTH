@@ -10,6 +10,7 @@ import java.util.List;
 
 public class Focusgoods {
 
+
     @SerializedName("code")
     private int code;
     @SerializedName("data")
@@ -54,6 +55,8 @@ public class Focusgoods {
     public static class ClassInfo {
         @SerializedName("children")
         private String children;
+        @SerializedName("classId")
+        private String classId;
         @SerializedName("className")
         private String className;
         @SerializedName("gmtCreate")
@@ -73,6 +76,14 @@ public class Focusgoods {
 
         public void setChildren(String children) {
             this.children = children;
+        }
+
+        public String getClassId() {
+            return classId;
+        }
+
+        public void setClassId(String classId) {
+            this.classId = classId;
         }
 
         public String getClassName() {
@@ -124,19 +135,147 @@ public class Focusgoods {
         }
     }
 
+    public static class ShopIdentifies {
+        @SerializedName("gmtCreate")
+        private String gmtCreate;
+        @SerializedName("gmtModify")
+        private String gmtModify;
+        @SerializedName("id")
+        private String id;
+        @SerializedName("image")
+        private String image;
+        @SerializedName("imageAbsUrl")
+        private String imageAbsUrl;
+        @SerializedName("lastChangeUser")
+        private String lastChangeUser;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("shopId")
+        private String shopId;
+
+        public String getGmtCreate() {
+            return gmtCreate;
+        }
+
+        public void setGmtCreate(String gmtCreate) {
+            this.gmtCreate = gmtCreate;
+        }
+
+        public String getGmtModify() {
+            return gmtModify;
+        }
+
+        public void setGmtModify(String gmtModify) {
+            this.gmtModify = gmtModify;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getImageAbsUrl() {
+            return imageAbsUrl;
+        }
+
+        public void setImageAbsUrl(String imageAbsUrl) {
+            this.imageAbsUrl = imageAbsUrl;
+        }
+
+        public String getLastChangeUser() {
+            return lastChangeUser;
+        }
+
+        public void setLastChangeUser(String lastChangeUser) {
+            this.lastChangeUser = lastChangeUser;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+    }
+
+    public static class User {
+        @SerializedName("u_id")
+        private String u_id;
+        @SerializedName("avatarId")
+        private String avatarId;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("username")
+        private String username;
+
+        public String getU_id() {
+            return u_id;
+        }
+
+        public void setU_id(String u_id) {
+            this.u_id = u_id;
+        }
+
+        public String getAvatarId() {
+            return avatarId;
+        }
+
+        public void setAvatarId(String avatarId) {
+            this.avatarId = avatarId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+    }
+
     public static class ShopInfo {
         @SerializedName("address")
         private String address;
         @SerializedName("brandId")
         private String brandId;
-        @SerializedName("brc")
-        private String brc;
         @SerializedName("businessAbsUrlList")
         private List<String> businessAbsUrlList;
         @SerializedName("businessList")
         private List<String> businessList;
         @SerializedName("businessUrl")
         private String businessUrl;
+        @SerializedName("cityId")
+        private String cityId;
+        @SerializedName("commission")
+        private String commission;
         @SerializedName("creatorId")
         private String creatorId;
         @SerializedName("gmtCreate")
@@ -151,7 +290,7 @@ public class Focusgoods {
         private String latitude;
         @SerializedName("legalName")
         private String legalName;
-        @SerializedName("logo")
+        @SerializedName("logo_home")
         private String logo;
         @SerializedName("logoId")
         private String logoId;
@@ -159,6 +298,8 @@ public class Focusgoods {
         private String logoIdAbsUrl;
         @SerializedName("longitude")
         private String longitude;
+        @SerializedName("money")
+        private double money;
         @SerializedName("name")
         private String name;
         @SerializedName("principal")
@@ -167,6 +308,8 @@ public class Focusgoods {
         private String principalTel;
         @SerializedName("remark")
         private String remark;
+        @SerializedName("shopIdentifies")
+        private List<ShopIdentifies> shopIdentifies;
         @SerializedName("status")
         private int status;
         @SerializedName("totalBuy")
@@ -180,7 +323,7 @@ public class Focusgoods {
         @SerializedName("totalSourceGoods")
         private String totalSourceGoods;
         @SerializedName("user")
-        private String user;
+        private User user;
 
         public String getAddress() {
             return address;
@@ -196,14 +339,6 @@ public class Focusgoods {
 
         public void setBrandId(String brandId) {
             this.brandId = brandId;
-        }
-
-        public String getBrc() {
-            return brc;
-        }
-
-        public void setBrc(String brc) {
-            this.brc = brc;
         }
 
         public List<String> getBusinessAbsUrlList() {
@@ -228,6 +363,22 @@ public class Focusgoods {
 
         public void setBusinessUrl(String businessUrl) {
             this.businessUrl = businessUrl;
+        }
+
+        public String getCityId() {
+            return cityId;
+        }
+
+        public void setCityId(String cityId) {
+            this.cityId = cityId;
+        }
+
+        public String getCommission() {
+            return commission;
+        }
+
+        public void setCommission(String commission) {
+            this.commission = commission;
         }
 
         public String getCreatorId() {
@@ -318,6 +469,14 @@ public class Focusgoods {
             this.longitude = longitude;
         }
 
+        public double getMoney() {
+            return money;
+        }
+
+        public void setMoney(double money) {
+            this.money = money;
+        }
+
         public String getName() {
             return name;
         }
@@ -348,6 +507,14 @@ public class Focusgoods {
 
         public void setRemark(String remark) {
             this.remark = remark;
+        }
+
+        public List<ShopIdentifies> getShopIdentifies() {
+            return shopIdentifies;
+        }
+
+        public void setShopIdentifies(List<ShopIdentifies> shopIdentifies) {
+            this.shopIdentifies = shopIdentifies;
         }
 
         public int getStatus() {
@@ -398,20 +565,32 @@ public class Focusgoods {
             this.totalSourceGoods = totalSourceGoods;
         }
 
-        public String getUser() {
+        public User getUser() {
             return user;
         }
 
-        public void setUser(String user) {
+        public void setUser(User user) {
             this.user = user;
         }
     }
 
     public static class Data {
+        @SerializedName("cityName")
+        private String cityName;
         @SerializedName("classId")
         private String classId;
         @SerializedName("classInfo")
         private ClassInfo classInfo;
+        @SerializedName("className")
+        private String className;
+        @SerializedName("contentImg")
+        private String contentImg;
+        @SerializedName("contentImgs")
+        private List<String> contentImgs;
+        @SerializedName("contentImgsUrl")
+        private List<String> contentImgsUrl;
+        @SerializedName("contentText")
+        private String contentText;
         @SerializedName("creatorId")
         private String creatorId;
         @SerializedName("describe")
@@ -430,6 +609,8 @@ public class Focusgoods {
         private String imgId;
         @SerializedName("lastChangeUser")
         private String lastChangeUser;
+        @SerializedName("measure")
+        private String measure;
         @SerializedName("price")
         private String price;
         @SerializedName("quality")
@@ -461,6 +642,22 @@ public class Focusgoods {
         @SerializedName("unitMin")
         private int unitMin;
 
+        public List<String> getImageIds() {
+            return imageIds;
+        }
+
+        public List<String> getImagesUrl() {
+            return imagesUrl;
+        }
+
+        public String getCityName() {
+            return cityName;
+        }
+
+        public void setCityName(String cityName) {
+            this.cityName = cityName;
+        }
+
         public String getClassId() {
             return classId;
         }
@@ -475,6 +672,54 @@ public class Focusgoods {
 
         public void setClassInfo(ClassInfo classInfo) {
             this.classInfo = classInfo;
+        }
+
+        public String getClassName() {
+            return className;
+        }
+
+        public void setClassName(String className) {
+            this.className = className;
+        }
+
+        public String getContentImg() {
+            return contentImg;
+        }
+
+        public void setContentImg(String contentImg) {
+            this.contentImg = contentImg;
+        }
+
+        public List<String> getContentImgs() {
+            return contentImgs;
+        }
+
+        public void setContentImgs(List<String> contentImgs) {
+            this.contentImgs = contentImgs;
+        }
+
+        public List<String> getContentImgsUrl() {
+            return contentImgsUrl;
+        }
+
+        public void setContentImgsUrl(List<String> contentImgsUrl) {
+            this.contentImgsUrl = contentImgsUrl;
+        }
+
+        public void setImageIds(List<String> imageIds) {
+            this.imageIds = imageIds;
+        }
+
+        public void setImagesUrl(List<String> imagesUrl) {
+            this.imagesUrl = imagesUrl;
+        }
+
+        public String getContentText() {
+            return contentText;
+        }
+
+        public void setContentText(String contentText) {
+            this.contentText = contentText;
         }
 
         public String getCreatorId() {
@@ -517,21 +762,7 @@ public class Focusgoods {
             this.id = id;
         }
 
-        public List<String> getImageIds() {
-            return imageIds;
-        }
 
-        public void setImageIds(List<String> imageIds) {
-            this.imageIds = imageIds;
-        }
-
-        public List<String> getImagesUrl() {
-            return imagesUrl;
-        }
-
-        public void setImagesUrl(List<String> imagesUrl) {
-            this.imagesUrl = imagesUrl;
-        }
 
         public String getImgId() {
             return imgId;
@@ -547,6 +778,14 @@ public class Focusgoods {
 
         public void setLastChangeUser(String lastChangeUser) {
             this.lastChangeUser = lastChangeUser;
+        }
+
+        public String getMeasure() {
+            return measure;
+        }
+
+        public void setMeasure(String measure) {
+            this.measure = measure;
         }
 
         public String getPrice() {

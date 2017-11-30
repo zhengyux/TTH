@@ -1,6 +1,5 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -13,6 +12,7 @@ public class RePassword extends BaseActivity {
 
     private EditText edit_old;
     private EditText edit_new;
+    private EditText edit_new2;
 
     @Override
     protected void inithttp() {
@@ -22,9 +22,11 @@ public class RePassword extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_forget);
+        setContentView(R.layout.activity_re_password);
+        setTitle("修改密码");
         edit_old = (EditText) findViewById(R.id.edit_old);
         edit_new = (EditText) findViewById(R.id.edit_new);
+        edit_new2 = (EditText) findViewById(R.id.edit_new2);
         findViewById(R.id.btn_save).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -34,6 +36,10 @@ public class RePassword extends BaseActivity {
                 }
                 if (edit_old.getText().toString().trim().equals(edit_new.getText().toString().trim())) {
                     showToast("新旧密码不能相同");
+                    return;
+                }
+                if (!edit_new2.getText().toString().trim().equals(edit_new.getText().toString().trim())) {
+                    showToast("两次密码不相同");
                     return;
                 }
                 has.clear();
@@ -51,6 +57,8 @@ public class RePassword extends BaseActivity {
         if (util.isSuccess(result)) {
             showToast("修改成功");
             finish();
+        } else {
+            showToast("原密码错误");
         }
     }
 }

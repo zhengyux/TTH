@@ -47,7 +47,7 @@ public class MyDataActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dat);
-        setTitle("我的资料");
+        setTitle("基础信息");
 //        setTitleTwo("保存");
         initview();
     }
@@ -201,9 +201,9 @@ public class MyDataActivity extends BaseActivity {
                 case 0://上传图片
                     showToast("头像上传成功");
                     break;
-                case 11:
-                    showToast("昵称设置成功");
-                    break;
+//                case 11:
+//                    showToast("昵称设置成功");
+//                    break;
 
             }
         }

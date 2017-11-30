@@ -16,14 +16,14 @@ public class Photo extends BaseBean {
     }
 
     public class Data {
-        private String id;
+        private String md5;
 
         public String getId() {
-            return id;
+            return md5;
         }
 
         public void setId(String id) {
-            this.id = id;
+            this.md5 = id;
         }
     }
 }

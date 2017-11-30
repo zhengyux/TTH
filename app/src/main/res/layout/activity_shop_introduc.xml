@@ -19,6 +19,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:id="@+id/lin_10"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
@@ -102,41 +103,26 @@
 
 
                     <LinearLayout
-                        android:id="@+id/linearLayout3"
+                        android:id="@+id/lin_1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignBottom="@+id/image_photo"
                         android:layout_toEndOf="@+id/image_photo"
-                        android:orientation="horizontal">
+                        android:divider="@drawable/shop_div"
+                        android:orientation="horizontal"
+                        android:showDividers="middle">
 
-                        <ImageView
-                            android:layout_width="50px"
-                            android:layout_height="30px"
-                            android:src="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription" />
-
-                        <ImageView
-                            android:layout_width="50px"
-                            android:layout_height="match_parent"
-                            android:src="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription" />
-
-                        <ImageView
-                            android:layout_width="50px"
-                            android:layout_height="match_parent"
-                            android:src="@mipmap/ic_launcher"
-                            tools:ignore="ContentDescription" />
                     </LinearLayout>
 
                     <TextView
                         android:id="@+id/tv_count"
                         style="@style/text30"
-                        android:layout_alignTop="@+id/rela_focus"
-                        android:text="188"
-                        android:gravity="center"
-                        tools:ignore="HardcodedText"
                         android:layout_alignStart="@+id/textView26"
-                        android:layout_toStartOf="@+id/rela_focus" />
+                        android:layout_alignTop="@+id/rela_focus"
+                        android:layout_toStartOf="@+id/rela_focus"
+                        android:gravity="center"
+                        android:text="188"
+                        tools:ignore="HardcodedText" />
 
                     <TextView
                         android:id="@+id/textView26"
@@ -150,27 +136,6 @@
 
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/gap"
-                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
-
-                <TextView
-                    style="@style/text26"
-                    android:layout_centerVertical="true"
-                    android:text="好评率"
-                    android:textColor="#929292"
-                    tools:ignore="HardcodedText" />
-
-                <TextView
-                    style="@style/text30"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="150px"
-                    android:text="98%"
-                    tools:ignore="HardcodedText" />
-            </RelativeLayout>
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -188,11 +153,11 @@
                     tools:ignore="HardcodedText" />
 
                 <TextView
-                    android:id="@+id/tv_title"
+                    android:id="@+id/tv_title20"
                     style="@style/text30"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="150px"
-                    android:text="漳州港渔业"
+                    android:text=""
                     tools:ignore="HardcodedText" />
             </RelativeLayout>
 
@@ -213,47 +178,16 @@
                     tools:ignore="HardcodedText" />
 
                 <ImageView
-                    android:layout_width="44px"
-                    android:layout_height="44px"
+                    android:layout_width="84px"
+                    android:layout_height="84px"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/gap"
+                    android:onClick="onChat"
+                    android:padding="@dimen/gap"
+
                     android:src="@mipmap/lianxi" />
             </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:layout_marginTop="@dimen/gap"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/gap"
-                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
-
-                <TextView
-                    style="@style/text26"
-                    android:layout_centerVertical="true"
-                    android:text="工商执照"
-                    android:textColor="#929292"
-                    tools:ignore="HardcodedText" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="88px"
-                android:layout_marginTop="@dimen/gap"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/gap"
-                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
-
-                <TextView
-                    style="@style/text26"
-                    android:layout_centerVertical="true"
-                    android:text="BRC证"
-                    android:textColor="#929292"
-                    tools:ignore="HardcodedText" />
-
-            </RelativeLayout>
 
         </LinearLayout>
 

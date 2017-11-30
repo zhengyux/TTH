@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="354px">
+        android:layout_height="500px">
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
@@ -135,26 +135,15 @@
 
 
         <LinearLayout
+            android:id="@+id/lin_10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:divider="@drawable/shop_div"
+            android:showDividers="middle"
             android:layout_alignBottom="@+id/image_photo"
             android:layout_toEndOf="@+id/image_photo"
             android:orientation="horizontal">
 
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="30px"
-                android:src="@mipmap/ic_launcher" />
-
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher" />
-
-            <ImageView
-                android:layout_width="50px"
-                android:layout_height="match_parent"
-                android:src="@mipmap/ic_launcher" />
         </LinearLayout>
 
         <TextView
@@ -229,10 +218,10 @@
             <TextView
                 android:id="@+id/tv_people"
                 style="@style/text28"
-                android:text="182"
-                android:textColor="@color/text_black"
                 android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:text="182"
+                android:textColor="@color/text_black" />
 
             <TextView
                 style="@style/text24"

@@ -1,10 +1,13 @@
 package com.taotaohai.activity;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.util.DisplayMetrics;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,27 +18,25 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.hedgehog.ratingbar.RatingBar;
+import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Comment;
 import com.taotaohai.bean.Focus2;
 import com.taotaohai.bean.Goods;
-import com.taotaohai.util.CustomToast;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.taotaohai.widgets.MultipleStatusView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.xutils.http.HttpMethod;
 
 import java.io.Serializable;
@@ -43,6 +44,9 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.taotaohai.GlobalParams.LOGINPROBLEM;
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 public class GoodsDetialActivity extends BaseActivity implements View.OnClickListener {
     int stata = 1;
@@ -57,7 +61,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private View lin_2;
     private View lin_3;
     private MyAdapter adapter;
-    private ImageView image_like, image_photo, image_1;
+    private ImageView image_like, image_photo, image_1, image_3;
     private View rela_buy;
     private TextView tv_gotoshop;
     private Banner banner;
@@ -69,6 +73,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private TextView tv2;
     private TextView tv3;
     private TextView tv_count_all;
+    private Focus2 focus2;
+    private LinearLayout lin_10;
 
     @Override
     protected void inithttp() {
@@ -80,26 +86,86 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods_detial);
         initview();
+        mMsvLayout.loading();
         get("api/goods/" + getintent("id"));
         get("api/comment/goods/" + getintent("id"), 1);
-        get("api/follow/" + getintent("id") + "/check/goods", 2);
+        get("api/follow/" + getintent("id") + "/check/goods", NONOTICELOGIN);
 
     }
 
+    @Override
+    public void onFinished(int code) {
+        super.onFinished(code);
+        if (LOGINPROBLEM) {
+            LOGINPROBLEM = false;
+            return;
+        }
+        if (code == 0 && goods == null) {
+            get("api/goods/" + getintent("id"));
+            return;
+        }
+        if (code == 1 && comment == null) {
+            get("api/comment/goods/" + getintent("id"), 1);
+            return;
+        }
+//        if (code == NONOTICELOGIN && focus2 == null) {
+//            get("api/follow/" + getintent("id") + "/check/goods", NONOTICELOGIN);
+//            return;
+//        }
+        mMsvLayout.content();
+    }
 
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if (postcode == 999) {
+            if (isLike) {
+                image_like.setImageResource(R.mipmap.xinno);
+            } else {
+                image_like.setImageResource(R.mipmap.xinyes);
+            }
+            isLike = !isLike;
+        }
         if (postcode == 99) {
             if (util.isSuccess(result)) {
-                View view = getLayoutInflater().inflate(R.layout.toast, null);
-                CustomToast.showDiverseToast(this, view, Gravity.TOP);
+//                View view = getLayoutInflater().inflate(R.layout.toast, null);
+//                CustomToast.showDiverseToast(this, view, Gravity.TOP);
+                int[] local = new int[2];
+                image_1.getLocationOnScreen(local);
+                DisplayMetrics metric = new DisplayMetrics();
+                getWindowManager().getDefaultDisplay().getMetrics(metric);
+                image_3.setVisibility(View.VISIBLE);
+                ObjectAnimator anim1 = ObjectAnimator.ofFloat(image_3, "translationX",
+                        local[0], metric.widthPixels - 200);
+                ObjectAnimator anim2 = ObjectAnimator.ofFloat(image_3, "translationY",
+                        local[1], -20);
+                ObjectAnimator anim3 = ObjectAnimator.ofFloat(image_3, "alpha",
+                        1.0f, 0.2f);
+                ObjectAnimator anim4 = ObjectAnimator.ofFloat(image_3, "scaleX",
+                        1.0f, 0.2f);
+                ObjectAnimator anim5 = ObjectAnimator.ofFloat(image_3, "scaleY",
+                        1.0f, 0.2f);
+//        ObjectAnimator anim3 = ObjectAnimator.ofFloat(image_photo,
+//                "x", cx, 0f);
+//        ObjectAnimator anim4 = ObjectAnimator.ofFloat(image_photo,
+//                "x", cx);
+
+                /**
+                 * anim1，anim2,anim3同时执行
+                 * anim4接着执行
+                 */
+                AnimatorSet animSet = new AnimatorSet();
+                animSet.play(anim1).with(anim2).with(anim3).with(anim4).with(anim5);
+                animSet.setDuration(1000);
+                animSet.start();
+
             } else {
                 showToast("加入商品失败，商品数量不足");
             }
+            rela_buy.postDelayed(() -> rela_buy.setVisibility(View.GONE), 1000);
         }
-        if (postcode == 2) {
-            Focus2 focus2 = util.getgson(result, Focus2.class);
+        if (postcode == NONOTICELOGIN) {
+            focus2 = util.getgson(result, Focus2.class);
             isLike = focus2.getData();
             if (!isLike) {
                 image_like.setImageResource(R.mipmap.xinno);
@@ -141,15 +207,25 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_goods.setText(goods.getData().getShopInfo().getTotalGoods());
                 tv_source.setText(goods.getData().getShopInfo().getTotalSourceGoods());
                 tv_people.setText(goods.getData().getShopInfo().getTotalLike());
-
                 tv_1.setText("￥" + goods.getData().getPrice());
                 tv_2.setText("/" + goods.getData().getUnit());
                 tv_3.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起批," + goods.getData().getRemark());
                 tv_count_all.setText("请选择购买数量  库存" + goods.getData().getStock());
                 stock = goods.getData().getStock();
                 tv_num2.setText(String.valueOf(goods.getData().getUnitMin()));
+                count = goods.getData().getUnitMin();
+
+                for (int i = 0; i < 3 && i < goods.getData().getShopInfo().getShopIdentifies().size(); i++) {
+                    TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+                    textView.setText(goods.getData().getShopInfo().getShopIdentifies().get(i).getName());
+                    lin_10.addView(textView);
+                }
                 GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_photo);
-                GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_1);
+
+                if (goods.getData().getImagesUrl().size() != 0) {
+                    GlideUtil.loadImg(goods.getData().getImagesUrl().get(0), image_1);
+                    GlideUtil.loadImg(goods.getData().getImagesUrl().get(0), image_3);
+                }
                 if (goods.getData().getSourceVideo().length() < 5) {
                     rela_click_2.setVisibility(View.GONE);
                 }
@@ -162,11 +238,14 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     private void initview() {
+        mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
         listview = (ListView) findViewById(R.id.listview);
+
         View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
 
         image_like = (ImageView) findViewById(R.id.image_like);
         rela_buy = findViewById(R.id.rela_buy);
+        lin_10 = (LinearLayout) headview.findViewById(R.id.lin_10);
         tv_num = (TextView) headview.findViewById(R.id.tv_num);
         tv_num2 = (TextView) findViewById(R.id.tv_num);
         tv_title = (TextView) headview.findViewById(R.id.tv_title);
@@ -180,8 +259,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         tv_util = (TextView) headview.findViewById(R.id.tv_util);
         tv_count = (TextView) headview.findViewById(R.id.tv_count);
         image_photo = (ImageView) headview.findViewById(R.id.image_photo);
-
         image_1 = (ImageView) findViewById(R.id.image_1);
+        image_3 = (ImageView) findViewById(R.id.imag_3);
+
         tv_1 = (TextView) findViewById(R.id.tv_11);
         tv_2 = (TextView) findViewById(R.id.tv_21);
         tv_3 = (TextView) findViewById(R.id.tv_31);
@@ -219,32 +299,33 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     boolean isLike = false;
 
     public void onLike(View view) {
-        if (isLike) {
-            image_like.setImageResource(R.mipmap.xinno);
-        } else {
-            image_like.setImageResource(R.mipmap.xinyes);
-        }
-        isLike = !isLike;
-        get("api/follow/" + getintent("id") + "/goods");
+
+        get("api/follow/" + getintent("id") + "/goods", 999);
 
     }
 
+    int paytype = -1;
+
     public void onCar(View view) {
+        paytype = 0;
         if (goods == null) {
             return;
         }
-        JsonObject object = new JsonObject();
-        object.addProperty("goodsId", goods.getData().getId());
-        object.addProperty("count", "1");
-        Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
+        rela_buy.setVisibility(View.VISIBLE);
+
     }
 
     public void onMessage(View view) {
+        startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
+    }
+
+    public void onMessage() {
         startActivity(new Intent(this, MessageActivity.class));
     }
 
 
     public void onDismis(View view) {
+        paytype = 1;
         rela_buy.setVisibility(View.GONE);
     }
 
@@ -275,7 +356,15 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onOK(View view) {
-        if(goods.getData().getUnitMin()>goods.getData().getStock()){
+        if (paytype == 0) {
+            JsonObject object = new JsonObject();
+            object.addProperty("goodsId", goods.getData().getId());
+            object.addProperty("count", "1");
+            Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
+            return;
+        }
+
+        if (goods.getData().getUnitMin() > goods.getData().getStock()) {
             showToast("库存不足,无法购买");
             return;
         }
@@ -308,23 +397,26 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 setdefult();
                 break;
             case R.id.tv_gotoshop:
-                startActivity(new Intent(this, ShopActivity.class));
+                startActivity(new Intent(this, ShopActivity.class)
+                        .putExtra("id", goods.getData().getShopId()));
                 break;
             case R.id.left_images:
                 finish();
-                break;
-            case R.id.message:
-                startActivity(new Intent(this, MessageActivity.class));
                 break;
             case R.id.shopcar:
                 startActivity(new Intent(this, ShopCarActivity.class));
                 break;
             case R.id.tv_jiliang:
-                startActivity(new Intent(this, JiLiangActivity.class));
+                startActivity(new Intent(this, JiLiangActivity.class)
+                        .putExtra("data", goods.getData().getMeasure())
+                );
                 break;
             case R.id.tv_allgoods:
                 startActivity(new Intent(this, ShopActivity.class)
                         .putExtra("id", goods.getData().getShopId()));
+                break;
+            case R.id.message:
+                onMessage();
                 break;
 
         }
@@ -411,7 +503,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                     for (int i = 0; i < goods.getData().getContentImgsUrl().size(); i++) {
                         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(GoodsDetialActivity.this).inflate(R.layout.layout_img, null);
                         ImageView image_logo = (ImageView) linearLayout.findViewById(R.id.image_logo);
-                        GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_logo);
+                        GlideUtil.loadImg(goods.getData().getContentImgsUrl().get(i), image_logo);
                         lin_1.addView(linearLayout);
                     }
                 }
@@ -438,6 +530,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
                 ImageView image_photo = (ImageView) view.findViewById(R.id.image_photo);
                 View rela_all = view.findViewById(R.id.rela_all);
+                LinearLayout lin_message = (LinearLayout) view.findViewById(R.id.lin_message);
                 TextView tv_time = (TextView) view.findViewById(R.id.tv_time);
                 TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
                 TextView tv_name = (TextView) view.findViewById(R.id.tv_name);
@@ -449,6 +542,12 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_content.setText(comment.getData2().getData().get(position).getComment());
                 tv_name.setText(comment.getData2().getData().get(position).getUser().getName());
                 ratingBar.setStar(comment.getData2().getData().get(position).getCommentLevel());
+                for (int i = 0; i < comment.getData2().getData().get(position).getImgsAbsUrl().size(); i++) {
+                    ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_image, null);
+                    GlideUtil.loadImg(comment.getData2().getData().get(position).getImgsAbsUrl().get(i), imageView);
+                    lin_message.addView(imageView);
+                }
+
                 if (comment.getData2().getData().get(position).getReplyComment() == null) {
                     rela_all.setVisibility(View.GONE);
                 } else {
@@ -524,5 +623,13 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         return arrayList;
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && rela_buy.isShown()) {
+            rela_buy.setVisibility(View.GONE);
+            return true;
+        }
 
+        return super.onKeyDown(keyCode, event);
+    }
 }

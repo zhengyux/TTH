@@ -1,6 +1,5 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -15,8 +14,6 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
-
-import java.util.List;
 
 public class ReFundListActivity extends BaseActivity {
 
@@ -40,6 +37,10 @@ public class ReFundListActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_fund_list);
+        findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(this, MessageActivity.class)));
+        findViewById(R.id.rela_shopcar).setOnClickListener((l) -> startActivity(new Intent(this, ShopCarActivity.class)));
+
+
         inithttp();
     }
 
@@ -98,16 +99,16 @@ public class ReFundListActivity extends BaseActivity {
                 State = "待审核";
                 break;
             case 2:
-                State = "商家审核通过";
+                State = "已同意退款";
                 break;
             case 3:
-                State = "商家审核不通过，移交平台审核";
+                State = "等待平台介入";
                 break;
             case 4:
-                State = "平台审核通过";
+                State = "平台同意退款";
                 break;
             case 5:
-                State = "平台审核不通过";
+                State = "平台拒绝退款";
                 break;
 
         }

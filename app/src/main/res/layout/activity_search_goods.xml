@@ -40,7 +40,7 @@
                     android:layout_toStartOf="@+id/tv_cancle"
                     android:background="@drawable/searchbac"
                     android:gravity="center|left"
-                    android:hint="输入关键字收索"
+                    android:hint="输入关键字搜索"
                     android:paddingLeft="150px"
                     android:singleLine="true"
                     android:textColor="@color/text_black"
@@ -80,7 +80,7 @@
         <TextView
             style="@style/text28"
             android:layout_margin="@dimen/gap"
-            android:text="历史收索"
+            android:text="搜索历史"
             android:textColor="@color/text_black" />
 
         <com.taotaohai.myview.WordWrapView

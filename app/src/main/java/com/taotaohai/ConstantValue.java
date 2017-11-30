@@ -16,7 +16,8 @@ public interface ConstantValue {
     /**
      * 服务器端
      */
-    public String URL = "http://192.168.199.26:8080/";//测试域名
+    public String URL = "http://taotaohai.lmlm.cn/";//测试域名
+//    public String URL = "http://192.168.199.26:8080/";//测试域名
 //    public String URL = "http://open.been.works/";//测试域名
 //    public String URL = "git.loacg.com/";//测试域名
 //    public String URL = "http://test.been.works/";

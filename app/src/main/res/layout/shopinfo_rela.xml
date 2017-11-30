@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/common">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginTop="@dimen/gap"
+        android:background="@color/white"
+        android:paddingLeft="@dimen/gap">
+
+        <TextView
+            android:id="@+id/text_name"
+            style="@style/text26"
+            android:layout_centerVertical="true"
+            android:text="工商执照"
+            android:textColor="#929292" />
+
+        <ImageView
+            android:layout_width="20px"
+            android:layout_height="40px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/gap"
+            android:src="@mipmap/right" />
+    </RelativeLayout>
+</RelativeLayout>

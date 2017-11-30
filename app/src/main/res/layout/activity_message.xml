@@ -25,7 +25,7 @@
             tools:ignore="PxUsage,UselessParent">
 
             <RelativeLayout
-                android:id="@+id/relativeLayout2"
+                android:id="@+id/rela_shopcar"
                 android:layout_width="44px"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -62,16 +62,20 @@
                 tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
 
             <RelativeLayout
+                android:onClick="onBack"
                 android:id="@+id/back"
                 android:layout_width="100px"
-                android:layout_height="100px"></RelativeLayout>
+                android:layout_height="100px"
+                tools:ignore="OnClick"></RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="104px"
+            android:layout_height="124px"
             android:layout_alignParentStart="true"
-            android:padding="@dimen/gap">
+            android:onClick="onSystem"
+            android:padding="@dimen/gap"
+            tools:ignore="OnClick">
 
             <ImageView
                 android:id="@+id/imageView25"
@@ -99,9 +103,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="104px"
+            android:layout_height="124px"
             android:layout_alignParentStart="true"
-            android:padding="@dimen/gap">
+            android:onClick="onNotice"
+            android:padding="@dimen/gap"
+            tools:ignore="OnClick">
 
             <ImageView
                 android:id="@+id/imageView26"
@@ -114,7 +120,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/gap"
                 android:layout_toEndOf="@+id/imageView26"
-                android:text="系统消息" />
+                android:text="通知消息" />
 
             <ImageView
                 android:layout_width="20px"
@@ -124,6 +130,13 @@
                 android:src="@mipmap/right2" />
 
         </RelativeLayout>
+
+        <TextView style="@style/textgap1" />
+
+        <FrameLayout
+            android:id="@+id/fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </LinearLayout>
 
 

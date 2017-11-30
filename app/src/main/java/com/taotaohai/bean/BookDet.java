@@ -43,6 +43,7 @@ public class BookDet extends BaseBean {
         private String totalPrice;
         private String username;
 
+
         public String getAcount() {
             return acount;
         }

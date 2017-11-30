@@ -1,12 +1,13 @@
 package com.taotaohai.httputil;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
-import com.bumptech.glide.util.Util;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.taotaohai.ConstantValue;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -24,6 +25,8 @@ import org.xutils.x;
 
 import java.io.File;
 import java.util.List;
+
+import static com.taotaohai.GlobalParams.LOGINPROBLEM;
 
 /**
  * Created by Administrator on 2017/2/10.
@@ -159,11 +162,30 @@ public class Http implements IHttp {
                 }
                 try {
                     if (ex.toString().contains("401")) {
+
                         if (SPUtils.get((BaseActivity) mOnloginListener, "username", null) != null) {
                             RequestParams p = new RequestParams(ConstantValue.URL + "api/auth/login");
                             p.addBodyParameter("username", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
-                            p.addBodyParameter("password", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
+                            p.addBodyParameter("password", (String) SPUtils.get((BaseActivity) mOnloginListener, "password", null));
                             Post(p, 0);
+                            EMClient.getInstance().login((String) SPUtils.get((BaseActivity) mOnloginListener, "username", null), MD5Utils.md5Password((String) SPUtils.get((BaseActivity) mOnloginListener, "password", null)), new EMCallBack() {
+
+                                @Override
+                                public void onSuccess() {
+
+                                }
+
+                                @Override
+                                public void onProgress(int progress, String status) {
+
+                                }
+
+                                @SuppressLint("WrongConstant")
+                                @Override
+                                public void onError(int code, String error) {
+                                }
+                            });
+
                         }
 
                     }
@@ -219,10 +241,11 @@ public class Http implements IHttp {
             mOnloginListener.onError(ex, postcode);
             String[] st = ex.toString().split("result:");
             if (st.length > 1) {
-                util.isSuccess(util.getgson(st[1], BaseBean.class), (BaseActivity) mOnloginListener);
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
             }
             try {
                 if (ex.toString().contains("401")) {
+                    LOGINPROBLEM = true;
                     if (SPUtils.get((BaseActivity) mOnloginListener, "username", null) != null) {
                         RequestParams p = new RequestParams(ConstantValue.URL + "api/auth/login");
                         p.addBodyParameter("username", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));

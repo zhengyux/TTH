@@ -116,6 +116,7 @@ public class Comment {
         private String recordId;
         @SerializedName("replyComment")
         private String replyComment;
+
         @SerializedName("user")
         private User user;
         @SerializedName("userId")
@@ -253,6 +254,16 @@ public class Comment {
         private User user;
         @SerializedName("userId")
         private String userId;
+        @SerializedName("imgsAbsUrl")
+        private List<String> imgsAbsUrl;
+
+        public List<String> getImgsAbsUrl() {
+            return imgsAbsUrl;
+        }
+
+        public void setImgsAbsUrl(List<String> imgsAbsUrl) {
+            this.imgsAbsUrl = imgsAbsUrl;
+        }
 
         public String getComment() {
             return comment;

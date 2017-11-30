@@ -1,19 +1,20 @@
 package com.taotaohai.fragment;
 
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 import com.taotaohai.R;
 import com.taotaohai.activity.AddressManeger;
 import com.taotaohai.activity.Login;
@@ -25,15 +26,14 @@ import com.taotaohai.activity.ReFundListActivity;
 import com.taotaohai.activity.Regist;
 import com.taotaohai.activity.SetActivity;
 import com.taotaohai.activity.ShopCarActivity;
+import com.taotaohai.activity.ShopIn;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.LoginBean;
-import com.taotaohai.bean.Mine;
 import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
-
-import static android.R.attr.password;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -58,7 +58,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         // Required empty public constructor
     }
 
-    LoginBean loginBean = null;
+    private LoginBean loginBean = null;
 
 
     @Override
@@ -68,6 +68,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view = inflater.inflate(R.layout.fragment_mine, container, false);
         // Inflate the layout for this fragment
         initview();
+        loginBean = null;
 //        inithttp();
         return view;
     }
@@ -89,6 +90,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         super.inithttp();
         has.put("username", (String) SPUtils.get(getActivity(), "username", ""));
         has.put("password", (String) SPUtils.get(getActivity(), "password", ""));
+        has.put("loginType", "1");
         post("api/auth/login", has, 0);
     }
 
@@ -98,6 +100,23 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         loginBean = util.getgson(data, LoginBean.class);
         if (loginBean.getSuccess()) {
             initdata();
+            EMClient.getInstance().login(loginBean.getData().getId(), MD5Utils.md5Password((String) SPUtils.get(getActivity(), "password", null)), new EMCallBack() {
+
+                @Override
+                public void onSuccess() {
+
+                }
+
+                @Override
+                public void onProgress(int progress, String status) {
+
+                }
+
+                @SuppressLint("WrongConstant")
+                @Override
+                public void onError(int code, String error) {
+                }
+            });
         }
 
     }
@@ -116,6 +135,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rela3).setOnClickListener(this);
         view.findViewById(R.id.rela4).setOnClickListener(this);
         view.findViewById(R.id.rela5).setOnClickListener(this);
+        view.findViewById(R.id.rela6).setOnClickListener(this);
         view.findViewById(R.id.rela21).setOnClickListener(this);
         view.findViewById(R.id.rela22).setOnClickListener(this);
         view.findViewById(R.id.rela23).setOnClickListener(this);
@@ -146,6 +166,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 //            startActivityForResult(new Intent(getActivity(), Login.class), 10);
 //            return;
 //        }
+        if (!(v.getId() == R.id.tv_regist || v.getId() == R.id.tv_login)) {
+            if (loginBean == null) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                dialog.setTitle("未登录");
+                dialog.setMessage("是否进入登录页登录?");
+                dialog.setNegativeButton("前往", (dialog1, which) -> {
+                    startActivity(new Intent(getActivity(), Login.class));
+                });
+                dialog.setNeutralButton("取消", (dialog1, which) -> {
+                });
+                dialog.show();
+                return;
+            }
+
+        }
         switch (v.getId()) {
             case R.id.rela1:
                 break;
@@ -161,7 +196,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rela5:
                 startActivity(new Intent(getActivity(), SetActivity.class));
-
+                break;
+            case R.id.rela6:
+                startActivity(new Intent(getActivity(), ShopIn.class));
                 break;
             case R.id.rela21:
                 startActivity(new Intent(getActivity(), MyBook.class)
@@ -241,5 +278,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         dialog.show();
     }
 
-
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        loginBean = null;
+    }
 }

@@ -3,12 +3,13 @@ package com.taotaohai.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.GlobalParams;
@@ -19,9 +20,6 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class ShopMoreActivity extends BaseActivity implements View.OnClickListener {
 
@@ -67,6 +65,12 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
             protected void convert(ViewHolder holder, final ShopList.Data data, int position) {
                 ImageView imageView = holder.getView(R.id.image_photo);
                 GlideUtil.loadImg(data.getLogoIdAbsUrl(), imageView);
+                LinearLayout lin_1 = holder.getView(R.id.lin_1);
+                for (int i = 0; i < 3 && i < data.getShopIdentifies().size(); i++) {
+                    TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+                    textView.setText(data.getShopIdentifies().get(i).getName());
+                    lin_1.addView(textView);
+                }
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
                 holder.setText(R.id.tv_3, util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");

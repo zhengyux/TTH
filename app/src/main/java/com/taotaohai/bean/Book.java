@@ -53,7 +53,7 @@ public class Book implements Serializable {
         this.success = success;
     }
 
-    public static class Ext implements Serializable{
+    public static class Ext implements Serializable {
         @SerializedName("acount")
         private int acount;
         @SerializedName("dealTime")
@@ -326,7 +326,7 @@ public class Book implements Serializable {
         }
     }
 
-    public static class Data implements Serializable{
+    public static class Data implements Serializable {
         private int count;
 
         @SerializedName("ext")
@@ -361,6 +361,16 @@ public class Book implements Serializable {
         private String totalPrice;
         @SerializedName("userId")
         private String userId;
+        @SerializedName("goodsInfo")
+        private goodsInfo goodsInfo;
+
+        public Book.goodsInfo getGoodsInfo() {
+            return goodsInfo;
+        }
+
+        public void setGoodsInfo(Book.goodsInfo goodsInfo) {
+            this.goodsInfo = goodsInfo;
+        }
 
         public int getGmtRemaining() {
             return gmtRemaining;
@@ -499,7 +509,7 @@ public class Book implements Serializable {
         }
     }
 
-    public static class Data2 implements Serializable{
+    public static class Data2 implements Serializable {
         private List<Data> data;
         @SerializedName("total")
         private int total;
@@ -520,4 +530,36 @@ public class Book implements Serializable {
             this.total = total;
         }
     }
+
+    public static class goodsInfo implements Serializable {
+        private String goosId;
+        private String shopId;
+        private String userId;
+
+        public String getGoosId() {
+            return goosId;
+        }
+
+        public void setGoosId(String goosId) {
+            this.goosId = goosId;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+
+        public String getUserId() {
+            return userId;
+        }
+
+        public void setUserId(String userId) {
+            this.userId = userId;
+        }
+    }
+
+
 }

@@ -1,10 +1,7 @@
 package com.taotaohai.activity;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -21,10 +18,6 @@ import com.taotaohai.util.util;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
-
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.List;
 
 public class SearchGoods extends BaseActivity {
 
@@ -72,11 +65,17 @@ public class SearchGoods extends BaseActivity {
                 chooseClick.setVisibility(View.GONE);
                 break;
             case R.id.tv_cancle:
-                list_history = edit_search.getText().toString() + "#~#" + list_history;
-                SPUtils.put(SearchGoods.this, "history", list_history);
+                if (tv_cancle.getText().toString().equals("取消")) {
+                    finish();
+                    return;
+                }
+                if (edit_search.getText().toString().length() > 0) {
+                    list_history = edit_search.getText().toString() + "#~#" + list_history;
+                    SPUtils.put(SearchGoods.this, "history", list_history);
+                }
                 if (tv_search.getText().toString().equals("商品")) {
                     startActivity(new Intent(SearchGoods.this, Seachend.class)
-                            .putExtra("goodsName", edit_search.getText().toString())
+                            .putExtra("name", edit_search.getText().toString())
                     );
                 } else {
                     startActivity(new Intent(SearchGoods.this, SeachendShop.class)
@@ -91,11 +90,14 @@ public class SearchGoods extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_goods);
         x.view().inject(this);//注解绑定
-        list_history = (String) SPUtils.get(this, "history", "");
-
         inithttp();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        list_history = (String) SPUtils.get(this, "history", "");
+    }
 
     private void initview() {
         if (list_history != null) {
@@ -131,13 +133,24 @@ public class SearchGoods extends BaseActivity {
         }
 
         WordWrapView wordwarp3 = (WordWrapView) findViewById(R.id.wordwarp3);
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             TextView text = (TextView) getLayoutInflater().inflate(R.layout.textview, null);
-            text.setText(i * 100 + "~" + (i + 1) * 100 + "km");
+            if (i == 0) {
+                text.setText("0~100km");
+            }
+            if (i == 1) {
+                text.setText("100~300km");
+            }
+            if (i == 2) {
+                text.setText("300~500km");
+            }
+            if (i == 3) {
+                text.setText("500km以上");
+            }
             int finalI = i;
             text.setOnClickListener((l) -> {
                 startActivity(new Intent(SearchGoods.this, SeachendShop.class)
-                        .putExtra("distance", String.valueOf(finalI * 100000 + 100000)));
+                        .putExtra("distance", String.valueOf(finalI)));
             });
             wordwarp3.addView(text);
         }

@@ -109,7 +109,7 @@
         style="@style/button"
         android:layout_margin="@dimen/gap"
         android:onClick="onLogin"
-        android:text="注册"
+        android:text="修改"
         tools:ignore="HardcodedText" />
 
 

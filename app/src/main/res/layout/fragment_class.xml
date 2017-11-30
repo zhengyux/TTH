@@ -4,22 +4,24 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.taotaohai.fragment.ClassFragment">
+
     <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title"
-        android:background="@color/them"
-        android:id="@+id/textView" />
+        android:background="@color/them" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="130px"
+        android:layout_below="@+id/textView"
         android:background="@color/them"
         android:paddingTop="30px"
-        tools:ignore="PxUsage,UselessParent"
-        android:layout_below="@+id/textView">
+        tools:ignore="PxUsage,UselessParent">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout2"
+            android:id="@+id/rela_shopcar"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -45,12 +47,12 @@
             tools:ignore="HardcodedText" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout3"
+            android:id="@+id/rela_message"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/relativeLayout2"
+            android:layout_toStartOf="@+id/rela_shopcar"
             tools:ignore="RtlHardcoded,UselessParent">
 
             <ImageView
@@ -69,9 +71,9 @@
         android:layout_width="182px"
         android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout"
+        android:layout_marginTop="1px"
         android:background="@color/class_bac"
         android:divider="@color/text_gray"
-        android:layout_marginTop="1px"
         android:dividerHeight="1px"
         android:scrollbars="none"
         tools:ignore="PxUsage"></ListView>
@@ -195,9 +197,9 @@
         android:id="@+id/xrefreshview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_alignEnd="@+id/linearLayout"
         android:layout_below="@+id/linearLayout"
         android:layout_marginLeft="@dimen/gap"
-        android:layout_alignEnd="@+id/linearLayout"
         android:layout_toEndOf="@+id/listview">
 
         <android.support.v7.widget.RecyclerView
@@ -206,4 +208,17 @@
             android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
     </com.andview.refreshview.XRefreshView>
 
+    <ImageView
+        android:id="@+id/imag_photo2"
+        android:layout_width="54px"
+        android:layout_height="54px"
+        android:src="@mipmap/shopc"
+        android:visibility="invisible" />
+    <com.taotaohai.widgets.MultipleStatusView
+        android:id="@+id/msv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="160px"></com.taotaohai.widgets.MultipleStatusView>
 </RelativeLayout>

@@ -19,7 +19,6 @@ import com.taotaohai.util.util;
 import org.xutils.http.HttpMethod;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ShopCarActivity extends BaseActivity {
@@ -130,12 +129,18 @@ public class ShopCarActivity extends BaseActivity {
             final TextView tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
             final View rela_edit = convertView.findViewById(R.id.rela_edit);
             TextView tv_price = (TextView) convertView.findViewById(R.id.tv_price);
+            TextView tv_guige = (TextView) convertView.findViewById(R.id.tv_guige);
+            TextView text_title = (TextView) convertView.findViewById(R.id.text_title);
+            TextView text_content = (TextView) convertView.findViewById(R.id.text_content);
             TextView tv_util = (TextView) convertView.findViewById(R.id.tv_util);
             final TextView tv_count = (TextView) convertView.findViewById(R.id.tv_count);
             final TextView tv_count1 = (TextView) convertView.findViewById(R.id.tv_count1);
             final ImageView image_photo = (ImageView) convertView.findViewById(R.id.image_photo);
             tv_price.setText(car.getData().getData().get(position).getPrice());
+            text_content.setText(car.getData().getData().get(position).getShopName());
+            tv_guige.setText(car.getData().getData().get(position).getRemark());
             tv_util.setText("/" + car.getData().getData().get(position).getUnit());
+            text_title.setText(car.getData().getData().get(position).getShopName());
             GlideUtil.loadImg(car.getData().getData().get(position).getImgId(), image_photo);
             int count = car.getData().getData().get(position).getCount();
             if (count == 0) {
@@ -187,17 +192,14 @@ public class ShopCarActivity extends BaseActivity {
             });
 
             radioButton.setChecked(isclicks.get(position));
-            radioButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (isclicks.get(position)) {
-                        radioButton.setChecked(false);
-                    } else {
-                        radioButton.setChecked(true);
-                    }
-                    isclicks.set(position, !isclicks.get(position));
-                    all();
+            radioButton.setOnClickListener(v -> {
+                if (isclicks.get(position)) {
+                    radioButton.setChecked(false);
+                } else {
+                    radioButton.setChecked(true);
                 }
+                isclicks.set(position, !isclicks.get(position));
+                all();
             });
 
             return convertView;
@@ -233,4 +235,5 @@ public class ShopCarActivity extends BaseActivity {
         radioall.setChecked(true);
         isall = true;
     }
+
 }

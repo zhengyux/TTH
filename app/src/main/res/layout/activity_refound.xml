@@ -42,16 +42,16 @@
                     android:layout_marginLeft="@dimen/gap"
                     android:layout_marginRight="30px"
                     android:layout_marginTop="@dimen/gap"
-                    android:src="@mipmap/ic_launcher"
+                    android:src="@mipmap/ic_bac"
                     tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/text_content"
-                    android:maxLines="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignTop="@+id/image_photo"
                     android:layout_toEndOf="@+id/image_photo"
+                    android:maxLines="1"
                     android:text="野生黑鱼好吃又好卖"
                     android:textColor="@color/text_black"
                     android:textSize="30px"
@@ -141,7 +141,7 @@
                 <TextView
                     android:id="@+id/tv_refund"
                     style="@style/text30"
-                    android:text="选着退款原因" />
+                    android:text="选择退款原因" />
 
                 <ImageView
                     android:layout_width="34px"
@@ -184,7 +184,7 @@
                 android:layout_marginRight="30px"
                 android:background="@null"
                 android:gravity="top"
-                android:hint="产品满足您的期待么，请描述产品的优缺点..."
+                android:hint="请输入退款说明"
                 android:lineSpacingExtra="5px"
                 android:maxLength="255"
                 android:paddingTop="10px"
@@ -193,6 +193,12 @@
                 tools:ignore="HardcodedText,ObsoleteLayoutParam,PxUsage,RtlHardcoded" />
 
             <TextView style="@style/textgap" />
+
+            <TextView
+                style="@style/text28"
+                android:text="上传凭证"
+                android:layout_margin="@dimen/gap"
+                android:textColor="@color/junhuang"/>
 
             <com.taotaohai.myview.MyGridView
                 android:id="@+id/noScrollgridview"

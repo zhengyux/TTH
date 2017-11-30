@@ -3,17 +3,16 @@ package com.taotaohai.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
-import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.Search;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.Video;
@@ -26,9 +25,6 @@ import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import org.xutils.http.HttpMethod;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,6 +58,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     }
 
     void inithttpdata() {
+        mMsvLayout.loading();
         has.clear();
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
@@ -77,7 +74,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
-
         if (postcode == 0) {
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
@@ -95,7 +91,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 } else {
                     xrefreshview.setLoadComplete(true);
                 }
-
             }
         }
     }
@@ -104,13 +99,27 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     public void onFinished(int code) {
         super.onFinished(code);
         xrefreshview.stopRefresh();
+        if (video == null) {
+            mMsvLayout.error();
+        } else if (video.getData().getData().size() == 0) {
+            mMsvLayout.empty();
+        } else {
+            mMsvLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        super.onError(ex, postcode);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_video, container, false);
+        RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.fragment_video, container, false);
+//        addview(inflater, view, container);
         initview(view);
         inithttp();
         return view;
@@ -119,13 +128,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     private void initview(View view) {
         view.findViewById(R.id.search_).setOnClickListener(this);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
-        mMsvLayout.loading();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMsvLayout.content();
+        mMsvLayout.setOnClickListener((l) -> {
+            if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
+                inithttp();
             }
-        }, 1000);
+        });
+
         xrefreshview = (XRefreshView) view.findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
@@ -146,6 +154,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
             @Override
             protected void convert(ViewHolder holder, final Video.Data data, int position) {
+
                 NiceVideoPlayer niceVideoPlayer = holder.getView(R.id.niceplayer);
                 niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
                 niceVideoPlayer.setUp(data.getVideoAbsUrl(), null);
@@ -156,6 +165,14 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 holder.setText(R.id.tv_count, "播放" + data.getPlayNum() + "次");
                 holder.setText(R.id.tv_title, data.getDescribe());
                 holder.setText(R.id.tv_updata, data.getUploadTime() + "更新");
+                holder.setOnClickListener(R.id.tv_play, (l) -> {
+                    if (niceVideoPlayer.isPlaying()) return;
+//                    controller.onClick(null);
+                    holder.setVisible(R.id.tv_play, false);
+                    niceVideoPlayer.start();
+                    get("api/video/player/" + data.getId(), 15);
+                });
+
             }
         };
         // 设置静默加载模式
@@ -196,21 +213,15 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.search_:
                 key = "";
-                startActivityForResult(new Intent(getActivity(), Search.class), 100);
+                startActivity(new Intent(getActivity(), Search.class));
         }
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            pageIndex = 0;
-            key = data.getStringExtra("key");
-            has.clear();
-            has.put("k", key);
-            has.put("pageSize", String.valueOf(pageSize));
-            has.put("pageIndex", String.valueOf(pageIndex));
-            Http(HttpMethod.GET, "api/search/video", has, 0);
-        }
+    public void onDestroy() {
+        super.onDestroy();
+        pageIndex = 0;
+        pageSize = 10;
+        video = null;
     }
 }

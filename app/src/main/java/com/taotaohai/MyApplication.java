@@ -5,12 +5,10 @@ import android.app.Application;
 import android.app.Service;
 import android.content.Intent;
 
+import com.hyphenate.easeui.EaseUI;
 import com.taotaohai.activity.Home;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.umeng.socialize.Config;
-import com.umeng.socialize.PlatformConfig;
-import com.umeng.socialize.UMShareAPI;
 
 import org.xutils.x;
 
@@ -36,23 +34,21 @@ public class MyApplication extends Application {
         IWXAPI wxApi;
         wxApi = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID, true);
         wxApi.registerApp(ConstantValue.APP_ID);
-        UMShareAPI.get(this);
-        Config.DEBUG = true;
 
-
+        EaseUI.getInstance().init(this,null);
     }
 
-    {
-//        PlatformConfig.setWeixin("微信appid", "微信appsecret");
-//        PlatformConfig.setQQZone("qqappid", "QQappsecret");
-//        PlatformConfig.setSinaWeibo("新浪appid", "新浪appsecret", "新浪回调地址");
-        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
-        //豆瓣RENREN平台目前只能在服务器端配置
-//        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
-//        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
-
-
-    }
+//    {
+////        PlatformConfig.setWeixin("微信appid", "微信appsecret");
+////        PlatformConfig.setQQZone("qqappid", "QQappsecret");
+////        PlatformConfig.setSinaWeibo("新浪appid", "新浪appsecret", "新浪回调地址");
+//        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+//        //豆瓣RENREN平台目前只能在服务器端配置
+////        PlatformConfig.setSinaWeibo("3921700954", "04b48b094faeb16683c32669824ebdad", "http://sns.whalecloud.com");
+////        PlatformConfig.setQQZone("100424468", "c7394704798a158208a74ab60104f0ba");
+//
+//
+//    }
 
     //管理application
     public void addActivity(Activity activity) {

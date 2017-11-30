@@ -7,18 +7,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.andview.refreshview.utils.Utils;
 import com.taotaohai.R;
 import com.taotaohai.activity.GoodsDetialActivity;
-import com.taotaohai.activity.ShopActivity;
 import com.taotaohai.activity.base.BaseFragment;
-import com.taotaohai.bean.Focus;
 import com.taotaohai.bean.Focusgoods;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
@@ -56,6 +53,8 @@ public class FocuGoodsFragment extends BaseFragment {
         get("api/follow/goods/followList", 1);
     }
 
+    TextView showtext = null;
+
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
@@ -82,6 +81,7 @@ public class FocuGoodsFragment extends BaseFragment {
                     if (convertView == null)
                         convertView = getActivity().getLayoutInflater().inflate(R.layout.item_goods, null);
                     TextView tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+                    LinearLayout lin_1 = (LinearLayout) convertView.findViewById(R.id.lin_1);
                     TextView tv_people = (TextView) convertView.findViewById(R.id.tv_people);
                     TextView tv_num = (TextView) convertView.findViewById(R.id.tv_num);
                     TextView tv_money = (TextView) convertView.findViewById(R.id.tv_money);
@@ -95,6 +95,23 @@ public class FocuGoodsFragment extends BaseFragment {
                     if (focusgoods.getData().get(position).getImagesUrl().size() > 0)
                         GlideUtil.loadImg(focusgoods.getData().get(position).getImagesUrl().get(0), image_photo);
 
+
+                    final TextView tv_cancle = (TextView) convertView.findViewById(R.id.tv_cancle);
+                    tv_cancle.setOnClickListener(v -> {
+                        get("api/follow/" + focusgoods.getData().get(position).getId() + "/goods", 56);
+                        showToast("取消关注成功");
+                        focusgoods.getData().remove(position);
+                        notifyDataSetChanged();
+                    });
+                    convertView.findViewById(R.id.image_more).setOnClickListener(v -> {
+                        if (showtext != null) {
+                            showtext.setVisibility(View.GONE);
+                        }
+                        showtext = tv_cancle;
+                        showtext.setVisibility(View.VISIBLE);
+                    });
+
+
                     return convertView;
                 }
             });
@@ -103,12 +120,9 @@ public class FocuGoodsFragment extends BaseFragment {
 
     private void initview(final View view) {
         list = (ListView) view.findViewById(R.id.listview);
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                startActivity(new Intent(getActivity(), GoodsDetialActivity.class));
-            }
-        });
+        list.setOnItemClickListener((parent, view1, position, id) -> startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                .putExtra("id", focusgoods.getData().get(position).getId())
+        ));
 
 
     }

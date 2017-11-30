@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="220px"
         android:scaleType="fitXY"
-        android:src="@mipmap/ic_launcher"
+        android:src="@mipmap/ic_bac"
         tools:ignore="ContentDescription" />
 
     <TextView
@@ -24,29 +24,14 @@
         tools:ignore="HardcodedText" />
 
     <LinearLayout
+        android:id="@+id/lin_1"
+        android:showDividers="middle"
+        android:orientation="horizontal"
         android:layout_width="match_parent"
+        android:divider="@drawable/shop_div"
         android:layout_height="22px">
 
-        <ImageView
-            android:layout_width="46px"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10px"
-            android:src="@mipmap/ic_launcher"
-            tools:ignore="ContentDescription" />
 
-        <ImageView
-            android:layout_width="46px"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10px"
-            android:src="@mipmap/ic_launcher"
-            tools:ignore="ContentDescription" />
-
-        <ImageView
-            android:layout_width="46px"
-            android:layout_height="match_parent"
-            android:layout_marginRight="10px"
-            android:src="@mipmap/ic_launcher"
-            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

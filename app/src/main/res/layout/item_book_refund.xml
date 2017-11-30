@@ -71,7 +71,7 @@
                 android:layout_marginLeft="@dimen/gap"
                 android:layout_marginRight="30px"
                 android:layout_marginTop="@dimen/gap"
-                app:srcCompat="@mipmap/ic_launcher"
+                app:srcCompat="@mipmap/ic_bac"
                 tools:ignore="ContentDescription,PxUsage" />
 
             <TextView

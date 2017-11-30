@@ -21,6 +21,8 @@ import java.util.HashMap;
 import me.leefeng.citypicker.CityPicker;
 import me.leefeng.citypicker.CityPickerListener;
 
+import static com.taotaohai.util.util.isMobileNO;
+
 public class AddAdressActivity extends BaseActivity implements CityPickerListener {
     TextView tv_area, et_name, et_phone, et_address;
     ImageView img_choose;
@@ -87,8 +89,8 @@ public class AddAdressActivity extends BaseActivity implements CityPickerListene
             showToast("收货人姓名不能为空");
             return;
         }
-        if (et_phone.length() == 0) {
-            showToast("收货人电话不能为空");
+        if (!isMobileNO(et_phone.getText().toString())) {
+            showToast("请输入正确手机号");
             return;
         }
         if (tv_area.length() == 0) {

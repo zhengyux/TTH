@@ -12,8 +12,9 @@
     <EditText
         android:id="@+id/edit_name"
         android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:background="@color/common"
+        android:layout_height="100px"
+        android:background="@drawable/bac_class"
+        android:layout_margin="@dimen/gap"
         android:ems="10"
         android:inputType="textPersonName"
         android:paddingLeft="@dimen/gap"

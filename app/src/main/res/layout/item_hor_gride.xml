@@ -17,7 +17,7 @@
             android:layout_height="220px"
             android:scaleType="fitXY"
 
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_bac"
             tools:ignore="ContentDescription" />
 
         <ImageView

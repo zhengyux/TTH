@@ -2,8 +2,10 @@ package com.taotaohai.activity.base;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -28,6 +30,8 @@ import com.taotaohai.ConstantValue;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.MyApplication;
 import com.taotaohai.R;
+import com.taotaohai.activity.Login;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.dilog_toast.CustomToast;
 import com.taotaohai.dilog_toast.SpotsDialog;
 import com.taotaohai.httputil.Http;
@@ -35,6 +39,7 @@ import com.taotaohai.httputil.IHttp;
 import com.taotaohai.listener.OnHttpListener;
 import com.taotaohai.util.AndroidBug54971Workaround;
 import com.taotaohai.util.DateUtils;
+import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -54,6 +59,7 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static com.taotaohai.GlobalParams.NET_CODE;
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 
 /**
@@ -112,6 +118,12 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE},
                         2);
             }
+            i = ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+                // 如果没有授予该权限，就去提示用户请求
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
+                        2);
+            }
         }
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -145,14 +157,32 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     @Override
     protected void onStart() {
         super.onStart();
-        mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
+//        mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
         AndroidBug54971Workaround.assistActivity(findViewById(android.R.id.content));
 
     }
 
     @Override
     public void onError(Throwable ex, int postcode) {
-
+        String[] st = ex.toString().split("result:");
+        if (st.length > 1) {
+            util.isSuccess(util.getgson(st[1], BaseBean.class));
+        }
+        try {
+            if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                dialog.setTitle("未登录");
+                dialog.setMessage("是否进入登录页登录?");
+                dialog.setNegativeButton("前往", (dialog1, which) -> {
+                    startActivity(new Intent(this, Login.class));
+                    finish();
+                });
+                dialog.setNeutralButton("取消", (dialog1, which) -> {
+                });
+                dialog.show();
+            }
+        } catch (Exception e) {
+        }
     }
 
 
@@ -185,7 +215,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
 //    }
 
     public void post(String url, HashMap<String, String> hashMap, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -219,7 +249,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void Http(HttpMethod moth, String url, HashMap<String, String> hashMap, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -236,7 +266,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void Http(HttpMethod moth, String url, String BodyContent, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -246,7 +276,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void Http(HttpMethod moth, String url, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -288,7 +318,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void get(String url, final int code) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -298,7 +328,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
     }
 
     public void get(String url) {
-        showSpot();
+//        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
 //        Http.post(url, hashMap, this, code);
         RequestParams p = new RequestParams(ConstantValue.URL + url);
@@ -474,7 +504,18 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
 
     @Override
     public void onSuccess(String result, int postcode) {
-
+        BaseBean baseBean = util.getgson(result);
+        if (baseBean.getCode() == 401) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("温馨提示");
+            dialog.setMessage("是否进入登录页登录?");
+            dialog.setNegativeButton("前往", (dialog1, which) -> {
+                startActivity(new Intent(this, Login.class));
+            });
+            dialog.setNegativeButton("取消", (dialog1, which) -> {
+            });
+            dialog.show();
+        }
     }
 
     protected void loginStata(String st) {

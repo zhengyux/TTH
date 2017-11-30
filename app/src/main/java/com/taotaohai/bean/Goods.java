@@ -184,7 +184,7 @@ public class Goods {
         private String latitude;
         @SerializedName("legalName")
         private String legalName;
-        @SerializedName("logo")
+        @SerializedName("logo_home")
         private String logo;
         @SerializedName("logoId")
         private String logoId;
@@ -198,6 +198,8 @@ public class Goods {
         private String principal;
         @SerializedName("principalTel")
         private String principalTel;
+        @SerializedName("shopIdentifies")
+        private List<ShopIdentifies> shopIdentifies;
         @SerializedName("remark")
         private String remark;
         @SerializedName("status")
@@ -214,6 +216,15 @@ public class Goods {
         private String totalSourceGoods;
         @SerializedName("user")
         private User user;
+
+
+        public List<ShopIdentifies> getShopIdentifies() {
+            return shopIdentifies;
+        }
+
+        public void setShopIdentifies(List<ShopIdentifies> shopIdentifies) {
+            this.shopIdentifies = shopIdentifies;
+        }
 
         public String getAddress() {
             return address;
@@ -465,6 +476,8 @@ public class Goods {
         private String lastChangeUser;
         @SerializedName("price")
         private String price;
+        @SerializedName("measure")
+        private String measure;
         @SerializedName("quality")
         private int quality;
         @SerializedName("remark")
@@ -497,6 +510,18 @@ public class Goods {
         private List<String> contentImgsUrl;
         @SerializedName("contentText")
         private String contentText;
+
+        public List<String> getImageIds() {
+            return imageIds;
+        }
+
+        public String getMeasure() {
+            return measure;
+        }
+
+        public void setMeasure(String measure) {
+            this.measure = measure;
+        }
 
         public String getContentText() {
             return contentText;
@@ -716,6 +741,88 @@ public class Goods {
 
         public void setUnitMin(int unitMin) {
             this.unitMin = unitMin;
+        }
+    }
+    public static class ShopIdentifies {
+        @SerializedName("gmtCreate")
+        private String gmtCreate;
+        @SerializedName("gmtModify")
+        private String gmtModify;
+        @SerializedName("id")
+        private String id;
+        @SerializedName("image")
+        private String image;
+        @SerializedName("imageAbsUrl")
+        private String imageAbsUrl;
+        @SerializedName("lastChangeUser")
+        private String lastChangeUser;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("shopId")
+        private String shopId;
+
+        public String getGmtCreate() {
+            return gmtCreate;
+        }
+
+        public void setGmtCreate(String gmtCreate) {
+            this.gmtCreate = gmtCreate;
+        }
+
+        public String getGmtModify() {
+            return gmtModify;
+        }
+
+        public void setGmtModify(String gmtModify) {
+            this.gmtModify = gmtModify;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getImageAbsUrl() {
+            return imageAbsUrl;
+        }
+
+        public void setImageAbsUrl(String imageAbsUrl) {
+            this.imageAbsUrl = imageAbsUrl;
+        }
+
+        public String getLastChangeUser() {
+            return lastChangeUser;
+        }
+
+        public void setLastChangeUser(String lastChangeUser) {
+            this.lastChangeUser = lastChangeUser;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
         }
     }
 }

@@ -29,6 +29,10 @@ public class ReNameActivity extends BaseActivity {
     }
 
     public void onSure(View view) {
+        if (edit_name.getText().toString().length() == 0) {
+            showToast("新昵称不能为空");
+            return;
+        }
         Intent data = new Intent();
         data.putExtra("name", edit_name.getText().toString());
         setResult(10, data);

@@ -2,7 +2,6 @@ package com.taotaohai.fragment;
 
 import android.content.Context;
 import android.content.Intent;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -12,19 +11,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
-
 import com.baidu.location.LocationClientOption;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.ClassActivity;
 import com.taotaohai.activity.GoodsDetialActivity;
-import com.taotaohai.activity.Home;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.SearchGoods;
 import com.taotaohai.activity.ShopActivity;
@@ -40,7 +38,6 @@ import com.taotaohai.myview.MyGridView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.youth.banner.Banner;
-import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -121,6 +118,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 3:
                 inithotshopmore(data);
                 break;
+            case 999:
+                startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
+                break;
         }
 
 
@@ -146,23 +146,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void inithot(String data) {
         hotclass = util.getgson(data, HotClass.class);
         if (hotclass.getSuccess()) {
-            ((TextView) text.get(0)).setText(hotclass.getData().get(0).getTitle());
-            ((TextView) text.get(1)).setText(hotclass.getData().get(0).getClassInfo().getClassName());
+//            ((TextView) text.get(0)).setText(hotclass.getData().get(0).getTitle());
+            ((TextView) text.get(0)).setText(hotclass.getData().get(0).getClassInfo().getClassName());
             if (hotclass.getData().get(0).getImagesUrl().size() > 0)
                 GlideUtil.loadImg(hotclass.getData().get(0).getImagesUrl().get(0), ((ImageView) text.get(2)));
 
-            ((TextView) text.get(3)).setText(hotclass.getData().get(1).getTitle());
-            ((TextView) text.get(4)).setText(hotclass.getData().get(1).getClassInfo().getClassName());
+//            ((TextView) text.get(3)).setText(hotclass.getData().get(1).getTitle());
+            ((TextView) text.get(3)).setText(hotclass.getData().get(1).getClassInfo().getClassName());
             if (hotclass.getData().get(1).getImagesUrl().size() > 0)
                 GlideUtil.loadImg(hotclass.getData().get(1).getImagesUrl().get(0), ((ImageView) text.get(5)));
 
-            ((TextView) text.get(6)).setText(hotclass.getData().get(2).getTitle());
-            ((TextView) text.get(7)).setText(hotclass.getData().get(2).getClassInfo().getClassName());
+//            ((TextView) text.get(6)).setText(hotclass.getData().get(2).getTitle());
+            ((TextView) text.get(6)).setText(hotclass.getData().get(2).getClassInfo().getClassName());
             if (hotclass.getData().get(2).getImagesUrl().size() > 0)
                 GlideUtil.loadImg(hotclass.getData().get(2).getImagesUrl().get(0), ((ImageView) text.get(8)));
 
-            ((TextView) text.get(9)).setText(hotclass.getData().get(3).getTitle());
-            ((TextView) text.get(10)).setText(hotclass.getData().get(3).getClassInfo().getClassName());
+//            ((TextView) text.get(9)).setText(hotclass.getData().get(3).getTitle());
+            ((TextView) text.get(9)).setText(hotclass.getData().get(3).getClassInfo().getClassName());
             if (hotclass.getData().get(3).getImagesUrl().size() > 0)
                 GlideUtil.loadImg(hotclass.getData().get(3).getImagesUrl().get(0), ((ImageView) text.get(11)));
 
@@ -184,9 +184,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             //banner设置方法全部调用完毕时最后调用
             banner.start();
             banner.setOnBannerListener((int position) -> {
-                startActivity(new Intent(getActivity(), com.taotaohai.activity.Banner.class)
-                        .putExtra("url", ratation.getData().get(position).getTarget())
-                );
+                if (ratation.getData().get(position).getType() == 0) {
+                    startActivity(new Intent(getActivity(), com.taotaohai.activity.bannerr.class)
+                            .putExtra("url", ratation.getData().get(position).getTarget())
+                    );
+                } else {
+                    startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                            .putExtra("id", ratation.getData().get(position).getTarget())
+                    );
+                }
+
             });
 
         }
@@ -243,7 +250,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), ShopCarActivity.class), 1);
                 break;
             case R.id.rela_message:
-                startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
+                get("api/user/",999);
                 break;
             case R.id.rela_1:
                 startActivity(new Intent(getActivity(), ClassActivity.class)
@@ -308,45 +315,54 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            View view = getActivity().getLayoutInflater().inflate(R.layout.item_hor_gride, null);
-            View su = view.findViewById(R.id.su);
-            ImageView imageView = (ImageView) view.findViewById(R.id.image_photo);
-            TextView tv_tite = (TextView) view.findViewById(R.id.tv_tite);
-            TextView tv_remorke = (TextView) view.findViewById(R.id.tv_remorke);
-            TextView tv_money = (TextView) view.findViewById(R.id.tv_money);
-            TextView tv_unit = (TextView) view.findViewById(R.id.tv_unit);
-            TextView tv_people = (TextView) view.findViewById(R.id.tv_people);
-
-
-            final HotShopmore.Data data = hotshop2.getData().get(position);
-            view.findViewById(R.id.rela_all).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
-                            .putExtra("id", data.getId())
-                    );
-                }
-            });
-            if (data.getSourceVideo().length() > 0) {
-                su.setVisibility(View.VISIBLE);
+            viewholder viewholder = null;
+            if (convertView == null) {
+                viewholder=new viewholder();
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.item_hor_gride, null);
+                viewholder.su = convertView.findViewById(R.id.su);
+                viewholder.imageView = (ImageView) convertView.findViewById(R.id.image_photo);
+                viewholder.tv_tite = (TextView) convertView.findViewById(R.id.tv_tite);
+                viewholder.tv_remorke = (TextView) convertView.findViewById(R.id.tv_remorke);
+                viewholder.tv_money = (TextView) convertView.findViewById(R.id.tv_money);
+                viewholder.tv_unit = (TextView) convertView.findViewById(R.id.tv_unit);
+                viewholder.tv_people = (TextView) convertView.findViewById(R.id.tv_people);
+                convertView.setTag(viewholder);
             } else {
-                su.setVisibility(View.GONE);
+                viewholder = (HomeFragment.viewholder) convertView.getTag();
             }
-
+            final HotShopmore.Data data = hotshop2.getData().get(position);
+            convertView.findViewById(R.id.rela_all).setOnClickListener(v -> startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                    .putExtra("id", data.getId())
+            ));
+            if (data.getSourceVideo().length() > 0) {
+                viewholder.su.setVisibility(View.VISIBLE);
+            } else {
+                viewholder.su.setVisibility(View.GONE);
+            }
             if (data.getImagesUrl() != null && data.getImagesUrl().size() > 0) {
-                GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);
+                GlideUtil.loadImg(data.getImagesUrl().get(0), viewholder.imageView);
             }
             if (data.getClassInfo() != null) {
-                tv_tite.setText(data.getClassInfo().getClassName());
+                viewholder.tv_tite.setText(data.getTitle());
             }
             if (data.getShopInfo() != null) {
-                tv_remorke.setText(data.getShopInfo().getRemark());
-                tv_people.setText("已有" + data.getShopInfo().getTotalBuy() + "人购买");
+                viewholder.tv_remorke.setText(data.getRemark());
+                viewholder.tv_people.setText("已有" + data.getSaleVolume() + "人购买");
             }
-            tv_money.setText("￥：" + data.getPrice());
-            tv_unit.setText("/" + data.getUnit());
-            return view;
+            viewholder.tv_money.setText("￥：" + data.getPrice());
+            viewholder.tv_unit.setText("/" + data.getUnit());
+            return convertView;
         }
+    }
+
+    class viewholder {
+        View su;
+        ImageView imageView;
+        TextView tv_tite;
+        TextView tv_remorke;
+        TextView tv_money;
+        TextView tv_unit;
+        TextView tv_people;
     }
 
     private class MyListAdapter extends BaseAdapter {
@@ -372,6 +388,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
             TextView tv_scor = (TextView) view.findViewById(R.id.tv_scor);
             TextView tv_juli = (TextView) view.findViewById(R.id.tv_juli);
+            LinearLayout lin_1 = (LinearLayout) view.findViewById(R.id.lin_1);
+            for (int i = 0; i < 3 && i < hotshop.getData().get(position).getShopIdentifies().size(); i++) {
+                TextView textView = (TextView) getActivity().getLayoutInflater().inflate(R.layout.shop_textview, null);
+                textView.setText(hotshop.getData().get(position).getShopIdentifies().get(i).getName());
+                lin_1.addView(textView);
+            }
             GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), image);
             tv_title.setText(hotshop.getData().get(position).getName());
             tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
@@ -389,8 +411,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         @Override
         public void onReceiveLocation(BDLocation location) {
-            GlobalParams.latitude = location.getLatitude();
-            GlobalParams.longitude = location.getLongitude();
+//            GlobalParams.latitude = location.getLatitude();
+//            GlobalParams.longitude = location.getLongitude();
             if (hotshop != null) {
                 myListAdapter.notifyDataSetChanged();
             }

@@ -65,7 +65,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="106px"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_bac"
             tools:ignore="ContentDescription" />
 
         <TextView
@@ -74,7 +74,7 @@
             android:layout_height="80px"
             android:layout_alignParentBottom="true"
             android:layout_alignStart="@+id/image_photo"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_bac"
             android:text="登录/ "
             android:textColor="@color/white"
             tools:ignore="HardcodedText" />
@@ -86,7 +86,7 @@
             android:layout_height="80px"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_bac"
             android:text="1678465132189/ "
             android:textColor="@color/white"
             android:visibility="gone"
@@ -98,7 +98,7 @@
             android:layout_height="80px"
             android:layout_alignEnd="@+id/image_photo"
             android:layout_alignParentBottom="true"
-            android:src="@mipmap/ic_launcher"
+            android:src="@mipmap/ic_bac"
             android:text="注册 "
             android:textColor="@color/white"
             tools:ignore="HardcodedText" />
@@ -351,6 +351,35 @@
     </RelativeLayout>
 
     <RelativeLayout
+        android:id="@+id/rela6"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_marginTop="1px"
+        android:background="@color/white"
+        tools:ignore="PxUsage">
+
+
+        <TextView
+            style="@style/text32"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:text="申请入驻"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <ImageView
+            android:layout_width="16px"
+            android:layout_height="30px"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/gap"
+            android:scaleType="fitXY"
+            android:src="@mipmap/right"
+            tools:ignore="ContentDescription,RtlHardcoded" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/rela4"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -408,5 +437,12 @@
             tools:ignore="ContentDescription,RtlHardcoded" />
     </RelativeLayout>
 
+    <com.taotaohai.widgets.MultipleStatusView
+        android:id="@+id/msv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="160px"></com.taotaohai.widgets.MultipleStatusView>
 
 </LinearLayout>

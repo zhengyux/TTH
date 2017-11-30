@@ -4,19 +4,21 @@
     android:layout_height="match_parent"
     android:background="@color/white"
     tools:context="com.taotaohai.fragment.HomeFragment">
+
     <TextView
+        android:id="@+id/textView4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/title"
-        android:background="@color/them"
-        android:id="@+id/textView4" />
+        android:background="@color/them" />
+
     <RelativeLayout
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="130px"
+        android:layout_below="@+id/textView4"
         android:background="@color/them"
         android:paddingTop="30px"
-        tools:ignore="PxUsage"
-        android:layout_below="@+id/textView4">
+        tools:ignore="PxUsage">
 
         <RelativeLayout
             android:id="@+id/relativeLayout4"
@@ -79,6 +81,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="80px"
                 android:background="@drawable/searchbac"
                 android:gravity="left|center"
                 android:paddingLeft="100px"
@@ -92,11 +95,20 @@
                 android:layout_height="26px"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/gap"
+                android:layout_marginLeft="100px"
                 android:src="@mipmap/search"
                 tools:ignore="ContentDescription" />
+
         </RelativeLayout>
 
+        <ImageView
+            android:layout_width="60px"
+            android:layout_height="60px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginLeft="@dimen/gap"
+            android:src="@mipmap/logo_home"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -121,7 +133,7 @@
                 <com.youth.banner.Banner
                     android:id="@+id/banner"
                     android:layout_width="match_parent"
-                    android:layout_height="354px"
+                    android:layout_height="375px"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     tools:ignore="PxUsage" />
@@ -146,6 +158,9 @@
                         <TextView
                             android:id="@+id/tv_11"
                             style="@style/text30"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:maxLines="1"
                             android:text="生鲜龙虾"
                             android:textColor="#ff5216"
                             tools:ignore="HardcodedText" />
@@ -153,6 +168,9 @@
                         <TextView
                             android:id="@+id/tv_12"
                             style="@style/text24"
+                            android:visibility="gone"
+                            android:gravity="center"
+                            android:layout_width="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_below="@+id/tv_11"
                             android:layout_marginBottom="10px"
@@ -166,7 +184,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/tv_12"
-                            android:src="@mipmap/ic_launcher"
+                            android:src="@mipmap/ic_bac"
                             tools:ignore="ContentDescription" />
                     </RelativeLayout>
 
@@ -192,9 +210,11 @@
                             <TextView
                                 android:id="@+id/tv_21"
                                 style="@style/text30"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
                                 android:layout_toStartOf="@+id/tv_23"
+                                android:gravity="center"
                                 android:maxLines="1"
                                 android:text="野野生鲤鱼"
                                 android:textColor="#ff9f16"
@@ -203,9 +223,12 @@
                             <TextView
                                 android:id="@+id/tv_22"
                                 style="@style/text24"
+                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_23"
+                                android:gravity="center"
                                 android:maxLength="10"
                                 android:text="特色海鲜来挑"
                                 tools:ignore="HardcodedText" />
@@ -215,7 +238,7 @@
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -235,9 +258,11 @@
                             <TextView
                                 android:id="@+id/tv_31"
                                 style="@style/text30"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
                                 android:layout_toStartOf="@+id/tv_33"
+                                android:gravity="center"
                                 android:maxLines="1"
                                 android:text="野生鲤鱼"
                                 android:textColor="#c234fd"
@@ -246,9 +271,12 @@
                             <TextView
                                 android:id="@+id/tv_32"
                                 style="@style/text24"
+                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_33"
+                                android:gravity="center"
                                 android:maxLength="10"
                                 android:text="特色海鲜来挑"
                                 tools:ignore="HardcodedText" />
@@ -259,7 +287,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -279,20 +307,25 @@
                             <TextView
                                 android:id="@+id/tv_41"
                                 style="@style/text30"
+                                android:layout_height="match_parent"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
                                 android:layout_toStartOf="@+id/tv_43"
-                                android:text="野生鲤鱼"
+                                android:gravity="center"
                                 android:maxLines="1"
+                                android:text="野生鲤鱼"
                                 android:textColor="@color/them"
                                 tools:ignore="HardcodedText" />
 
                             <TextView
                                 android:id="@+id/tv_42"
                                 style="@style/text24"
+                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_43"
+                                android:gravity="center"
                                 android:maxLength="10"
                                 android:text="特色海鲜来挑"
                                 tools:ignore="HardcodedText" />
@@ -302,7 +335,7 @@
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_launcher"
+                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 

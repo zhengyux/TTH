@@ -23,7 +23,7 @@ public class PhotoActivity extends Activity {
     private ViewPager pager;
     private MyPageAdapter adapter;
 
-    public static List<String> bitmap = new ArrayList<String>();
+    public static List<String> bitmap = new ArrayList<>();
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.bannerr">
+
+    <include layout="@layout/title" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        style="@style/text30"
+        android:layout_margin="@dimen/gap" />
+
+    <TextView
+        android:id="@+id/tv_2"
+        style="@style/text22"
+        android:layout_margin="@dimen/gap"
+        android:textColor="@color/text_black" />
+
+    <TextView style="@style/textgap1" />
+
+    <TextView
+        android:id="@+id/tv_3"
+        android:layout_margin="@dimen/gap"
+        style="@style/text26"
+        android:textColor="@color/text_black" />
+
+</LinearLayout>

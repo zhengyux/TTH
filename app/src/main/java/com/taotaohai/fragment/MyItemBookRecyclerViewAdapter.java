@@ -45,7 +45,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         holder.tv_guige.setText(mValues.get(position).getRemarks());
         holder.tv_count.setText("x" + mValues.get(position).getExt().getAcount());
         holder.mItem.setCount(mValues.get(position).getOrderStatus());
-        Glide.with(mcontent).load(mValues.get(position).getExt().getImgId()).error(R.mipmap.ic_launcher).into(holder.image_photo);
+        Glide.with(mcontent).load(mValues.get(position).getExt().getImgId()).error(R.mipmap.ic_bac).into(holder.image_photo);
         holder.btn_1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,6 +140,8 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
 5.	退款
 6.	99 关闭
 */
+        btn_1.setVisibility(View.VISIBLE);
+        btn_2.setVisibility(View.VISIBLE);
         switch (i) {
             case 1:
                 btn_1.setText("取消订单");
@@ -161,23 +163,25 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
                 btn_1.setText("再次购买");
                 btn_2.setText("评价");
                 return "待评价";
-//            case 5:
-//                btn_2.setText("查看退款");
-////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
-////                btn_2.setBackgroundResource(R.drawable.button_r22);
-//                return "退款";
+            case 5:
+//                btn_2.setText("退款xiangqi");
+                btn_1.setVisibility(View.INVISIBLE);
+                btn_2.setVisibility(View.INVISIBLE);
+//                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
+//                btn_2.setBackgroundResource(R.drawable.button_r22);
+                return "退款";
 //            case 6:
 //                btn_1.setVisibility(View.GONE);
 //                btn_2.setText("删除");
 ////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 ////                btn_2.setBackgroundResource(R.drawable.button_r22);
 //                return "关闭";
-//            case 99:
-//                btn_1.setVisibility(View.GONE);
-//                btn_2.setText("删除");
-////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
-////                btn_2.setBackgroundResource(R.drawable.button_r22);
-//                return "关闭";
+            case 99:
+                btn_1.setVisibility(View.GONE);
+                btn_2.setText("删除");
+//                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
+//                btn_2.setBackgroundResource(R.drawable.button_r22);
+                return "关闭";
         }
         return "";
     }

@@ -43,7 +43,8 @@ public class MultipleStatusView extends RelativeLayout {
     private OnClickListener onRetryClickListener;
     private final ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(
             ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-//
+
+    //
 //    public MultipleStatusView(Context context) {
 //        this(context, null);
 //    }
@@ -58,10 +59,10 @@ public class MultipleStatusView extends RelativeLayout {
         final TypedArray a =
                 context.obtainStyledAttributes(attrs, R.styleable.MultipleStatusView, defStyleAttr, 0);
 
-//        emptyViewResId =
-//                a.getResourceId(R.styleable.MultipleStatusView_emptyView, R.layout.layout_empty_post);
-//        errorViewResId =
-//                a.getResourceId(R.styleable.MultipleStatusView_errorView, R.layout.layout_error_view);
+        emptyViewResId =
+                a.getResourceId(R.styleable.MultipleStatusView_emptyView, R.layout.layout_empty_post);
+        errorViewResId =
+                a.getResourceId(R.styleable.MultipleStatusView_errorView, R.layout.layout_error_view);
         loadingViewResId =
                 a.getResourceId(R.styleable.MultipleStatusView_loadingView, R.layout.layout_loading);
 //        noNetworkViewResId = a.getResourceId(R.styleable.MultipleStatusView_noNetworkView,

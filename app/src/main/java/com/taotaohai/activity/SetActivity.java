@@ -53,6 +53,10 @@ public class SetActivity extends BaseActivity {
         showToast("已经是最新版本");
     }
 
+    public void onThree1(View v) {
+        showToast("已清除");
+    }
+
     public void onFour(View v) {
 
         get("api/base/contact", 3);
@@ -107,10 +111,13 @@ public class SetActivity extends BaseActivity {
         super.onSuccess(result, postcode);
         if (postcode == 2) {
             if (util.isSuccess(result)) {
-                SPUtils.clear(this);
+                SPUtils.remove(this, "username");
+                SPUtils.remove(this, "password");
+                SPUtils.remove(this, "hxid");
                 removeAllActivity();
                 startActivity(new Intent(this, Login.class));
             }
+            return;
         }
         contact = util.getgson(result, Contact.class);
         if (contact.getSuccess()) {

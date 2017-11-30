@@ -2,7 +2,6 @@ package com.taotaohai.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -88,7 +88,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         btn_3.setOnClickListener(this);
         tv_stata.setText(getstata(data.getOrderStatus()));
 
-        if (data.getOrderStatus() == 1) {
+        if (data.getOrderStatus() == 1 || data.getOrderStatus() == 2) {
             remainTime = data.getGmtRemaining();
             tv_stata2.post(new Runnable() {
                 @Override
@@ -117,9 +117,20 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         tv_9.setText("/" + data.getExt().getUnit());
         tv_10.setText("x" + data.getExt().getAcount());
         tv_11.setText("￥" + data.getExt().getPrice());
-        tv_12.setText("￥" + data.getExt().getTotalPrice());
+        tv_12.setText("￥" + data.getTotalPrice());
         tv_13.setText("￥" + data.getExt().getTotalPrice());
-        tv_14.setText("订单编号:" + data.getExt().getOrderId() + "\n交易时间：" + data.getGmtCreate() + "\n成交时间：" + data.getGmtModify() + "\n交易时间：" + data.getGmtRefund());
+        StringBuffer buffer = new StringBuffer();
+
+
+        if (data.getExt().getDealTime() == null)
+            buffer.append("订单编号: " + data.getExt().getOrderId() + "\n创建时间：" + data.getGmtCreate());
+        if (data.getExt().getGmtDelivery() != null)
+            buffer.append("\n支付交易号：" + data.getExt().getGmtDelivery());
+        if (data.getExt().getGmtDelivery() != null)
+            buffer.append(data.getGmtCreate() + "\n付款时间：" + data.getExt().getDealTime());
+        if (data.getExt().getOrderStatus() == 99 && data.getExt().getGmtModify() != null)
+            buffer.append(data.getExt().getGmtModify());
+        tv_14.setText(buffer.toString());
         tv_1.setText("收货人：" + data.getExt().getLinkName());
         GlideUtil.loadImg(data.getExt().getImgId(), image_1);
     }
@@ -349,6 +360,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_1.setText("再次购买");
                 btn_2.setText("评价");
                 return "待评价";
+            case 5:
+                btn_1.setVisibility(View.GONE);
+                btn_2.setVisibility(View.GONE);
+                return "退款";
             default:
                 btn_1.setVisibility(View.GONE);
                 btn_2.setVisibility(View.GONE);
@@ -404,10 +419,9 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     private void showchoose() {
         final List<String> options1Items = new ArrayList<>();
         options1Items.clear();
-        options1Items.add("不想买了");
-        options1Items.add("货物有问题");
-        options1Items.add("降价了");
-        options1Items.add("快递太慢");
+        options1Items.add("品质问题");
+        options1Items.add("产品与描述不符");
+        options1Items.add("数量、重量不符");
         options1Items.add("其他");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
@@ -501,4 +515,14 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         time = time + seconds + "交易关闭";
         return time;
     }
+
+    public void onChat(View view) {
+        if (data.getGoodsInfo() != null) {
+            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getGoodsInfo().getUserId()));
+        } else {
+            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getUserId()));
+        }
+
+    }
+
 }

@@ -51,9 +51,94 @@ public class Shop implements Serializable{
         this.success = success;
     }
 
+    public static class ShopIdentifies implements Serializable{
+        @SerializedName("gmtCreate")
+        private String gmtCreate;
+        @SerializedName("gmtModify")
+        private String gmtModify;
+        @SerializedName("id")
+        private String id;
+        @SerializedName("image")
+        private String image;
+        @SerializedName("imageAbsUrl")
+        private String imageAbsUrl;
+        @SerializedName("lastChangeUser")
+        private String lastChangeUser;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("shopId")
+        private String shopId;
+
+        public String getGmtCreate() {
+            return gmtCreate;
+        }
+
+        public void setGmtCreate(String gmtCreate) {
+            this.gmtCreate = gmtCreate;
+        }
+
+        public String getGmtModify() {
+            return gmtModify;
+        }
+
+        public void setGmtModify(String gmtModify) {
+            this.gmtModify = gmtModify;
+        }
+
+        public String getId() {
+            return id;
+        }
+
+        public void setId(String id) {
+            this.id = id;
+        }
+
+        public String getImage() {
+            return image;
+        }
+
+        public void setImage(String image) {
+            this.image = image;
+        }
+
+        public String getImageAbsUrl() {
+            return imageAbsUrl;
+        }
+
+        public void setImageAbsUrl(String imageAbsUrl) {
+            this.imageAbsUrl = imageAbsUrl;
+        }
+
+        public String getLastChangeUser() {
+            return lastChangeUser;
+        }
+
+        public void setLastChangeUser(String lastChangeUser) {
+            this.lastChangeUser = lastChangeUser;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getShopId() {
+            return shopId;
+        }
+
+        public void setShopId(String shopId) {
+            this.shopId = shopId;
+        }
+    }
+
     public static class User implements Serializable{
         @SerializedName("u_id")
         private String u_id;
+        @SerializedName("avatarId")
+        private String avatarId;
         @SerializedName("name")
         private String name;
         @SerializedName("username")
@@ -65,6 +150,14 @@ public class Shop implements Serializable{
 
         public void setU_id(String u_id) {
             this.u_id = u_id;
+        }
+
+        public String getAvatarId() {
+            return avatarId;
+        }
+
+        public void setAvatarId(String avatarId) {
+            this.avatarId = avatarId;
         }
 
         public String getName() {
@@ -89,14 +182,16 @@ public class Shop implements Serializable{
         private String address;
         @SerializedName("brandId")
         private String brandId;
-        @SerializedName("brc")
-        private String brc;
         @SerializedName("businessAbsUrlList")
         private List<String> businessAbsUrlList;
         @SerializedName("businessList")
         private List<String> businessList;
         @SerializedName("businessUrl")
         private String businessUrl;
+        @SerializedName("cityId")
+        private String cityId;
+        @SerializedName("commission")
+        private String commission;
         @SerializedName("creatorId")
         private String creatorId;
         @SerializedName("gmtCreate")
@@ -111,7 +206,7 @@ public class Shop implements Serializable{
         private String latitude;
         @SerializedName("legalName")
         private String legalName;
-        @SerializedName("logo")
+        @SerializedName("logo_home")
         private String logo;
         @SerializedName("logoId")
         private String logoId;
@@ -119,6 +214,8 @@ public class Shop implements Serializable{
         private String logoIdAbsUrl;
         @SerializedName("longitude")
         private String longitude;
+        @SerializedName("money")
+        private double money;
         @SerializedName("name")
         private String name;
         @SerializedName("principal")
@@ -127,6 +224,8 @@ public class Shop implements Serializable{
         private String principalTel;
         @SerializedName("remark")
         private String remark;
+        @SerializedName("shopIdentifies")
+        private List<ShopIdentifies> shopIdentifies;
         @SerializedName("status")
         private int status;
         @SerializedName("totalBuy")
@@ -158,14 +257,6 @@ public class Shop implements Serializable{
             this.brandId = brandId;
         }
 
-        public String getBrc() {
-            return brc;
-        }
-
-        public void setBrc(String brc) {
-            this.brc = brc;
-        }
-
         public List<String> getBusinessAbsUrlList() {
             return businessAbsUrlList;
         }
@@ -188,6 +279,22 @@ public class Shop implements Serializable{
 
         public void setBusinessUrl(String businessUrl) {
             this.businessUrl = businessUrl;
+        }
+
+        public String getCityId() {
+            return cityId;
+        }
+
+        public void setCityId(String cityId) {
+            this.cityId = cityId;
+        }
+
+        public String getCommission() {
+            return commission;
+        }
+
+        public void setCommission(String commission) {
+            this.commission = commission;
         }
 
         public String getCreatorId() {
@@ -278,6 +385,14 @@ public class Shop implements Serializable{
             this.longitude = longitude;
         }
 
+        public double getMoney() {
+            return money;
+        }
+
+        public void setMoney(double money) {
+            this.money = money;
+        }
+
         public String getName() {
             return name;
         }
@@ -308,6 +423,14 @@ public class Shop implements Serializable{
 
         public void setRemark(String remark) {
             this.remark = remark;
+        }
+
+        public List<ShopIdentifies> getShopIdentifies() {
+            return shopIdentifies;
+        }
+
+        public void setShopIdentifies(List<ShopIdentifies> shopIdentifies) {
+            this.shopIdentifies = shopIdentifies;
         }
 
         public int getStatus() {

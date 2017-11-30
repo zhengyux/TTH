@@ -83,12 +83,13 @@
                 android:layout_marginLeft="@dimen/gap"
                 android:layout_marginRight="30px"
                 android:layout_marginTop="@dimen/gap"
-                app:srcCompat="@mipmap/ic_launcher"
+                app:srcCompat="@mipmap/ic_bac"
                 tools:ignore="ContentDescription,PxUsage" />
 
             <TextView
                 android:id="@+id/text_content"
                 android:layout_width="wrap_content"
+                android:maxLines="1"
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/image_photo"
                 android:layout_toEndOf="@+id/image_photo"

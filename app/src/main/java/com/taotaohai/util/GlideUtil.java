@@ -32,9 +32,10 @@ public final class GlideUtil {
         Context context = imageView.getContext();
         Glide.with(context)
                 .load(imgUrl)
+//                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .dontAnimate()
-                .placeholder(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.ic_bac)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(imageView);
     }
@@ -76,7 +77,7 @@ public final class GlideUtil {
         Glide.with(context)
                 .load(imgUrl)
 //                .placeholder(R.drawable.ic_avater_placeholder)
-                .error(R.mipmap.ic_launcher)
+                .error(R.mipmap.ic_bac)
                 .dontAnimate()
                 .centerCrop()
                 .transform(new GlideCircleTransform(context))

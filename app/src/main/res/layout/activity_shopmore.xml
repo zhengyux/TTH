@@ -110,7 +110,7 @@
                 android:layout_width="250px"
                 android:layout_height="88px"
                 android:gravity="center"
-                android:text="距离排序"
+                android:text="销量排序"
                 android:textColor="#454545"
                 android:textSize="28px" />
 

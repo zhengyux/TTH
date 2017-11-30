@@ -95,6 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/image_photo"
                 android:layout_toEndOf="@+id/image_photo"
+                android:maxLines="1"
                 android:text="野生黑鱼好吃又好卖"
                 android:textColor="@color/text_black"
                 android:textSize="26px"
@@ -114,13 +115,13 @@
                 android:id="@+id/tv_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_price"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="11dp"
                 android:layout_marginRight="@dimen/gap"
                 android:text="x2"
                 android:textSize="18px"
-                tools:ignore="HardcodedText,PxUsage"
-                android:layout_alignBottom="@+id/tv_price"
-                android:layout_alignParentEnd="true"
-                android:layout_marginEnd="11dp" />
+                tools:ignore="HardcodedText,PxUsage" />
 
             <TextView
                 android:id="@+id/tv_price"
@@ -151,7 +152,7 @@
                 android:layout_height="match_parent"
                 android:layout_toEndOf="@+id/image_photo"
                 android:background="@color/white"
-               android:visibility="gone"
+                android:visibility="gone"
 
                 >
 

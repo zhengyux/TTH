@@ -9,7 +9,7 @@ import java.io.File;
 public interface OnHttpDownListener {
     public void onSuccess(File result, int postcode);
 
-    public void onError(Throwable ex,int postcode);
+    public void onError(Throwable ex, int postcode);
 
     public void onFinished(int postcode);
 

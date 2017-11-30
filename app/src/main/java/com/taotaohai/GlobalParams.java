@@ -14,7 +14,9 @@ public class GlobalParams {
     public static String deviceCode = "18759513771";
     public static String mobile = "1383885954";
     public static boolean isLogin = false;
+    public static boolean LOGINPROBLEM = false;
     public static int NET_CODE = 789789789;
+    public static int NONOTICELOGIN = 2017;
     public static String MORENID = "";
     public static Double latitude = 24.607814;
     public static Double longitude = 118.051922;

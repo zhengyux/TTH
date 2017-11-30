@@ -34,7 +34,7 @@
             android:background="@null"
             android:gravity="top|left"
             android:hint="请输入您的意见和建议"
-            android:maxLength="150"
+            android:maxLength="200"
             android:padding="@dimen/gap"
             android:paddingTop="@dimen/gap"
             android:textColor="@color/text_black"

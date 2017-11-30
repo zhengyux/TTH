@@ -12,6 +12,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/linearLayout4"
         android:background="@color/white"
+        android:clipChildren="false"
+        android:clipToPadding="false"
         android:divider="@null"></ListView>
 
     <LinearLayout
@@ -118,8 +120,7 @@
         android:layout_height="match_parent"
         android:background="@color/black_half"
         android:onClick="onDefult"
-        android:visibility="gone"
-       >
+        android:visibility="gone">
 
         <RelativeLayout
 
@@ -137,14 +138,14 @@
                 android:background="@color/white">
 
                 <ImageView
+                    android:id="@+id/imageView4"
                     android:layout_width="76px"
                     android:layout_height="76px"
                     android:layout_alignParentRight="true"
                     android:onClick="onDismis"
                     android:padding="@dimen/gap"
                     android:src="@mipmap/guanbi2"
-                    tools:ignore="ContentDescription,RtlHardcoded"
-                    android:id="@+id/imageView4" />
+                    tools:ignore="ContentDescription,RtlHardcoded" />
 
                 <TextView
                     android:id="@+id/tv_11"
@@ -161,11 +162,11 @@
                     style="@style/text22"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/tv_11"
+                    android:layout_below="@+id/imageView4"
                     android:text="三箱起批，净重20kg，毛重23kg"
                     android:textColor="@color/text_black"
-                    tools:ignore="HardcodedText"
-                    android:layout_below="@+id/imageView4"
-                    android:layout_alignStart="@+id/tv_11" />
+                    tools:ignore="HardcodedText" />
 
                 <TextView
                     android:id="@+id/tv_count"
@@ -277,8 +278,25 @@
                 android:layout_margin="@dimen/gap"
                 android:src="@color/junhuang"
                 tools:ignore="ContentDescription" />
+
         </RelativeLayout>
 
+        <ImageView
+            android:id="@+id/imag_3"
+            android:layout_width="170px"
+            android:layout_height="170px"
+            android:layout_margin="@dimen/gap"
+            android:src="@color/junhuang"
+            android:visibility="invisible"
+            tools:ignore="ContentDescription" />
     </RelativeLayout>
+
+
+    <com.taotaohai.widgets.MultipleStatusView
+        android:id="@+id/msv_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"></com.taotaohai.widgets.MultipleStatusView>
 
 </RelativeLayout>
