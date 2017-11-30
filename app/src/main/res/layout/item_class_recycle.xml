@@ -19,7 +19,7 @@
         android:text="净重20，毛重22kg" />
 
     <TextView
-        
+
         android:id="@+id/tv_count"
         style="@style/text18"
         android:layout_alignBaseline="@+id/tv_remaker"
@@ -30,9 +30,9 @@
     <TextView
         android:id="@+id/tv_name"
         style="@style/text28"
-
         android:layout_alignTop="@+id/image_photo"
         android:layout_toEndOf="@+id/image_photo"
+        android:maxLines="1"
         android:text="知晓物恋"
         android:textColor="#404040" />
 
@@ -47,22 +47,22 @@
     <TextView
         android:id="@+id/tv_unit"
         style="@style/text20"
-        android:text="/箱"
         android:layout_centerVertical="true"
-        android:layout_toEndOf="@+id/tv_money" />
+        android:layout_toEndOf="@+id/tv_money"
+        android:text="/箱" />
 
     <ImageView
         android:id="@+id/image_car"
         android:layout_width="54px"
         android:layout_height="54px"
-        android:src="@mipmap/shopc"
         android:layout_above="@+id/textView14"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:src="@mipmap/shopc" />
 
     <TextView
+        android:id="@+id/textView14"
         style="@style/textgap1"
         android:layout_alignStart="@+id/image_photo"
         android:layout_below="@+id/image_photo"
-        android:layout_marginTop="@dimen/gap"
-        android:id="@+id/textView14" />
+        android:layout_marginTop="@dimen/gap" />
 </RelativeLayout>

@@ -192,9 +192,11 @@
                             <TextView
                                 android:id="@+id/tv_21"
                                 style="@style/text30"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
-                                android:maxLength="8"
-                                android:text="野生鲤鱼"
+                                android:layout_toStartOf="@+id/tv_23"
+                                android:maxLines="1"
+                                android:text="野野生鲤鱼"
                                 android:textColor="#ff9f16"
                                 tools:ignore="HardcodedText" />
 
@@ -233,8 +235,10 @@
                             <TextView
                                 android:id="@+id/tv_31"
                                 style="@style/text30"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
-                                android:maxLength="8"
+                                android:layout_toStartOf="@+id/tv_33"
+                                android:maxLines="1"
                                 android:text="野生鲤鱼"
                                 android:textColor="#c234fd"
                                 tools:ignore="HardcodedText" />
@@ -275,9 +279,11 @@
                             <TextView
                                 android:id="@+id/tv_41"
                                 style="@style/text30"
+                                android:layout_alignParentStart="true"
                                 android:layout_marginTop="10px"
-                                android:maxLength="8"
+                                android:layout_toStartOf="@+id/tv_43"
                                 android:text="野生鲤鱼"
+                                android:maxLines="1"
                                 android:textColor="@color/them"
                                 tools:ignore="HardcodedText" />
 

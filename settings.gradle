@@ -1,1 +1,1 @@
-include ':app', ':photoSelector', ':nicevideoplayer'
+include ':app', ':photoSelector', ':nicevideoplayer', ':easeui'

@@ -66,6 +66,7 @@ public class Goods {
         @SerializedName("parentId")
         private String parentId;
 
+
         public String getChildren() {
             return children;
         }
@@ -492,7 +493,26 @@ public class Goods {
         private String unit;
         @SerializedName("unitMin")
         private int unitMin;
+        @SerializedName("contentImgsUrl")
+        private List<String> contentImgsUrl;
+        @SerializedName("contentText")
+        private String contentText;
 
+        public String getContentText() {
+            return contentText;
+        }
+
+        public void setContentText(String contentText) {
+            this.contentText = contentText;
+        }
+
+        public List<String> getContentImgsUrl() {
+            return contentImgsUrl;
+        }
+
+        public void setContentImgsUrl(List<String> contentImgsUrl) {
+            this.contentImgsUrl = contentImgsUrl;
+        }
         public String getClassId() {
             return classId;
         }

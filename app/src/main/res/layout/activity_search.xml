@@ -6,10 +6,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.taotaohai.activity.Search">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/title"
         android:background="@color/them" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="130px"
@@ -29,7 +31,6 @@
             android:background="@drawable/searchbac"
             android:gravity="center|left"
             android:hint="收索全部视频"
-            android:imeOptions="actionSearch"
             android:paddingLeft="@dimen/gap"
             android:singleLine="true"
             android:textColorHint="#dadada" />

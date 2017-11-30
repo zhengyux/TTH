@@ -94,8 +94,6 @@ public class Book implements Serializable {
         private String price;
         @SerializedName("refundImgId")
         private String refundImgId;
-        @SerializedName("refundImgIds")
-        private String refundImgIds;
         @SerializedName("refundReason")
         private String refundReason;
         @SerializedName("refundReasonDetail")
@@ -271,14 +269,6 @@ public class Book implements Serializable {
             this.refundImgId = refundImgId;
         }
 
-        public String getRefundImgIds() {
-            return refundImgIds;
-        }
-
-        public void setRefundImgIds(String refundImgIds) {
-            this.refundImgIds = refundImgIds;
-        }
-
         public String getRefundReason() {
             return refundReason;
         }
@@ -347,6 +337,8 @@ public class Book implements Serializable {
         private String gmtModify;
         @SerializedName("gmtRefund")
         private String gmtRefund;
+        @SerializedName("gmtRemaining")
+        private int gmtRemaining;
         @SerializedName("goodsId")
         private String goodsId;
         @SerializedName("id")
@@ -369,6 +361,14 @@ public class Book implements Serializable {
         private String totalPrice;
         @SerializedName("userId")
         private String userId;
+
+        public int getGmtRemaining() {
+            return gmtRemaining;
+        }
+
+        public void setGmtRemaining(int gmtRemaining) {
+            this.gmtRemaining = gmtRemaining;
+        }
 
         public Ext getExt() {
             return ext;

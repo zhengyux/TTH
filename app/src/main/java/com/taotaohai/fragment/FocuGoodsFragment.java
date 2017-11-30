@@ -92,7 +92,8 @@ public class FocuGoodsFragment extends BaseFragment {
                     tv_money.setText("￥" + focusgoods.getData().get(position).getPrice());
                     tv_num.setText(focusgoods.getData().get(position).getRemark());
                     tv_unit.setText("/" + focusgoods.getData().get(position).getUnit());
-                    GlideUtil.loadImg(focusgoods.getData().get(position).getImgId(), image_photo);
+                    if (focusgoods.getData().get(position).getImagesUrl().size() > 0)
+                        GlideUtil.loadImg(focusgoods.getData().get(position).getImagesUrl().get(0), image_photo);
 
                     return convertView;
                 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -47,7 +48,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     int stata = 1;
     int buynum = 1;
     int stock = 0;
-    TextView tv_defult, tv_title, tv_num,tv_num2, tv_count, tv_util, tv_dis, tv_dis2, tv_name, tv_scor, tv_goods, tv_source, tv_people;
+    TextView tv_defult, tv_title, tv_num, tv_num2, tv_count, tv_util, tv_dis, tv_dis2, tv_name, tv_scor, tv_goods, tv_source, tv_people;
     View view_defult;
     private TextView tv_1;
     private TextView tv_2;
@@ -126,6 +127,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                     images.add(goods.getData().getImagesUrl().get(i));
                 }
                 banner.setImages(images);
+                banner.setDelayTime(1000000);
                 //banner设置方法全部调用完毕时最后调用
                 banner.start();
                 tv_title.setText(goods.getData().getTitle());
@@ -145,7 +147,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_3.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起批," + goods.getData().getRemark());
                 tv_count_all.setText("请选择购买数量  库存" + goods.getData().getStock());
                 stock = goods.getData().getStock();
-
+                tv_num2.setText(String.valueOf(goods.getData().getUnitMin()));
                 GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_photo);
                 GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_1);
                 if (goods.getData().getSourceVideo().length() < 5) {
@@ -257,7 +259,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     int count = 1;
 
     public void onAdd(View view) {
-        if (count == stock) {
+        if (count > stock) {
+            showToast("购买量大于库存");
             return;
         }
         count++;
@@ -265,13 +268,17 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onReduc(View view) {
-        if (count > 1) {
+        if (count > goods.getData().getUnitMin()) {
             count--;
             tv_num2.setText(String.valueOf(count));
         }
     }
 
     public void onOK(View view) {
+        if(goods.getData().getUnitMin()>goods.getData().getStock()){
+            showToast("库存不足,无法购买");
+            return;
+        }
         String image = "";
         if (goods.getData().getImagesUrl().size() > 0) {
             image = goods.getData().getImagesUrl().get(0);
@@ -384,8 +391,10 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             View view = null;
             if (stata == 1) {
                 view = getLayoutInflater().inflate(R.layout.item_cpxq, null);
-                ImageView image_logo = (ImageView) view.findViewById(R.id.image_logo);
+
                 LinearLayout lin_1 = (LinearLayout) view.findViewById(R.id.lin_1);
+                TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
+                tv_content.setText(goods.getData().getContentText());
                 if (goods.getData().getDescribe() != null && goods.getData().getDescribe().length() > 0) {
                     List<Gson_string> list = jsonToArrayList(goods.getData().getDescribe(), Gson_string.class);
                     for (int i = 0; i < list.size(); i++) {
@@ -397,9 +406,17 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                         ((TextView) view2.findViewById(R.id.value)).setText(list.get(i).getValue().toString());
                         lin_1.addView(view2);
                     }
-
                 }
-                GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_logo);
+                if (goods.getData().getContentImgsUrl() != null) {
+                    for (int i = 0; i < goods.getData().getContentImgsUrl().size(); i++) {
+                        LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(GoodsDetialActivity.this).inflate(R.layout.layout_img, null);
+                        ImageView image_logo = (ImageView) linearLayout.findViewById(R.id.image_logo);
+                        GlideUtil.loadImg(goods.getData().getShopInfo().getLogoIdAbsUrl(), image_logo);
+                        lin_1.addView(linearLayout);
+                    }
+                }
+
+
             }
             if (stata == 2) {
                 view = getLayoutInflater().inflate(R.layout.item_list2, null);

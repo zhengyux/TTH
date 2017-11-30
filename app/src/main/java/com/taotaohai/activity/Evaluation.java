@@ -83,7 +83,7 @@ public class Evaluation extends BaseActivity {
         ratingBar.setOnRatingChangeListener(new RatingBar.OnRatingChangeListener() {
             @Override
             public void onRatingChange(float RatingCount) {
-                count_rating = (int) (RatingCount+0.6);
+                count_rating = (int) (RatingCount + 0.6);
             }
         });
         gridview = (MyGridView) findViewById(R.id.noScrollgridview);
@@ -361,7 +361,7 @@ public class Evaluation extends BaseActivity {
                 if (isOK) {
                     isOK = false;
                     if (count == images.size()) return;
-                    sendImage("file/singleUpload", has, GlobalParams.NOSPOT_CODE, images.get(count), getApplicationContext(), 200, 200, "file");
+                    sendImage("file/upload", has, GlobalParams.NOSPOT_CODE, images.get(count), getApplicationContext(), 200, 200, "file");
                     count++;
                 }
                 editText.postDelayed(this, 10);
@@ -413,22 +413,17 @@ public class Evaluation extends BaseActivity {
 
     private void pot() {
         HashMap<String, String> has = new HashMap<>();
-        JsonArray jsonArray = new JsonArray();
+        String st = "";
         for (int i = 0; i < image_urls.size(); i++) {
-            jsonArray.add(image_urls.get(i));
+            st = image_urls.get(i) + ",";
         }
+        st = st.substring(0, st.length() - 1);
         JsonObject object = new JsonObject();
 
-        object.addProperty("commentLevel", (int) ratingBar.getChildCount());
+        object.addProperty("level", ratingBar.getChildCount());
         object.addProperty("comment", editText.getText().toString().trim());
-        object.addProperty("orderId", getintent("id"));
-        object.add("cImgUrl", jsonArray);
-        if (getintent("goods").length() > 0) {
-            object.addProperty("goodsspcInfo", getintent("goods"));
-        } else {
-            object.addProperty("goodsspcInfo", "红色，xl");
-        }
+        object.addProperty("images", st);
 
-        Http(HttpMethod.POST, "api/goods/addGoodsComment?goodsId=" + getintent("goodid"), object.toString(), 10);
+        Http(HttpMethod.POST, "api/comment/" + getintent("id") + "/reply", object.toString(), 10);
     }
 }

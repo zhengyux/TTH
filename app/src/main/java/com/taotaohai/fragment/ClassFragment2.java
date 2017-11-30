@@ -356,7 +356,9 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
                 holder.setText(R.id.tv_name, data.getTitle());
                 holder.setText(R.id.tv_unit, "/" + data.getUnit());
                 holder.setText(R.id.tv_remaker, data.getRemark());
-                holder.setText(R.id.tv_count, "已购买" + data.getShopInfo().getTotalBuy() + "件");
+                if (data.getShopInfo() != null) {
+                    holder.setText(R.id.tv_count, "已购买" + data.getShopInfo().getTotalBuy() + "件");
+                }
                 ImageView imageView = holder.getView(R.id.image_photo);
                 if (data.getImagesUrl().size() > 0)
                     GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);

@@ -4,10 +4,9 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,20 +24,23 @@ import android.webkit.WebViewClient;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
 import com.taotaohai.ConstantValue;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.MyApplication;
 import com.taotaohai.R;
-
 import com.taotaohai.dilog_toast.CustomToast;
 import com.taotaohai.dilog_toast.SpotsDialog;
 import com.taotaohai.httputil.Http;
 import com.taotaohai.httputil.IHttp;
 import com.taotaohai.listener.OnHttpListener;
 import com.taotaohai.util.AndroidBug54971Workaround;
-
+import com.taotaohai.util.DateUtils;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zhy.autolayout.AutoLayoutActivity;
 
 import org.xutils.http.HttpMethod;
@@ -231,7 +233,6 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
             }
         }
         iHttp.Put(moth, p, code);
-
     }
 
     public void Http(HttpMethod moth, String url, String BodyContent, final int code) {
@@ -395,26 +396,9 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         TextView tv_title = (TextView) dialog.findViewById(R.id.tv_title);
         tv_title.setText(title);
         textView.setText(st);
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                backgroundAlpha(1);
-            }
-        });
-        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
-        });
-        dialog.findViewById(R.id.sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                sure();
-            }
-        });
+        dialog.setOnDismissListener(dialog -> backgroundAlpha(1));
+        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.findViewById(R.id.sure).setOnClickListener(v -> sure());
         dialog.show();
     }
 
@@ -423,18 +407,8 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         dialog.setContentView(R.layout.dialog);
         TextView textView = (TextView) dialog.findViewById(R.id.information);
         textView.setText(st);
-        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
-        dialog.findViewById(R.id.sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sure(code);
-            }
-        });
+        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.findViewById(R.id.sure).setOnClickListener(v -> sure(code));
         dialog.show();
     }
 
@@ -566,4 +540,65 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
 //        }
 //        return super.onKeyDown(keyCode, event);
 //    }
+
+    public void shareToWx(String title, String content, int wx) {
+        //通过WXAPIFactory工厂，获取IWXAPI的实例
+        IWXAPI api = WXAPIFactory.createWXAPI(this, "wx37057309fa439183", true);
+//将应用的appid注册到微信
+        api.registerApp("wx37057309fa439183");
+
+//
+//        textObject.text = text;//text为需要分享的文本字符串
+////第2步：创建WXMediaMessage对象，该对象用于Android客户端向微信发送数据
+//        WXMediaMessage msg = new WXMediaMessage();
+//        msg.mediaObject = textObject;
+//        msg.description = "日程信息";
+////第3步：创建一个用于请求微信客户端的SendMessageToWX.Req对象
+//        SendMessageToWX.Req req = new SendMessageToWX.Req();
+//        req.message = msg;
+////设置请求的唯一标识
+//        req.transaction = buildTransaction(text);
+//        req.scene = SendMessageToWX.Req.WXSceneSession;
+//// 第4步：发送给微信客服端
+//        api.sendReq(req);
+
+
+    }
+
+    public void shareTowx(String url, boolean istimeline) {
+        IWXAPI wxApi;
+        wxApi = WXAPIFactory.createWXAPI(getApplicationContext(), ConstantValue.APP_ID);
+        WXWebpageObject webpageObject = new WXWebpageObject();
+        webpageObject.webpageUrl = DateUtils.hasURLHttp(url);
+        WXMediaMessage msg = new WXMediaMessage(webpageObject);
+        msg.title = "知脉头条";
+        msg.description = "";
+        Bitmap bm = null;
+//        try {
+//            bm = BitmapCompressor.zoomImage(GlobalParams.BITMAP, 100, 100);
+//        } catch (Exception e) {
+//        }
+//        if (bm != null) {
+//            msg.thumbData = Wxbitmap.getBitmapBytes(bm, true);
+//        }
+
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        if (istimeline) {
+            req.scene = SendMessageToWX.Req.WXSceneTimeline;
+        } else {
+            req.scene = SendMessageToWX.Req.WXSceneSession;
+        }
+        wxApi.sendReq(req);
+        if (bm != null && !bm.isRecycled()) {
+            bm.recycle();
+            bm = null;
+        }
+    }
+
+    private String buildTransaction(final String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
 }

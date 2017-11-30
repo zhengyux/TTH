@@ -10,6 +10,8 @@
         android:id="@+id/image_photo"
         android:layout_width="118px"
         android:layout_height="118px"
+        android:layout_marginLeft="@dimen/gap"
+        android:layout_marginRight="@dimen/gap"
         android:src="@mipmap/ic_launcher"
         tools:ignore="ContentDescription,PxUsage" />
 

@@ -10,6 +10,8 @@
         android:background="@color/them"
         android:id="@+id/textView2" />
     <RelativeLayout
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:id="@+id/relativeLayout"
         android:layout_width="match_parent"
         android:layout_height="130px"

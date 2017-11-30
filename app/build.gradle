@@ -71,6 +71,7 @@ dependencies {
     compile 'com.contrarywind:Android-PickerView:3.2.4'
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     testCompile 'junit:junit:4.12'
+    compile project(path: ':easeui')
 }
 allprojects {
     repositories {

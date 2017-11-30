@@ -103,12 +103,7 @@ public class Refund extends BaseActivity {
         radio2 = (RadioButton) findViewById(R.id.radio2);
         TextView tv_money = (TextView) findViewById(R.id.tv_money);
         tv_refund = (TextView) findViewById(R.id.tv_refund);
-        tv_refund.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showchoose();
-            }
-        });
+        tv_refund.setOnClickListener(v -> showchoose());
 
         GlideUtil.loadImg(data.getExt().getImgId(), image_photo);
         text_content.setText(data.getExt().getGoodsName());

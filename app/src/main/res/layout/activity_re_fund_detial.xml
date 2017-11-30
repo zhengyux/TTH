@@ -33,7 +33,7 @@
                     tools:ignore="PxUsage">
 
                     <TextView
-                        android:id="@+id/textView38"
+                        android:id="@+id/tv_stata"
                         style="@style/text32"
                         android:layout_marginLeft="40px"
                         android:layout_marginTop="@dimen/gap"
@@ -42,9 +42,10 @@
                         tools:ignore="HardcodedText,RtlHardcoded" />
 
                     <TextView
+                        android:id="@+id/tv_time"
                         style="@style/text24"
-                        android:layout_alignStart="@+id/textView38"
-                        android:layout_below="@+id/textView38"
+                        android:layout_alignStart="@+id/tv_stata"
+                        android:layout_below="@+id/tv_stata"
                         android:layout_marginTop="@dimen/gap"
                         android:text="2017—10-10"
                         android:textColor="@color/white"

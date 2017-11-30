@@ -2,7 +2,6 @@ package com.taotaohai.activity;
 
 import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -16,12 +15,12 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
-import com.google.gson.Gson;
+import com.flyco.tablayout.SlidingTabLayout;
+import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
@@ -29,15 +28,10 @@ import com.taotaohai.bean.PayResult;
 import com.taotaohai.bean.WXpay;
 import com.taotaohai.fragment.ItemBookFragment;
 import com.taotaohai.util.ViewFindUtils;
-import com.flyco.tablayout.SlidingTabLayout;
-import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.taotaohai.util.util;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
-import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
-import com.tencent.mm.opensdk.utils.Log;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,10 +47,11 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     private ArrayList<ItemBookFragment> mFragments = new ArrayList<>();
     private MyPagerAdapter mAdapter;
     private final String[] mTitles = {
-            "全部", "待付款", "代发货"
+            "全部", "待付款", "待发货"
             , "待收货", "待评价"
     };
     private Dialog dialog;
+    private ViewPager vp;
 
     @Override
     protected void inithttp() {
@@ -74,12 +69,14 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     protected void onStart() {
         super.onStart();
         mMsvLayout.loading();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mMsvLayout.content();
-            }
-        }, 2000);
+
+        new Handler().postDelayed(() -> mMsvLayout.content(), 2000);
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mFragments.get(vp.getCurrentItem()).refresh();
     }
 
     private void initview() {
@@ -89,7 +86,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
         findViewById(R.id.back).setOnClickListener(this);
         View decorView = getWindow().getDecorView();
-        ViewPager vp = ViewFindUtils.find(decorView, R.id.vp);
+        vp = ViewFindUtils.find(decorView, R.id.vp);
         mAdapter = new MyPagerAdapter(getSupportFragmentManager());
         vp.setAdapter(mAdapter);
         SlidingTabLayout tab = ViewFindUtils.find(decorView, R.id.tab);
@@ -97,6 +94,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         tab.setOnTabSelectListener(this);
         vp.setCurrentItem(getIntent().getIntExtra("stata", 0));
     }
+
 
     @Override
     public void onTabSelect(int position) {
@@ -141,7 +139,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         this.item = item;
         switch (item.getCount()) {
             case 1:
-                showpay("800");
+                showpay(item.getTotalPrice());
                 break;
             case 2:
                 showToast("提醒成功");
@@ -149,13 +147,16 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             case 3:
                 showDialog2("您确定已收到货？", "确定收货");
                 break;
-            case 4://再次购买
-                startActivity(new Intent(MyBook.this, Evaluation.class));
+            case 4://评价
+                startActivity(new Intent(MyBook.this, Evaluation.class)
+                        .putExtra("id", item.getExt().getOrderId())
+                );
 
                 break;
 
         }
     }
+
 
     @Override
     public void onListFragmentButton1(Book.Data item) {//第一个按钮
@@ -189,24 +190,18 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     private void showchoose() {
         options1Items.clear();
-        options1Items.add("托儿索");
-        options1Items.add("儿童劫");
-        options1Items.add("小学生之手");
-        options1Items.add("德玛西亚大保健");
-        options1Items.add("面对疾风吧");
-        options1Items.add("天王盖地虎");
-        options1Items.add("我发一米五");
-        options1Items.add("爆刘继芬");
+        options1Items.add("不想买了");
+        options1Items.add("货物有问题");
+        options1Items.add("降价了");
+        options1Items.add("快递太慢");
+        options1Items.add("其他");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
-                String s = options1Items.get(options1);
-//                button4.setText(s);
+
                 Http(HttpMethod.PUT, "api/goodsorder/cancel/" + item.getId(), 10);//取消订单
-
-
             }
         })
                 .setSubCalSize(15)//确定和取消文字大小
@@ -257,23 +252,17 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         TextView textView = (TextView) dialog.findViewById(R.id.information);
         final View rela_1 = dialog.findViewById(R.id.rela_1);
         final View rela_2 = dialog.findViewById(R.id.rela_2);
-        rela_1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iszfb = true;
-                paytype = 1;
-                rela_1.setBackgroundResource(R.drawable.button_r32);
-                rela_2.setBackground(null);
-            }
+        rela_1.setOnClickListener(v -> {
+            iszfb = true;
+            paytype = 1;
+            rela_1.setBackgroundResource(R.drawable.button_r32);
+            rela_2.setBackground(null);
         });
-        rela_2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                iszfb = false;
-                paytype = 2;
-                rela_2.setBackgroundResource(R.drawable.button_r32);
-                rela_1.setBackground(null);
-            }
+        rela_2.setOnClickListener(v -> {
+            iszfb = false;
+            paytype = 2;
+            rela_2.setBackgroundResource(R.drawable.button_r32);
+            rela_1.setBackground(null);
         });
 
         textView.setText(st);
@@ -284,33 +273,38 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
             }
         });
-        dialog.findViewById(R.id.sure).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-                if (paytype == 1) {
-                    get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + item.getExt().getOrderId(), 21);//1支付宝 2微信
-                } else {
-                    get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + item.getExt().getOrderId(), 22);//1支付宝 2微信
-                }
+        dialog.findViewById(R.id.sure).setOnClickListener(v -> {
+            dialog.dismiss();
+            if (paytype == 1) {
+                get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + item.getExt().getOrderId(), 21);//1支付宝 2微信
+            } else {
+                get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + item.getExt().getOrderId(), 22);//1支付宝 2微信
+            }
 
 
-            }
         });
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                backgroundAlpha(1f);
-            }
-        });
+        dialog.setOnDismissListener(dialog -> backgroundAlpha(1f));
         Window dialogWindow = dialog.getWindow();
         dialogWindow.setGravity(Gravity.BOTTOM);
         dialog.show();
     }
 
     @Override
+    protected void sure() {
+        super.sure();
+        has.clear();
+        Http(HttpMethod.PUT, "api/goodsorder/received/" + item.getId(), has, 15);
+
+
+    }
+
+    @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if (postcode == 15) {
+            showToast("收货成功");
+            mFragments.get(vp.getCurrentItem()).refresh();
+        }
         if (postcode == 21) {
             try {
                 JSONObject jsonObject = new JSONObject(result).getJSONObject("data");
@@ -347,12 +341,12 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
-            msgApi.registerApp(wXpay.getData().getAppid());
+            msgApi.registerApp("wx37057309fa439183");
             PayReq request = new PayReq();
-            request.appId = wXpay.getData().getAppid();
+            request.appId = "wx37057309fa439183";
             request.partnerId = wXpay.getData().getPartnerid();
             request.prepayId = wXpay.getData().getPrepayid();
-            request.packageValue = wXpay.getData().getMpackage();
+            request.packageValue = "Sign=WXPay";
             request.nonceStr = wXpay.getData().getNoncestr();
             request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
             request.sign = wXpay.getData().getSign();

@@ -6,6 +6,8 @@ import android.app.Service;
 import android.content.Intent;
 
 import com.taotaohai.activity.Home;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.umeng.socialize.Config;
 import com.umeng.socialize.PlatformConfig;
 import com.umeng.socialize.UMShareAPI;
@@ -31,8 +33,12 @@ public class MyApplication extends Application {
         x.Ext.init(this);
         x.Ext.setDebug(false); //是否输出debug日志，开启debug会影响性能。
 //        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");
+        IWXAPI wxApi;
+        wxApi = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID, true);
+        wxApi.registerApp(ConstantValue.APP_ID);
         UMShareAPI.get(this);
         Config.DEBUG = true;
+
 
     }
 

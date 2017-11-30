@@ -1,16 +1,24 @@
 package com.taotaohai.activity;
 
 
+import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alipay.sdk.app.PayTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
@@ -18,13 +26,25 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Car;
 import com.taotaohai.bean.Defult;
+import com.taotaohai.bean.OrderInfo;
+import com.taotaohai.bean.PayResult;
+import com.taotaohai.bean.WXpay;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.mm.opensdk.modelpay.PayReq;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xutils.http.HttpMethod;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.text.DecimalFormat;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class OrderSureActivity extends BaseActivity {
 
@@ -33,6 +53,8 @@ public class OrderSureActivity extends BaseActivity {
     TextView tv_name, tv_phone, tv_address;
     private Defult defult;
     List<String> list = null;
+    private Dialog dialog;
+    private TextView tv_price;
 
     @Override
     protected void inithttp() {
@@ -69,11 +91,12 @@ public class OrderSureActivity extends BaseActivity {
         car = (Car) getIntent().getSerializableExtra("car");
         list = (List<String>) getIntent().getSerializableExtra("list");
         if (car != null) {
-            TextView tv_price = (TextView) findViewById(R.id.tv_price);
+            tv_price = (TextView) findViewById(R.id.tv_price);
             TextView tv_price2 = (TextView) findViewById(R.id.tv_price2);
             TextView tv_count = (TextView) findViewById(R.id.tv_count);
-            tv_price.setText(getintent("price"));
-            tv_price2.setText(getintent("price"));
+            DecimalFormat df = new DecimalFormat("#####0.00");
+            tv_price.setText(df.format(Double.valueOf(getintent("price"))));
+            tv_price2.setText(df.format(Double.valueOf(getintent("price"))));
             tv_count.setText("共" + getintent("num") + "件商品 ：小计");
 
             LinearLayout lin_goods = (LinearLayout) findViewById(R.id.lin_goods);
@@ -176,21 +199,173 @@ public class OrderSureActivity extends BaseActivity {
                     tv_name.setText("收货人: " + defult.getData().getLinkName());
                     tv_phone.setText("电话: " + defult.getData().getLinkTel());
                     tv_address.setText(defult.getData().getLinkProvince() + defult.getData().getLinkCity() + defult.getData().getLinkArea() + defult.getData().getLinkAddress());
-                    rela_address.setVisibility(View.VISIBLE);
-                } else {
-                    img_add.setVisibility(View.VISIBLE);
                 }
             }
         }
         if (postcode == 15) {
-            BaseBean baseBean = util.getgson(result);
-            if (util.isSuccess(baseBean, this)) {
-                showToast("提交成功");
-                startActivity(new Intent(this, MyBook.class));
-                finish();
+            OrderInfo orderInfo = util.getgson(result, OrderInfo.class);
+            if (util.getgson(result)) {
+                showpay(tv_price.getText().toString(), orderInfo.getData().getOrderInfo());
+            }else{
+                showToast(orderInfo.getMessage());
             }
         }
+        if (postcode == 21) {
+            try {
+                JSONObject jsonObject = new JSONObject(result).getJSONObject("data");
+                String appid = jsonObject.getString("app_id");
+                String biz = jsonObject.getString("biz_content");
+                String charset = jsonObject.getString("charset");
+                String format = jsonObject.getString("format");
+                String method = jsonObject.getString("method");
+                String notifyUrl = jsonObject.getString("notify_url");
+                String sign = jsonObject.getString("sign");
+                String signType = jsonObject.getString("sign_type");
+                String timestamp = jsonObject.getString("timestamp");
+                String version = jsonObject.getString("version");
+                StringBuilder sb = new StringBuilder()
+                        .append("app_id=").append(URLEncoder.encode(appid, charset))
+                        .append("&biz_content=").append(URLEncoder.encode(biz, charset))
+                        .append("&charset=").append(URLEncoder.encode(charset, charset))
+                        .append("&format=").append(URLEncoder.encode(format, charset))
+                        .append("&method=").append(URLEncoder.encode(method, charset))
+                        .append("&notify_url=").append(URLEncoder.encode(notifyUrl, charset))
+                        .append("&sign_type=").append(URLEncoder.encode(signType, charset))
+                        .append("&timestamp=").append(URLEncoder.encode(timestamp, charset))
+                        .append("&version=").append(URLEncoder.encode(version, charset))
+                        .append("&sign=").append(URLEncoder.encode(sign, charset));
+                payzfb(sb.toString());
+                dialog.dismiss();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+            return;
+        }
+        if (postcode == 22) {
+            final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+// 将该app注册到微信
+            WXpay wXpay = util.getgson(result, WXpay.class);
+            msgApi.registerApp(wXpay.getData().getAppid());
+            PayReq request = new PayReq();
+            request.appId = wXpay.getData().getAppid();
+            request.partnerId = wXpay.getData().getPartnerid();
+            request.prepayId = wXpay.getData().getPrepayid();
+            request.packageValue = wXpay.getData().getMpackage();
+            request.nonceStr = wXpay.getData().getNoncestr();
+            request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
+            request.sign = wXpay.getData().getSign();
+//            msgApi.registerApp("wxd930ea5d5a258f4f");
+//            PayReq request = new PayReq();
+//            request.appId = "wxd930ea5d5a258f4f";
+//            request.partnerId = "1900000109";
+//            request.prepayId= "1101000000140415649af9fc314aa427";
+//            request.packageValue = "Sign=WXPay";
+//            request.nonceStr= "1101000000140429eb40476f8896f4c9";
+//            request.timeStamp= "1398746574";
+//            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+            msgApi.sendReq(request);
+            return;
+        }
 
+    }
 
+    void payzfb(String info) {
+        final String orderInfo = info;   // 订单信息
+        Runnable payRunnable = () -> {
+            PayTask alipay = new PayTask(OrderSureActivity.this);
+            Map<String, String> result = alipay.payV2(orderInfo, true);
+            Message msg = new Message();
+            msg.what = 1;
+            msg.obj = result;
+            mHandler.sendMessage(msg);
+        };
+        // 必须异步调用
+        Thread payThread = new Thread(payRunnable);
+        payThread.start();
+    }
+
+    @SuppressLint("HandlerLeak")
+    private Handler mHandler = new Handler() {
+        @SuppressWarnings("unused")
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1: {
+                    @SuppressWarnings("unchecked")
+                    PayResult payResult = new PayResult((Map<String, String>) msg.obj);
+                    /**
+                     对于支付结果，请商户依赖服务端的异步通知结果。同步通知结果，仅作为支付结束的通知。
+                     */
+                    String resultInfo = payResult.getResult();// 同步返回需要验证的信息
+                    String resultStatus = payResult.getResultStatus();
+                    showToast("付款成功");
+                    startActivity(new Intent(OrderSureActivity.this, MyBook.class));
+
+                    // 判断resultStatus 为9000则代表支付成功
+                    if (TextUtils.equals(resultStatus, "9000")) {
+
+                    } else {
+                        // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
+                        showToast("支付失败");
+                    }
+                    break;
+                }
+
+            }
+        }
+    };
+
+    boolean iszfb = true;
+    int paytype = 1;
+
+    protected void showpay(String st, String orderid) {
+        backgroundAlpha(0.5f);
+        dialog = new Dialog(this, R.style.MyDialog_holo);
+        dialog.setContentView(R.layout.dialog_pay);
+        TextView textView = (TextView) dialog.findViewById(R.id.information);
+        final View rela_1 = dialog.findViewById(R.id.rela_1);
+        final View rela_2 = dialog.findViewById(R.id.rela_2);
+        rela_1.setOnClickListener(v -> {
+            iszfb = true;
+            paytype = 1;
+            rela_1.setBackgroundResource(R.drawable.button_r32);
+            rela_2.setBackground(null);
+        });
+        rela_2.setOnClickListener(v -> {
+            iszfb = false;
+            paytype = 2;
+            rela_2.setBackgroundResource(R.drawable.button_r32);
+            rela_1.setBackground(null);
+        });
+
+        textView.setText(st);
+        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.findViewById(R.id.sure).setOnClickListener(v -> {
+            dialog.dismiss();
+            if (paytype == 1) {
+                get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
+            } else {
+                get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+            }
+        });
+        dialog.setOnDismissListener(dialog1 -> backgroundAlpha(1f));
+        Window dialogWindow = dialog.getWindow();
+        dialogWindow.setGravity(Gravity.BOTTOM);
+        dialog.show();
+    }
+
+    @Override
+    public void onFinished(int code) {
+        super.onFinished(code);
+        if (code == 0) {
+            if (defult == null) {
+                img_add.setVisibility(View.VISIBLE);
+                rela_address.setVisibility(View.GONE);
+            } else {
+                img_add.setVisibility(View.GONE);
+                rela_address.setVisibility(View.VISIBLE);
+            }
+        }
     }
 }

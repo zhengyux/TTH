@@ -34,7 +34,7 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class VideoFragment extends BaseFragment implements View.OnClickListener {
-
+    String key = "";
     private RecyclerView recyclerView;
     private XRefreshView xrefreshview;
     private MultipleStatusView mMsvLayout;
@@ -50,6 +50,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         }
         return fragment;
     }
+
     public VideoFragment() {
         // Required empty public constructor
     }
@@ -64,12 +65,19 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         has.clear();
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
-        Http(HttpMethod.GET, "api/video", has, 0);
+        if (key.length() == 0) {
+            Http(HttpMethod.GET, "api/video", has, 0);
+        } else {
+            has.put("k", key);
+            Http(HttpMethod.GET, "api/search/video", has, 0);
+        }
+
     }
 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
         if (postcode == 0) {
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
@@ -131,10 +139,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     int pageIndex = 0;//第多少个
 
     private void initdata() {
-        if (adapter != null) {
-            adapter.notifyDataSetChanged();
-            return;
-        }
+//        if (adapter != null) {
+//            adapter.notifyDataSetChanged();
+//            return;
+//        }
         adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
             @Override
             protected void convert(ViewHolder holder, final Video.Data data, int position) {
@@ -187,7 +195,22 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.search_:
-                startActivityForResult(new Intent(getActivity(), Search.class), 0);
+                key = "";
+                startActivityForResult(new Intent(getActivity(), Search.class), 100);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            pageIndex = 0;
+            key = data.getStringExtra("key");
+            has.clear();
+            has.put("k", key);
+            has.put("pageSize", String.valueOf(pageSize));
+            has.put("pageIndex", String.valueOf(pageIndex));
+            Http(HttpMethod.GET, "api/search/video", has, 0);
         }
     }
 }

@@ -67,20 +67,17 @@ public class ShopCarActivity extends BaseActivity {
 
     private void initview() {
         TextView tv_settlement = (TextView) findViewById(R.id.tv_settlement);
-        tv_settlement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (car_buy.getData().getData().size() == 0) {
-                    showToast("请选择您要结算的商品");
-                    return;
-                }
-
-                startActivity(new Intent(ShopCarActivity.this, OrderSureActivity.class)
-                        .putExtra("car", car_buy)
-                        .putExtra("price", tv_all.getText().toString())
-                        .putExtra("num", String.valueOf(num))
-                );
+        tv_settlement.setOnClickListener(v -> {
+            if (car_buy.getData().getData().size() == 0) {
+                showToast("请选择您要结算的商品");
+                return;
             }
+
+            startActivity(new Intent(ShopCarActivity.this, OrderSureActivity.class)
+                    .putExtra("car", car_buy)
+                    .putExtra("price", tv_all.getText().toString())
+                    .putExtra("num", String.valueOf(num))
+            );
         });
         listView = (ListView) findViewById(R.id.list);
         adapter = new Mydapter();
@@ -88,26 +85,23 @@ public class ShopCarActivity extends BaseActivity {
         radioall = (RadioButton) findViewById(R.id.radioall);
         tv_all = (TextView) findViewById(R.id.tv_all);
 
-        radioall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isall) {
-                    radioall.setChecked(false);
-                    isclicks.clear();
-                    for (int i = 0; i < car.getData().getData().size(); i++) {
-                        isclicks.add(false);
-                    }
-                } else {
-                    radioall.setChecked(true);
-                    isclicks.clear();
-                    for (int i = 0; i < car.getData().getData().size(); i++) {
-                        isclicks.add(true);
-                    }
+        radioall.setOnClickListener(v -> {
+            if (isall) {
+                radioall.setChecked(false);
+                isclicks.clear();
+                for (int i = 0; i < car.getData().getData().size(); i++) {
+                    isclicks.add(false);
                 }
-                getall();
-                adapter.notifyDataSetChanged();
-                isall = !isall;
+            } else {
+                radioall.setChecked(true);
+                isclicks.clear();
+                for (int i = 0; i < car.getData().getData().size(); i++) {
+                    isclicks.add(true);
+                }
             }
+            getall();
+            adapter.notifyDataSetChanged();
+            isall = !isall;
         });
 
     }
@@ -151,56 +145,44 @@ public class ShopCarActivity extends BaseActivity {
             tv_count.setText(String.valueOf("x" + count));
             tv_count1.setText(String.valueOf(count));
 
-            tv_edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (rela_edit.isShown()) {
-                        rela_edit.setVisibility(View.GONE);
-                        tv_edit.setText("编辑");
-                    } else {
-                        rela_edit.setVisibility(View.VISIBLE);
-                        tv_edit.setText("完成");
-                    }
+            tv_edit.setOnClickListener(v -> {
+                if (rela_edit.isShown()) {
+                    rela_edit.setVisibility(View.GONE);
+                    tv_edit.setText("编辑");
+                } else {
+                    rela_edit.setVisibility(View.VISIBLE);
+                    tv_edit.setText("完成");
                 }
             });
-            convertView.findViewById(R.id.tv_delect).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Http(HttpMethod.DELETE, "api/shopCar/" + car.getData().getData().get(position).getId(), 11);
-                    car.getData().getData().remove(position);
-                    isclicks.remove(position);
-                    all();
-                    notifyDataSetChanged();
+            convertView.findViewById(R.id.tv_delect).setOnClickListener(v -> {
+                Http(HttpMethod.DELETE, "api/shopCar/" + car.getData().getData().get(position).getId(), 11);
+                car.getData().getData().remove(position);
+                isclicks.remove(position);
+                all();
+                notifyDataSetChanged();
+            });
+            convertView.findViewById(R.id.tv_reduct).setOnClickListener(v -> {
+                if (car.getData().getData().get(position).getCount() > 1) {
+                    car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() - 1);
+                    tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
+                    tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
+                    getall();
+                    has.clear();
+                    has.put("shopCarId", car.getData().getData().get(position).getId());
+                    has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
+                    put("api/shopCar", has, 10);
                 }
             });
-            convertView.findViewById(R.id.tv_reduct).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (car.getData().getData().get(position).getCount() > 1) {
-                        car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() - 1);
-                        tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
-                        tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
-                        getall();
-                        has.clear();
-                        has.put("shopCarId", car.getData().getData().get(position).getId());
-                        has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
-                        put("api/shopCar", has, 10);
-                    }
-                }
-            });
-            convertView.findViewById(R.id.tv_add).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (car.getData().getData().get(position).getCount() < 100) {
-                        car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() + 1);
-                        tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
-                        tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
-                        getall();
-                        has.clear();
-                        has.put("shopCarId", car.getData().getData().get(position).getId());
-                        has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
-                        put("api/shopCar", has, 10);
-                    }
+            convertView.findViewById(R.id.tv_add).setOnClickListener(v -> {
+                if (car.getData().getData().get(position).getCount() < 100) {
+                    car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() + 1);
+                    tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
+                    tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));
+                    getall();
+                    has.clear();
+                    has.put("shopCarId", car.getData().getData().get(position).getId());
+                    has.put("count", String.valueOf(car.getData().getData().get(position).getCount()));
+                    put("api/shopCar", has, 10);
                 }
             });
 

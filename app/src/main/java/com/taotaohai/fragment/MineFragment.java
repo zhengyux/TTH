@@ -25,6 +25,7 @@ import com.taotaohai.activity.ReFundListActivity;
 import com.taotaohai.activity.Regist;
 import com.taotaohai.activity.SetActivity;
 import com.taotaohai.activity.ShopCarActivity;
+import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.LoginBean;
 import com.taotaohai.bean.Mine;
@@ -52,6 +53,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
         return fragment;
     }
+
     public MineFragment() {
         // Required empty public constructor
     }
@@ -85,8 +87,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
-        has.put("username", (String) SPUtils.get(getActivity(),"username",""));
-        has.put("password",  (String) SPUtils.get(getActivity(),"password",""));
+        has.put("username", (String) SPUtils.get(getActivity(), "username", ""));
+        has.put("password", (String) SPUtils.get(getActivity(), "password", ""));
         post("api/auth/login", has, 0);
     }
 
@@ -227,19 +229,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         dialog.setContentView(R.layout.dialog_home);
         TextView textView = (TextView) dialog.findViewById(R.id.information);
         textView.setText(st);
-        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-
-            }
+        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.findViewById(R.id.circle).setOnClickListener(v -> {
+            dialog.dismiss();
+//            ((BaseActivity) getActivity()).shareToWx("", "", 0);
+            ((BaseActivity) getActivity()).shareTowx("www.baidu.com", true);
         });
-        dialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
-            @Override
-            public void onDismiss(DialogInterface dialog) {
-                backgroundAlpha(1f);
-            }
-        });
+        dialog.findViewById(R.id.firend).setOnClickListener(v -> dialog.dismiss());
+        dialog.setOnDismissListener(dialog1 -> backgroundAlpha(1f));
 
         dialog.show();
     }

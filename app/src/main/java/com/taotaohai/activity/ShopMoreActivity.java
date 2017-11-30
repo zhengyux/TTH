@@ -50,18 +50,8 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initview() {
-        findViewById(R.id.rela_message).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class));
-            }
-        });
-        findViewById(R.id.rela_shopcar).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class));
-            }
-        });
+        findViewById(R.id.rela_message).setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class)));
+        findViewById(R.id.rela_shopcar).setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class)));
         xrefreshview = (XRefreshView) findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
@@ -80,14 +70,9 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
                 holder.setText(R.id.tv_3, util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
-                holder.setOnClickListener(R.id.rela_all, new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(new Intent(ShopMoreActivity.this, ShopActivity.class)
-                                .putExtra("id", data.getId())
-                        );
-                    }
-                });
+                holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(ShopMoreActivity.this, ShopActivity.class)
+                        .putExtra("id", data.getId())
+                ));
             }
         };
         // 设置静默加载模式
@@ -107,23 +92,15 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        xrefreshview.stopRefresh();
-                    }
-                }, 1000);
+                new Handler().postDelayed(() -> xrefreshview.stopRefresh(), 1000);
             }
 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
+                new Handler().postDelayed(() -> {
 //                        xrefreshview.setLoadComplete(true);//已无更多数据
-                        xrefreshview.stopLoadMore();//还有数据
-                    }
+                    xrefreshview.stopLoadMore();//还有数据
                 }, 1000);
             }
         });

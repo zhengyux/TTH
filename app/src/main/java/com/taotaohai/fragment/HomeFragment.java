@@ -22,6 +22,7 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
+import com.taotaohai.activity.ClassActivity;
 import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.Home;
 import com.taotaohai.activity.MessageActivity;
@@ -39,6 +40,7 @@ import com.taotaohai.myview.MyGridView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
@@ -181,6 +183,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             banner.setImages(images);
             //banner设置方法全部调用完毕时最后调用
             banner.start();
+            banner.setOnBannerListener((int position) -> {
+                startActivity(new Intent(getActivity(), com.taotaohai.activity.Banner.class)
+                        .putExtra("url", ratation.getData().get(position).getTarget())
+                );
+            });
+
         }
     }
 
@@ -208,12 +216,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rela_more).setOnClickListener(this);
 
         swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
-        swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                inithttp();
-            }
-        });
+        swipe.setOnRefreshListener(() -> inithttp());
         view.findViewById(R.id.tv_search).setOnClickListener(this);
         view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
         view.findViewById(R.id.rela_message).setOnClickListener(this);
@@ -243,16 +246,28 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
                 break;
             case R.id.rela_1:
-                ((Home) getActivity()).initview2();
+                startActivity(new Intent(getActivity(), ClassActivity.class)
+                        .putExtra("id", hotclass.getData().get(0).getClassId())
+                );
+//                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_2:
-                ((Home) getActivity()).initview2();
+                startActivity(new Intent(getActivity(), ClassActivity.class)
+                        .putExtra("id", hotclass.getData().get(1).getClassId())
+                );
+//                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_3:
-                ((Home) getActivity()).initview2();
+                startActivity(new Intent(getActivity(), ClassActivity.class)
+                        .putExtra("id", hotclass.getData().get(2).getClassId())
+                );
+//                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_4:
-                ((Home) getActivity()).initview2();
+                startActivity(new Intent(getActivity(), ClassActivity.class)
+                        .putExtra("id", hotclass.getData().get(3).getClassId())
+                );
+//                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_more:
                 startActivityForResult(new Intent(getActivity(), ShopMoreActivity.class), 1);
@@ -317,15 +332,19 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             } else {
                 su.setVisibility(View.GONE);
             }
-            if (data.getImagesUrl().size() > 0) {
+
+            if (data.getImagesUrl() != null && data.getImagesUrl().size() > 0) {
                 GlideUtil.loadImg(data.getImagesUrl().get(0), imageView);
             }
-            tv_tite.setText(data.getClassInfo().getClassName());
-            tv_remorke.setText(data.getShopInfo().getRemark());
+            if (data.getClassInfo() != null) {
+                tv_tite.setText(data.getClassInfo().getClassName());
+            }
+            if (data.getShopInfo() != null) {
+                tv_remorke.setText(data.getShopInfo().getRemark());
+                tv_people.setText("已有" + data.getShopInfo().getTotalBuy() + "人购买");
+            }
             tv_money.setText("￥：" + data.getPrice());
             tv_unit.setText("/" + data.getUnit());
-            tv_people.setText("已有" + data.getShopInfo().getTotalBuy() + "人购买");
-
             return view;
         }
     }
@@ -357,11 +376,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             tv_title.setText(hotshop.getData().get(position).getName());
             tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
             tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
-            view.findViewById(R.id.rela_all).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
-                }
+            view.findViewById(R.id.rela_all).setOnClickListener((l) -> {
+                startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
             });
 
 
