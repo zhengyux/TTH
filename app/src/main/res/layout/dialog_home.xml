@@ -54,6 +54,7 @@
         android:orientation="horizontal">
 
         <RelativeLayout
+            android:id="@+id/firend"
             android:layout_width="320px"
             android:layout_height="174px">
 
@@ -86,6 +87,7 @@
             android:background="@color/common" />
 
         <RelativeLayout
+            android:id="@+id/circle"
             android:layout_width="320px"
             android:layout_height="174px">
 

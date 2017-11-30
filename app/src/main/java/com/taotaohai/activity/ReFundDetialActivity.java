@@ -2,13 +2,19 @@ package com.taotaohai.activity;
 
 import android.os.Bundle;
 import android.text.Html;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.Book;
+import com.taotaohai.util.GlideUtil;
+
+import static com.taotaohai.activity.ReFundListActivity.getRefundState;
 
 public class ReFundDetialActivity extends BaseActivity {
     TextView tv_14;
+    private Book.Data data;
 
     @Override
     protected void inithttp() {
@@ -19,13 +25,25 @@ public class ReFundDetialActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_fund_detial);
+        setTitle("退款详情");
+        data = (Book.Data) getIntent().getSerializableExtra("data");
         initview();
+
     }
 
     private void initview() {
-
+        TextView tv_time = (TextView) findViewById(R.id.tv_time);
+        TextView tv_stata = (TextView) findViewById(R.id.tv_stata);
+        TextView tv_6 = (TextView) findViewById(R.id.tv_6);
+        TextView tv_7 = (TextView) findViewById(R.id.tv_7);
+        ImageView image_1 = (ImageView) findViewById(R.id.image_1);
+        GlideUtil.loadImg(data.getExt().getImgId(), image_1);
+        tv_6.setText(data.getExt().getGoodsName());
+        tv_7.setText(data.getExt().getRemark());
+        tv_time.setText(data.getExt().getGmtCreate());
+        tv_stata.setText(getRefundState(data.getRefundStatus()));
         tv_14 = (TextView) findViewById(R.id.tv_14);
-        String st = "退款原因：123456<br />退款金额：<font color=#fa8d00>1578156</font><br />申请时间：123456<br />退款编号：2013-05-15";
+        String st = "退款原因：" + data.getExt().getRefundReason() + "<br />退款金额：<font color=#fa8d00>" + data.getTotalPrice() + "</font><br />申请时间：" + data.getGmtRefund() + "<br />退款编号：" + data.getId();
         tv_14.setText(Html.fromHtml(st));
 
     }

@@ -77,7 +77,7 @@ public class ItemBookFragment extends BaseFragment {
     public void inithttp() {
         switch (stata) {
             case 0:
-                get("api/GoodsOrder", 0);
+                get("api/GoodsOrder", 1);
                 break;
             case 1:
                 get("api/GoodsOrder/list/1", 0);
