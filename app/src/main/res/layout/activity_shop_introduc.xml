@@ -188,6 +188,25 @@
                     android:src="@mipmap/lianxi" />
             </RelativeLayout>
 
+            <TextView style="@style/textgap1" />
+
+            <RelativeLayout
+                android:id="@+id/licence"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/gap"
+                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+                <TextView
+                    style="@style/text26"
+                    android:layout_centerVertical="true"
+                    android:text="营业执照/其他资质"
+                    android:textColor="#929292"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
 
         </LinearLayout>
 

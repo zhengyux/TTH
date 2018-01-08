@@ -75,7 +75,7 @@ public class VideoFragment_search extends BaseFragment {
                     initdata();
                     totle = video.getData().getTotal();
                 }
-                pageIndex += 10;//第多少个
+                pageIndex += 1;//第多少个
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {

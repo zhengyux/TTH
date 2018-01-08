@@ -202,7 +202,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_dis.setText(goods.getData().getRemark());
                 tv_dis2.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起批");
                 tv_name.setText(goods.getData().getShopInfo().getName());
-                tv_num.setText("已有" + goods.getData().getShopInfo().getTotalBuy() + "人" + "购买");
+                tv_num.setText("已有" + goods.getData().getSaleVolume() + "人" + "购买");
                 tv_scor.setText(goods.getData().getTotalCommonLevel() + "分");
                 tv_goods.setText(goods.getData().getShopInfo().getTotalGoods());
                 tv_source.setText(goods.getData().getShopInfo().getTotalSourceGoods());
@@ -545,6 +545,12 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 for (int i = 0; i < comment.getData2().getData().get(position).getImgsAbsUrl().size(); i++) {
                     ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_image, null);
                     GlideUtil.loadImg(comment.getData2().getData().get(position).getImgsAbsUrl().get(i), imageView);
+                    int fin = i;
+                    PhotoActivity.bitmap.add(comment.getData2().getData().get(position).getImgsAbsUrl().get(i));
+                    imageView.setOnClickListener((l) -> {
+                        startActivity(new Intent(getApplicationContext(), PhotoActivity.class).putExtra("ID", fin)
+                        );
+                    });
                     lin_message.addView(imageView);
                 }
 

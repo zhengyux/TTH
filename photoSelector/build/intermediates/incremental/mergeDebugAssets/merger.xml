@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="D:\workspace\kaote\TaoTaoHai\photoSelector\src\main\assets"/><source path="D:\workspace\kaote\TaoTaoHai\photoSelector\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="D:\workspace\kaote\TaoTaoHai\photoSelector\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="/Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/assets"/><source path="/Users/2panda/Desktop/TaoTaoHai/photoSelector/build/generated/assets/shaders/debug"/></dataSet><dataSet config="debug"><source path="/Users/2panda/Desktop/TaoTaoHai/photoSelector/src/debug/assets"/></dataSet></merger>

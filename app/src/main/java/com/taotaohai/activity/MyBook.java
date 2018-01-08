@@ -12,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -83,7 +84,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         for (int i = 0; i < 5; i++) {
             mFragments.add(ItemBookFragment.newInstance(i));
         }
-
+        findViewById(R.id.mrelativeLayout2).setOnClickListener(this);
+        findViewById(R.id.mrelativeLayout3).setOnClickListener(this);
+        findViewById(R.id.msearch_).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         View decorView = getWindow().getDecorView();
         vp = ViewFindUtils.find(decorView, R.id.vp);
@@ -112,11 +115,21 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             case R.id.back:
                 finish();
                 break;
+            case R.id.mrelativeLayout2:
+                startActivity(new Intent(this,ShopCarActivity.class));
+                break;
+            case R.id.mrelativeLayout3:
+                startActivity(new Intent(this,MessageActivity.class));
+                break;
+            case R.id.msearch_:
+                startActivity(new Intent(this,SeachendShop.class));
+                break;
         }
     }
 
     @Override
     public void onListFragmentInteraction(Book.Data item) {
+        Log.e("tg", "onListFragmentInteraction: "+item.getExt().getTotalPrice());
         startActivity(new Intent(MyBook.this, Bookdetial.class)
                 .putExtra("data", item)
         );
@@ -147,7 +160,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 showpay(item.getTotalPrice());
                 break;
             case 2:
-                showToast("提醒成功");
+                Http(HttpMethod.PUT, "api/goodsorder/remind/" + item.getId()+"/"+item.getUserId()+"/"+item.getShopId(), 11);//提醒发货
                 break;
             case 3:
                 showDialog2("您确定已收到货？", "确定收货");
@@ -205,10 +218,11 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     private void showchoose() {
         options1Items.clear();
-        options1Items.add("品质问题");
-        options1Items.add("产品与描述不符");
-        options1Items.add("数量、重量不符");
-        options1Items.add("其他");
+        options1Items.add("我不想买了");
+        options1Items.add("信息填写错了，重新拍");
+        options1Items.add("卖家缺货");
+        options1Items.add("同城见面交易");
+        options1Items.add("其他原因");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
@@ -222,7 +236,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 .setSubmitColor(R.color.glay_text)//确定按钮文字颜色
                 .setCancelColor(R.color.them)//取消按钮文字颜色
                 .setTextColorCenter(Color.BLACK)//设置选中项的颜色
-                .setTitleText("选择退款原因")
+                .setTitleText("取消订单原因")
                 .setTitleSize(15)
                 .isDialog(true)//是否显示为对话框样式
                 .build();
@@ -318,8 +332,16 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     }
 
     @Override
+    public void onError(Throwable ex, int postcode) {
+        super.onError(ex, postcode);
+    }
+
+    @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if(postcode == 11){
+            showToast("提醒成功");
+        }
         if (postcode == 99) {
             itemBookFragment.inithttp();
             showToast("删除成功");
@@ -389,6 +411,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             itemBookFragment.inithttp();
             showToast("取消成功");
         }
+
     }
 
 

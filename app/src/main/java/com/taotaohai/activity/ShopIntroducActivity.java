@@ -59,19 +59,36 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         GlideUtil.loadImg(shop.getData().getLogoIdAbsUrl(), image_photo);
         tv_scor.setText(shop.getData().getTotalCommonLevel() + "分");
         tv_title20.setText(shop.getData().getName());
+
+
+
+        for (int i=0; i<shop.getData().getBusinessAbsUrlList().size(); i++){
+            int zz = i;
+
+            PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(i));
+            findViewById(R.id.licence).setOnClickListener((l) -> {
+
+                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", zz));
+
+            });
+        }
+
         for (int i = 0; i < 3 && i < shop.getData().getShopIdentifies().size(); i++) {
             TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
             textView.setText(shop.getData().getShopIdentifies().get(i).getName());
             lin_1.addView(textView);
         }
+
+
         for (int i = 0; i < shop.getData().getShopIdentifies().size(); i++) {
             View view = getLayoutInflater().inflate(R.layout.shopinfo_rela, null);
             TextView textView = (TextView) view.findViewById(R.id.text_name);
             textView.setText(shop.getData().getShopIdentifies().get(i).getName());
             int finalI = i;
+
             PhotoActivity.bitmap.add(shop.getData().getShopIdentifies().get(i).getImageAbsUrl());
             view.setOnClickListener((l) -> {
-                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", finalI)
+                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", finalI+shop.getData().getBusinessAbsUrlList().size())
                 );
             });
             lin_10.addView(view);

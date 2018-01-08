@@ -108,7 +108,6 @@
         android:id="@+id/btn_login"
         style="@style/button"
         android:layout_margin="@dimen/gap"
-        android:onClick="onLogin"
         android:text="修改"
         tools:ignore="HardcodedText" />
 

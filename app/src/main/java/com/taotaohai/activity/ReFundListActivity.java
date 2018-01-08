@@ -39,7 +39,7 @@ public class ReFundListActivity extends BaseActivity {
         setContentView(R.layout.activity_re_fund_list);
         findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(this, MessageActivity.class)));
         findViewById(R.id.rela_shopcar).setOnClickListener((l) -> startActivity(new Intent(this, ShopCarActivity.class)));
-
+        findViewById(R.id.back).setOnClickListener((l) -> finish());
 
         inithttp();
     }

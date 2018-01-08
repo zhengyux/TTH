@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -102,7 +103,8 @@ public class Refund extends BaseActivity {
         radio2 = (RadioButton) findViewById(R.id.radio2);
         TextView tv_money = (TextView) findViewById(R.id.tv_money);
         tv_refund = (TextView) findViewById(R.id.tv_refund);
-        tv_refund.setOnClickListener(v -> showchoose());
+ //       tv_refund.setOnClickListener(v -> showchoose());
+        findViewById(R.id.re_refund).setOnClickListener(v -> showchoose());
 
         GlideUtil.loadImg(data.getExt().getImgId(), image_photo);
         text_content.setText(data.getExt().getGoodsName());
@@ -447,7 +449,9 @@ public class Refund extends BaseActivity {
         JsonArray jsonArray = new JsonArray();
         for (int i = 0; i < image_urls.size(); i++) {
             jsonArray.add(image_urls.get(i));
+            Log.e("tag", "pot: "+image_urls.get(i));
         }
+
         JsonObject object = new JsonObject();
         object.add("refundImgIds", jsonArray);
         object.addProperty("refundReason", tv_refund.getText().toString());

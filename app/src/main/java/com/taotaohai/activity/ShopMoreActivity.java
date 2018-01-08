@@ -50,6 +50,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     private void initview() {
         findViewById(R.id.rela_message).setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class)));
         findViewById(R.id.rela_shopcar).setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class)));
+        findViewById(R.id.back).setOnClickListener(this);
         xrefreshview = (XRefreshView) findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
@@ -114,5 +115,6 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
+        finish();
     }
 }

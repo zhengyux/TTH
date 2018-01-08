@@ -134,6 +134,7 @@
             <TextView style="@style/textgap1" />
 
             <RelativeLayout
+                android:id="@+id/re_refund"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/gap">
@@ -168,7 +169,7 @@
                     android:layout_alignParentTop="true"
                     android:layout_marginLeft="@dimen/gap"
                     android:layout_toEndOf="@+id/textView28"
-                    android:text="￥1000"
+                    android:text="￥"
                     android:textColor="@color/junhuang" />
 
             </RelativeLayout>

@@ -20,10 +20,11 @@ public interface ConstantValue {
 //    public String URL = "http://192.168.199.26:8080/";//测试域名
 //    public String URL = "http://open.been.works/";//测试域名
 //    public String URL = "git.loacg.com/";//测试域名
-//    public String URL = "http://test.been.works/";
+//      public String URL = "192.168.199.20:8080/";
     /**
      * 图片请求接口
      */
+    public String IMGURL = "http://taotaohai.lmlm.cn/file/upload";//测试域名
 //    public String IMGURL = "http://pic.lmlm.cn";//测试域名
 //    public String IMGURL = "https://api.any98.com/v1/";
 

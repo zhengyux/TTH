@@ -51,6 +51,13 @@ public class ShopCarActivity extends BaseActivity {
 
     }
 
+    public void finish(View v){
+        finish();
+    }
+    public void mesg(View v){
+        startActivity(new Intent(this, MessageActivity.class));
+    }
+
     List<Boolean> isclicks = new ArrayList<>();
 
     @Override
@@ -137,7 +144,7 @@ public class ShopCarActivity extends BaseActivity {
             final TextView tv_count1 = (TextView) convertView.findViewById(R.id.tv_count1);
             final ImageView image_photo = (ImageView) convertView.findViewById(R.id.image_photo);
             tv_price.setText(car.getData().getData().get(position).getPrice());
-            text_content.setText(car.getData().getData().get(position).getShopName());
+            text_content.setText(car.getData().getData().get(position).getGoodsName());
             tv_guige.setText(car.getData().getData().get(position).getRemark());
             tv_util.setText("/" + car.getData().getData().get(position).getUnit());
             text_title.setText(car.getData().getData().get(position).getShopName());

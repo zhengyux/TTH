@@ -22,7 +22,7 @@
         tools:ignore="PxUsage,UselessParent">
 
         <RelativeLayout
-            android:id="@+id/relativeLayout2"
+            android:id="@+id/mrelativeLayout2"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
@@ -48,12 +48,12 @@
             tools:ignore="HardcodedText" />
 
         <RelativeLayout
-            android:id="@+id/relativeLayout3"
+            android:id="@+id/mrelativeLayout3"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/relativeLayout2"
+            android:layout_toStartOf="@+id/mrelativeLayout2"
             tools:ignore="RtlHardcoded,UselessParent">
 
             <ImageView
@@ -67,12 +67,12 @@
 
         <RelativeLayout
 
-            android:id="@+id/search_"
+            android:id="@+id/msearch_"
             android:layout_width="44px"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/relativeLayout3"
+            android:layout_toStartOf="@+id/mrelativeLayout3"
             tools:ignore="RtlHardcoded,UselessParent">
 
             <ImageView

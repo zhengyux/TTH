@@ -65,7 +65,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="106px"
-            android:src="@mipmap/ic_bac"
+            android:src="@mipmap/touxiang"
             tools:ignore="ContentDescription" />
 
         <TextView

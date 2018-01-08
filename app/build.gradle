@@ -29,7 +29,6 @@ android {
 
 
 dependencies {
-
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -37,14 +36,11 @@ dependencies {
     //        compile 'com.zhy:okhttputils:2.0.0'
     compile project(path: ':photoSelector')
     //dialog
-
     //公用
-
     //table
     compile project(path: ':nicevideoplayer')
     //环信
     //banner
-
     compile 'com.android.support:design:25.3.1'
     compile 'com.android.support:support-vector-drawable:25.3.1'
     compile 'org.xutils:xutils:3.5.0'
@@ -70,9 +66,8 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:multidex:1.0.1'
-
-
     compile project(path: ':easeui')
+    implementation files('libs/bugly_2.4.0_imsdk_release.jar')
 }
 allprojects {
     repositories {

@@ -13,7 +13,9 @@ import android.widget.RelativeLayout;
 
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
+import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.Search;
+import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.Video;
 import com.taotaohai.util.GlideUtil;
@@ -74,6 +76,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
+        System.out.println(data);
         if (postcode == 0) {
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
@@ -81,7 +85,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                     initdata();
                     totle = video.getData().getTotal();
                 }
-                pageIndex += 10;//第多少个
+                pageIndex += 1;//第多少个
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {
@@ -127,6 +131,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     private void initview(View view) {
         view.findViewById(R.id.search_).setOnClickListener(this);
+        view.findViewById(R.id.vrelativeLayout2).setOnClickListener(this);
+        view.findViewById(R.id.vrelativeLayout3).setOnClickListener(this);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
         mMsvLayout.setOnClickListener((l) -> {
             if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
@@ -139,6 +145,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
 //        initdata();//初始化数据
+
 
 
     }
@@ -214,8 +221,21 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
             case R.id.search_:
                 key = "";
                 startActivity(new Intent(getActivity(), Search.class));
+                break;
+
+
+            case R.id.vrelativeLayout3:
+
+                startActivity(new Intent(getActivity(), MessageActivity.class));
+                break;
+
+            case R.id.vrelativeLayout2:
+
+                startActivity(new Intent(getActivity(), ShopCarActivity.class));
+                break;
         }
     }
+
 
     @Override
     public void onDestroy() {

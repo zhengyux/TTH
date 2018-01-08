@@ -21,6 +21,8 @@ import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.GoodsDetialActivity;
 import com.taotaohai.activity.Home;
+import com.taotaohai.activity.MessageActivity;
+import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.ClassGoods;
 import com.taotaohai.bean.ClassPage;
@@ -143,6 +145,8 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
         v3.setOnClickListener(this);
         view.findViewById(R.id.rela0).setOnClickListener(this);
         view.findViewById(R.id.back).setOnClickListener(this);
+        view.findViewById(R.id.relativeLayout2).setOnClickListener(this);
+        view.findViewById(R.id.relativeLayout3).setOnClickListener(this);
 
         TextView tv1 = (TextView) view.findViewById(R.id.tv_1);
         TextView tv2 = (TextView) view.findViewById(R.id.tv_2);
@@ -217,6 +221,12 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
                 break;
             case R.id.back:
                 getActivity().finish();
+                break;
+            case R.id.relativeLayout2:
+                startActivity(new Intent(getActivity(), ShopCarActivity.class));
+                break;
+            case R.id.relativeLayout3:
+                startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
         }
 

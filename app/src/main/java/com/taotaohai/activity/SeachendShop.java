@@ -189,6 +189,8 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.rela_shopcar).
 
                 setOnClickListener(v -> startActivity(new Intent(SeachendShop.this, ShopCarActivity.class)));
+        findViewById(R.id.back).setOnClickListener(this);
+
         xrefreshview = (XRefreshView)
 
                 findViewById(R.id.xrefreshview);
@@ -267,6 +269,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        finish();
     }
 }
 

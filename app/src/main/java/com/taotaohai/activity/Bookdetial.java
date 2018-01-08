@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -239,22 +240,27 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             btn_2.setOnClickListener(v -> {
                 switch (bookd.getData().getOrderStatus()) {
                     case 5:
+                        Log.e("tga", "onSuccess: 5");
                         dialog_count = 0;
                         showDialog("删除订单", "确定要删除本条订单吗");
                         break;
                     case 2:
                         dialog_count = 1;
+                        Log.e("tga", "onSuccess: 2");
                         showDialog("申请退款", "确定要申请退款吗");
                         break;
                     case 1:
                         dialog_count = 1;
+                        Log.e("tga", "onSuccess: 1");
                         showDialog("申请退款", "确定要申请退款吗");
                         break;
                     case 3:
                         dialog_count = 1;
+                        Log.e("tga", "onSuccess: 3");
                         showDialog("申请退款", "确定要申请退款吗");
                         break;
                     case 4:
+                        Log.e("tga", "onSuccess: 4");
                         startActivity(new Intent(Bookdetial.this, Evaluation.class)
                                 .putExtra("id", data.getExt().getOrderId())
                         );
@@ -381,16 +387,18 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     public void conlick2() {//第2个按钮
         switch (stata) {
             case 1:
-                showpay("800");
+                showpay(String.valueOf(data.getExt().getTotalPrice()));
                 break;
             case 2:
                 showToast("提醒成功");
                 break;
             case 3:
+                Log.e("tag", "conlick2: 3");
                 dialog_count = 3;
                 showDialog2("您确定已收到货？", "确定收货");
                 break;
             case 4://再次购买
+                Log.e("tag", "conlick2: 4");
                 startActivity(new Intent(Bookdetial.this, Evaluation.class));
 
                 break;
