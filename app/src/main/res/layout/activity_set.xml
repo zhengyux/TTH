@@ -25,7 +25,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="修改密码"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -64,7 +64,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="意见反馈"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -103,7 +103,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="检查更新"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -141,7 +141,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="清除缓存"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -180,7 +180,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="联系我们"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 
@@ -220,7 +220,7 @@
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginStart="@dimen/gap"
             android:text="关于我们"
-            android:textColor="@color/text_gray"
+            android:textColor="@color/colorC"
             android:textSize="@dimen/font_text1"
             tools:ignore="HardcodedText,RtlHardcoded" />
 

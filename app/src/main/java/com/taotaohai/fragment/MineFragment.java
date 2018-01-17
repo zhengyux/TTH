@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.EMCallBack;
@@ -30,6 +31,8 @@ import com.taotaohai.activity.ShopIn;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.LoginBean;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
@@ -44,6 +47,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private ImageView image_photo;
     private View tv_login, tv_regist;
     private TextView tv_name;
+    private ImageView mine_car_image;
+    private RelativeLayout rela_shopcar;
 
     private static MineFragment fragment;
 
@@ -88,6 +93,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
+        get("/api/shopCar/shop_car_num",20);
         has.put("username", (String) SPUtils.get(getActivity(), "username", ""));
         has.put("password", (String) SPUtils.get(getActivity(), "password", ""));
         has.put("loginType", "1");
@@ -97,6 +103,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
+
         loginBean = util.getgson(data, LoginBean.class);
         if (loginBean.getSuccess()) {
             initdata();
@@ -127,9 +148,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initview() {
+        mine_car_image = (ImageView) view.findViewById(R.id.mine_car_image);
         image_photo = (ImageView) view.findViewById(R.id.image_photo);
         tv_name = (TextView) view.findViewById(R.id.tv_name);
-
+        rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
+        rela_shopcar.setOnClickListener(this);
         view.findViewById(R.id.rela1).setOnClickListener(this);
         view.findViewById(R.id.rela2).setOnClickListener(this);
         view.findViewById(R.id.rela3).setOnClickListener(this);
@@ -147,7 +170,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tv_regist.setOnClickListener(this);
         image_photo.setOnClickListener(this);
         view.findViewById(R.id.rela_message).setOnClickListener(this);
-        view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
+
         view.findViewById(R.id.allbooks).setOnClickListener(this);
     }
 

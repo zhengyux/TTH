@@ -33,13 +33,7 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         setTitle("商家详情");
         shop = (Shop) getIntent().getSerializableExtra("data");
         initview();
-        if (ShopActivity.isfocus) {
-            ShopActivity.count--;
-            focus();
-        } else {
-            ShopActivity.count++;
-            unfocus();
-        }
+
         tv_count.setText(String.valueOf(ShopActivity.count));
     }
 
@@ -65,9 +59,11 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         for (int i=0; i<shop.getData().getBusinessAbsUrlList().size(); i++){
             int zz = i;
 
-            PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(i));
+            PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
             findViewById(R.id.licence).setOnClickListener((l) -> {
-
+                if(PhotoActivity.bitmap==null){
+                    PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
+                }
                 startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", zz));
 
             });
@@ -86,9 +82,10 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
             textView.setText(shop.getData().getShopIdentifies().get(i).getName());
             int finalI = i;
 
-            PhotoActivity.bitmap.add(shop.getData().getShopIdentifies().get(i).getImageAbsUrl());
+
             view.setOnClickListener((l) -> {
-                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", finalI+shop.getData().getBusinessAbsUrlList().size())
+                PhotoActivity.bitmap.add(shop.getData().getShopIdentifies().get(finalI).getImageAbsUrl());
+                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", finalI)
                 );
             });
             lin_10.addView(view);
@@ -102,6 +99,7 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         image_focus.setVisibility(View.GONE);
         tv_focus.setText("已关注");
         rela_focus.setBackgroundResource(R.drawable.button_r2_glay);
+        showToast("关注成功");
     }
 
     private void unfocus() {
@@ -110,25 +108,36 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         image_focus.setVisibility(View.VISIBLE);
         tv_focus.setText("关注");
         rela_focus.setBackgroundResource(R.drawable.button_r2);
+        showToast("取消成功");
     }
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.rela_focus:
-                if (ShopActivity.isfocus) {
-                    unfocus();
-                    showToast("取消成功");
-                } else {
-                    focus();
-                    showToast("关注成功");
-                }
-                get("api/follow/" + shop.getData().getId() + "/shop");
+
+                get("api/follow/" + shop.getData().getId() + "/shop",999);
 //                tv_count.setText(String.valueOf(count));
         }
     }
 
     public void onChat(View v) {
         startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+    }
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        super.onSuccess(result, postcode);
+        if(postcode==999){
+            if (ShopActivity.isfocus) {
+                showToast("取消成功");
+                unfocus();
+            } else {
+                showToast("关注成功");
+                focus();
+            }
+            tv_count.setText(String.valueOf(ShopActivity.count));
+        }
     }
 }

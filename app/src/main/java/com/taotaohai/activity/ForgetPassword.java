@@ -2,11 +2,11 @@ package com.taotaohai.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -15,11 +15,9 @@ import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
 
-import java.util.HashMap;
-
 import static com.taotaohai.util.util.isMobileNO;
 
-public class ForgetPassword extends BaseActivity {
+public class ForgetPassword extends BaseActivity implements View.OnClickListener{
 
     private TextView button;
     String scheck = "";
@@ -41,35 +39,7 @@ public class ForgetPassword extends BaseActivity {
         ed_2 = (EditText) findViewById(R.id.ed_2);
         ed_3 = (EditText) findViewById(R.id.ed_3);
         ed_4 = (EditText) findViewById(R.id.ed_4);
-        findViewById(R.id.btn_login).setOnClickListener(v -> {
-            username = ed_1.getText().toString().trim();
-            if (!isMobileNO(username)) {
-                showToast("请输入正确的手机号");
-                return;
-            }
-            if (!scheck.equals(ed_2.getText().toString().trim())) {
-                showToast("输入验证码错误");
-                return;
-            }
-            if (!ed_3.getText().toString().trim().equals(ed_3.getText().toString().trim())) {
-                showToast("两次密码不一样");
-                return;
-            }
-//            JsonObject jsonObject=new JsonObject();
-//            jsonObject.addProperty("username", ed_1.getText().toString().trim());
- //           jsonObject.addProperty("password", ed_3.getText().toString().trim());
-//            jsonObject.addProperty("code", scheck);
-                HashMap<String, String> hashMap = new HashMap<>();
-                hashMap.put("username", ed_1.getText().toString().trim());
-                hashMap.put("password", ed_3.getText().toString().trim());
-                hashMap.put("verifyCode", scheck);
-    //            post("api/user/forgePassword", hashMap, 1);
-                Http(HttpMethod.POST,"api/user/forgePassword",hashMap,1);
-
-
-            Log.e("tag", "onCreate: "+hashMap.toString());
-//            Http(HttpMethod.PUT,"api/user/forgePassword",jsonObject.toString(),1);
-        });
+        findViewById(R.id.btn_login).setOnClickListener(this);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,7 +82,6 @@ public class ForgetPassword extends BaseActivity {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
-        Log.e("tag", "onSuccess: "+result+"-----------------------"+postcode );
         if (postcode == 1) {
             BaseBean baseBean = util.getgson(result, BaseBean.class);
             if (util.isSuccess(baseBean, this)) {
@@ -131,13 +100,43 @@ public class ForgetPassword extends BaseActivity {
         }
     }
 
-    @Override
-    public void onError(Throwable ex, int postcode) {
-        super.onError(ex, postcode);
-        Log.e("tag", "onError:   访问失败" +ex.toString());
-    }
 
     public void onFinish(View v) {
         finish();
+    }
+
+    @Override
+    public void onClick(View view) {
+
+        username = ed_1.getText().toString().trim();
+        if (!isMobileNO(username)) {
+            showToast("请输入正确的手机号");
+            return;
+        }
+        if (!scheck.equals(ed_2.getText().toString().trim())) {
+            showToast("输入验证码错误");
+            return;
+        }
+        if(null==ed_3.getText()||"".equals(ed_3.getText().toString().trim())){
+            showToast("密码不能为空");
+            return;
+        }
+        if (!ed_3.getText().toString().trim().equals(ed_4.getText().toString().trim())) {
+            showToast("两次密码不一样");
+            return;
+        }
+        JsonObject jsonObject=new JsonObject();
+        jsonObject.addProperty("username", ed_1.getText().toString().trim());
+        jsonObject.addProperty("password", ed_3.getText().toString().trim());
+        jsonObject.addProperty("code", scheck);
+
+        Http(HttpMethod.POST,"api/user/forgePassword",jsonObject.toString(),1);
+
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        super.onError(ex, postcode);
+
     }
 }

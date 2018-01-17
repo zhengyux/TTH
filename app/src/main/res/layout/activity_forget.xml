@@ -27,12 +27,13 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <EditText
+            android:theme="@style/edit"
             android:id="@+id/ed_1"
-            android:layout_width="match_parent"
+            android:layout_width="500px"
             android:layout_height="88px"
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginRight="@dimen/gap"
@@ -49,9 +50,9 @@
             android:id="@+id/button"
             android:layout_width="180px"
             android:layout_height="70px"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
             android:layout_alignBaseline="@+id/ed_1"
-            android:layout_alignBottom="@+id/ed_1"
-            android:layout_alignEnd="@+id/ed_1"
             android:layout_marginEnd="@dimen/gap"
             android:background="@drawable/button_r2"
             android:gravity="center"
@@ -63,6 +64,7 @@
 
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_2"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -76,6 +78,7 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_3"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -90,6 +93,7 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_4"
         android:layout_width="match_parent"
         android:layout_height="88px"

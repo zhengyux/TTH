@@ -7,21 +7,26 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 
 public class ReFundListActivity extends BaseActivity {
 
     private Book book;
+    private RelativeLayout rela_shopcar;
 
     @Override
     protected void inithttp() {
         get("api/goodsorder/list/5");
+        get("/api/shopCar/shop_car_num",20);
     }
 
     @Override
@@ -31,6 +36,18 @@ public class ReFundListActivity extends BaseActivity {
             book = util.getgson(result, Book.class);
             initview();
         }
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
     }
 
     @Override
@@ -38,7 +55,8 @@ public class ReFundListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_fund_list);
         findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(this, MessageActivity.class)));
-        findViewById(R.id.rela_shopcar).setOnClickListener((l) -> startActivity(new Intent(this, ShopCarActivity.class)));
+        rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
+        rela_shopcar.setOnClickListener((l) -> startActivity(new Intent(this, ShopCarActivity.class)));
         findViewById(R.id.back).setOnClickListener((l) -> finish());
 
         inithttp();

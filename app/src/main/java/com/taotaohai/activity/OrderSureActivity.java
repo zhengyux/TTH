@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -185,7 +184,6 @@ public class OrderSureActivity extends BaseActivity {
 
     @Override
     public void onSuccess(String result, int postcode) {
-        Log.e("OrderSure", "onSuccess: "+postcode);
         super.onSuccess(result, postcode);
         if (postcode == 0) {
             defult = util.getgson(result, Defult.class);

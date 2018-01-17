@@ -31,8 +31,9 @@
         android:layout_height="wrap_content">
 
         <EditText
+            android:theme="@style/edit"
             android:id="@+id/ed_1"
-            android:layout_width="match_parent"
+            android:layout_width="500px"
             android:layout_height="88px"
             android:layout_marginLeft="@dimen/gap"
             android:layout_marginRight="@dimen/gap"
@@ -63,6 +64,7 @@
 
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_2"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -76,6 +78,7 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_3"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -90,6 +93,7 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/ed_4"
         android:layout_width="match_parent"
         android:layout_height="88px"

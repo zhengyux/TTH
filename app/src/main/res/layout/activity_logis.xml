@@ -38,7 +38,7 @@
                     android:layout_alignStart="@+id/textView33"
                     android:layout_below="@+id/textView33"
                     android:layout_marginTop="10px"
-                    android:text="官方电话：654891" />
+                    />
 
                 <TextView
                     android:id="@+id/textView33"
@@ -48,7 +48,7 @@
                     android:layout_alignStart="@+id/textView32"
                     android:layout_below="@+id/textView32"
                     android:layout_marginTop="10px"
-                    android:text="运单编号：1567498798465798" />
+                   />
 
                 <TextView
                     android:id="@+id/textView32"
@@ -58,7 +58,7 @@
                     android:layout_alignStart="@+id/textView31"
                     android:layout_below="@+id/textView31"
                     android:layout_marginTop="10px"
-                    android:text="承运来源：申通快递" />
+                     />
 
                 <TextView
                     android:id="@+id/textView31"
@@ -70,58 +70,57 @@
                     android:text="配送状态" />
 
                 <TextView
+                    android:id="@+id/text30"
                     style="@style/text30"
+                    android:layout_alignEnd="@+id/textView32"
                     android:layout_alignParentTop="true"
-                    android:layout_marginLeft="10px"
-                    android:layout_toEndOf="@+id/textView31"
-                    android:text="配送中"
                     android:textColor="#00d496" />
             </RelativeLayout>
 
             <TextView style="@style/textgap" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="@dimen/gap">
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="@dimen/gap">-->
 
-                <ImageView
-                    android:id="@+id/imageView19"
-                    android:layout_width="70px"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/textView35"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="10px"
-                    android:src="@color/junhuang" />
+                <!--<ImageView-->
+                    <!--android:id="@+id/imageView19"-->
+                    <!--android:layout_width="70px"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignBottom="@+id/textView35"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_marginRight="10px"-->
+                    <!--android:src="@color/junhuang" />-->
 
-                <TextView
-                    android:id="@+id/textView35"
-                    style="@style/text28"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignStart="@+id/textView39"
-                    android:layout_below="@+id/textView39"
-                    android:layout_marginTop="10px"
-                    android:text="棒槌子"
-                    android:textColor="@color/text_black" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textView35"-->
+                    <!--style="@style/text28"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignStart="@+id/textView39"-->
+                    <!--android:layout_below="@+id/textView39"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:text="棒槌子"-->
+                    <!--android:textColor="@color/text_black" />-->
 
-                <TextView
-                    android:id="@+id/textView39"
-                    style="@style/text24"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/imageView19"
-                    android:text="配送人" />
+                <!--<TextView-->
+                    <!--android:id="@+id/textView39"-->
+                    <!--style="@style/text24"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_toEndOf="@+id/imageView19"-->
+                    <!--android:text="配送人" />-->
 
-                <ImageView
-                    android:layout_width="30px"
-                    android:layout_height="50px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:src="@mipmap/right" />
+                <!--<ImageView-->
+                    <!--android:layout_width="30px"-->
+                    <!--android:layout_height="50px"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@mipmap/right" />-->
 
-            </RelativeLayout>
+            <!--</RelativeLayout>-->
 
             <TextView style="@style/textgap" />
 

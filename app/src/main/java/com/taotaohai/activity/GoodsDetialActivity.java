@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -75,6 +76,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_count_all;
     private Focus2 focus2;
     private LinearLayout lin_10;
+    private ImageView shopcar;
 
     @Override
     protected void inithttp() {
@@ -90,6 +92,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         get("api/goods/" + getintent("id"));
         get("api/comment/goods/" + getintent("id"), 1);
         get("api/follow/" + getintent("id") + "/check/goods", NONOTICELOGIN);
+ //       get("/api/shopCar/shop_car_num",20);
 
     }
 
@@ -118,6 +121,20 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+//        if(postcode==20){
+//            ShopCarNum shopCarNum = new ShopCarNum();
+//            shopCarNum = util.getgson(result,ShopCarNum.class);
+//            if(shopCarNum.getData()!="0"){
+//                BadgeView badgeView = new BadgeView(getApplicationContext(),shopcar);
+//                badgeView.setBadgePosition(BadgeView.POSITION_CENTER);// 设置在右上角
+//                badgeView.setTextSize(9);// 设置文本大小
+//                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+//                badgeView.show();// 将角标显示出来
+//            }
+//
+//        }
+
         if (postcode == 999) {
             if (isLike) {
                 image_like.setImageResource(R.mipmap.xinno);
@@ -289,7 +306,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         rela_click_2.setOnClickListener(this);
         headview.findViewById(R.id.rela_click_3).setOnClickListener(this);
         headview.findViewById(R.id.left_images).setOnClickListener(this);
-        headview.findViewById(R.id.shopcar).setOnClickListener(this);
+        shopcar = (ImageView) headview.findViewById(R.id.shopcar);
+        shopcar.setOnClickListener(this);
         headview.findViewById(R.id.message).setOnClickListener(this);
 
         listview.addHeaderView(headview);
@@ -502,6 +520,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 if (goods.getData().getContentImgsUrl() != null) {
                     for (int i = 0; i < goods.getData().getContentImgsUrl().size(); i++) {
                         LinearLayout linearLayout = (LinearLayout) LayoutInflater.from(GoodsDetialActivity.this).inflate(R.layout.layout_img, null);
+               //         ImageView scrollView = (ImageView) LayoutInflater.from(GoodsDetialActivity.this).inflate(R.layout.layout_img,null);
                         ImageView image_logo = (ImageView) linearLayout.findViewById(R.id.image_logo);
                         GlideUtil.loadImg(goods.getData().getContentImgsUrl().get(i), image_logo);
                         lin_1.addView(linearLayout);
@@ -543,15 +562,18 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_name.setText(comment.getData2().getData().get(position).getUser().getName());
                 ratingBar.setStar(comment.getData2().getData().get(position).getCommentLevel());
                 for (int i = 0; i < comment.getData2().getData().get(position).getImgsAbsUrl().size(); i++) {
-                    ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_image, null);
+  //                  ImageView imageView = (ImageView) getLayoutInflater().inflate(R.layout.item_image, null);
+                    HorizontalScrollView horizontalScrollView = (HorizontalScrollView) getLayoutInflater().inflate(R.layout.item_image, null);
+                    ImageView imageView = (ImageView) horizontalScrollView.findViewById(R.id.hs_img);
                     GlideUtil.loadImg(comment.getData2().getData().get(position).getImgsAbsUrl().get(i), imageView);
                     int fin = i;
-                    PhotoActivity.bitmap.add(comment.getData2().getData().get(position).getImgsAbsUrl().get(i));
+
                     imageView.setOnClickListener((l) -> {
+                        PhotoActivity.bitmap.add(comment.getData2().getData().get(position).getImgsAbsUrl().get(fin));
                         startActivity(new Intent(getApplicationContext(), PhotoActivity.class).putExtra("ID", fin)
                         );
                     });
-                    lin_message.addView(imageView);
+                    lin_message.addView(horizontalScrollView);
                 }
 
                 if (comment.getData2().getData().get(position).getReplyComment() == null) {

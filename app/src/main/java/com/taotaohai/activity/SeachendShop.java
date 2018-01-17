@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -161,7 +162,29 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     private void initview() {
         EditText edit_search = (EditText) findViewById(R.id.edit_search);
-        edit_search.setText(getIntent().getStringExtra("name"));
+
+        if(getIntent().getStringExtra("name")!=null){
+            edit_search.setText(getIntent().getStringExtra("name"));
+        }else if (getIntent().getStringExtra("cityname")!=null){
+            edit_search.setText(getIntent().getStringExtra("cityname"));
+        }else if(getIntent().getStringExtra("distance")!=null){
+            Log.e("tag", getIntent().getStringExtra("distance"));
+            switch (getIntent().getStringExtra("distance")){
+                case "0":
+                edit_search.setText("0~100km");
+                break;
+                case "1":
+                edit_search.setText("100~300km");
+                break;
+                case "2":
+                edit_search.setText("300~500km");
+                break;
+                case "3":
+                edit_search.setText("500km以上");
+                break;
+            }
+
+        }
         edit_search.setSelection(edit_search.getText().length());
         edit_search.setOnEditorActionListener((v, d, e) -> {
                 /*判断是否是“GO”键*/

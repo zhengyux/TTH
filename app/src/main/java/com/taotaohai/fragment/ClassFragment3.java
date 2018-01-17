@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
@@ -26,6 +27,8 @@ import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.ClassGoods;
 import com.taotaohai.bean.ClassPage;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -60,6 +63,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     private int pageIndex = 0;
     private int pageSize = 100;
     private String id = "-1";
+    private RelativeLayout relativeLayout2;//购物车
 
 
     private static ClassFragment3 fragment;
@@ -87,6 +91,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     @Override
     public void inithttp() {
         super.inithttp();
+        get("/api/shopCar/shop_car_num",20);
 //        get("api/goods/class", 0);
         gohttp();
     }
@@ -104,6 +109,20 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),relativeLayout2);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
         if (postcode == 0) {
             classPage = util.getgson(data, ClassPage.class);
             if (classPage.getSuccess()) {
@@ -145,7 +164,8 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
         v3.setOnClickListener(this);
         view.findViewById(R.id.rela0).setOnClickListener(this);
         view.findViewById(R.id.back).setOnClickListener(this);
-        view.findViewById(R.id.relativeLayout2).setOnClickListener(this);
+        relativeLayout2 = (RelativeLayout) view.findViewById(R.id.relativeLayout2);
+        relativeLayout2.setOnClickListener(this);
         view.findViewById(R.id.relativeLayout3).setOnClickListener(this);
 
         TextView tv1 = (TextView) view.findViewById(R.id.tv_1);

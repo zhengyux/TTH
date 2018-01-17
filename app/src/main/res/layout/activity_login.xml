@@ -27,6 +27,7 @@
         tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/edit_phone"
         android:layout_width="match_parent"
         android:layout_height="88px"
@@ -42,6 +43,7 @@
 
 
     <EditText
+        android:theme="@style/edit"
         android:id="@+id/edit_password"
         android:layout_width="match_parent"
         android:layout_height="88px"

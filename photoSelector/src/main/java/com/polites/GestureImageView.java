@@ -15,10 +15,6 @@
  */
 package com.polites;
 
-import java.io.InputStream;
-import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
-
 import android.content.Context;
 import android.content.res.Configuration;
 import android.database.Cursor;
@@ -31,14 +27,18 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.ImageView;
 
-public class GestureImageView extends ImageView  {
+import java.io.InputStream;
+import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
+
+public class GestureImageView extends AppCompatImageView {
 
 	public static final String GLOBAL_NS = "http://schemas.android.com/apk/res/android";
 	public static final String LOCAL_NS = "http://schemas.polites.com/android";
@@ -741,8 +741,6 @@ public class GestureImageView extends ImageView  {
 			/** position = view的水平长度 - 图片水平长度的一般 */
 			double halfImage = GestureImageView.this.getScaledWidth() / 2.0;
 			double viewWidth = GestureImageView.this.getWidth();
-			System.out.println(x);
-			System.out.println(halfImage + "::" + (viewWidth - halfImage));
 			if (x == halfImage || x == (viewWidth - halfImage)) {
 				GestureImageView.this.getParent().requestDisallowInterceptTouchEvent(false);
 			} else {

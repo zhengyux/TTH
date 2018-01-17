@@ -4,13 +4,17 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.City;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.myview.WordWrapView;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
@@ -23,10 +27,13 @@ public class SearchGoods extends BaseActivity {
 
     private City city;
     private static String list_history;
+    @ViewInject(R.id.rela_shopcar)
+    private RelativeLayout rela_shopcar;
 
     @Override
     protected void inithttp() {
         get("api/city");
+        get("/api/shopCar/shop_car_num",20);
     }
 
     @Override
@@ -35,6 +42,18 @@ public class SearchGoods extends BaseActivity {
         city = util.getgson(result, City.class);
         if (city.getSuccess()) {
             initview();
+        }
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
         }
     }
 
@@ -108,8 +127,9 @@ public class SearchGoods extends BaseActivity {
                 text.setText(listhistory[i]);
                 text.setOnClickListener((l) -> {
                     if (tv_search.getText().toString().equals("商品")) {
+                        Log.e("tag", "initview: "+text.getText().toString() );
                         startActivity(new Intent(SearchGoods.this, Seachend.class)
-                                .putExtra("goodsName", text.getText().toString())
+                                .putExtra("name", text.getText().toString())
                         );
                     } else {
                         startActivity(new Intent(SearchGoods.this, SeachendShop.class)
@@ -126,7 +146,7 @@ public class SearchGoods extends BaseActivity {
             text.setText(e.getCityName());
             text.setOnClickListener((l) -> {
                 startActivity(new Intent(SearchGoods.this, SeachendShop.class)
-                        .putExtra("city", e.getId())
+                        .putExtra("city", e.getId()).putExtra("cityname",e.getCityName())
                 );
             });
             wordwarp2.addView(text);

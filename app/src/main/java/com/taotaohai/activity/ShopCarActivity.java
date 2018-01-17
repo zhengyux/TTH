@@ -18,6 +18,7 @@ import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -226,7 +227,9 @@ public class ShopCarActivity extends BaseActivity {
                 car_buy.getData().getData().add(car.getData().getData().get(i));
             }
         }
-        tv_all.setText(String.valueOf(count));
+
+
+        tv_all.setText(String.valueOf(new DecimalFormat("0.00").format(count)));
 
     }
 

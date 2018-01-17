@@ -118,4 +118,9 @@ public class PhotoActivity extends Activity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        bitmap.clear();
+    }
 }

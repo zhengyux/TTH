@@ -38,6 +38,18 @@ public class RePassword extends BaseActivity {
                     showToast("新旧密码不能相同");
                     return;
                 }
+                if(isChar(edit_new2.getText().toString().trim())){
+                    showToast("密码不能为纯字母");
+                    return;
+                }
+                if(isNumeric(edit_new2.getText().toString().trim())){
+                    showToast("密码不能为纯数字");
+                    return;
+                }
+                if(6>edit_new2.getText().toString().trim().length()||edit_new2.getText().toString().trim().length()>16){
+                    showToast("密码要求6-16位");
+                    return;
+                }
                 if (!edit_new2.getText().toString().trim().equals(edit_new.getText().toString().trim())) {
                     showToast("两次密码不相同");
                     return;
@@ -50,6 +62,30 @@ public class RePassword extends BaseActivity {
         });
 
     }
+
+    public  boolean isNumeric(String str){
+        for (int i = str.length();--i>=0;){
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;}
+
+
+    public  boolean isChar(String   data) {
+        {
+            for (int i = data.length(); --i >= 0; ) {
+                char c = data.charAt(i);
+                if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z'))) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+    }
+
 
     @Override
     public void onSuccess(String result, int postcode) {

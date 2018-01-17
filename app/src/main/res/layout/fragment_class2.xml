@@ -21,40 +21,69 @@
         android:focusableInTouchMode="true"
         android:paddingTop="30px"
         tools:ignore="PxUsage,UselessParent">
-
-        <RelativeLayout
-            android:id="@+id/rela_shopcar"
-            android:layout_width="44px"
+        <LinearLayout
+            android:id="@+id/Lc1"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/gap"
-            tools:ignore="RtlHardcoded,UselessParent">
+            >
 
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/shopcart"
-                tools:ignore="ContentDescription" />
+            <RelativeLayout
+                android:id="@+id/rela_message"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/rela_shopcar"
+                tools:ignore="RtlHardcoded,UselessParent">
 
-        </RelativeLayout>
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/message"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rela_shopcar"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
 
-        <ImageView
-            android:id="@+id/imageView24"
-            android:layout_width="25px"
-            android:layout_height="40px"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="30px"
-            android:layout_marginLeft="30px"
-            android:src="@mipmap/left"
-            tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+
+
 
         <RelativeLayout
             android:id="@+id/back"
             android:layout_width="100px"
-            android:layout_height="100px"></RelativeLayout>
+            android:layout_height="100px">
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="25px"
+                android:layout_height="40px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="30px"
+                android:layout_marginLeft="30px"
+                android:src="@mipmap/left"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+        </RelativeLayout>
 
         <EditText
             android:id="@+id/edit_search"
@@ -65,7 +94,7 @@
             android:layout_marginBottom="@dimen/gap"
             android:layout_marginRight="@dimen/gap"
             android:layout_toEndOf="@+id/back"
-            android:layout_toStartOf="@+id/rela_message"
+            android:layout_toStartOf="@+id/Lc1"
             android:background="@drawable/searchbac"
             android:gravity="center|left"
             android:hint="搜索商品"
@@ -75,23 +104,7 @@
             android:textColor="@color/text_black"
             android:textColorHint="#dadada" />
 
-        <RelativeLayout
-            android:id="@+id/rela_message"
-            android:layout_width="44px"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/rela_shopcar"
-            tools:ignore="RtlHardcoded,UselessParent">
 
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/message"
-                tools:ignore="ContentDescription" />
-        </RelativeLayout>
 
     </RelativeLayout>
 

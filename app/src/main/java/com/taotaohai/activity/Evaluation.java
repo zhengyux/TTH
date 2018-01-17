@@ -344,7 +344,7 @@ public class Evaluation extends BaseActivity {
 
     public void onComment(View view) {
         image_urls.clear();
-        showSpot();
+  //      showSpot();
         final HashMap<String, String> has = new HashMap<>();
         has.put("name", "file");
         if (images.size() == 0) {
@@ -408,11 +408,21 @@ public class Evaluation extends BaseActivity {
     }
 
     private void pot() {
+        if(count_rating==0){
+            showToast("请打分");
+            return;
+        }
+        if(editText.getText()==null||"".equals(editText.getText().toString().trim())){
+            showToast("请评价");
+            return;
+        }
         StringBuilder sb = new StringBuilder();
+        if(null==image_urls||image_urls.size()==0){
+            sb.append(",");
+        }
         for (int i = 0; i < image_urls.size(); i++) {
             sb.append(image_urls.get(i)).append(",");
         }
-
         String st = sb.toString().substring(0, sb.toString().length() - 1);
         JsonObject object = new JsonObject();
 

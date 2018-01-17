@@ -223,14 +223,14 @@
             android:textSize="30px"
             tools:ignore="HardcodedText,PxUsage" />
 
-        <ImageView
-            android:id="@+id/imageView17"
-            android:layout_width="44px"
-            android:layout_height="44px"
-            android:layout_alignBottom="@+id/btn_1"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10px"
-            android:layout_marginLeft="@dimen/gap"
-            android:src="@mipmap/lianxi" />
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView17"-->
+            <!--android:layout_width="44px"-->
+            <!--android:layout_height="44px"-->
+            <!--android:layout_alignBottom="@+id/btn_1"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginBottom="10px"-->
+            <!--android:layout_marginLeft="@dimen/gap"-->
+            <!--android:src="@mipmap/lianxi" />-->
     </RelativeLayout>
 </RelativeLayout>

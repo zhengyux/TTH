@@ -43,7 +43,10 @@
         <RelativeLayout
             android:id="@+id/back"
             android:layout_width="100px"
-            android:layout_height="100px"></RelativeLayout>
+            android:layout_height="100px">
+
+
+        </RelativeLayout>
 
         <TextView
             android:id="@+id/tv_two"

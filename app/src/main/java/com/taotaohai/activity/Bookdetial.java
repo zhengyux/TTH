@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
+import com.google.gson.JsonObject;
 import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
@@ -89,7 +90,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         btn_3.setOnClickListener(this);
         tv_stata.setText(getstata(data.getOrderStatus()));
 
-        if (data.getOrderStatus() == 1 || data.getOrderStatus() == 2) {
+        if (data.getOrderStatus() == 1 || data.getOrderStatus() == 2|| data.getOrderStatus() == 3) {
             remainTime = data.getGmtRemaining();
             tv_stata2.post(new Runnable() {
                 @Override
@@ -123,12 +124,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         StringBuffer buffer = new StringBuffer();
 
 
-        if (data.getExt().getDealTime() == null)
+        if (data.getExt().getOrderId() == null)
             buffer.append("订单编号: " + data.getExt().getOrderId() + "\n创建时间：" + data.getGmtCreate());
         if (data.getExt().getGmtDelivery() != null)
-            buffer.append("\n支付交易号：" + data.getExt().getGmtDelivery());
-        if (data.getExt().getGmtDelivery() != null)
-            buffer.append(data.getGmtCreate() + "\n付款时间：" + data.getExt().getDealTime());
+            buffer.append("\n支付交易号：" + data.getExt().getDealId()+"\n发货时间："+data.getExt().getGmtDelivery());
+        if (data.getExt().getDealTime() != null)
+            buffer.append("\n付款时间：" + data.getExt().getDealTime());
         if (data.getExt().getOrderStatus() == 99 && data.getExt().getGmtModify() != null)
             buffer.append(data.getExt().getGmtModify());
         tv_14.setText(buffer.toString());
@@ -143,6 +144,13 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if(postcode ==99){
+
+            startActivity(new Intent(Bookdetial.this,ShopCarActivity.class));
+            finish();
+            return;
+        }
+
         if (postcode == 15) {
             showToast("收货成功");
             finish();
@@ -375,13 +383,14 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_2.setVisibility(View.GONE);
 
         }
-        return "关闭";
+        return "订单已关闭";
     }
 
     int stata = 0;
 
     public void conlick3() {//第3个按钮
-        startActivity(new Intent(this, LogisActivity.class));
+
+        startActivity(new Intent(this, LogisActivity.class).putExtra("OrderExpressCompany",data.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",data.getExt().getOrderExpressNo()));//查看物流
     }
 
     public void conlick2() {//第2个按钮
@@ -418,6 +427,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 4://再次购买
+                JsonObject object = new JsonObject();
+                object.addProperty("goodsId", data.getGoodsId());
+                object.addProperty("count", "1");
+                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
 //                startActivity(new Intent(MyBook.this, Refund.class));
                 break;
 
@@ -520,7 +533,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         if (day != 0 || hour != 0 || minutes != 0) {
             time = time + minutes + ":";
         }
-        time = time + seconds + "交易关闭";
+        time = time + seconds;
         return time;
     }
 

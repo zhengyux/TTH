@@ -1,10 +1,12 @@
 package com.taotaohai.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by Administrator on 2017/8/31.
  */
 
-public class BookDet extends BaseBean {
+public class BookDet extends BaseBean implements Serializable{
     private Data data;
 
     public Data getData() {

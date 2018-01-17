@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -33,6 +34,8 @@ import com.taotaohai.bean.HotClass;
 import com.taotaohai.bean.HotShop;
 import com.taotaohai.bean.HotShopmore;
 import com.taotaohai.bean.Ratation;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.myview.HorizontalListView;
 import com.taotaohai.myview.MyGridView;
 import com.taotaohai.util.GlideUtil;
@@ -60,6 +63,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private HotShopmore hotshop2;
     private MyGridView mygridview;
     private static HomeFragment fragment;
+    private ImageView home_shopcar_image;
+    private RelativeLayout rela_shopcar;
 
     public static HomeFragment newInstance() {
         if (fragment == null) {
@@ -99,7 +104,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
         get("api/goods/hot_goods", 3);//热门商店
-
+        get("/api/shopCar/shop_car_num",20);//购物车数量
     }
 
     @Override
@@ -120,6 +125,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case 999:
                 startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
+                break;
+            case 20:
+                ShopCarNum shopCarNum = new ShopCarNum();
+                shopCarNum = util.getgson(data,ShopCarNum.class);
+                if(shopCarNum.getData()!="0"){
+                    BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+                    badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                    badgeView.setTextSize(9);// 设置文本大小
+                    badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                    badgeView.show();// 将角标显示出来
+                }
                 break;
         }
 
@@ -206,6 +222,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initview() {
+        home_shopcar_image = (ImageView) view.findViewById(R.id.home_shopcar_image);
+        rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
         text = Arrays.asList(
                 view.findViewById(R.id.tv_11),
                 view.findViewById(R.id.tv_12),

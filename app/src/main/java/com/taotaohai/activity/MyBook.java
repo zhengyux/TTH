@@ -12,22 +12,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
+import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
 import com.taotaohai.bean.PayResult;
+import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.WXpay;
 import com.taotaohai.fragment.ItemBookFragment;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.ViewFindUtils;
 import com.taotaohai.util.util;
 import com.tencent.mm.opensdk.modelpay.PayReq;
@@ -53,10 +56,11 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     };
     private Dialog dialog;
     private ViewPager vp;
+    private RelativeLayout mrelativeLayout2;//购物车
 
     @Override
     protected void inithttp() {
-
+        get("/api/shopCar/shop_car_num",20);
     }
 
     @Override
@@ -64,6 +68,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_book);
         initview();
+        inithttp();
     }
 
     @Override
@@ -84,7 +89,8 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         for (int i = 0; i < 5; i++) {
             mFragments.add(ItemBookFragment.newInstance(i));
         }
-        findViewById(R.id.mrelativeLayout2).setOnClickListener(this);
+        mrelativeLayout2 = (RelativeLayout) findViewById(R.id.mrelativeLayout2);
+        mrelativeLayout2.setOnClickListener(this);
         findViewById(R.id.mrelativeLayout3).setOnClickListener(this);
         findViewById(R.id.msearch_).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
@@ -122,14 +128,14 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 startActivity(new Intent(this,MessageActivity.class));
                 break;
             case R.id.msearch_:
-                startActivity(new Intent(this,SeachendShop.class));
+                startActivity(new Intent(this,SeachBookActivity.class));
                 break;
         }
     }
 
     @Override
     public void onListFragmentInteraction(Book.Data item) {
-        Log.e("tg", "onListFragmentInteraction: "+item.getExt().getTotalPrice());
+
         startActivity(new Intent(MyBook.this, Bookdetial.class)
                 .putExtra("data", item)
         );
@@ -142,7 +148,8 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     public void onListFragmentButton3(Book.Data mItem) {//第3个按钮
         this.item = mItem;
         this.itemBookFragment = mFragments.get(mItem.getCount());
-        startActivity(new Intent(this, LogisActivity.class));
+        //查看物流
+        startActivity(new Intent(this, LogisActivity.class).putExtra("OrderExpressCompany",mItem.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",mItem.getExt().getOrderExpressNo()));
     }
 
 
@@ -156,6 +163,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
         this.item = item;
         switch (item.getCount()) {
+
             case 1:
                 showpay(item.getTotalPrice());
                 break;
@@ -171,7 +179,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 );
             case 99://删除
                 isdelect = true;
-                showDialog2("删除后不能恢复", "订单删除");
+ //               showDialog2("删除后不能恢复", "订单删除");
                 break;
 
         }
@@ -201,6 +209,10 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                         .putExtra("data", item));
                 break;
             case 4://再次购买
+                JsonObject object = new JsonObject();
+                object.addProperty("goodsId", item.getGoodsId());
+                object.addProperty("count", "1");
+                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
 //                startActivity(new Intent(MyBook.this, Refund.class));
                 break;
 //            case 5://退款
@@ -221,7 +233,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         options1Items.add("我不想买了");
         options1Items.add("信息填写错了，重新拍");
         options1Items.add("卖家缺货");
-        options1Items.add("同城见面交易");
         options1Items.add("其他原因");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
@@ -339,6 +350,26 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),mrelativeLayout2);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
+        if(postcode ==99){
+
+            startActivity(new Intent(MyBook.this,ShopCarActivity.class));
+            finish();
+            return;
+        }
         if(postcode == 11){
             showToast("提醒成功");
         }

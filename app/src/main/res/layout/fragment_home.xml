@@ -28,49 +28,13 @@
 
 
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rela_shopcar"
-            android:layout_width="44px"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/gap"
-            tools:ignore="RtlHardcoded,UselessParent">
-
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/shopcart"
-                tools:ignore="ContentDescription" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/rela_message"
-            android:layout_width="44px"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/rela_shopcar"
-            tools:ignore="RtlHardcoded,UselessParent">
-
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/message"
-                tools:ignore="ContentDescription" />
-        </RelativeLayout>
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/gap"
             android:layout_toEndOf="@+id/relativeLayout4"
-            android:layout_toStartOf="@+id/rela_message"
+            android:layout_toStartOf="@+id/L1"
             tools:ignore="RtlHardcoded,UselessParent">
 
 
@@ -81,7 +45,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="80px"
+                android:layout_marginLeft="100px"
                 android:background="@drawable/searchbac"
                 android:gravity="left|center"
                 android:paddingLeft="100px"
@@ -95,19 +59,68 @@
                 android:layout_height="26px"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="100px"
+                android:layout_marginLeft="120px"
                 android:src="@mipmap/search"
                 tools:ignore="ContentDescription" />
 
         </RelativeLayout>
+<LinearLayout
+    android:id="@+id/L1"
+    android:layout_alignParentRight="true"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:gravity="right">
+
+    <RelativeLayout
+        android:id="@+id/rela_message"
+        android:layout_width="64px"
+        android:layout_height="match_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/gap"
+        android:layout_toStartOf="@+id/rela_shopcar"
+        tools:ignore="RtlHardcoded,UselessParent">
 
         <ImageView
-            android:layout_width="60px"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/message"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/rela_shopcar"
+        android:layout_width="64px"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/gap"
+        tools:ignore="RtlHardcoded,UselessParent">
+
+        <ImageView
+            android:id="@+id/home_shopcar_image"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/shopcart"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+</LinearLayout>
+
+
+
+
+
+
+
+        <ImageView
+            android:layout_width="107px"
             android:layout_height="60px"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="@dimen/gap"
             android:layout_marginLeft="@dimen/gap"
-            android:src="@mipmap/logo_home"
+            android:src="@mipmap/logo_home2"
             tools:ignore="ContentDescription" />
     </RelativeLayout>
 
@@ -236,6 +249,7 @@
                             <ImageView
                                 android:id="@+id/tv_23"
                                 android:layout_width="130px"
+                                android:layout_marginRight="10px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
                                 android:src="@mipmap/ic_bac"
@@ -287,6 +301,7 @@
                                 android:layout_height="match_parent"
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"
+                                android:layout_marginRight="10px"
                                 android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
@@ -334,6 +349,7 @@
                                 android:id="@+id/tv_43"
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
+                                android:layout_marginRight="10px"
                                 android:layout_alignParentRight="true"
                                 android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />

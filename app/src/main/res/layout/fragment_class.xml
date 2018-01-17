@@ -20,49 +20,63 @@
         android:paddingTop="30px"
         tools:ignore="PxUsage,UselessParent">
 
-        <RelativeLayout
-            android:id="@+id/rela_shopcar"
-            android:layout_width="44px"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/gap"
-            tools:ignore="RtlHardcoded,UselessParent">
-
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/shopcart"
-                tools:ignore="ContentDescription" />
-
-        </RelativeLayout>
-
         <TextView
             style="@style/text36"
-            android:layout_alignParentBottom="true"
+            android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/gap"
             android:text="分类"
             tools:ignore="HardcodedText" />
 
-        <RelativeLayout
-            android:id="@+id/rela_message"
-            android:layout_width="44px"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="@dimen/gap"
-            android:layout_toStartOf="@+id/rela_shopcar"
-            tools:ignore="RtlHardcoded,UselessParent">
+            android:gravity="right"
+            >
 
-            <ImageView
-                android:layout_width="44px"
-                android:layout_height="44px"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:src="@mipmap/message"
-                tools:ignore="ContentDescription" />
-        </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rela_message"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/rela_shopcar"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/message"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rela_shopcar"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:id="@+id/class_car_image"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+
+
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
 

@@ -1,6 +1,7 @@
 package com.taotaohai.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,17 +15,21 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.GoodsDetialActivity;
+import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.ClassGoods;
 import com.taotaohai.bean.ClassPage;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
@@ -59,6 +64,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private int pageIndex = 0;
     private int pageSize = 100;
     private String id = "-1";
+    private ImageView class_car_image;
+    private RelativeLayout rela_shopcar;
+
 
     private MultipleStatusView mMsvLayout;
 
@@ -89,6 +97,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         super.inithttp();
         mMsvLayout.loading();
         get("api/goods/class", 0);
+        get("/api/shopCar/shop_car_num",20);
         gohttp();
     }
 
@@ -123,7 +132,21 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
         if (postcode == 0) {
+
             classPage = util.getgson(data, ClassPage.class);
             if (classPage.getSuccess()) {
                 list = (ListView) view.findViewById(R.id.listview);
@@ -150,14 +173,16 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initview() {
+        class_car_image = (ImageView) view.findViewById(R.id.class_car_image);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
 //        mMsvLayout.setOnClickListener((l) -> {
 //            if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
 //                inithttp();
 //            }
 //        });
-        view.findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(getActivity(), MessageActivity.class)));
-        view.findViewById(R.id.rela_shopcar).setOnClickListener((l) -> startActivity(new Intent(getActivity(), ShopCarActivity.class)));
+        view.findViewById(R.id.rela_message).setOnClickListener(this);
+        rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
+        rela_shopcar.setOnClickListener((l) -> startActivity(new Intent(getActivity(), ShopCarActivity.class)));
         imag_photo2 = (ImageView) view.findViewById(R.id.imag_photo2);
         View v1 = view.findViewById(R.id.rela1);
         View v2 = view.findViewById(R.id.rela2);
@@ -192,6 +217,25 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     public void onClick(View v) {
         initclass();
         switch (v.getId()) {
+
+            case R.id.rela_message:
+                    if (classPage.getCode() == 401) {
+                        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                        dialog.setTitle("未登录");
+                        dialog.setMessage("是否进入登录页登录?");
+                        dialog.setNegativeButton("前往", (dialog1, which) -> {
+                            startActivity(new Intent(getActivity(), Login.class));
+                        });
+                        dialog.setNeutralButton("取消", (dialog1, which) -> {
+                        });
+                        dialog.show();
+                        return;
+                    }else {
+                        startActivity(new Intent(getActivity(), MessageActivity.class));
+                    }
+
+
+
             case R.id.rela1:
 
                 views.get(0).setBackgroundResource(R.drawable.bac_class_left);
@@ -356,7 +400,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 });
                 holder.setOnClickListener(R.id.rela_all, (l) -> startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
                         .putExtra("id", data.getId())));
-                holder.setText(R.id.tv_money, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_money, "￥ " + data.getPrice());
                 holder.setText(R.id.tv_name, data.getTitle());
                 holder.setText(R.id.tv_unit, "/" + data.getUnit());
                 holder.setText(R.id.tv_remaker, data.getRemark());

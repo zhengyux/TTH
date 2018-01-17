@@ -68,6 +68,7 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile project(path: ':easeui')
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
+    implementation files('libs/AMap_Location_V3.7.0_20171218.jar')
 }
 allprojects {
     repositories {

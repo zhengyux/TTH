@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.SurfaceTexture;
 import android.media.AudioManager;
 import android.net.Uri;
-import android.support.v7.app.ActionBar;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.Surface;
@@ -223,6 +222,8 @@ public class NiceVideoPlayer extends FrameLayout
             LogUtil.d("STATE_BUFFERING_PAUSED");
         }
     }
+
+
 
     @Override
     public void seekTo(long pos) {
@@ -462,6 +463,8 @@ public class NiceVideoPlayer extends FrameLayout
         }
     };
 
+
+    //播放完成监听事件
     private IMediaPlayer.OnCompletionListener mOnCompletionListener
             = new IMediaPlayer.OnCompletionListener() {
         @Override
@@ -469,6 +472,7 @@ public class NiceVideoPlayer extends FrameLayout
             mCurrentState = STATE_COMPLETED;
             mController.onPlayStateChanged(mCurrentState);
             LogUtil.d("onCompletion ——> STATE_COMPLETED");
+            exitFullScreen();
             // 清除屏幕常量
             mContainer.setKeepScreenOn(false);
         }
@@ -552,7 +556,7 @@ public class NiceVideoPlayer extends FrameLayout
         if (mCurrentMode == MODE_FULL_SCREEN) return;
 
         // 隐藏ActionBar、状态栏，并横屏
-//        NiceUtil.hideActionBar(mContext);
+        NiceUtil.hideActionBar(mContext);
 //        NiceUtil.scanForActivity(mContext)
 //                .setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -697,4 +701,5 @@ public class NiceVideoPlayer extends FrameLayout
         }
         Runtime.getRuntime().gc();
     }
+
 }

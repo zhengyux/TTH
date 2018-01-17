@@ -412,7 +412,6 @@ public class DateUtils {
 
     public static void main(String[] st) {
         String st1 = getStringDateCommon("1495093289");
-        System.out.print(st1);
     }
 
 }

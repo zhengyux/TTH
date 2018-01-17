@@ -23,7 +23,6 @@ import android.widget.TextView;
 
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.bumptech.glide.Glide;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.photoselector.model.PhotoModel;
 import com.photoselector.ui.PhotoSelectorActivity;
@@ -386,7 +385,7 @@ public class Refund extends BaseActivity {
                 if (isOK) {
                     isOK = false;
                     if (count == images.size()) return;
-                    sendImage("file/singleUpload", has, GlobalParams.NOSPOT_CODE, images.get(count), getApplicationContext(), 200, 200, "file");
+                    sendImage("file/upload", has, GlobalParams.NOSPOT_CODE, images.get(count), getApplicationContext(), 200, 200, "file");
                     count++;
                 }
                 editText.postDelayed(this, 10);
@@ -409,6 +408,7 @@ public class Refund extends BaseActivity {
             case 10:
                 BaseBean bean = util.getgson(result, BaseBean.class);
                 if (util.isSuccess(bean, getApplication())) {
+  //                  Log.e("tag", "onSuccess: "+image_urls.get(0)+"-------------"+images.get(0) );
                     showToast("退款请求成功");
                     finish();
                 }
@@ -420,6 +420,7 @@ public class Refund extends BaseActivity {
     @Override
     public void onError(Throwable ex, int code) {
         super.onError(ex, code);
+        Log.e("tag", "onError: "+ex.toString() );
     }
 
     @Override
@@ -446,14 +447,18 @@ public class Refund extends BaseActivity {
             return;
         }
         HashMap<String, String> has = new HashMap<>();
-        JsonArray jsonArray = new JsonArray();
-        for (int i = 0; i < image_urls.size(); i++) {
-            jsonArray.add(image_urls.get(i));
-            Log.e("tag", "pot: "+image_urls.get(i));
+
+        StringBuilder sb = new StringBuilder();
+        if(null==image_urls||image_urls.size()==0){
+            sb.append(",");
         }
+        for (int i = 0; i < image_urls.size(); i++) {
+            sb.append(image_urls.get(i)).append(",");
+        }
+        String st = sb.toString().substring(0, sb.toString().length() - 1);
 
         JsonObject object = new JsonObject();
-        object.add("refundImgIds", jsonArray);
+        object.addProperty("refundImgIds", st);
         object.addProperty("refundReason", tv_refund.getText().toString());
         object.addProperty("refundReasonDetail", editText.getText().toString().trim());
         object.addProperty("refundType", editText.getText().toString().trim());
@@ -462,13 +467,8 @@ public class Refund extends BaseActivity {
         } else {
             object.addProperty("refundType", "1");
         }
-        object.addProperty("orderId", getintent("id"));
+        object.addProperty("orderId", data.getId());
 
-        if (getintent("goods").length() > 0) {
-            object.addProperty("goodsspcInfo", getintent("goods"));
-        } else {
-            object.addProperty("goodsspcInfo", "红色，xl");
-        }
 
         Http(HttpMethod.PUT, "api/goodsorder/refund/" + data.getId(), object.toString(), 10);
     }
@@ -478,10 +478,11 @@ public class Refund extends BaseActivity {
 
     private void showchoose() {
         options1Items.clear();
-        options1Items.add("品质问题");
-        options1Items.add("产品与描述不符");
-        options1Items.add("数量、重量不符");
-        options1Items.add("其他");
+        options1Items.add("拍错/多拍/不想要");
+        options1Items.add("协商一致退款");
+        options1Items.add("缺货");
+        options1Items.add("未按约定时间发货");
+        options1Items.add("其他原因");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override

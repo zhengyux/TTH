@@ -84,6 +84,8 @@ public class Home extends BaseActivity {
     private long mExitTime;
 
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             if ((System.currentTimeMillis() - mExitTime) > 2000) {
                 Object mHelperUtils;
@@ -98,5 +100,8 @@ public class Home extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void onSuccess(String result, int postcode) {
 
+    }
 }

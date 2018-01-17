@@ -47,7 +47,7 @@
                         android:layout_alignStart="@+id/tv_stata"
                         android:layout_below="@+id/tv_stata"
                         android:layout_marginTop="@dimen/gap"
-                        android:text="还有1:25:29 关闭交易"
+                        android:text=""
                         android:textColor="@color/white"
                         tools:ignore="HardcodedText" />
                 </RelativeLayout>

@@ -97,7 +97,6 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
                 .filter(e -> e == null)
                 .distinct()//j只显示一次。
                 .collect(Collectors.toList());
-        System.out.println("distinctPrimary result is: " + r);
     }
 
     @Override
@@ -265,6 +264,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         iHttp.Put(moth, p, code);
     }
 
+
     public void Http(HttpMethod moth, String url, String BodyContent, final int code) {
 //        showSpot();
 //        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
@@ -274,6 +274,17 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         iHttp.Put(moth, p, code);
 
     }
+
+    public void testHttp(HttpMethod moth, String url, String BodyContent, final int code) {
+//        showSpot();
+//        Callback.Cancelable cancelable = Http.post(url, hashMap, this, code);请求可以取消
+//        Http.post(url, hashMap, this, code);
+        RequestParams p = new RequestParams(url);
+        p.setBodyContent(BodyContent);
+        iHttp.Put(moth, p, code);
+
+    }
+
 
     public void Http(HttpMethod moth, String url, final int code) {
 //        showSpot();

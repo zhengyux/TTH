@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
@@ -17,9 +18,11 @@ import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Focus;
 import com.taotaohai.bean.Shop;
+import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.ShopGoods;
 import com.taotaohai.bean.ShopGoods2;
 import com.taotaohai.bean.Shopclass;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
@@ -42,6 +45,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_count;
     private LinearLayout lin_1;
     private Shopclass shopclass;
+    private RelativeLayout rela_shopcar;
 
     @Override
     protected void inithttp() {
@@ -50,6 +54,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         get("api/shop/" + getintent("id"), 1);
         get("api/shop/follow/" + getintent("id") + "/1", 2);
         get("api/shop/" + getintent("id") + "/class", 3);
+        get("/api/shopCar/shop_car_num",20);
     }
 
     @Override
@@ -90,6 +95,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
         if(postcode==999){
             if (isfocus) {
                 showToast("取消成功");
@@ -106,7 +125,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
         if (postcode == 1) {
             shop = util.getgson(result, Shop.class);
-            initdata();//初始化数据
+  //          initdata();//初始化数据
             count = Integer.valueOf(shop.getData().getTotalLike());
         }
         if (postcode == 2) {
@@ -194,6 +213,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initview() {
+        rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
         lin_1 = (LinearLayout) findViewById(R.id.lin_1);
         mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
         image_photo = (ImageView) findViewById(R.id.image_photo);
@@ -236,9 +256,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         tv_scor.setText(shop.getData().getTotalCommonLevel() + "分");
         tv_count.setText(shop.getData().getTotalLike());
 
-        for (int i = 0; i < 3 && i < shop.getData().getShopIdentifies().size(); i++) {
+
+
+        for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
             TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
             textView.setText(shop.getData().getShopIdentifies().get(i).getName());
+
             lin_1.addView(textView);
         }
         line_class.removeAllViews();

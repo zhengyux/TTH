@@ -54,6 +54,10 @@ public class Book implements Serializable {
     }
 
     public static class Ext implements Serializable {
+
+
+        @SerializedName("dealId")
+        private String dealId;
         @SerializedName("acount")
         private int acount;
         @SerializedName("dealTime")
@@ -108,6 +112,16 @@ public class Book implements Serializable {
         private int totalPrice;
         @SerializedName("unit")
         private String unit;
+
+
+        public String getDealId() {
+            return dealId;
+        }
+
+        public void setDealId(String dealId) {
+            this.dealId = dealId;
+        }
+
 
         public int getAcount() {
             return acount;

@@ -310,7 +310,7 @@
         android:layout_width="120px"
         android:layout_height="120px"
         android:layout_centerInParent="true"
-        android:src="@drawable/bf_90"
+        android:src="@drawable/play_90"
         android:visibility="visible"/>
 
 </RelativeLayout>

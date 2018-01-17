@@ -40,8 +40,8 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         holder.text_title.setText(mValues.get(position).getExt().getShopName());
         holder.text_content.setText(mValues.get(position).getExt().getGoodsName());
         holder.text_stata.setText(getstata(mValues.get(position).getOrderStatus(), holder.btn_1, holder.btn_2, holder.btn_3));
-        holder.tv_sigalmoney.setText("¥：" + mValues.get(position).getExt().getPrice());
-        holder.tv_all.setText("¥：" + mValues.get(position).getTotalPrice());
+        holder.tv_sigalmoney.setText("¥ " + mValues.get(position).getExt().getPrice());
+        holder.tv_all.setText("¥ " + mValues.get(position).getTotalPrice());
         holder.tv_guige.setText(mValues.get(position).getRemarks());
         holder.tv_count.setText("x" + mValues.get(position).getExt().getAcount());
         holder.mItem.setCount(mValues.get(position).getOrderStatus());
@@ -181,7 +181,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
                 btn_2.setText("删除");
 //                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 //                btn_2.setBackgroundResource(R.drawable.button_r22);
-                return "关闭";
+                return "订单已关闭";
         }
         return "";
     }

@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.andview.refreshview.XRefreshView;
@@ -17,7 +18,9 @@ import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.Search;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.Video;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
@@ -39,6 +42,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     private CommonAdapter adapter;
     private Video video;
     int totle = 0;
+    private ImageView v_car_image;
+    private RelativeLayout screlativeLayout;
+    private RelativeLayout msrelativeLayout;
+    NiceVideoPlayer niceVideoPlayer;
 
     private static VideoFragment fragment;
 
@@ -56,6 +63,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void inithttp() {
         super.inithttp();
+        get("/api/shopCar/shop_car_num",20);
         inithttpdata();
     }
 
@@ -77,7 +85,19 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
 
-        System.out.println(data);
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),screlativeLayout);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
         if (postcode == 0) {
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
@@ -131,8 +151,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     private void initview(View view) {
         view.findViewById(R.id.search_).setOnClickListener(this);
-        view.findViewById(R.id.vrelativeLayout2).setOnClickListener(this);
-        view.findViewById(R.id.vrelativeLayout3).setOnClickListener(this);
+        screlativeLayout = (RelativeLayout) view.findViewById(R.id.vrelativeLayout2);
+        screlativeLayout.setOnClickListener(this);
+        v_car_image = (ImageView) view.findViewById(R.id.v_car_image);
+
+        msrelativeLayout = (RelativeLayout) view.findViewById(R.id.vrelativeLayout3);
+        msrelativeLayout.setOnClickListener(this);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
         mMsvLayout.setOnClickListener((l) -> {
             if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
@@ -162,7 +186,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
             @Override
             protected void convert(ViewHolder holder, final Video.Data data, int position) {
 
-                NiceVideoPlayer niceVideoPlayer = holder.getView(R.id.niceplayer);
+                niceVideoPlayer = holder.getView(R.id.niceplayer);
                 niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
                 niceVideoPlayer.setUp(data.getVideoAbsUrl(), null);
                 TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
@@ -215,6 +239,23 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
+    //切换fragment走的方法
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if(niceVideoPlayer.isPlaying()){
+
+                niceVideoPlayer.pause();
+
+        }
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -236,6 +277,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         }
     }
 
+    public void cancleSelect() {
+    }
 
     @Override
     public void onDestroy() {
