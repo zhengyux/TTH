@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,8 +11,12 @@ import android.widget.TextView;
 import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Shop;
 import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.util;
+
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 public class ShopIntroducActivity extends BaseActivity implements View.OnClickListener {
     private TextView tv_focus;
@@ -117,18 +122,30 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         switch (v.getId()) {
             case R.id.rela_focus:
 
-                get("api/follow/" + shop.getData().getId() + "/shop",999);
+                get("api/user/",995);
+
+
 //                tv_count.setText(String.valueOf(count));
         }
     }
 
     public void onChat(View v) {
-        startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+        get("api/user/",994);
+
     }
 
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==994){
+            startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+        }
+
+        if(postcode==995){
+            get("api/follow/" + shop.getData().getId() + "/shop",999);
+        }
+
         if(postcode==999){
             if (ShopActivity.isfocus) {
                 showToast("取消成功");
@@ -138,6 +155,31 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
                 focus();
             }
             tv_count.setText(String.valueOf(ShopActivity.count));
+        }
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==995||postcode==994){
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("未登录");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(this, Login.class));
+                        finish();
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
         }
     }
 }

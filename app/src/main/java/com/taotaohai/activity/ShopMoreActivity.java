@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -263,6 +264,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
             hashMap1.put("type","1");
             hashMap1.put("lat",String.valueOf(bdLocation.getLatitude()));
             hashMap1.put("lng",String.valueOf(bdLocation.getLongitude()));
+            Log.e("tag", "onReceiveLocation: "+hashMap1.toString() );
         }
     }
 }

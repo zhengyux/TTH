@@ -144,7 +144,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        super.onError(ex, postcode);
+
     }
 
     private void initview() {
@@ -305,5 +305,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onDestroy() {
         super.onDestroy();
         loginBean = null;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        get("/api/shopCar/shop_car_num",20);
     }
 }

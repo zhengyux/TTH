@@ -104,4 +104,9 @@ public class Home extends BaseActivity {
     public void onSuccess(String result, int postcode) {
 
     }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+
+    }
 }

@@ -1,6 +1,7 @@
 package com.taotaohai.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,10 +15,12 @@ import android.widget.RelativeLayout;
 
 import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
+import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.Search;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.Video;
 import com.taotaohai.myview.BadgeView;
@@ -84,6 +87,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+        if(postcode==999){
+            startActivity(new Intent(getActivity(), ShopCarActivity.class));
+        }
+        if(postcode==998){
+            startActivity(new Intent(getActivity(), MessageActivity.class));
+        }
 
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
@@ -134,7 +143,27 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        super.onError(ex, postcode);
+        if(postcode==998||postcode==999){
+
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401")) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setTitle("温馨提示");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(getActivity(), Login.class));
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
 
     }
 
@@ -244,11 +273,14 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+
         if(niceVideoPlayer.isPlaying()){
 
                 niceVideoPlayer.pause();
 
         }
+        get("/api/shopCar/shop_car_num",20);
+
     }
 
     @Override
@@ -266,19 +298,18 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
 
             case R.id.vrelativeLayout3:
+                get("api/user/",998);
 
-                startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
 
             case R.id.vrelativeLayout2:
+                get("api/user/",999);
 
-                startActivity(new Intent(getActivity(), ShopCarActivity.class));
                 break;
         }
     }
 
-    public void cancleSelect() {
-    }
+
 
     @Override
     public void onDestroy() {

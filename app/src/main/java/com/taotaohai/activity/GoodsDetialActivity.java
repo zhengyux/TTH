@@ -2,6 +2,7 @@ package com.taotaohai.activity;
 
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -26,6 +27,7 @@ import com.hedgehog.ratingbar.RatingBar;
 import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Comment;
 import com.taotaohai.bean.Focus2;
 import com.taotaohai.bean.Goods;
@@ -119,8 +121,55 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==998||postcode==995||postcode==997||postcode==996||postcode==994||postcode==993){
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("未登录");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(this, Login.class));
+                        finish();
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if(postcode==994){
+            rela_buy.setVisibility(View.VISIBLE);
+        }
+        if(postcode==994){
+            paytype = 0;
+            if (goods == null) {
+                return;
+            }
+            rela_buy.setVisibility(View.VISIBLE);
+        }
+        if(postcode==995){
+            get("api/follow/" + getintent("id") + "/goods", 999);
+        }
+        if(postcode==996){
+            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
+        }
+        if(postcode==998){
+            startActivity(new Intent(this, ShopCarActivity.class));
+        }
+        if(postcode==997){
+            startActivity(new Intent(this, MessageActivity.class));
+        }
 
 //        if(postcode==20){
 //            ShopCarNum shopCarNum = new ShopCarNum();
@@ -316,30 +365,32 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
     boolean isLike = false;
 
+
+    //关注
     public void onLike(View view) {
 
-        get("api/follow/" + getintent("id") + "/goods", 999);
+        get("api/user/",995);
+
 
     }
 
     int paytype = -1;
 
+
+    //加入购物车
     public void onCar(View view) {
-        paytype = 0;
-        if (goods == null) {
-            return;
-        }
-        rela_buy.setVisibility(View.VISIBLE);
+        get("api/user/",994);
+
 
     }
 
+    //联系客服
     public void onMessage(View view) {
-        startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
+        get("api/user/",996);
+
     }
 
-    public void onMessage() {
-        startActivity(new Intent(this, MessageActivity.class));
-    }
+
 
 
     public void onDismis(View view) {
@@ -348,7 +399,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onBuy(View view) {
-        rela_buy.setVisibility(View.VISIBLE);
+        get("api/user/",993);
+
     }
 
     public void onDefult(View view) {
@@ -422,7 +474,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 finish();
                 break;
             case R.id.shopcar:
-                startActivity(new Intent(this, ShopCarActivity.class));
+                get("api/user/",998);
+
                 break;
             case R.id.tv_jiliang:
                 startActivity(new Intent(this, JiLiangActivity.class)
@@ -434,7 +487,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                         .putExtra("id", goods.getData().getShopId()));
                 break;
             case R.id.message:
-                onMessage();
+                get("api/user/",997);
+
                 break;
 
         }

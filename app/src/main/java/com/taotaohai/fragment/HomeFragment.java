@@ -1,5 +1,6 @@
 package com.taotaohai.fragment;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -24,12 +25,14 @@ import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.ClassActivity;
 import com.taotaohai.activity.GoodsDetialActivity;
+import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.SearchGoods;
 import com.taotaohai.activity.ShopActivity;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.ShopMoreActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.HotClass;
 import com.taotaohai.bean.HotShop;
 import com.taotaohai.bean.HotShopmore;
@@ -126,6 +129,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 999:
                 startActivityForResult(new Intent(getActivity(), MessageActivity.class), 1);
                 break;
+            case 998:
+                startActivityForResult(new Intent(getActivity(), ShopCarActivity.class), 1);
+                break;
             case 20:
                 ShopCarNum shopCarNum = new ShopCarNum();
                 shopCarNum = util.getgson(data,ShopCarNum.class);
@@ -140,6 +146,30 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
 
 
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==999||postcode==998) {
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401")) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setTitle("温馨提示");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(getActivity(), Login.class));
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 
     private void inithotshopmore(String data) {
@@ -265,7 +295,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), SearchGoods.class), 1);
                 break;
             case R.id.rela_shopcar:
-                startActivityForResult(new Intent(getActivity(), ShopCarActivity.class), 1);
+                get("api/user/",998);
+
                 break;
             case R.id.rela_message:
                 get("api/user/",999);

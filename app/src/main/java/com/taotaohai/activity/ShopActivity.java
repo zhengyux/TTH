@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,6 +17,7 @@ import com.andview.refreshview.XRefreshView;
 import com.hyphenate.easeui.EaseConstant;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Focus;
 import com.taotaohai.bean.Shop;
 import com.taotaohai.bean.ShopCarNum;
@@ -28,6 +30,8 @@ import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
+
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
@@ -93,8 +97,49 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     public static boolean isfocus = false;
 
     @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==998||postcode==995||postcode==997||postcode==996){
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("未登录");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(this, Login.class));
+                        finish();
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==998){
+
+            startActivity(new Intent(ShopActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+
+        }
+        if(postcode==997){
+            get("api/follow/" + getintent("id") + "/shop",999);
+        }
+        if (postcode==996){
+            startActivity(new Intent(this, MessageActivity.class));
+
+        }
+        if (postcode==995){
+            startActivity(new Intent(this, ShopCarActivity.class));
+        }
 
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
@@ -188,11 +233,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     public void onMessage(View view) {
-        startActivity(new Intent(this, MessageActivity.class));
+        get("api/user/",996);
     }
 
     public void onShopcar(View view) {
-        startActivity(new Intent(this, ShopCarActivity.class));
+        get("api/user/",995);
+
     }
 
 
@@ -337,16 +383,20 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+
+
+
             case R.id.back:
                 finish();
                 break;
             case R.id.rela_focus:
-                get("api/follow/" + getintent("id") + "/shop",999);
+                get("api/user/",997);
+
 
 
                 break;
             case R.id.relaclick_1:
-                startActivity(new Intent(ShopActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+                get("api/user/",998);
                 break;
             case R.id.relaclick_2:
                 startActivity(new Intent(this, ShopIntroducActivity.class)

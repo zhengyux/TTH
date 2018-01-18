@@ -49,7 +49,6 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
     @Override
     public void onError(Throwable ex, int postcode) {
 
-        Log.e("", "onError: "+ex.toString());
     }
 
     @Override
@@ -90,7 +89,6 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
                 try {
 
                     get("api/goodsorder/like_list/"+URLEncoder.encode(key,"utf-8"),0);
-                    Log.e("tag", "api/goodsorder/like_list/" +URLEncoder.encode(key,"utf-8"));
 
                 }catch (Exception e){
                     e.printStackTrace();
