@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.taotaohai.ConstantValue;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.taotaohai.activity.MyBook;
 import com.tencent.mm.opensdk.modelbase.BaseReq;
 import com.tencent.mm.opensdk.modelbase.BaseResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
@@ -39,18 +39,21 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-            finish();
+   //     if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+   //         finish();
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
-                    if (BaseResp.ErrCode.ERR_OK == 0) {
+
 //                        pay.getdata("1");
-                    }
+                        startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
+                        finish();
+
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
 //                    PromptManager.showToast(getApplicationContext(), "支付已取消");
 //                    pay.getdata("2");
                     //分享取消
+
                     break;
                 case BaseResp.ErrCode.ERR_AUTH_DENIED:
                     //分享拒绝
@@ -67,8 +70,7 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 //        pay = (PayActivity) inter_pay;
 //    }
 
-    public interface inter_pay {
+    interface inter_pay {
         public void getdata(String data);
     }
 
-}
