@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,6 +21,7 @@ import com.andview.refreshview.XRefreshView;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.ShopList;
 import com.taotaohai.bean.ShopListSearch;
 import com.taotaohai.util.GlideUtil;
@@ -33,6 +35,8 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.List;
+
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
@@ -136,8 +140,41 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
     }
 
     @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==998||postcode==999){
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("未登录");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(this, Login.class));
+                        finish();
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==999){
+            startActivity(new Intent(SeachendShop.this, MessageActivity.class));
+        }
+        if(postcode==998){
+            startActivity(new Intent(SeachendShop.this, ShopCarActivity.class));
+        }
+
         if (postcode == 0) {
             ShopListSearch shop = util.getgson(result, ShopListSearch.class);
             shoplist = shop.getData();
@@ -207,11 +244,13 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
         findViewById(R.id.rela_message).
 
-                setOnClickListener(v -> startActivity(new Intent(SeachendShop.this, MessageActivity.class)));
+                setOnClickListener(v -> get("api/user/",999));
 
         findViewById(R.id.rela_shopcar).
 
-                setOnClickListener(v -> startActivity(new Intent(SeachendShop.this, ShopCarActivity.class)));
+                setOnClickListener(v ->
+                                get("api/user/",998)
+                       );
         findViewById(R.id.back).setOnClickListener(this);
 
         xrefreshview = (XRefreshView)

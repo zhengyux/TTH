@@ -36,6 +36,12 @@ public class SearchGoods extends BaseActivity {
         get("/api/shopCar/shop_car_num",20);
     }
 
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+
+    }
+
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);

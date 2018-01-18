@@ -1,6 +1,5 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.os.Bundle;
 
 import com.taotaohai.R;
@@ -17,5 +16,10 @@ public class Seachend extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seachend);
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+
     }
 }

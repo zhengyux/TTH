@@ -1,6 +1,7 @@
 package com.taotaohai.fragment;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -24,9 +25,11 @@ import com.andview.refreshview.XRefreshView;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.GoodsDetialActivity;
+import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.base.BaseFragment;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.ClassPage;
 import com.taotaohai.bean.Seach;
 import com.taotaohai.bean.ShopCarNum;
@@ -104,8 +107,39 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
     }
 
     @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==999||postcode==998) {
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401")) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+                    dialog.setTitle("温馨提示");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(getActivity(), Login.class));
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
+    }
+
+    @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
+        if(postcode==999){
+            startActivity(new Intent(getActivity(), MessageActivity.class));
+        }
+        if(postcode==998){
+            startActivity(new Intent(getActivity(), ShopCarActivity.class));
+        }
 
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
@@ -224,10 +258,12 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
                 }
                 break;
             case R.id.rela_message:
-                startActivity(new Intent(getActivity(), MessageActivity.class));
+                get("api/user/",999);
+
                 break;
             case R.id.rela_shopcar:
-                startActivity(new Intent(getActivity(), ShopCarActivity.class));
+                get("api/user/",998);
+
                 break;
             case R.id.back:
                 getActivity().finish();
