@@ -28,6 +28,7 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -197,14 +198,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-//        initdata();//初始化数据
-
-        recyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
-            @Override
-            public void onViewRecycled(RecyclerView.ViewHolder holder) {
-
-            }
-        });
 
     }
 
@@ -234,7 +227,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                     holder.setVisible(R.id.tv_play, false);
                     niceVideoPlayer.start();
                     get("api/video/player/" + data.getId(), 15);
+
                 });
+
+
 
             }
         };
@@ -281,6 +277,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
 
         if(niceVideoPlayer.isPlaying()){
 
