@@ -4,6 +4,7 @@ package com.taotaohai.wxapi;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.taotaohai.ConstantValue;
 import com.taotaohai.activity.MyBook;
@@ -39,38 +40,31 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-   //     if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
-   //         finish();
+
             switch (resp.errCode) {
                 case BaseResp.ErrCode.ERR_OK:
 
 //                        pay.getdata("1");
+                        Toast.makeText(getApplicationContext(),"支付成功",Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
                         finish();
 
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
-//                    PromptManager.showToast(getApplicationContext(), "支付已取消");
-//                    pay.getdata("2");
-                    //分享取消
 
+                    Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
-                case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                    //分享拒绝
-//                    pay.getdata("3");
-//                    PromptManager.showToast(getApplicationContext(), "支付失败");
+                case BaseResp.ErrCode.ERR_COMM:
 
+                    Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_SHORT).show();
+                    finish();
                     break;
             }
         }
 
     }
 
-//    public static void setonpay(inter_pay inter_pay) {
-//        pay = (PayActivity) inter_pay;
-//    }
 
-    interface inter_pay {
-        public void getdata(String data);
-    }
+
 
