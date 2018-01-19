@@ -148,6 +148,7 @@ public class MyDataActivity extends BaseActivity {
     public void onCancle(View view) {
 
         choose.setVisibility(View.GONE);
+        sex.setVisibility(View.GONE);
     }
 
     public void onZhao(View view) {

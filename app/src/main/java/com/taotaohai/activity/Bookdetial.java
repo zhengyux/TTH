@@ -90,7 +90,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         btn_3.setOnClickListener(this);
         tv_stata.setText(getstata(data.getOrderStatus()));
 
-        if (data.getOrderStatus() == 1 || data.getOrderStatus() == 2|| data.getOrderStatus() == 3) {
+        if (data.getOrderStatus() == 1 || data.getOrderStatus() == 3) {
             remainTime = data.getGmtRemaining();
             tv_stata2.post(new Runnable() {
                 @Override
@@ -119,8 +119,9 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         tv_9.setText("/" + data.getExt().getUnit());
         tv_10.setText("x" + data.getExt().getAcount());
         tv_11.setText("￥" + data.getExt().getPrice());
-        tv_12.setText("￥" + data.getTotalPrice());
-        tv_13.setText("￥" + data.getExt().getTotalPrice());
+        tv_12.setText("￥" + data.getTotalPrice());//订单总价
+
+        tv_13.setText("￥" + data.getTotalPrice());//实际金额
         StringBuffer buffer = new StringBuffer();
 
 
@@ -144,6 +145,9 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if(postcode==111){
+            showToast("提醒成功");
+        }
         if(postcode ==99){
 
             startActivity(new Intent(Bookdetial.this,ShopCarActivity.class));
@@ -383,7 +387,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_2.setVisibility(View.GONE);
 
         }
-        return "订单已关闭";
+        return "交易关闭";
     }
 
     int stata = 0;
@@ -396,10 +400,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     public void conlick2() {//第2个按钮
         switch (stata) {
             case 1:
-                showpay(String.valueOf(data.getExt().getTotalPrice()));
+
+                showpay(data.getTotalPrice());
                 break;
             case 2:
-                showToast("提醒成功");
+                Http(HttpMethod.PUT, "api/goodsorder/remind/" + data.getId()+"/"+data.getUserId()+"/"+data.getShopId(), 111);//提醒发货
+
                 break;
             case 3:
                 Log.e("tag", "conlick2: 3");
@@ -440,10 +446,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     private void showchoose() {
         final List<String> options1Items = new ArrayList<>();
         options1Items.clear();
-        options1Items.add("品质问题");
-        options1Items.add("产品与描述不符");
-        options1Items.add("数量、重量不符");
-        options1Items.add("其他");
+        options1Items.add("我不想买了");
+        options1Items.add("信息填写错误，重新拍");
+        options1Items.add("卖家缺货");
+        options1Items.add("其他问题");
 
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override

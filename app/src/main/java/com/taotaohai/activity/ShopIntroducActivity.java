@@ -64,11 +64,10 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         for (int i=0; i<shop.getData().getBusinessAbsUrlList().size(); i++){
             int zz = i;
 
-            PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
             findViewById(R.id.licence).setOnClickListener((l) -> {
-                if(PhotoActivity.bitmap==null){
+
                     PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
-                }
+
                 startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", zz));
 
             });

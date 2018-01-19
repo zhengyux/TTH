@@ -98,6 +98,7 @@ public class ItemBookFragment extends BaseFragment {
 //        data = "{\"code\":200,\"data2\":{\"data\":[{\"ext\":{\"acount\":4,\"dealTime\":null,\"gmtCreate\":\"2017-10-12 17:18:27\",\"gmtDelivery\":null,\"goodsName\":\"野生三文鱼\",\"id\":\"\",\"linkAddress\":\"\",\"linkName\":\"\",\"linkTel\":\"\",\"orderExpressCompany\":\"\",\"orderExpressNo\":\"\",\"orderId\":\"vlP9tTb6\",\"orderStatus\":0,\"payType\":0,\"price\":\"59.92\",\"remark\":\"\",\"shopName\":\"中南海\",\"totalPrice\":0,\"unit\":\"箱\"},\"gmtCreate\":\"2017-10-09 10:04:04\",\"gmtModify\":\"2017-10-09 10:04:08\",\"gmtRefund\":null,\"goodsId\":\"0ub70x\",\"id\":\"vlP9tTb6\",\"lastChangeUser\":\"\",\"orderStatus\":3,\"payType\":2,\"refundStatus\":0,\"remarks\":\"备注\",\"shopId\":\"SSP777\",\"submitTime\":\"2017-10-11 10:11:11\",\"totalPrice\":\"59.99\",\"userId\":\"PSD939\"}],\"total\":11},\"message\":\"\",\"success\":true}";
         if (util.isSuccess(data)) {
             book = util.getgson(data, Book.class);
+
             if (recyclerView.getAdapter() == null) {
                 if (adapter == null)
                     adapter = new MyItemBookRecyclerViewAdapter(book.getData2().getData(), mListener).setcontent(getActivity());

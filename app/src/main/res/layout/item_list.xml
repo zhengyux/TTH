@@ -15,14 +15,14 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="416px"
+        android:layout_height="350px"
         tools:ignore="PxUsage,UselessParent">
 
 
         <com.xiao.nicevideoplayer.NiceVideoPlayer
             android:id="@+id/niceplayer"
             android:layout_width="match_parent"
-            android:layout_height="346px"
+            android:layout_height="350px"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true" />
 
@@ -30,8 +30,8 @@
             android:id="@+id/tv_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
             android:background="@drawable/d_black_half"
             android:padding="10px"
             android:text="播放123次"

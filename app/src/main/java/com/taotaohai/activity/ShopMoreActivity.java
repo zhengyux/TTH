@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,6 +22,7 @@ import com.baidu.location.LocationClientOption;
 import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.ShopList;
 import com.taotaohai.myview.BadgeView;
@@ -32,6 +34,8 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import org.xutils.http.HttpMethod;
 
 import java.util.HashMap;
+
+import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
 public class ShopMoreActivity extends BaseActivity implements View.OnClickListener {
 
@@ -45,7 +49,32 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     @Override
     protected void inithttp() {
         get("api/shop");
+        get("/api/shopCar/shop_car_num",20);
+    }
 
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        if(postcode==999||postcode==998){
+            String[] st = ex.toString().split("result:");
+            if (st.length > 1) {
+                util.isSuccess(util.getgson(st[1], BaseBean.class));
+            }
+            try {
+                if (ex.toString().contains("401") & postcode != NONOTICELOGIN) {
+                    AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+                    dialog.setTitle("未登录");
+                    dialog.setMessage("是否进入登录页登录?");
+                    dialog.setNegativeButton("前往", (dialog1, which) -> {
+                        startActivity(new Intent(this, Login.class));
+                        finish();
+                    });
+                    dialog.setNeutralButton("取消", (dialog1, which) -> {
+                    });
+                    dialog.show();
+                }
+            } catch (Exception e) {
+            }
+        }
     }
 
     @Override
@@ -54,6 +83,15 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
         shopList = util.getgson(result, ShopList.class);
         initdata();//初始化数据
         switch (postcode) {
+            case 999:
+
+                startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class));
+                break;
+
+            case 998:
+                startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class));
+
+                break;
             case 0:
                 shopList = null;
                 shopList = util.getgson(result, ShopList.class);
@@ -100,9 +138,13 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initview() {
-        findViewById(R.id.rela_message).setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class)));
+        findViewById(R.id.rela_message).setOnClickListener(v ->
+                get("api/user/",999)
+                );
         rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
-        rela_shopcar.setOnClickListener(v -> startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class)));
+        rela_shopcar.setOnClickListener(v ->
+                        get("api/user/",998)
+                );
         findViewById(R.id.back).setOnClickListener(this);
         findViewById(R.id.tv_ar).setOnClickListener(this);
         findViewById(R.id.tv_distance).setOnClickListener(this);

@@ -181,7 +181,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
                 btn_2.setText("删除");
 //                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 //                btn_2.setBackgroundResource(R.drawable.button_r22);
-                return "订单已关闭";
+                return "交易关闭";
         }
         return "";
     }

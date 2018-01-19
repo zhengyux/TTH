@@ -273,6 +273,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
             protected void convert(ViewHolder holder, final ShopList.Data data, int position) {
                 ImageView imageView = holder.getView(R.id.image_photo);
                 GlideUtil.loadImg(data.getLogoIdAbsUrl(), imageView);
+
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
                 holder.setText(R.id.tv_3, util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");

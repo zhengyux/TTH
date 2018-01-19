@@ -199,7 +199,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
 //        initdata();//初始化数据
 
+        recyclerView.setRecyclerListener(new RecyclerView.RecyclerListener() {
+            @Override
+            public void onViewRecycled(RecyclerView.ViewHolder holder) {
 
+            }
+        });
 
     }
 
@@ -207,10 +212,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     int pageIndex = 0;//第多少个
 
     private void initdata() {
-//        if (adapter != null) {
-//            adapter.notifyDataSetChanged();
-//            return;
-//        }
+
         adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
             @Override
             protected void convert(ViewHolder holder, final Video.Data data, int position) {
@@ -226,6 +228,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 holder.setText(R.id.tv_title, data.getDescribe());
                 holder.setText(R.id.tv_updata, data.getUploadTime() + "更新");
                 holder.setOnClickListener(R.id.tv_play, (l) -> {
+
                     if (niceVideoPlayer.isPlaying()) return;
 //                    controller.onClick(null);
                     holder.setVisible(R.id.tv_play, false);
@@ -252,16 +255,21 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 super.onRefresh(isPullDown);
                 pageIndex = 0;//第多少个
                 inithttpdata();
+                xrefreshview.stopRefresh();
+                xrefreshview.stopLoadMore();
             }
 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
-                if (pageIndex >= totle) {
-                    xrefreshview.setLoadComplete(true);
-                    return;
-                }
-                inithttpdata();
+//                if (pageIndex >= totle) {
+//                    xrefreshview.setLoadComplete(true);
+//                    return;
+//                }
+//                pageIndex = 0;//第多少个
+//                inithttpdata();
+                xrefreshview.stopRefresh();
+                xrefreshview.stopLoadMore();
             }
         });
 
@@ -279,7 +287,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
                 niceVideoPlayer.pause();
 
         }
-        get("/api/shopCar/shop_car_num",20);
+
 
     }
 

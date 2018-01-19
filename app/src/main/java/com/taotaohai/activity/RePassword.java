@@ -38,20 +38,25 @@ public class RePassword extends BaseActivity {
                     showToast("新旧密码不能相同");
                     return;
                 }
-                if(isChar(edit_new2.getText().toString().trim())){
-                    showToast("密码不能为纯字母");
-                    return;
+
+                if("".equals(edit_new2.getText().toString().trim())||null==edit_new2.getText()){
+                    showToast("请再次输入新密码");
                 }
-                if(isNumeric(edit_new2.getText().toString().trim())){
-                    showToast("密码不能为纯数字");
+
+                if (!edit_new2.getText().toString().trim().equals(edit_new.getText().toString().trim())) {
+                    showToast("两次密码输入不一致");
                     return;
                 }
                 if(6>edit_new2.getText().toString().trim().length()||edit_new2.getText().toString().trim().length()>16){
                     showToast("密码要求6-16位");
                     return;
                 }
-                if (!edit_new2.getText().toString().trim().equals(edit_new.getText().toString().trim())) {
-                    showToast("两次密码不相同");
+                if(isNumeric(edit_new2.getText().toString().trim())){
+                    showToast("密码不能为纯数字");
+                    return;
+                }
+                if(isChar(edit_new2.getText().toString().trim())){
+                    showToast("密码不能为纯字母");
                     return;
                 }
                 has.clear();

@@ -108,7 +108,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        if(postcode==999||postcode==998) {
+        if(postcode==999||postcode==998||postcode==99) {
             String[] st = ex.toString().split("result:");
             if (st.length > 1) {
                 util.isSuccess(util.getgson(st[1], BaseBean.class));

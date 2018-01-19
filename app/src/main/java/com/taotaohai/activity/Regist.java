@@ -54,7 +54,15 @@ public class Regist extends BaseActivity {
                     showToast("输入验证码错误");
                     return;
                 }
-                if (!ed_3.getText().toString().trim().equals(ed_3.getText().toString().trim())) {
+                if("".equals(ed_3.getText().toString().trim())||null==ed_3.getText()){
+                    showToast("请输入密码");
+                    return;
+                }
+                if("".equals(ed_4.getText().toString().trim())||null==ed_4.getText()){
+                    showToast("请输入确认密码");
+                    return;
+                }
+                if (!ed_3.getText().toString().trim().equals(ed_4.getText().toString().trim())) {
                     showToast("两次密码不一样");
                     return;
                 }
