@@ -286,7 +286,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
         }
 
-
     }
 
     @Override
