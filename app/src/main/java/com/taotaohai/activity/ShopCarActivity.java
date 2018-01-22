@@ -40,15 +40,21 @@ public class ShopCarActivity extends BaseActivity {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
-        car = util.getgson(result, Car.class);
-        car_buy = util.getgson(result, Car.class);
-        car_buy.getData().getData().clear();
-        if (car.getSuccess()) {
-            for (int i = 0; i < car.getData().getData().size(); i++) {
-                isclicks.add(false);
-            }
-            listView.setAdapter(adapter);
+        switch (postcode){
+            case 0:
+                car = util.getgson(result, Car.class);
+                car_buy = util.getgson(result, Car.class);
+                car_buy.getData().getData().clear();
+                if (car.getSuccess()) {
+                    for (int i = 0; i < car.getData().getData().size(); i++) {
+                        isclicks.add(false);
+                    }
+                    listView.setAdapter(adapter);
+                }
+
+                break;
         }
+
 
     }
 

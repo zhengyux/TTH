@@ -104,7 +104,6 @@ public class Refund extends BaseActivity {
         tv_refund = (TextView) findViewById(R.id.tv_refund);
  //       tv_refund.setOnClickListener(v -> showchoose());
         findViewById(R.id.re_refund).setOnClickListener(v -> showchoose());
-
         GlideUtil.loadImg(data.getExt().getImgId(), image_photo);
         text_content.setText(data.getExt().getGoodsName());
         tv_guige.setText(data.getExt().getRemark());

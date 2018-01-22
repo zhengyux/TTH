@@ -41,6 +41,7 @@ public class RePassword extends BaseActivity {
 
                 if("".equals(edit_new2.getText().toString().trim())||null==edit_new2.getText()){
                     showToast("请再次输入新密码");
+                    return;
                 }
 
                 if (!edit_new2.getText().toString().trim().equals(edit_new.getText().toString().trim())) {

@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ public class OrderSureActivity extends BaseActivity {
     private TextView tv_price;
     private TextView tv_price2;
     private TextView tv_count;
+    private EditText osedit;
 
     @Override
     protected void inithttp() {
@@ -79,6 +81,7 @@ public class OrderSureActivity extends BaseActivity {
     }
 
     private void initview() {
+        osedit = (EditText) findViewById(R.id.os_edit);
         tv_name = (TextView) findViewById(R.id.tv_name);
         tv_phone = (TextView) findViewById(R.id.tv_phone);
         tv_address = (TextView) findViewById(R.id.tv_address);
@@ -148,6 +151,9 @@ public class OrderSureActivity extends BaseActivity {
                     jsonaray2.add(list.get(6));
                     json.add("goodsIds", jsonaray2);
                     json.add("counts", jsonaray);
+                    if(null!=osedit.getText()||!"".equals(osedit.getText().toString().trim())){
+                        json.addProperty("editRemark",osedit.getText().toString().trim());
+                    }
                     if (defult == null || defult.getData() == null) {
                         showToast("请添加收货地址");
                         return;
@@ -170,6 +176,9 @@ public class OrderSureActivity extends BaseActivity {
                         return;
                     }
                     json.addProperty("addressId", defult.getData().getId());
+                    if(null!=osedit.getText()||!"".equals(osedit.getText().toString().trim())){
+                        json.addProperty("editRemark",osedit.getText().toString().trim());
+                    }
 
                     Http(HttpMethod.POST, "api/goodsorder/buy_now/", json.toString(), 15);
                 }
@@ -249,15 +258,6 @@ public class OrderSureActivity extends BaseActivity {
             request.nonceStr = wXpay.getData().getNoncestr();
             request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
             request.sign = wXpay.getData().getSign();
-//            msgApi.registerApp("wxd930ea5d5a258f4f");
-//            PayReq request = new PayReq();
-//            request.appId = "wxd930ea5d5a258f4f";
-//            request.partnerId = "1900000109";
-//            request.prepayId= "1101000000140415649af9fc314aa427";
-//            request.packageValue = "Sign=WXPay";
-//            request.nonceStr= "1101000000140429eb40476f8896f4c9";
-//            request.timeStamp= "1398746574";
-//            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
             msgApi.sendReq(request);
             return;
         }

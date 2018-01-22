@@ -45,6 +45,10 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     private CommonAdapter adapter;
     private String locationProvider;
     private RelativeLayout rela_shopcar;
+    private TextView tv_distance;
+    private TextView tv_ar;
+    private TextView tv_score;
+
 
     @Override
     protected void inithttp() {
@@ -146,9 +150,12 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                         get("api/user/",998)
                 );
         findViewById(R.id.back).setOnClickListener(this);
-        findViewById(R.id.tv_ar).setOnClickListener(this);
-        findViewById(R.id.tv_distance).setOnClickListener(this);
-        findViewById(R.id.tv_score).setOnClickListener(this);
+        tv_ar= (TextView) findViewById(R.id.tv_ar);
+        tv_ar.setOnClickListener(this);
+        tv_distance= (TextView) findViewById(R.id.tv_distance);
+        tv_distance.setOnClickListener(this);
+        tv_score= (TextView) findViewById(R.id.tv_score);
+        tv_score.setOnClickListener(this);
         xrefreshview = (XRefreshView) findViewById(R.id.xrefreshview);
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
@@ -271,15 +278,22 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 finish();
                 break;
             case R.id.tv_ar:
+
                 get("api/shop",0);
+                tv_ar.setTextColor(getResources().getColor(R.color.btn_blue_normal));
+                tv_distance.setTextColor(getResources().getColor(R.color.black_deep));
+                tv_score.setTextColor(getResources().getColor(R.color.black_deep));
                 break;
             case R.id.tv_distance:
 
 
                     if(hashMap1.size()!=0){
                         Http(HttpMethod.GET,"api/shop",hashMap1,2);
-                    }
 
+                    }
+                tv_ar.setTextColor(getResources().getColor(R.color.black_deep));
+                tv_distance.setTextColor(getResources().getColor(R.color.btn_blue_normal));
+                tv_score.setTextColor(getResources().getColor(R.color.black_deep));
 
 
 
@@ -292,6 +306,9 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 hashMap.put("type","2");
 
                 Http(HttpMethod.GET,"api/shop",hashMap,3);
+                tv_ar.setTextColor(getResources().getColor(R.color.black_deep));
+                tv_distance.setTextColor(getResources().getColor(R.color.black_deep));
+                tv_score.setTextColor(getResources().getColor(R.color.btn_blue_normal));
                 break;
 
         }

@@ -60,18 +60,22 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         tv_title20.setText(shop.getData().getName());
 
 
-
-        for (int i=0; i<shop.getData().getBusinessAbsUrlList().size(); i++){
-            int zz = i;
+//
+//        for (int i=0; i<shop.getData().getBusinessAbsUrlList().size(); i++){
+//            int zz = i;
+//
+//            PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
 
             findViewById(R.id.licence).setOnClickListener((l) -> {
 
-                    PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(zz));
+                for(int z=0; z<shop.getData().getBusinessAbsUrlList().size(); z++){
+                    PhotoActivity.bitmap.add(shop.getData().getBusinessAbsUrlList().get(z));
 
-                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", zz));
+                }
+                startActivity(new Intent(this, PhotoActivity.class).putExtra("ID", 0));
 
             });
-        }
+  //      }
 
         for (int i = 0; i < 3 && i < shop.getData().getShopIdentifies().size(); i++) {
             TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);

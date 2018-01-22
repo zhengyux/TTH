@@ -158,6 +158,19 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
+                android:layout_height="88px">
+                <EditText
+                    android:id="@+id/os_edit"
+                    android:hint="备注"
+                    android:theme="@style/edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+            </RelativeLayout>
+
+            <TextView style="@style/textgap1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="88px"
                 android:layout_marginBottom="40px">
 

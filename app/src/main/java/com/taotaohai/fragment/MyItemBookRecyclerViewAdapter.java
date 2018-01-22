@@ -42,7 +42,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
         holder.text_stata.setText(getstata(mValues.get(position).getOrderStatus(), holder.btn_1, holder.btn_2, holder.btn_3));
         holder.tv_sigalmoney.setText("¥ " + mValues.get(position).getExt().getPrice());
         holder.tv_all.setText("¥ " + mValues.get(position).getTotalPrice());
-        holder.tv_guige.setText(mValues.get(position).getRemarks());
+        holder.tv_guige.setText(mValues.get(position).getExt().getRemark());
         holder.tv_count.setText("x" + mValues.get(position).getExt().getAcount());
         holder.mItem.setCount(mValues.get(position).getOrderStatus());
         Glide.with(mcontent).load(mValues.get(position).getExt().getImgId()).error(R.mipmap.ic_bac).into(holder.image_photo);

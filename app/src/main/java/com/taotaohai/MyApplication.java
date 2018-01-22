@@ -29,7 +29,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        MobSDK.init(this,"MobAppkey","MobAppsecret");
+        MobSDK.init(this,"23dc05ae13bb0","3eb259ebc797e2837c186f481ea90581");
         x.Ext.init(this);
         x.Ext.setDebug(false); //是否输出debug日志，开启debug会影响性能。
 //        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");

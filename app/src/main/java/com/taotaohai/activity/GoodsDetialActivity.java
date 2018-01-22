@@ -410,8 +410,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     int count = 1;
 
     public void onAdd(View view) {
-        if (count > stock) {
+        if (count >= stock) {
             showToast("购买量大于库存");
+
             return;
         }
         count++;
@@ -429,7 +430,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         if (paytype == 0) {
             JsonObject object = new JsonObject();
             object.addProperty("goodsId", goods.getData().getId());
-            object.addProperty("count", "1");
+            object.addProperty("count", count);
             Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
             return;
         }
