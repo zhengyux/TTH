@@ -6,6 +6,7 @@ import android.app.Service;
 import android.content.Intent;
 
 import com.hyphenate.easeui.EaseUI;
+import com.mob.MobSDK;
 import com.taotaohai.activity.Home;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -28,6 +29,7 @@ public class MyApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        MobSDK.init(this,"MobAppkey","MobAppsecret");
         x.Ext.init(this);
         x.Ext.setDebug(false); //是否输出debug日志，开启debug会影响性能。
 //        PlatformConfig.setWeixin("wxdc1e388c3822c80b", "3baf1193c85774b3fd9d18447d76cab0");

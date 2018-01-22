@@ -63,7 +63,6 @@ public class SetActivity extends BaseActivity {
     }
 
     public void onFive(View v) {
-
     }
 
     public void onLogout(View v) {

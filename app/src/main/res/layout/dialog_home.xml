@@ -110,7 +110,7 @@
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/imageView12"
                     android:layout_marginTop="@dimen/gap"
-                    android:text="微信好友" />
+                    android:text="微信朋友圈" />
             </RelativeLayout>
 
         </RelativeLayout>
