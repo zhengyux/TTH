@@ -109,7 +109,8 @@ public class Regist extends BaseActivity {
 
     public void onyanzheng() {
 
-        get("api/auth/sms/" + ed_1.getText().toString().trim(), 100);
+
+        get("api/auth/sms/" + ed_1.getText().toString().trim()+"/0", 100);
     }
 
     @Override
@@ -129,7 +130,6 @@ public class Regist extends BaseActivity {
         Check check = util.getgson(result, Check.class);
         if (check.getSuccess()) {
             scheck = check.getData().getVerifyCode();
-            showToast(scheck);
         }
     }
 

@@ -125,7 +125,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         StringBuffer buffer = new StringBuffer();
 
 
-        if (data.getExt().getOrderId() == null)
+        if (data.getExt().getOrderId() != null)
             buffer.append("订单编号: " + data.getExt().getOrderId() + "\n创建时间：" + data.getGmtCreate());
         if (data.getExt().getGmtDelivery() != null)
             buffer.append("\n支付交易号：" + data.getExt().getDealId()+"\n发货时间："+data.getExt().getGmtDelivery());

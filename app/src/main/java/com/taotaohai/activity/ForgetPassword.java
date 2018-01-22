@@ -76,7 +76,7 @@ public class ForgetPassword extends BaseActivity implements View.OnClickListener
 
     public void onyanzheng() {
 
-        get("api/auth/sms/" + ed_1.getText().toString().trim(), 100);
+        get("api/auth/sms/" + ed_1.getText().toString().trim()+"/1", 100);
     }
 
     @Override
@@ -96,7 +96,6 @@ public class ForgetPassword extends BaseActivity implements View.OnClickListener
         Check check = util.getgson(result, Check.class);
         if (check.getSuccess()) {
             scheck = check.getData().getVerifyCode();
-            showToast(scheck);
         }
     }
 
