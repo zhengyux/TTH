@@ -4,12 +4,20 @@ import android.app.Activity;
 import android.app.Application;
 import android.app.Service;
 import android.content.Intent;
+import android.os.Environment;
 
 import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.taotaohai.activity.Home;
+import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
+import com.tencent.imsdk.TIMLogLevel;
+import com.tencent.imsdk.TIMManager;
+import com.tencent.imsdk.TIMOfflinePushListener;
+import com.tencent.imsdk.TIMOfflinePushNotification;
+import com.tencent.imsdk.TIMSdkConfig;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.tencent.qalsdk.sdk.MsfSdkUtils;
 
 import org.xutils.x;
 
@@ -146,5 +154,36 @@ public class MyApplication extends Application {
             }
         }
     }
+    private void initTecentIM(){
+
+        if(MsfSdkUtils.isMainProcess(this)) {
+            TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
+                @Override
+                public void handleNotification(TIMOfflinePushNotification notification) {
+                    if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
+                        //消息被设置为需要提醒
+                        notification.doNotify(getApplicationContext(), R.mipmap.ic_launcher);
+                    }
+                }
+            });
+        }
+
+
+
+
+
+
+
+        //初始化SDK基本配置                   "sdkAppId"
+        TIMSdkConfig config = new TIMSdkConfig(1)
+                .enableCrashReport(false)
+                .enableLogPrint(true)
+                .setLogLevel(TIMLogLevel.DEBUG)
+                .setLogPath(Environment.getExternalStorageDirectory().getPath() + "/justfortest/");
+
+//初始化SDK
+        TIMManager.getInstance().init(getApplicationContext(), config);
+    }
+
 
 }

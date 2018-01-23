@@ -125,14 +125,25 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         StringBuffer buffer = new StringBuffer();
 
 
-        if (data.getExt().getOrderId() != null)
+        if (null!=data.getExt().getOrderId()){
             buffer.append("订单编号: " + data.getExt().getOrderId() + "\n创建时间：" + data.getGmtCreate());
-        if (data.getExt().getGmtDelivery() != null)
-            buffer.append("\n支付交易号：" + data.getExt().getDealId()+"\n发货时间："+data.getExt().getGmtDelivery());
-        if (data.getExt().getDealTime() != null)
+        }
+
+        if (null!=data.getExt().getDealId()){
+            buffer.append("\n支付交易号：" + data.getExt().getDealId());
+        }
+        if(null!=data.getExt().getGmtDelivery()){
+            buffer.append("\n发货时间："+data.getExt().getGmtDelivery());
+        }
+
+        if (null!=data.getExt().getDealTime()){
             buffer.append("\n付款时间：" + data.getExt().getDealTime());
-        if (data.getExt().getOrderStatus() == 99 && data.getExt().getGmtModify() != null)
+        }
+
+        if (99==data.getExt().getOrderStatus() && null!=data.getExt().getGmtModify()){
             buffer.append("\n确认收货时间：" +data.getExt().getGmtModify());
+        }
+
         tv_14.setText(buffer.toString());
         tv_1.setText("收货人：" + data.getExt().getLinkName());
         GlideUtil.loadImg(data.getExt().getImgId(), image_1);

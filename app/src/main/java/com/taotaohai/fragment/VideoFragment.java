@@ -3,6 +3,8 @@ package com.taotaohai.fragment;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -205,7 +207,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     int pageIndex = 0;//第多少个
 
     private void initdata() {
-
+        isWifi();
         adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
             @Override
             protected void convert(ViewHolder holder, final Video.Data data, int position) {
@@ -322,5 +324,24 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         pageIndex = 0;
         pageSize = 10;
         video = null;
+    }
+
+    private  void isWifi() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
+                .getSystemService(getActivity().CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetInfo = connectivityManager.getActiveNetworkInfo();
+        if (activeNetInfo != null&& activeNetInfo.getType() == ConnectivityManager.TYPE_WIFI) {
+
+            return;
+        }
+        AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+        dialog.setTitle("温馨提示");
+        dialog.setMessage("当前网络不是WIFI状态");
+        dialog.setNegativeButton("确定", (dialog1, which) -> {
+
+        });
+        dialog.setNeutralButton("取消", (dialog1, which) -> {
+        });
+        dialog.show();
     }
 }
