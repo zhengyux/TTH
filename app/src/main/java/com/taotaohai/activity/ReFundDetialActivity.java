@@ -83,7 +83,7 @@ public class ReFundDetialActivity extends BaseActivity {
         if (day != 0 || hour != 0 || minutes != 0) {
             time = time + minutes + ":";
         }
-        time = time + seconds + "交易关闭";
+        time = time + seconds + "平台介入";
         return time;
     }
 }

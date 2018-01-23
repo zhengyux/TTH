@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.alipay.sdk.app.PayTask;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Car;
@@ -246,10 +248,14 @@ public class OrderSureActivity extends BaseActivity {
             return;
         }
         if (postcode == 22) {
-            final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+            Log.e("tag", "onSuccess: "+result );
+            IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+            msgApi.registerApp(ConstantValue.APP_ID);
+
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
-            msgApi.registerApp(wXpay.getData().getAppid());
+           // msgApi.registerApp(wXpay.getData().getAppid());
+
             PayReq request = new PayReq();
             request.appId = wXpay.getData().getAppid();
             request.partnerId = wXpay.getData().getPartnerid();

@@ -539,7 +539,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         if (day != 0 || hour != 0 || minutes != 0) {
             time = time + minutes + ":";
         }
-        time = time + seconds;
+        if(data.getOrderStatus() == 1){
+            time = time + seconds+"关闭交易";
+        }
+        if(data.getOrderStatus() == 3){
+            time = time + seconds+"自动收货";
+        }
         return time;
     }
 
