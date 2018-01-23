@@ -55,12 +55,14 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
 
-                    Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(),"取消支付",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
                     finish();
                     break;
                 case BaseResp.ErrCode.ERR_COMM:
 
                     Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
                     finish();
                     break;
             }

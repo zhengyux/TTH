@@ -4,7 +4,7 @@ package com.taotaohai;
 public interface ConstantValue {
 
     public String ENCONDING = "utf-8";
-    public static final String APP_ID = "wx37057309fa439183";
+    public static final String APP_ID = "wx9c64d6a65c7632a5";
     public static final String APP_SECRET = "a0d6a7d5b32d360d868d75f402ccfd23";
     public static final String APP_KEY = "U6FaRdjDsOHE3UO6Co0pI0tP";
     public static String version_number = "1.0.0";

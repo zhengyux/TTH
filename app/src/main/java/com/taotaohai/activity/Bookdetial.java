@@ -132,7 +132,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         if (data.getExt().getDealTime() != null)
             buffer.append("\n付款时间：" + data.getExt().getDealTime());
         if (data.getExt().getOrderStatus() == 99 && data.getExt().getGmtModify() != null)
-            buffer.append(data.getExt().getGmtModify());
+            buffer.append("\n确认收货时间：" +data.getExt().getGmtModify());
         tv_14.setText(buffer.toString());
         tv_1.setText("收货人：" + data.getExt().getLinkName());
         GlideUtil.loadImg(data.getExt().getImgId(), image_1);
