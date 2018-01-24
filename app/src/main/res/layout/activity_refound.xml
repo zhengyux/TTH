@@ -185,7 +185,7 @@
                 android:layout_marginRight="30px"
                 android:background="@null"
                 android:gravity="top"
-                android:hint="请输入退款说明"
+                android:hint="请输入退款说明和快递单号"
                 android:lineSpacingExtra="5px"
                 android:maxLength="255"
                 android:paddingTop="10px"

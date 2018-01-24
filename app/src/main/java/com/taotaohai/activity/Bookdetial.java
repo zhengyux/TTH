@@ -441,6 +441,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 3:
+                Log.e("tag", "conlick1: "+data.getExt().getTotalPrice() +data.getTotalPrice());
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 4://再次购买

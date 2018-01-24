@@ -74,6 +74,7 @@ public class Refund extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         data = (Book.Data) getIntent().getSerializableExtra("data");
+
         init();
 
     }
@@ -110,7 +111,7 @@ public class Refund extends BaseActivity {
         tv_sigalmoney.setText("￥：" + data.getExt().getPrice());
         tv_28.setText("/" + data.getExt().getUnit());
         tv_count.setText("x" + data.getExt().getAcount());
-        tv_money.setText("￥" + data.getExt().getTotalPrice());
+        tv_money.setText("￥" + data.getTotalPrice());
 
 
         gridviewInit();
@@ -242,9 +243,7 @@ public class Refund extends BaseActivity {
                 holder.bt.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View v) {
-//                        drr.remove(sign);
                         images.remove(sign);
-                        PhotoActivity.bitmap.remove(sign);
                         gridviewInit();
                     }
                 });
@@ -371,7 +370,7 @@ public class Refund extends BaseActivity {
 
     public void onComment(View view) {
         image_urls.clear();
-        showSpot();
+   //     showSpot();
         final HashMap<String, String> has = new HashMap<>();
         has.put("name", "file");
         if (images.size() == 0) {

@@ -7,15 +7,13 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.andview.refreshview.XRefreshView;
 import com.taotaohai.R;
 import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
@@ -26,32 +24,32 @@ import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.Video;
 import com.taotaohai.myview.BadgeView;
+import com.taotaohai.myview.XListView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
-import com.taotaohai.widgets.MultipleStatusView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
-import com.zhy.adapter.recyclerview.CommonAdapter;
-import com.zhy.adapter.recyclerview.base.ViewHolder;
 
 import org.xutils.http.HttpMethod;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class VideoFragment extends BaseFragment implements View.OnClickListener {
+public class VideoFragment extends BaseFragment implements View.OnClickListener,XListView.IXListViewListener {
     String key = "";
-    private RecyclerView recyclerView;
-    private XRefreshView xrefreshview;
-    private MultipleStatusView mMsvLayout;
-    private CommonAdapter adapter;
+
     private Video video;
     int totle = 0;
-    private ImageView v_car_image;
+
     private RelativeLayout screlativeLayout;
     private RelativeLayout msrelativeLayout;
-    NiceVideoPlayer niceVideoPlayer;
+    private Myadapter myadapter;
+    private XListView xListView;
+
 
     private static VideoFragment fragment;
 
@@ -74,7 +72,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     }
 
     void inithttpdata() {
-        mMsvLayout.loading();
+//        mMsvLayout.loading();
         has.clear();
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
@@ -114,18 +112,23 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
                 if (video.getSuccess()) {
-                    initdata();
+  //                  initdata();
+                    xListView.setAdapter(myadapter);
                     totle = video.getData().getTotal();
                 }
                 pageIndex += 1;//第多少个
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {
-                    video.getData().getData().addAll(video2.getData().getData());
-                    adapter.notifyDataSetChanged();
-                    xrefreshview.stopLoadMore();
+         //           video.getData().getData().addAll(video2.getData().getData());
+                    video=video2;
+                    myadapter.notifyDataSetChanged();
+                    xListView.stopLoadMore();
+                    xListView.stopRefresh();
                 } else {
-                    xrefreshview.setLoadComplete(true);
+                    myadapter.notifyDataSetChanged();
+                    xListView.stopLoadMore();
+                    xListView.stopRefresh();
                 }
             }
         }
@@ -134,13 +137,13 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onFinished(int code) {
         super.onFinished(code);
-        xrefreshview.stopRefresh();
+        xListView.stopRefresh();
         if (video == null) {
-            mMsvLayout.error();
+
         } else if (video.getData().getData().size() == 0) {
-            mMsvLayout.empty();
+
         } else {
-            mMsvLayout.setVisibility(View.GONE);
+
         }
     }
 
@@ -173,106 +176,34 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.fragment_video, container, false);
-//        addview(inflater, view, container);
         initview(view);
         inithttp();
         return view;
     }
 
+
     private void initview(View view) {
+        xListView = (XListView) view.findViewById(R.id.xlistview);
+        xListView.setPullLoadEnable(true);
+        xListView.setPullRefreshEnable(true);
+        xListView.setXListViewListener(this);
+        xListView.setRefreshTime(new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ").format(new Date(System.currentTimeMillis()) ));
+        myadapter = new Myadapter();
+
         view.findViewById(R.id.search_).setOnClickListener(this);
         screlativeLayout = (RelativeLayout) view.findViewById(R.id.vrelativeLayout2);
         screlativeLayout.setOnClickListener(this);
-        v_car_image = (ImageView) view.findViewById(R.id.v_car_image);
+
 
         msrelativeLayout = (RelativeLayout) view.findViewById(R.id.vrelativeLayout3);
         msrelativeLayout.setOnClickListener(this);
-        mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
-        mMsvLayout.setOnClickListener((l) -> {
-            if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
-                inithttp();
-            }
-        });
-
-        xrefreshview = (XRefreshView) view.findViewById(R.id.xrefreshview);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
-        xrefreshview.setPullLoadEnable(true);
-        recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
 
     }
 
     int pageSize = 10;
     int pageIndex = 0;//第多少个
 
-    private void initdata() {
-        isWifi();
-        adapter = new CommonAdapter<Video.Data>(getActivity(), R.layout.item_list, video.getData().getData()) {
-            @Override
-            protected void convert(ViewHolder holder, final Video.Data data, int position) {
-
-                niceVideoPlayer = holder.getView(R.id.niceplayer);
-                niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
-                niceVideoPlayer.setUp(data.getVideoAbsUrl(), null);
-                TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
-                controller.textsetviso();
-                GlideUtil.loadImg(data.getImageAbsUrl(), controller.imageView());
-                niceVideoPlayer.setController(controller);
-                holder.setText(R.id.tv_count, "播放" + data.getPlayNum() + "次");
-                holder.setText(R.id.tv_title, data.getDescribe());
-                holder.setText(R.id.tv_updata, data.getUploadTime() + "更新");
-                holder.setOnClickListener(R.id.tv_play, (l) -> {
-
-                    if (niceVideoPlayer.isPlaying()) return;
-//                    controller.onClick(null);
-                    holder.setVisible(R.id.tv_play, false);
-                    niceVideoPlayer.start();
-                    get("api/video/player/" + data.getId(), 15);
-
-                });
-
-
-
-            }
-        };
-        // 设置静默加载模式
-        xrefreshview.setSilenceLoadMore(false);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.setAdapter(adapter);
-        xrefreshview.setPinnedTime(1000);
-        xrefreshview.setMoveForHorizontal(true);
-//        recyclerviewAdapter.setCustomLoadMoreView(new XRefreshViewFooter(this));
-//		xRefreshView1.setPullLoadEnable(false);
-        //设置静默加载时提前加载的item个数
-//        xrefreshview.setPreLoadCount(4);
-        xrefreshview.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
-            @Override
-            public void onRefresh(boolean isPullDown) {
-                super.onRefresh(isPullDown);
-                pageIndex = 0;//第多少个
-                inithttpdata();
-                xrefreshview.stopRefresh();
-                xrefreshview.stopLoadMore();
-            }
-
-            @Override
-            public void onLoadMore(boolean isSilence) {
-                super.onLoadMore(isSilence);
-//                if (pageIndex >= totle) {
-//                    xrefreshview.setLoadComplete(true);
-//                    return;
-//                }
-//                pageIndex = 0;//第多少个
-//                inithttpdata();
-                xrefreshview.stopRefresh();
-                xrefreshview.stopLoadMore();
-            }
-        });
-
-
-    }
 
     //切换fragment走的方法
 
@@ -282,11 +213,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
 
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
 
-        if(niceVideoPlayer.isPlaying()){
-
-                niceVideoPlayer.pause();
-
-        }
 
     }
 
@@ -344,4 +270,88 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener 
         });
         dialog.show();
     }
+
+    @Override
+    public void onRefresh() {
+        pageIndex = 0;//第多少个
+        xListView.setRefreshTime(new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ").format(new Date(System.currentTimeMillis()) ));
+        inithttpdata();
+    }
+
+    @Override
+    public void onLoadMore() {
+        pageIndex = video.getData().getData().size();//第多少个
+        inithttpdata();
+        xListView.stopLoadMore();
+    }
+
+
+    class Myadapter extends BaseAdapter{
+
+
+        @Override
+        public int getCount() {
+            return video.getData().getData().size();
+        }
+
+        @Override
+        public Object getItem(int i) {
+            return video.getData().getData().get(i);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+
+            ViewHolder viewHolder ;
+            if (view == null) {
+                viewHolder = new ViewHolder();
+                view = LayoutInflater.from(getActivity()).inflate(R.layout.item_list, null);
+                viewHolder.niceVideoPlayer = (NiceVideoPlayer) view.findViewById(R.id.niceplayer);
+                viewHolder.tv_count = (TextView) view.findViewById(R.id.tv_count);
+                viewHolder.tv_title = (TextView) view.findViewById(R.id.tv_title);
+                viewHolder.tv_updata = (TextView) view.findViewById(R.id.tv_updata);
+                viewHolder.tv_play = (TextView) view.findViewById(R.id.tv_play);
+
+
+
+
+
+                view.setTag(viewHolder);
+            }else {
+
+                viewHolder = (ViewHolder) view.getTag();
+            }
+            viewHolder.niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
+            viewHolder.niceVideoPlayer.setUp(video.getData().getData().get(i).getVideoAbsUrl(), null);
+            TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());
+            controller.textsetviso();
+            GlideUtil.loadImg(video.getData().getData().get(i).getImageAbsUrl(), controller.imageView());
+            viewHolder.niceVideoPlayer.setController(controller);
+            viewHolder.tv_count.setText("播放" + video.getData().getData().get(i).getPlayNum() + "次");
+            viewHolder.tv_title.setText(video.getData().getData().get(i).getDescribe());
+            viewHolder.tv_updata.setText(video.getData().getData().get(i).getUploadTime() + "更新");
+
+
+
+            return view;
+        }
+
+
+        class ViewHolder {
+            NiceVideoPlayer niceVideoPlayer;
+            TextView tv_count;
+            TextView tv_title;
+            TextView tv_updata;
+            TextView tv_play;
+
+
+        }
+    }
+
+
 }

@@ -157,6 +157,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     public void onListFragmentButton2(Book.Data item) {//第2个按钮
         if (item.getCount() == 99) {
             this.itemBookFragment = mFragments.get(0);
+
         } else {
             this.itemBookFragment = mFragments.get(item.getCount());
         }
@@ -164,7 +165,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         this.item = item;
         switch (item.getCount()) {
 
-            case 1:
+            case 1://立即购买
                 showpay(item.getTotalPrice());
                 break;
             case 2:
@@ -177,9 +178,10 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 startActivity(new Intent(MyBook.this, Evaluation.class)
                         .putExtra("id", item.getExt().getOrderId())
                 );
+                break;
             case 99://删除
                 isdelect = true;
- //               showDialog2("删除后不能恢复", "订单删除");
+                showDialog2("删除后不能恢复", "订单删除");
                 break;
 
         }
@@ -332,7 +334,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     protected void sure() {
         super.sure();
         if (isdelect) {
-            Http(HttpMethod.DELETE, "api/goodsorder/" + item.getId(), 99);
+            Http(HttpMethod.DELETE, "api/goodsorder/" + item.getId(), 999);
             isdelect = false;
         } else {
             has.clear();
@@ -373,7 +375,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         if(postcode == 11){
             showToast("提醒成功");
         }
-        if (postcode == 99) {
+        if (postcode == 999) {
             itemBookFragment.inithttp();
             showToast("删除成功");
             return;

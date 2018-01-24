@@ -9,12 +9,17 @@ import android.os.Environment;
 import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.taotaohai.activity.Home;
+import com.tencent.imsdk.TIMConnListener;
+import com.tencent.imsdk.TIMConversation;
 import com.tencent.imsdk.TIMGroupReceiveMessageOpt;
 import com.tencent.imsdk.TIMLogLevel;
 import com.tencent.imsdk.TIMManager;
 import com.tencent.imsdk.TIMOfflinePushListener;
 import com.tencent.imsdk.TIMOfflinePushNotification;
+import com.tencent.imsdk.TIMRefreshListener;
 import com.tencent.imsdk.TIMSdkConfig;
+import com.tencent.imsdk.TIMUserConfig;
+import com.tencent.imsdk.TIMUserStatusListener;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.tencent.qalsdk.sdk.MsfSdkUtils;
@@ -168,14 +173,8 @@ public class MyApplication extends Application {
             });
         }
 
-
-
-
-
-
-
         //初始化SDK基本配置                   "sdkAppId"
-        TIMSdkConfig config = new TIMSdkConfig(1)
+        TIMSdkConfig config = new TIMSdkConfig(ConstantValue.SDKAPP_ID)
                 .enableCrashReport(false)
                 .enableLogPrint(true)
                 .setLogLevel(TIMLogLevel.DEBUG)
@@ -184,6 +183,51 @@ public class MyApplication extends Application {
 //初始化SDK
         TIMManager.getInstance().init(getApplicationContext(), config);
     }
+
+    private void setUserConfig(){
+        //基本用户配置
+        TIMUserConfig userConfig = new TIMUserConfig();
+        userConfig.setUserStatusListener(new TIMUserStatusListener() {
+            @Override
+            public void onForceOffline() {
+
+            }
+
+            @Override
+            public void onUserSigExpired() {
+
+            }
+        }).setConnectionListener(new TIMConnListener() {
+            @Override
+            public void onConnected() {
+
+            }
+
+            @Override
+            public void onDisconnected(int i, String s) {
+
+            }
+
+            @Override
+            public void onWifiNeedAuth(String s) {
+
+            }
+        }).setRefreshListener(new TIMRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+            }
+
+            @Override
+            public void onRefreshConversation(List<TIMConversation> list) {
+
+            }
+        });
+
+//将用户配置与通讯管理器进行绑定
+        TIMManager.getInstance().setUserConfig(userConfig);
+    }
+
 
 
 }

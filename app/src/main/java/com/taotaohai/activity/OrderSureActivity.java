@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -248,7 +247,6 @@ public class OrderSureActivity extends BaseActivity {
             return;
         }
         if (postcode == 22) {
-            Log.e("tag", "onSuccess: "+result );
             IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
             msgApi.registerApp(ConstantValue.APP_ID);
 
