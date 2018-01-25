@@ -62,5 +62,13 @@
         android:text="确定"
         android:textColor="@color/them"
         tools:ignore="HardcodedText,RtlHardcoded" />
+    <Button
+        android:id="@+id/dialog_cancel"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:background="@null"
+        android:text="取消"
+        android:textColor="@color/them"
+        tools:ignore="HardcodedText,RtlHardcoded" />
 
 </LinearLayout>

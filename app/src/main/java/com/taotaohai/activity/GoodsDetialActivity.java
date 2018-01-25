@@ -7,12 +7,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -55,7 +58,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     int stata = 1;
     int buynum = 1;
     int stock = 0;
-    TextView tv_defult, tv_title, tv_num, tv_num2, tv_count, tv_util, tv_dis, tv_dis2, tv_name, tv_scor, tv_goods, tv_source, tv_people;
+    TextView tv_defult, tv_title, tv_num, tv_count, tv_util, tv_dis, tv_dis2, tv_name, tv_scor, tv_goods, tv_source, tv_people;
+    private EditText tv_num2;
     View view_defult;
     private TextView tv_1;
     private TextView tv_2;
@@ -313,7 +317,28 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         rela_buy = findViewById(R.id.rela_buy);
         lin_10 = (LinearLayout) headview.findViewById(R.id.lin_10);
         tv_num = (TextView) headview.findViewById(R.id.tv_num);
-        tv_num2 = (TextView) findViewById(R.id.tv_num);
+        tv_num2 = (EditText) findViewById(R.id.tv_num);
+        tv_num2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                count=Integer.valueOf(tv_num2.getText().toString().trim());
+                if (count > stock) {
+                    showToast("库存不足");
+
+                    return;
+                }
+            }
+        });
         tv_title = (TextView) headview.findViewById(R.id.tv_title);
         tv_dis = (TextView) headview.findViewById(R.id.tv_dis);
         tv_dis2 = (TextView) headview.findViewById(R.id.tv_dis2);

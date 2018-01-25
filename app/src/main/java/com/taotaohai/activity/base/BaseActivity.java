@@ -438,6 +438,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         tv_title.setText(title);
         textView.setText(st);
         dialog.setOnDismissListener(dialog -> backgroundAlpha(1));
+        dialog.findViewById(R.id.dialog_cancel).setOnClickListener(v -> dialog.dismiss());
         dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
         dialog.findViewById(R.id.sure).setOnClickListener(v -> sure());
         dialog.show();
