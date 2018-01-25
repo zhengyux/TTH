@@ -2,6 +2,7 @@ package com.taotaohai.fragment;
 
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -49,6 +50,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     private RelativeLayout msrelativeLayout;
     private Myadapter myadapter;
     private XListView xListView;
+    CallBackValue callBackValue;
 
 
     private static VideoFragment fragment;
@@ -62,6 +64,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     public VideoFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        callBackValue =(CallBackValue) getActivity();
     }
 
     @Override
@@ -179,6 +187,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         RelativeLayout view = (RelativeLayout) inflater.inflate(R.layout.fragment_video, container, false);
         initview(view);
         inithttp();
+        callBackValue.SendMessageValue(1);
         return view;
     }
 
@@ -198,6 +207,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
         msrelativeLayout = (RelativeLayout) view.findViewById(R.id.vrelativeLayout3);
         msrelativeLayout.setOnClickListener(this);
+        isWifi();
 
     }
 
@@ -211,6 +221,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
 
+        callBackValue.SendMessageValue(1);
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
 
 
@@ -351,7 +362,11 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
 
         }
-    }
 
+    }
+    //定义一个回调接口
+    public interface CallBackValue{
+        public void SendMessageValue(int intValue);
+    }
 
 }

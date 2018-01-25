@@ -15,11 +15,12 @@ import com.taotaohai.fragment.HomeFragment;
 import com.taotaohai.fragment.MineFragment;
 import com.taotaohai.fragment.VideoFragment;
 import com.taotaohai.util.SPUtils;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Home extends BaseActivity {
+public class Home extends BaseActivity implements VideoFragment.CallBackValue{
 
 
     private List<TabViewChild> tabViewChildList;
@@ -83,7 +84,17 @@ public class Home extends BaseActivity {
 
     private long mExitTime;
 
+//对home监听
+    @Override
+    protected void onUserLeaveHint() {
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+        super.onUserLeaveHint();
+
+    }
+
     public boolean onKeyDown(int keyCode, KeyEvent event) {
+
+
 
 
         if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -91,6 +102,9 @@ public class Home extends BaseActivity {
                 Object mHelperUtils;
                 Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 mExitTime = System.currentTimeMillis();
+                if(fragment==1){
+                    NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+                }
 
             } else {
                 finish();
@@ -108,5 +122,12 @@ public class Home extends BaseActivity {
     @Override
     public void onError(Throwable ex, int postcode) {
 
+    }
+
+    int fragment = 0;
+
+    @Override
+    public void SendMessageValue(int intValue) {
+            fragment=intValue;
     }
 }
