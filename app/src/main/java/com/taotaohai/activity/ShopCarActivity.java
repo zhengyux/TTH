@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.taotaohai.R;
@@ -143,6 +144,11 @@ public class ShopCarActivity extends BaseActivity {
             final TextView tv_edit = (TextView) convertView.findViewById(R.id.tv_edit);
             final View rela_edit = convertView.findViewById(R.id.rela_edit);
             TextView tv_price = (TextView) convertView.findViewById(R.id.tv_price);
+            RelativeLayout relativeLayout = (RelativeLayout) convertView.findViewById(R.id.relativeLayout);
+            relativeLayout.setOnClickListener(l->{
+                startActivity(new Intent(ShopCarActivity.this, GoodsDetialActivity.class)
+                        .putExtra("id", car.getData().getData().get(position).getGoodsId()));
+            });
             TextView tv_guige = (TextView) convertView.findViewById(R.id.tv_guige);
             TextView text_title = (TextView) convertView.findViewById(R.id.text_title);
             TextView text_content = (TextView) convertView.findViewById(R.id.text_content);
@@ -155,6 +161,13 @@ public class ShopCarActivity extends BaseActivity {
             tv_guige.setText(car.getData().getData().get(position).getRemark());
             tv_util.setText("/" + car.getData().getData().get(position).getUnit());
             text_title.setText(car.getData().getData().get(position).getShopName());
+            text_title.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    startActivity(new Intent(ShopCarActivity.this, ShopActivity.class)
+                            .putExtra("id", car.getData().getData().get(position).getShopId()));
+                }
+            });
             GlideUtil.loadImg(car.getData().getData().get(position).getImgId(), image_photo);
             int count = car.getData().getData().get(position).getCount();
             if (count == 0) {

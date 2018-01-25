@@ -13,7 +13,7 @@
         <TextView
             android:id="@+id/tv_name"
             style="@style/text30"
-            android:text="欧基金"
+            android:text=""
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
-            android:text="欧基金"
+            android:text=""
             tools:ignore="HardcodedText" />
 
         <TextView
@@ -32,7 +32,7 @@
             android:layout_alignParentStart="true"
             android:layout_below="@+id/tv_name"
             android:layout_marginTop="@dimen/gap"
-            android:text="欧基金欧基金欧基金欧基金欧基金"
+            android:text=""
             android:textColor="@color/text_black"
             tools:ignore="HardcodedText" />
 

@@ -96,7 +96,7 @@
                 android:layout_alignTop="@+id/image_photo"
                 android:layout_toEndOf="@+id/image_photo"
                 android:maxLines="1"
-                android:text="野生黑鱼好吃又好卖"
+                android:text=""
                 android:textColor="@color/text_black"
                 android:textSize="26px"
                 tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />
@@ -207,7 +207,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_marginBottom="@dimen/gap"
-                        android:text="野生黑鱼好吃又好卖"
+                        android:text=""
                         android:textColor="@color/text_black"
                         android:textSize="26px"
                         tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />

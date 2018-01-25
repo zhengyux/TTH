@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
@@ -69,6 +70,15 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
         listview_seach_book.setOnItemClickListener(this);
     }
 
+    private void hintKbTwo() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+        if(imm.isActive()&&getCurrentFocus()!=null){
+            if (getCurrentFocus().getWindowToken()!=null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
+
 
     @Override
     public void onClick(View view) {
@@ -85,6 +95,8 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
                    showToast("输入搜索关键字");
                    return;
                 }
+                hintKbTwo();
+
                 String key = edit_search_book.getText().toString().trim();
                 try {
 

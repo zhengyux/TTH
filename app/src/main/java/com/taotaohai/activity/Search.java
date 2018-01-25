@@ -2,6 +2,7 @@ package com.taotaohai.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -34,10 +35,20 @@ public class Search extends BaseActivity {
     public static String key = "";
 
     public void onCancle(View view) {
-        key = editText.getText().toString();
-        f2.gotosearch();
+        hintKbTwo();
+            key = editText.getText().toString();
+            f2.gotosearch();
+
     }
 
+    private void hintKbTwo() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(this.INPUT_METHOD_SERVICE);
+        if(imm.isActive()&&getCurrentFocus()!=null){
+            if (getCurrentFocus().getWindowToken()!=null) {
+                imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
+    }
     public void onBack(View view) {
         finish();
     }

@@ -101,7 +101,7 @@ public class ShopIn extends BaseActivity {
 
     public void onyanzheng() {
 
-        get("api/auth/sms/" + edit_phone.getText().toString().trim()+"/0", 100);
+        get("api/auth/sms/" + edit_phone.getText().toString().trim()+"/2", 100);
     }
 
     String scheck = "";

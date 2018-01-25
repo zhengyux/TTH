@@ -1,22 +1,18 @@
 package com.taotaohai.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.bumptech.glide.util.Util;
 import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Address;
-import com.taotaohai.bean.Check;
 import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
@@ -136,11 +132,7 @@ public class AddressManeger extends BaseActivity {
             checkBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if (checkBox.isChecked()) {
-//
-//                    } else {
-//
-//                    }
+
                     JsonObject jsonObject = new JsonObject();
                     jsonObject.addProperty("isdefault", "true");
                     jsonObject.addProperty("linkName", data.getLinkName());

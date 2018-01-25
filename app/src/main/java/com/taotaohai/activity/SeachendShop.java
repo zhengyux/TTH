@@ -15,6 +15,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
@@ -22,8 +23,10 @@ import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
+import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.ShopList;
 import com.taotaohai.bean.ShopListSearch;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.zhy.adapter.recyclerview.CommonAdapter;
@@ -42,6 +45,8 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     private XRefreshView xrefreshview;
     private RecyclerView recyclerView;
+    private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
 
     String requesttype = "0";
     List<ShopList.Data> shoplist;
@@ -96,6 +101,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void inithttp() {
+        get("/api/shopCar/shop_car_num",20);
         if (getintent("name").length() != 0) {
             name = getintent("name");
             getDataByName();
@@ -141,7 +147,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        if(postcode==998||postcode==999){
+        if (postcode == 998 || postcode == 999) {
             String[] st = ex.toString().split("result:");
             if (st.length > 1) {
                 util.isSuccess(util.getgson(st[1], BaseBean.class));
@@ -168,10 +174,23 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
 
-        if(postcode==999){
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+
+        if (postcode == 999) {
             startActivity(new Intent(SeachendShop.this, MessageActivity.class));
         }
-        if(postcode==998){
+        if (postcode == 998) {
             startActivity(new Intent(SeachendShop.this, ShopCarActivity.class));
         }
 
@@ -200,25 +219,25 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
     private void initview() {
         EditText edit_search = (EditText) findViewById(R.id.edit_search);
 
-        if(getIntent().getStringExtra("name")!=null){
+        if (getIntent().getStringExtra("name") != null) {
             edit_search.setText(getIntent().getStringExtra("name"));
-        }else if (getIntent().getStringExtra("cityname")!=null){
+        } else if (getIntent().getStringExtra("cityname") != null) {
             edit_search.setText(getIntent().getStringExtra("cityname"));
-        }else if(getIntent().getStringExtra("distance")!=null){
+        } else if (getIntent().getStringExtra("distance") != null) {
             Log.e("tag", getIntent().getStringExtra("distance"));
-            switch (getIntent().getStringExtra("distance")){
+            switch (getIntent().getStringExtra("distance")) {
                 case "0":
-                edit_search.setText("0~100km");
-                break;
+                    edit_search.setText("0~100km");
+                    break;
                 case "1":
-                edit_search.setText("100~300km");
-                break;
+                    edit_search.setText("100~300km");
+                    break;
                 case "2":
-                edit_search.setText("300~500km");
-                break;
+                    edit_search.setText("300~500km");
+                    break;
                 case "3":
-                edit_search.setText("500km以上");
-                break;
+                    edit_search.setText("500km以上");
+                    break;
             }
 
         }
@@ -242,15 +261,11 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         });
 
 
-        findViewById(R.id.rela_message).
+        rela_message = (RelativeLayout) findViewById(R.id.rela_message);
+        rela_message.setOnClickListener(v -> get("api/user/", 999));
 
-                setOnClickListener(v -> get("api/user/",999));
-
-        findViewById(R.id.rela_shopcar).
-
-                setOnClickListener(v ->
-                                get("api/user/",998)
-                       );
+        rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
+        rela_shopcar.setOnClickListener(v -> get("api/user/", 998));
         findViewById(R.id.back).setOnClickListener(this);
 
         xrefreshview = (XRefreshView)
