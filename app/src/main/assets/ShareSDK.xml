@@ -42,7 +42,7 @@
 		BypassApproval="false"
 		ShareByAppClient="true"
 		Enable="true" />
-    
+
     <QZone
         Id="3"
         SortId="3"
