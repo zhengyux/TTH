@@ -23,6 +23,7 @@ import com.bigkoo.pickerview.OptionsPickerView;
 import com.flyco.tablayout.SlidingTabLayout;
 import com.flyco.tablayout.listener.OnTabSelectListener;
 import com.google.gson.JsonObject;
+import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
@@ -420,12 +421,12 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
-            msgApi.registerApp("wx37057309fa439183");
+            msgApi.registerApp(ConstantValue.APP_ID);
             PayReq request = new PayReq();
-            request.appId = "wx37057309fa439183";
+            request.appId = wXpay.getData().getAppid();
             request.partnerId = wXpay.getData().getPartnerid();
             request.prepayId = wXpay.getData().getPrepayid();
-            request.packageValue = "Sign=WXPay";
+            request.packageValue = wXpay.getData().getMpackage();
             request.nonceStr = wXpay.getData().getNoncestr();
             request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
             request.sign = wXpay.getData().getSign();

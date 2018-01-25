@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -448,6 +449,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
             tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
             view.findViewById(R.id.rela_all).setOnClickListener((l) -> {
+                Log.e("tag", "getView: "+hotshop.getData().get(position).getId());
                 startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
             });
 

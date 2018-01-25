@@ -19,6 +19,7 @@ import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.JsonObject;
 import com.hyphenate.easeui.EaseConstant;
+import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -221,7 +222,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
-            msgApi.registerApp(wXpay.getData().getAppid());
+            msgApi.registerApp(ConstantValue.APP_ID);
             PayReq request = new PayReq();
             request.appId = wXpay.getData().getAppid();
             request.partnerId = wXpay.getData().getPartnerid();
