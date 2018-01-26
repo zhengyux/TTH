@@ -19,6 +19,7 @@ public interface ConstantValue {
      */
     public String URL = "http://taotaohai.lmlm.cn/";//测试域名
 
+//    public String URL = "http://www.taotaohai.com/";//测试域名
     /**
      * 图片请求接口
      */

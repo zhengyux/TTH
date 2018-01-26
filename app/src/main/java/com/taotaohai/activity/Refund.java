@@ -266,6 +266,7 @@ public class Refund extends BaseActivity {
         gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 ((InputMethodManager) getSystemService(INPUT_METHOD_SERVICE))
                         .hideSoftInputFromWindow(Refund.this
                                         .getCurrentFocus().getWindowToken(),
@@ -279,6 +280,7 @@ public class Refund extends BaseActivity {
 //                        showDialogs(view);
                         CommonUtils.launchActivityForResult(Refund.this, PhotoSelectorActivity.class, 0, images.size(), images);
                     } else {
+                        PhotoActivity.bitmap.add(images.get(position));
                         Intent intent = new Intent(getApplicationContext(),
                                 PhotoActivity.class);
                         intent.putExtra("ID", position);
@@ -338,9 +340,9 @@ public class Refund extends BaseActivity {
                     return;
                 StringBuffer sb = new StringBuffer();
                 for (PhotoModel photo : photos) {
-//                    drr.add((photo.getOriginalPath()));
+
                     images.add((photo.getOriginalPath()));
-                    PhotoActivity.bitmap.add(photo.getOriginalPath());
+
                 }
                 gridviewInit();
                 adapter.notifyDataSetChanged();
