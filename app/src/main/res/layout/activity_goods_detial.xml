@@ -246,6 +246,7 @@
                         android:layout_marginRight="@dimen/gap"
                         android:layout_marginTop="@dimen/gap"
                         android:layout_toStartOf="@+id/imageView22"
+                        android:digits="1234567890"
                         android:background="#f5f5f5"
                         android:gravity="center"
                         android:paddingLeft="@dimen/gap"

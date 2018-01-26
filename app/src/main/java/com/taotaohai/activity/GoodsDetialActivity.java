@@ -331,7 +331,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void afterTextChanged(Editable editable) {
-                count=Integer.valueOf(tv_num2.getText().toString().trim());
+                count=Integer.parseInt(tv_num2.getText().toString().trim());
+
                 if (count > stock) {
                     showToast("库存不足");
 

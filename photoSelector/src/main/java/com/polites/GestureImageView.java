@@ -29,7 +29,6 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -576,7 +575,6 @@ public class GestureImageView extends AppCompatImageView {
 				}
 			}
 			catch (Exception e) {
-				Log.w("GestureImageView", "Unable to open content: " + mUri, e);
 			}
 		}
 		else {
@@ -584,7 +582,7 @@ public class GestureImageView extends AppCompatImageView {
 		}
 
 		if (drawable == null) {
-			Log.e("GestureImageView", "resolveUri failed on bad bitmap uri: " + mUri);
+
 			// Don't try again.
 			mUri = null;
 		}
