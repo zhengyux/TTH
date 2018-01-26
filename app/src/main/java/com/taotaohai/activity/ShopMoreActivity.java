@@ -83,17 +83,36 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onSuccess(String result, int postcode) {
-        super.onSuccess(result, postcode);
+
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+        }
+        if(postcode==999){
+            startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class));
+        }
+
+        if(postcode==998){
+            startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class));
+
+        }
+
         shopList = util.getgson(result, ShopList.class);
         initdata();//初始化数据
         switch (postcode) {
             case 999:
 
-                startActivity(new Intent(ShopMoreActivity.this, MessageActivity.class));
+
                 break;
 
             case 998:
-                startActivity(new Intent(ShopMoreActivity.this, ShopCarActivity.class));
 
                 break;
             case 0:
@@ -117,15 +136,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 break;
             case 20:
 
-                    ShopCarNum shopCarNum = new ShopCarNum();
-                    shopCarNum = util.getgson(result,ShopCarNum.class);
-                    if(shopCarNum.getData()!="0"){
-                        BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
-                        badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                        badgeView.setTextSize(9);// 设置文本大小
-                        badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
-                        badgeView.show();// 将角标显示出来
-                    }
+
 
 
                 break;

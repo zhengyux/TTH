@@ -96,29 +96,6 @@ public class Evaluation extends BaseActivity {
     int count2 = 0;
     int count = 0;
 
-//    @Override
-//    protected void imageSucceedHasSmall(String result, String which) {
-//        super.imageSucceedHasSmall(result, which);
-//        Gson gson = new Gson();
-//        ImageHasSmall imageHasSmall = gson.fromJson(result, ImageHasSmall.class);
-//        drr.add(imageHasSmall);
-//        count1++;
-//        if (count1 == 3) {
-//            count1 = 0;
-//            isOK = true;
-//        }
-//        if (drr.size() == images.size()) {
-//            pot();
-//        }
-//    }lianxi
-
-//
-//    @Override
-//    protected void imageSucceed(String image, String which) {
-//        super.imageSucceed(image, which);
-//        images_url.add(image);
-//
-//    }
 
     public class GridAdapter extends BaseAdapter {
         private LayoutInflater listContainer;
@@ -218,7 +195,7 @@ public class Evaluation extends BaseActivity {
                 holder.bt.setOnClickListener(v -> {
 //                        drr.remove(sign);
                     images.remove(sign);
-                    PhotoActivity.bitmap.remove(sign);
+
                     gridviewInit();
                 });
             }
@@ -253,6 +230,7 @@ public class Evaluation extends BaseActivity {
 //                        showDialogs(view);
                         CommonUtils.launchActivityForResult(Evaluation.this, PhotoSelectorActivity.class, 0, images.size(), images);
                     } else {
+                        PhotoActivity.bitmap.add(images.get(position));
                         Intent intent = new Intent(getApplicationContext(),
                                 PhotoActivity.class);
                         intent.putExtra("ID", position);
@@ -314,7 +292,7 @@ public class Evaluation extends BaseActivity {
                 for (PhotoModel photo : photos) {
 //                    drr.add((photo.getOriginalPath()));
                     images.add((photo.getOriginalPath()));
-                    PhotoActivity.bitmap.add(photo.getOriginalPath());
+
                 }
                 gridviewInit();
                 adapter.notifyDataSetChanged();

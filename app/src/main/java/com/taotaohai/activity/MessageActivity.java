@@ -3,17 +3,40 @@ package com.taotaohai.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RelativeLayout;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.EaseConstant;
 import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
+import com.taotaohai.util.util;
 
 public class MessageActivity extends BaseActivity implements EaseConversationListFragment.EaseConversationListItemClickListener {
 
+    private RelativeLayout rela_shopcar;
+
     @Override
     protected void inithttp() {
+        get("/api/shopCar/shop_car_num",20);
+    }
+
+    @Override
+    public void onSuccess(String result, int postcode) {
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
 
     }
 
@@ -25,8 +48,9 @@ public class MessageActivity extends BaseActivity implements EaseConversationLis
         getSupportFragmentManager().beginTransaction().add(R.id.fragment, easeConversationListFragment).commit();
         easeConversationListFragment.setConversationListItemClickListener(this);
 
-        findViewById(R.id.rela_shopcar).setOnClickListener((l)-> startActivity(new Intent(this,ShopCarActivity.class)));
-
+        rela_shopcar= (RelativeLayout) findViewById(R.id.rela_shopcar);
+        rela_shopcar.setOnClickListener((l)-> startActivity(new Intent(this,ShopCarActivity.class)));
+        inithttp();
     }
 
     @Override
