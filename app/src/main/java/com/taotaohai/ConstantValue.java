@@ -5,7 +5,8 @@ public interface ConstantValue {
 
     public String ENCONDING = "utf-8";
     public static final int SDKAPP_ID=1400060989;
-    public static final String APP_ID = "wx9c64d6a65c7632a5";
+    public static final String APP_ID = "wxbcaaaa2dfcb79995";//微信支付APP_ID
+    public static final String APP_Secret="b8c0c72e27e0e10fa18ea90ded199620";//微信APP_Secret
     public static final String APP_SECRET = "a0d6a7d5b32d360d868d75f402ccfd23";
     public static final String APP_KEY = "U6FaRdjDsOHE3UO6Co0pI0tP";
     public static String version_number = "1.0.0";
