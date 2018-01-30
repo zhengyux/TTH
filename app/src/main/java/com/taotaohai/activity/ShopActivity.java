@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -54,7 +55,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void inithttp() {
         mMsvLayout.loading();
-        get("api/shop/" + getintent("id") + "/goods");
+        get("api/shop/" + getintent("id") + "/goods",0);
         get("api/shop/" + getintent("id"), 1);
         get("api/shop/follow/" + getintent("id") + "/1", 2);
         get("api/shop/" + getintent("id") + "/class", 3);
@@ -124,6 +125,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        Log.e("tag", "onSuccess: "+postcode );
 
         if(postcode==998){
 
@@ -167,11 +169,23 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         if (postcode == 0) {
             shopGoods = util.getgson(result, ShopGoods.class);
             initdata();//初始化数据
+            for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
+                TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+                textView.setText(shop.getData().getShopIdentifies().get(i).getName());
+
+                lin_1.addView(textView);
+            }
         }
         if (postcode == 1) {
             shop = util.getgson(result, Shop.class);
-  //          initdata();//初始化数据
+            initdata();//初始化数据
             count = Integer.valueOf(shop.getData().getTotalLike());
+            for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
+                TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+                textView.setText(shop.getData().getShopIdentifies().get(i).getName());
+
+                lin_1.addView(textView);
+            }
         }
         if (postcode == 2) {
             Focus focus = util.getgson(result, Focus.class);
@@ -304,12 +318,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
 
-        for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
-            TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
-            textView.setText(shop.getData().getShopIdentifies().get(i).getName());
-
-            lin_1.addView(textView);
-        }
+//        for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
+//            TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+//            textView.setText(shop.getData().getShopIdentifies().get(i).getName());
+//
+//            lin_1.addView(textView);
+//        }
         line_class.removeAllViews();
         for (int i = 0; i < shopclass.getData().size(); i++) {
             View v = getLayoutInflater().inflate(R.layout.item_line, null);

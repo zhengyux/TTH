@@ -303,27 +303,39 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 get("api/user/",999);
                 break;
             case R.id.rela_1:
-                startActivity(new Intent(getActivity(), ClassActivity.class)
-                        .putExtra("id", hotclass.getData().get(0).getClassId())
-                );
+                if(null!=hotclass.getData().get(0).getClassId()){
+                    startActivity(new Intent(getActivity(), ClassActivity.class)
+                            .putExtra("id", hotclass.getData().get(0).getClassId())
+                    );
+                }
+
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_2:
-                startActivity(new Intent(getActivity(), ClassActivity.class)
-                        .putExtra("id", hotclass.getData().get(1).getClassId())
-                );
+                if(null!=hotclass.getData().get(1).getClassId()){
+                    startActivity(new Intent(getActivity(), ClassActivity.class)
+                            .putExtra("id", hotclass.getData().get(1).getClassId())
+                    );
+                }
+
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_3:
-                startActivity(new Intent(getActivity(), ClassActivity.class)
-                        .putExtra("id", hotclass.getData().get(2).getClassId())
-                );
+                if(null!=hotclass.getData().get(2).getClassId()){
+                    startActivity(new Intent(getActivity(), ClassActivity.class)
+                            .putExtra("id", hotclass.getData().get(2).getClassId())
+                    );
+                }
+
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_4:
-                startActivity(new Intent(getActivity(), ClassActivity.class)
-                        .putExtra("id", hotclass.getData().get(3).getClassId())
-                );
+                if(null!=hotclass.getData().get(3).getClassId()){
+                    startActivity(new Intent(getActivity(), ClassActivity.class)
+                            .putExtra("id", hotclass.getData().get(3).getClassId())
+                    );
+                }
+
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_more:
