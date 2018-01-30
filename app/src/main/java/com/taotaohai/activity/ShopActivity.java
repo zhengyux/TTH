@@ -7,7 +7,6 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -125,7 +124,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
-        Log.e("tag", "onSuccess: "+postcode );
+
 
         if(postcode==998){
 
