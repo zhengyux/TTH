@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private static HomeFragment fragment;
     private ImageView home_shopcar_image;
     private RelativeLayout rela_shopcar;
+    BadgeView badgeView ;
+
 
     public static HomeFragment newInstance() {
         if (fragment == null) {
@@ -96,7 +99,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //注册监听函数
         inithttp();
         initview();
-
+        badgeView = new BadgeView(getActivity(),rela_shopcar);
         return view;
     }
 
@@ -135,12 +138,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 20:
                 ShopCarNum shopCarNum = new ShopCarNum();
                 shopCarNum = util.getgson(data,ShopCarNum.class);
+                Log.e("tag", "onSuccess: "+shopCarNum.getData() );
                 if(shopCarNum.getData()!="0"){
-                    BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+
                     badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView.setTextSize(9);// 设置文本大小
                     badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                     badgeView.show();// 将角标显示出来
+
                 }
                 break;
         }
@@ -489,5 +494,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         option.setScanSpan(span);//设置发起定位请求的间隔时间为5000ms
         option.setIsNeedAddress(true);
         mLocationClient.setLocOption(option);
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+
+        get("/api/shopCar/shop_car_num",20);//购物车数量
+        super.onHiddenChanged(hidden);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        get("/api/shopCar/shop_car_num",20);
     }
 }

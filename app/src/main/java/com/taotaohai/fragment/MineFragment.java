@@ -51,6 +51,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_name;
     private ImageView mine_car_image;
     private RelativeLayout rela_shopcar;
+    BadgeView badgeView ;
 
     private static MineFragment fragment;
 
@@ -77,6 +78,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         initview();
         loginBean = null;
 //        inithttp();
+        badgeView = new BadgeView(getActivity(),rela_shopcar);
         return view;
     }
 
@@ -110,7 +112,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
@@ -345,5 +347,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
 // 启动分享GUI
         oks.show(getActivity());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        get("/api/shopCar/shop_car_num",20);
     }
 }

@@ -124,7 +124,7 @@ public class CommonUtils {
 
     @TargetApi(19)
     public static String query(Activity context, Uri imageUri) {
-        Log.e("query", "query: " + context + imageUri);
+
         if (context == null || imageUri == null)
             return null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT && DocumentsContract.isDocumentUri(context, imageUri)) {

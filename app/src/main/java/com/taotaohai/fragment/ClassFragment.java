@@ -67,6 +67,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private String id = "-1";
     private ImageView class_car_image;
     private RelativeLayout rela_shopcar;
+    BadgeView badgeView;
 
 
     private MultipleStatusView mMsvLayout;
@@ -90,6 +91,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         view = inflater.inflate(R.layout.fragment_class, container, false);
         initview();
         inithttp();
+        badgeView = new BadgeView(getActivity(),rela_shopcar);
         return view;
     }
 
@@ -169,7 +171,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
@@ -197,6 +199,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 //                View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
 //                CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
                 addtocar(image_photo, imag_photo2);
+                get("/api/shopCar/shop_car_num",20);
             } else {
                 showToast("加入商品失败，商品数量不足");
             }
@@ -418,7 +421,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     object.addProperty("goodsId", data.getId());
                     object.addProperty("count", "1");
                     Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
-                    get("/api/shopCar/shop_car_num",20);
+
                 });
                 holder.setOnClickListener(R.id.rela_all, (l) -> startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
                         .putExtra("id", data.getId())));
@@ -468,5 +471,15 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     }
 
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        get("/api/shopCar/shop_car_num",20);
+        super.onHiddenChanged(hidden);
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        get("/api/shopCar/shop_car_num",20);
+    }
 }

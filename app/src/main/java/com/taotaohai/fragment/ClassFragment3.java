@@ -67,6 +67,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     private int pageSize = 100;
     private String id = "-1";
     private RelativeLayout relativeLayout2;//购物车
+    BadgeView badgeView ;
 
 
     private static ClassFragment3 fragment;
@@ -88,6 +89,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
         view = inflater.inflate(R.layout.fragment_class3, container, false);
         inithttp();
         initview();
+        badgeView = new BadgeView(getActivity(),relativeLayout2);
         return view;
     }
 
@@ -124,7 +126,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getActivity(),relativeLayout2);
+
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
@@ -151,6 +153,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
 //                View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
 //                CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
                 addtocar(image_photo, imag_photo2);
+                get("/api/shopCar/shop_car_num",20);
             } else {
                 showToast("加入商品失败，商品数量不足");
             }

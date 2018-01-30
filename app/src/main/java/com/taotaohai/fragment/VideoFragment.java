@@ -53,6 +53,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     private Myadapter myadapter;
     private XListView xListView;
     CallBackValue callBackValue;
+    BadgeView badgeView ;
 
 
     private static VideoFragment fragment;
@@ -109,7 +110,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getActivity(),screlativeLayout);
+
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
@@ -190,7 +191,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         initview(view);
         inithttp();
         callBackValue.SendMessageValue(1);
-
+        badgeView = new BadgeView(getActivity(),screlativeLayout);
         return view;
     }
 
@@ -226,7 +227,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
         callBackValue.SendMessageValue(1);
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
-
+        get("/api/shopCar/shop_car_num",20);
 
     }
 
@@ -396,4 +397,9 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         public void SendMessageValue(int intValue);
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        get("/api/shopCar/shop_car_num",20);
+    }
 }

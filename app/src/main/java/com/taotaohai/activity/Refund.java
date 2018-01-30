@@ -7,7 +7,6 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -408,7 +407,6 @@ public class Refund extends BaseActivity {
             case 10:
                 BaseBean bean = util.getgson(result, BaseBean.class);
                 if (util.isSuccess(bean, getApplication())) {
-  //                  Log.e("tag", "onSuccess: "+image_urls.get(0)+"-------------"+images.get(0) );
                     showToast("退款请求成功");
                     finish();
                 }
@@ -420,7 +418,7 @@ public class Refund extends BaseActivity {
     @Override
     public void onError(Throwable ex, int code) {
         super.onError(ex, code);
-        Log.e("tag", "onError: "+ex.toString() );
+
     }
 
     @Override

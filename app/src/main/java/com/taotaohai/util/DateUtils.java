@@ -52,25 +52,25 @@ public class DateUtils {
     public static long getTime(String data) {
         long t = 0;
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Log.e("df", "1");
+
         String format = df.format(new Date());
-        Log.e("df", "2");
+
         try {
-            Log.e("df", "3");
+
             Date d1 = df.parse(format);
-            Log.e("df", "4");
+
             Date d2 = df.parse(data);
-            Log.e("df", "5");
+
             long diff = d1.getTime() - d2.getTime();
-            Log.e("df", "6");
+
             long days = diff / (1000 * 60 * 60 * 24);
-            Log.e("df", "7");
+
             long hours = (diff - days * (1000 * 60 * 60 * 24)) / (1000 * 60 * 60);
-            Log.e("df", "8");
+
             long minutes = (diff - days * (1000 * 60 * 60 * 24) - hours * (1000 * 60 * 60)) / (1000 * 60);
-            Log.e("df", "9");
+
             t = 30 - minutes;
-            Log.e("df", "10");
+
             if (t <= 0) {
                 t = 0;
             }
@@ -332,7 +332,7 @@ public class DateUtils {
             return chatTime(time2);
         } else {
             int time = (int) (Integer.parseInt(time2) - Integer.parseInt(time1));
-            Log.e("time[]", "" + time);
+
             if (time < 300) {
                 return "";
             } else {
