@@ -4,7 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
@@ -47,8 +49,11 @@ import com.taotaohai.util.util;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
+import org.xutils.http.HttpMethod;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -70,6 +75,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private ImageView home_shopcar_image;
     private RelativeLayout rela_shopcar;
     BadgeView badgeView ;
+    private TextView down_load;//加载更多
+    int pageSize = 10;
+    int pageIndex = 0;//第多少个
+    private HashMap<String, String> has = new HashMap<>();
+    MyGridviewAdapter myGridviewAdapter = new MyGridviewAdapter();
 
 
     public static HomeFragment newInstance() {
@@ -109,9 +119,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         get("api/home/rotation", 0);//轮播图
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
-        get("api/goods/hot_goods", 3);//热门商店
         get("/api/shopCar/shop_car_num",20);//购物车数量
+        initHotGoods();
     }
+
+    private void initHotGoods() {
+        has.clear();
+        has.put("pageSize", String.valueOf(pageSize));
+        has.put("pageIndex", String.valueOf(pageIndex));
+      //  get("api/goods/hot_goods", 3);//热门商品
+        Log.e("tag", "initHotGoods: "+has.toString() );
+        Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
+
+    }
+
 
     @Override
     public void onSuccess(String data, int postcode) {
@@ -138,7 +159,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 20:
                 ShopCarNum shopCarNum = new ShopCarNum();
                 shopCarNum = util.getgson(data,ShopCarNum.class);
-                Log.e("tag", "onSuccess: "+shopCarNum.getData() );
+
                 if(shopCarNum.getData()!="0"){
 
                     badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
@@ -177,10 +198,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+
     private void inithotshopmore(String data) {
         hotshop2 = util.getgson(data, HotShopmore.class);
+         Log.e("tag", "inithotshopmore: "+hotshop2.getData().size() );
         if (hotshop2.getSuccess()) {
-            mygridview.setAdapter(new MyGridviewAdapter());
+            mygridview.setAdapter(myGridviewAdapter);
+            myGridviewAdapter.notifyDataSetChanged();
+            pageIndex+=1;
         }
 
     }
@@ -256,7 +281,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         swipe.setRefreshing(false);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initview() {
+        down_load= (TextView) view.findViewById(R.id.down_load);
+        down_load.setOnClickListener(this);
         home_shopcar_image = (ImageView) view.findViewById(R.id.home_shopcar_image);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
         text = Arrays.asList(
@@ -277,6 +305,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
         swipe.setOnRefreshListener(() -> inithttp());
+
         view.findViewById(R.id.tv_search).setOnClickListener(this);
         view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
         view.findViewById(R.id.rela_message).setOnClickListener(this);
@@ -288,6 +317,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //设置图片加载器
 
         horizonlist = (HorizontalListView) view.findViewById(R.id.horizonlist);
+
+
         mygridview = (MyGridView) view.findViewById(R.id.mygridview);
 
 
@@ -296,6 +327,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.down_load:
+
+
+
+                initHotGoods();
+
+
+
+
+                break;
+
             case R.id.tv_search:
                 startActivityForResult(new Intent(getActivity(), SearchGoods.class), 1);
                 break;

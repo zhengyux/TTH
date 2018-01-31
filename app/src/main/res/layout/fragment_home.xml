@@ -454,17 +454,32 @@
                         android:layout_toEndOf="@+id/textView17"
                         android:text="特色海鲜等" />
 
-                    <com.taotaohai.myview.MyGridView
-                        android:id="@+id/mygridview"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="110px"
-                        android:background="@color/white"
-                        android:horizontalSpacing="@dimen/gap"
-                        android:numColumns="2"
-                        android:paddingLeft="@dimen/gap"
-                        android:paddingRight="@dimen/gap"
-                        android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
+
+
+
+
+                        <com.taotaohai.myview.MyGridView
+                            android:id="@+id/mygridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginTop="110px"
+                            android:background="@color/white"
+                            android:horizontalSpacing="@dimen/gap"
+                            android:numColumns="2"
+                            android:paddingLeft="@dimen/gap"
+                            android:paddingRight="@dimen/gap"
+                            android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
+
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/down_load"
+                            android:layout_below="@+id/mygridview"
+                            android:layout_width="match_parent"
+                            android:layout_height="50px"
+                            android:text="点击加载更多"
+                            style="@style/textgap"
+                            />
+
                 </RelativeLayout>
             </LinearLayout>
 

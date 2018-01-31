@@ -27,6 +27,7 @@ import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Book;
+import com.taotaohai.bean.Goods;
 import com.taotaohai.bean.PayResult;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.bean.WXpay;
@@ -167,7 +168,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         switch (item.getCount()) {
 
             case 1://立即购买
-                showpay(item.getTotalPrice());
+
+                Http(HttpMethod.GET,"/api/goods/"+item.getGoodsId(),23);
+
                 break;
             case 2:
                 Http(HttpMethod.PUT, "api/goodsorder/remind/" + item.getId()+"/"+item.getUserId()+"/"+item.getShopId(), 11);//提醒发货
@@ -354,6 +357,20 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
 
+        if(postcode==23){
+
+            Goods goods = new Goods();
+            goods= util.getgson(result,Goods.class);
+
+            if(goods.getData().getStock()<item.getCount()){
+                showToast("库存不足无法购买");
+                return;
+            }else {
+                showpay(item.getTotalPrice());
+            }
+
+        }
+
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
@@ -375,6 +392,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         }
         if(postcode == 11){
             showToast("提醒成功");
+            return;
         }
         if (postcode == 999) {
             itemBookFragment.inithttp();

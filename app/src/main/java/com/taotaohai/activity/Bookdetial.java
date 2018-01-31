@@ -25,6 +25,7 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Book;
 import com.taotaohai.bean.BookDet;
+import com.taotaohai.bean.Goods;
 import com.taotaohai.bean.PayResult;
 import com.taotaohai.bean.WXpay;
 import com.taotaohai.util.GlideUtil;
@@ -157,8 +158,25 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==23){
+
+            Goods goods = new Goods();
+            goods= util.getgson(result,Goods.class);
+
+            if(goods.getData().getStock()<data.getCount()){
+                showToast("库存不足无法购买");
+                return;
+            }else {
+                showpay(data.getTotalPrice());
+            }
+
+        }
+
+
         if(postcode==111){
             showToast("提醒成功");
+            return;
         }
         if(postcode ==99){
 
@@ -411,9 +429,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
 
     public void conlick2() {//第2个按钮
         switch (stata) {
-            case 1:
+            case 1://立即支付
 
-                showpay(data.getTotalPrice());
+                Http(HttpMethod.GET,"/api/goods/"+data.getGoodsId(),23);
+
                 break;
             case 2:
                 Http(HttpMethod.PUT, "api/goodsorder/remind/" + data.getId()+"/"+data.getUserId()+"/"+data.getShopId(), 111);//提醒发货

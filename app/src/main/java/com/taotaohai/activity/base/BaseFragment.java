@@ -38,8 +38,8 @@ import java.util.Map;
  */
 
 public class BaseFragment extends Fragment implements OnHttpListener {
-    public static HashMap<String, String> has = new HashMap<>();
-    /*网络接口*/
+    public static HashMap<String, String> has = new HashMap<>();/*网络接口*/
+
     IHttp iHttp;
 
     public BaseFragment() {
