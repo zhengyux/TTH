@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -247,7 +248,7 @@ public class OrderSureActivity extends BaseActivity {
             return;
         }
         if (postcode == 22) {
-            IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+            IWXAPI msgApi = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID);
             msgApi.registerApp(ConstantValue.APP_ID);
 
 // 将该app注册到微信
@@ -266,6 +267,14 @@ public class OrderSureActivity extends BaseActivity {
             return;
         }
 
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+        super.onError(ex, postcode);
+        if (postcode==15){
+            Log.e("tag", "onError: "+ex.toString() );
+        }
     }
 
     void payzfb(String info) {

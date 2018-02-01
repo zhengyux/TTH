@@ -4,12 +4,9 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,8 +46,6 @@ import com.taotaohai.util.util;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
-import org.xutils.http.HttpMethod;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -80,6 +75,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     int pageIndex = 0;//第多少个
     private HashMap<String, String> has = new HashMap<>();
     MyGridviewAdapter myGridviewAdapter = new MyGridviewAdapter();
+
 
 
     public static HomeFragment newInstance() {
@@ -116,6 +112,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
+         pageSize = 10;
+         pageIndex = 0;
         get("api/home/rotation", 0);//轮播图
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
@@ -127,9 +125,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         has.clear();
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
-      //  get("api/goods/hot_goods", 3);//热门商品
-        Log.e("tag", "initHotGoods: "+has.toString() );
-        Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
+        get("api/goods/hot_goods/"+pageIndex+"/"+pageSize, 3);//热门商品
+
+    //    Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
+
 
     }
 
@@ -200,8 +199,20 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
     private void inithotshopmore(String data) {
-        hotshop2 = util.getgson(data, HotShopmore.class);
-         Log.e("tag", "inithotshopmore: "+hotshop2.getData().size() );
+
+
+
+         if(pageIndex!=0){
+             HotShopmore hotshop3 = util.getgson(data, HotShopmore.class);
+             for (int i=0;i<hotshop3.getData().size();i++){
+                 hotshop2.getData().add(hotshop3.getData().get(i));
+
+             }
+         }else {
+             hotshop2 = util.getgson(data, HotShopmore.class);
+         }
+
+
         if (hotshop2.getSuccess()) {
             mygridview.setAdapter(myGridviewAdapter);
             myGridviewAdapter.notifyDataSetChanged();
@@ -281,7 +292,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         swipe.setRefreshing(false);
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void initview() {
         down_load= (TextView) view.findViewById(R.id.down_load);
         down_load.setOnClickListener(this);

@@ -307,17 +307,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
     }
 
-    private void initview() {
-        mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
-        listview = (ListView) findViewById(R.id.listview);
-
-        View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
-
-        image_like = (ImageView) findViewById(R.id.image_like);
-        rela_buy = findViewById(R.id.rela_buy);
-        lin_10 = (LinearLayout) headview.findViewById(R.id.lin_10);
-        tv_num = (TextView) headview.findViewById(R.id.tv_num);
-        tv_num2 = (EditText) findViewById(R.id.tv_num);
+    private void TextChangedListener(){
         tv_num2.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -331,15 +321,32 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
             @Override
             public void afterTextChanged(Editable editable) {
-                count=Integer.parseInt(tv_num2.getText().toString().trim());
+                if(!"".equals(tv_num2.getText().toString().trim())||null==tv_num2.getText()){
+                    count=Integer.parseInt(tv_num2.getText().toString().trim());
 
-                if (count > stock) {
-                    showToast("库存不足");
+                    if (count > stock) {
+                        showToast("库存不足");
 
-                    return;
+                        return;
+                    }
                 }
+
             }
         });
+    }
+
+    private void initview() {
+        mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
+        listview = (ListView) findViewById(R.id.listview);
+
+        View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
+
+        image_like = (ImageView) findViewById(R.id.image_like);
+        rela_buy = findViewById(R.id.rela_buy);
+        lin_10 = (LinearLayout) headview.findViewById(R.id.lin_10);
+        tv_num = (TextView) headview.findViewById(R.id.tv_num);
+        tv_num2 = (EditText) findViewById(R.id.tv_num);
+
         tv_title = (TextView) headview.findViewById(R.id.tv_title);
         tv_dis = (TextView) headview.findViewById(R.id.tv_dis);
         tv_dis2 = (TextView) headview.findViewById(R.id.tv_dis2);
@@ -425,6 +432,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onBuy(View view) {
+
+        TextChangedListener();
+
         get("api/user/",993);
 
     }

@@ -596,9 +596,9 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
 
     public void shareToWx(String title, String content, int wx) {
         //通过WXAPIFactory工厂，获取IWXAPI的实例
-        IWXAPI api = WXAPIFactory.createWXAPI(this, "wx37057309fa439183", true);
+        IWXAPI api = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID, true);
 //将应用的appid注册到微信
-        api.registerApp("wx37057309fa439183");
+        api.registerApp(ConstantValue.APP_ID);
 
 //
 //        textObject.text = text;//text为需要分享的文本字符串

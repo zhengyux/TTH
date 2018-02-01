@@ -436,7 +436,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             }
         }
         if (postcode == 22) {
-            final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+            final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID);
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
             msgApi.registerApp(ConstantValue.APP_ID);

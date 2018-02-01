@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -133,7 +132,7 @@ public class SearchGoods extends BaseActivity {
                 text.setText(listhistory[i]);
                 text.setOnClickListener((l) -> {
                     if (tv_search.getText().toString().equals("商品")) {
-                        Log.e("tag", "initview: "+text.getText().toString() );
+
                         startActivity(new Intent(SearchGoods.this, Seachend.class)
                                 .putExtra("name", text.getText().toString())
                         );

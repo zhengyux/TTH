@@ -8,7 +8,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class OrderInfo {
 
-
     @SerializedName("code")
     private int code;
     @SerializedName("data")

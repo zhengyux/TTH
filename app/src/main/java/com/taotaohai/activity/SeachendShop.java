@@ -8,7 +8,6 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -202,7 +201,10 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
             ShopList shop = util.getgson(result, ShopList.class);
             shoplist = shop.getData();
         }
-        initdata();//初始化数据
+        if(shoplist!=null){
+            initdata();//初始化数据
+        }
+
 
 
     }
@@ -212,8 +214,9 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_seachendgoods);
         x.view().inject(this);//注解绑定
-        initview();
         inithttp();
+        initview();
+
     }
 
     private void initview() {
@@ -224,7 +227,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         } else if (getIntent().getStringExtra("cityname") != null) {
             edit_search.setText(getIntent().getStringExtra("cityname"));
         } else if (getIntent().getStringExtra("distance") != null) {
-            Log.e("tag", getIntent().getStringExtra("distance"));
+
             switch (getIntent().getStringExtra("distance")) {
                 case "0":
                     edit_search.setText("0~100km");

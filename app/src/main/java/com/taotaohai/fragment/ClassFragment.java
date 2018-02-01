@@ -335,47 +335,66 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            View view = null;
-            if (convertView == null) {
-                view = getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
-            } else {
-                view = convertView;
-            }
-            final TextView text1 = (TextView) view.findViewById(R.id.text1);
+//            ViewHolder viewHolder ;
+//            if (convertView == null) {
+//                viewHolder = new ViewHolder();
+//                convertView = getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
+//                viewHolder.text1 = (TextView) convertView.findViewById(R.id.text1);
+//                viewHolder.list = (LinearLayout) convertView.findViewById(R.id.list);
+//                convertView.setTag(viewHolder);
+//            }else {
+//                viewHolder = (ViewHolder) convertView.getTag();
+//            }
 
-            final LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
-            if (position == 0) {
-                first_click = text1;
-                first_click.setTextColor(getResources().getColor(R.color.white));
-                first_click.setBackgroundColor(getResources().getColor(R.color.them));
-            } else {
-                text1.setText(classPage.getData().get(position - 1).getClassName());
-            }
-            text1.setOnClickListener(v -> {
-                onclick2(list, text1);
-                if (position == 0) {
-                    id = "-1";
+            {
+                View view = null;
+                if (convertView == null) {
+                    view = getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
                 } else {
-                    id = classPage.getData().get(position - 1).getId();
+                    view = convertView;
                 }
-                gohttp();
-            });
-            if (position != 0) {
-                for (int i = 0; i < classPage.getData().get(position - 1).getChildren().size(); i++) {
-                    View view1 = getActivity().getLayoutInflater().inflate(R.layout.item_class_list2, null);
-                    final TextView text = (TextView) view1.findViewById(R.id.text);
-                    text.setText(classPage.getData().get(position - 1).getChildren().get(i).getClassName());
-                    final int finalI = i;
-                    text.setOnClickListener(v -> {
-                        id = classPage.getData().get(position - 1).getChildren().get(finalI).getId();
-                        onclick(text, text1);
-                        gohttp();
-                    });
-                    list.addView(view1);
+                final TextView text1 = (TextView) view.findViewById(R.id.text1);
+
+                final LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
+                if (position == 0) {
+                    first_click = text1;
+                    first_click.setTextColor(getResources().getColor(R.color.white));
+                    first_click.setBackgroundColor(getResources().getColor(R.color.them));
+                } else {
+                    text1.setText(classPage.getData().get(position - 1).getClassName());
                 }
+                text1.setOnClickListener(v -> {
+                    onclick2(list, text1);
+                    if (position == 0) {
+                        id = "-1";
+                    } else {
+                        id = classPage.getData().get(position - 1).getId();
+                    }
+                    gohttp();
+                });
+                if (position != 0) {
+                    for (int i = 0; i < classPage.getData().get(position - 1).getChildren().size(); i++) {
+                        View view1 = getActivity().getLayoutInflater().inflate(R.layout.item_class_list2, null);
+                        final TextView text = (TextView) view1.findViewById(R.id.text);
+                        text.setText(classPage.getData().get(position - 1).getChildren().get(i).getClassName());
+                        final int finalI = i;
+                        text.setOnClickListener(v -> {
+                            id = classPage.getData().get(position - 1).getChildren().get(finalI).getId();
+                            onclick(text, text1);
+                            gohttp();
+                        });
+                        list.addView(view1);
+                    }
+                }
+                return view;
             }
-            return view;
         }
+
+//        class ViewHolder {
+//            TextView text1;
+//            LinearLayout list;
+//        }
+
     }
 
     void onclick(TextView text, TextView text1) {
