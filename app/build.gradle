@@ -1,9 +1,16 @@
 apply plugin: 'com.android.application'
 android {
+
     signingConfigs {
-        config {
+        release {
+            keyAlias 'keytth'
+            keyPassword '123456'
+            storePassword '123456'
+            storeFile file('/Users/2panda/Desktop/TaoTaoHai/Untitled')
         }
     }
+
+
     compileSdkVersion 25
     buildToolsVersion "26.0.2"
     defaultConfig {
@@ -21,17 +28,20 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
-
+        debug {
+            signingConfig signingConfigs.release
+        }
     }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    lintOptions {
+    lintOptions{
         checkReleaseBuilds false
         abortOnError false
-        disable 'MissingTranslation'
-    }
+        disable 'MissingTranslation'}
+
 }
 
 
@@ -75,7 +85,6 @@ dependencies {
     compile 'com.android.support:multidex:1.0.1'
     compile project(path: ':easeui')
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
-    implementation files('libs/AMap_Location_V3.7.0_20171218.jar')
     implementation files('libs/ShareSDK-QZone-3.1.2.jar')
 }
 allprojects {

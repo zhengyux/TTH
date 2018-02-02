@@ -11,10 +11,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.BaseExpandableListAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -56,7 +55,6 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     int position = -1;
     private XRefreshView xrefreshview;
     private RecyclerView recyclerView;
-    private ListView list;
     private ClassPage classPage;
     private ClassGoods classGoods;
     private CommonAdapter adapter;
@@ -68,6 +66,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private ImageView class_car_image;
     private RelativeLayout rela_shopcar;
     BadgeView badgeView;
+    private ExpandableListView expandableListView ;
+    private TextView tv_all_goods;
+    private MyexplistAdapter myexplistAdapter;
 
 
     private MultipleStatusView mMsvLayout;
@@ -91,8 +92,60 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         view = inflater.inflate(R.layout.fragment_class, container, false);
         initview();
         inithttp();
+
+
         badgeView = new BadgeView(getActivity(),rela_shopcar);
+        ExpandableListViewClick();
         return view;
+    }
+
+    private void ExpandableListViewClick(){
+
+        tv_all_goods.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                id="-1";
+                gohttp();
+                for (int i = 0; i < myexplistAdapter.getGroupCount(); i++) {
+                    expandableListView.collapseGroup(i);
+                }
+
+            }
+        });
+
+        expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long l) {
+                id = classPage.getData().get(groupPosition).getChildren().get(childPosition).getId();
+                gohttp();
+
+                return true;
+            }
+        });
+
+        expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
+            @Override
+            public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                id=classPage.getData().get(i).getId();
+                gohttp();
+
+                return false;
+            }
+        });
+
+        expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int groupPosition) {
+
+                for (int i = 0; i < myexplistAdapter.getGroupCount(); i++) {
+                    if (groupPosition != i) {
+                        expandableListView.collapseGroup(i);
+                    }
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -184,8 +237,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
             classPage = util.getgson(data, ClassPage.class);
             if (classPage.getSuccess()) {
-                list = (ListView) view.findViewById(R.id.listview);
-                list.setAdapter(new ListAdapter());
+                myexplistAdapter = new MyexplistAdapter();
+                expandableListView.setAdapter(myexplistAdapter);
             }
         }
         if (postcode == 1) {
@@ -209,13 +262,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void initview() {
+        tv_all_goods = (TextView) view.findViewById(R.id.tv_all_goods);
+        expandableListView = (ExpandableListView) view.findViewById(R.id.exp_list);
+        expandableListView.setGroupIndicator(null);
         class_car_image = (ImageView) view.findViewById(R.id.class_car_image);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
-//        mMsvLayout.setOnClickListener((l) -> {
-//            if (mMsvLayout.getViewStatus() == mMsvLayout.STATUS_ERROR) {
-//                inithttp();
-//            }
-//        });
+
         view.findViewById(R.id.rela_message).setOnClickListener(this);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
         rela_shopcar.setOnClickListener(this);
@@ -242,10 +294,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         recyclerView = (RecyclerView) view.findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-//        initdata();//初始化数据
 
         onClick(v1);
-//        views.get(0).setBackgroundResource(R.drawable.bac_class_left);
 
     }
 
@@ -317,115 +367,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         images.get(3).setImageResource(R.mipmap.unclickbuttom);
     }
 
-    class ListAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return classPage.getData().size() + 1;
-        }
 
-        @Override
-        public Object getItem(int position) {
-            return null;
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-//            ViewHolder viewHolder ;
-//            if (convertView == null) {
-//                viewHolder = new ViewHolder();
-//                convertView = getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
-//                viewHolder.text1 = (TextView) convertView.findViewById(R.id.text1);
-//                viewHolder.list = (LinearLayout) convertView.findViewById(R.id.list);
-//                convertView.setTag(viewHolder);
-//            }else {
-//                viewHolder = (ViewHolder) convertView.getTag();
-//            }
-
-            {
-                View view = null;
-                if (convertView == null) {
-                    view = getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
-                } else {
-                    view = convertView;
-                }
-                final TextView text1 = (TextView) view.findViewById(R.id.text1);
-
-                final LinearLayout list = (LinearLayout) view.findViewById(R.id.list);
-                if (position == 0) {
-                    first_click = text1;
-                    first_click.setTextColor(getResources().getColor(R.color.white));
-                    first_click.setBackgroundColor(getResources().getColor(R.color.them));
-                } else {
-                    text1.setText(classPage.getData().get(position - 1).getClassName());
-                }
-                text1.setOnClickListener(v -> {
-                    onclick2(list, text1);
-                    if (position == 0) {
-                        id = "-1";
-                    } else {
-                        id = classPage.getData().get(position - 1).getId();
-                    }
-                    gohttp();
-                });
-                if (position != 0) {
-                    for (int i = 0; i < classPage.getData().get(position - 1).getChildren().size(); i++) {
-                        View view1 = getActivity().getLayoutInflater().inflate(R.layout.item_class_list2, null);
-                        final TextView text = (TextView) view1.findViewById(R.id.text);
-                        text.setText(classPage.getData().get(position - 1).getChildren().get(i).getClassName());
-                        final int finalI = i;
-                        text.setOnClickListener(v -> {
-                            id = classPage.getData().get(position - 1).getChildren().get(finalI).getId();
-                            onclick(text, text1);
-                            gohttp();
-                        });
-                        list.addView(view1);
-                    }
-                }
-                return view;
-            }
-        }
-
-//        class ViewHolder {
-//            TextView text1;
-//            LinearLayout list;
-//        }
-
-    }
-
-    void onclick(TextView text, TextView text1) {
-        first_click.setTextColor(getResources().getColor(R.color.text_black));
-        first_click.setBackgroundColor(getResources().getColor(R.color.class_bac));
-//        first_click = text1;
-//        first_click.setTextColor(getResources().getColor(R.color.white));
-//        first_click.setBackgroundColor(getResources().getColor(R.color.them));
-
-        if (text_click != null) {
-            text_click.setTextColor(getResources().getColor(R.color.text_black));
-        }
-        text_click = text;
-        text_click.setTextColor(getResources().getColor(R.color.them));
-    }
-
-    void onclick2(View list, TextView text1) {
-        if (list.isShown()) {
-            list.setVisibility(View.GONE);
-        } else {
-            list.setVisibility(View.VISIBLE);
-        }
-        first_click.setTextColor(getResources().getColor(R.color.text_black));
-        first_click.setBackgroundColor(getResources().getColor(R.color.class_bac));
-        first_click = text1;
-        first_click.setTextColor(getResources().getColor(R.color.white));
-        first_click.setBackgroundColor(getResources().getColor(R.color.them));
-        if (text_click != null) {//清空小弟变色
-            text_click.setTextColor(getResources().getColor(R.color.text_black));
-        }
-    }
 
     ImageView image_photo;
     ImageView imag_photo2;
@@ -501,4 +443,107 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
     }
+
+
+
+    class MyexplistAdapter extends BaseExpandableListAdapter {
+
+        @Override
+        public int getGroupCount() {
+            return classPage.getData().size();
+        }
+
+        @Override
+        public int getChildrenCount(int i) {
+            return classPage.getData().get(i).getChildren().size();
+        }
+
+        @Override
+        public Object getGroup(int i) {
+            return classPage.getData().get(i);
+        }
+
+        @Override
+        public Object getChild(int i, int i1) {
+            return classPage.getData().get(i).getChildren().get(i1);
+        }
+
+        @Override
+        public long getGroupId(int i) {
+            return i;
+        }
+
+        @Override
+        public long getChildId(int i, int i1) {
+            return i1;
+        }
+
+        @Override
+        public boolean hasStableIds() {
+            return true;
+        }
+
+        @Override
+        public View getGroupView(int groupPosition, boolean b, View convertView, ViewGroup parent) {
+            GroupViewHolder groupViewHolder;
+
+            if (convertView == null) {
+                groupViewHolder = new GroupViewHolder();
+                convertView =  getActivity().getLayoutInflater().inflate(R.layout.item_class_list, null);
+                groupViewHolder.tv_g = (TextView) convertView.findViewById(R.id.text1);
+                convertView.setTag(groupViewHolder);
+            }else {
+                groupViewHolder = (GroupViewHolder) convertView.getTag();
+            }
+
+
+                    groupViewHolder.tv_g.setText(classPage.getData().get(groupPosition).getClassName());
+
+
+            if(b){
+                groupViewHolder.tv_g.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
+            }else {
+                groupViewHolder.tv_g.setBackgroundColor(getResources().getColor(R.color.class_bac));
+            }
+
+
+            return convertView;
+        }
+
+        @Override
+        public View getChildView(int groupPosition, int childPosition, boolean b, View convertView, ViewGroup viewGroup) {
+            ChildViewHolder childViewHolder;
+
+            if (convertView == null) {
+                childViewHolder = new ChildViewHolder();
+                convertView =  getActivity().getLayoutInflater().inflate(R.layout.item_class_list2, null);
+                childViewHolder.tv_c = (TextView) convertView.findViewById(R.id.text);
+                convertView.setTag(childViewHolder);
+            }else {
+                childViewHolder = (ChildViewHolder) convertView.getTag();
+            }
+
+            childViewHolder.tv_c.setText(classPage.getData().get(groupPosition).getChildren().get(childPosition).getClassName());
+
+
+            return convertView;
+        }
+
+        @Override
+        public boolean isChildSelectable(int i, int i1) {
+            return true;
+        }
+
+        class GroupViewHolder{
+            TextView tv_g;
+
+        }
+        class ChildViewHolder{
+
+            TextView tv_c;
+        }
+    }
+
+
+
 }

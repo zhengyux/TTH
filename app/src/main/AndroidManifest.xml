@@ -132,11 +132,16 @@
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"
-            android:process=":remote" />
+            android:process=":remote" >
+            <intent-filter>
+                <action android:name="com.baidu.location.service_v2.2" >
+                </action>
+            </intent-filter>
+        </service>
 
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="3yoD80PlKwMoP9yHHvmhS77k" />
+            android:value="4Q7WWrWKhnkl0l9ZrQCDpIpzGMVyE5Nh" />
 
         <activity android:name=".activity.JiLiangActivity" />
         <!--微信分享回调 -->

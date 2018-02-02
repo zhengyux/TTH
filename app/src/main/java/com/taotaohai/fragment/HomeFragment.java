@@ -560,4 +560,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
     }
+
+    
 }

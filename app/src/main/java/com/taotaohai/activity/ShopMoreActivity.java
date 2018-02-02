@@ -79,6 +79,10 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
             } catch (Exception e) {
             }
         }
+
+        if(postcode==2){
+            Log.e("tag", "onError: "+ex.toString());
+        }
     }
 
     @Override
@@ -171,7 +175,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-
+        tv_ar.setTextColor(getResources().getColor(R.color.btn_blue_normal));
 
     }
 
@@ -230,6 +234,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     }
 
     public LocationClient mLocationClient = null;
+
 
     public void getLoc() {
 
@@ -301,6 +306,8 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                     if(hashMap1.size()!=0){
                         Http(HttpMethod.GET,"api/shop",hashMap1,2);
 
+                    }else {
+                        showToast("获取定位失败");
                     }
                 tv_ar.setTextColor(getResources().getColor(R.color.black_deep));
                 tv_distance.setTextColor(getResources().getColor(R.color.btn_blue_normal));
