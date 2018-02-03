@@ -159,28 +159,28 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
 
-        if(postcode==23){
+        if (postcode == 23) {
 
             Goods goods = new Goods();
-            goods= util.getgson(result,Goods.class);
+            goods = util.getgson(result, Goods.class);
 
-            if(goods.getData().getStock()<data.getCount()){
+            if (goods.getData().getStock() < data.getCount()) {
                 showToast("库存不足无法购买");
                 return;
-            }else {
+            } else {
                 showpay(data.getTotalPrice());
             }
 
         }
 
 
-        if(postcode==111){
+        if (postcode == 111) {
             showToast("提醒成功");
             return;
         }
-        if(postcode ==99){
+        if (postcode == 99) {
 
-            startActivity(new Intent(Bookdetial.this,ShopCarActivity.class));
+            startActivity(new Intent(Bookdetial.this, ShopCarActivity.class));
             finish();
             return;
         }
@@ -262,53 +262,56 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             return;
         }
 
+        if (postcode == 0) {
 
+        }
         bookd = util.getgson(result, BookDet.class);
         if (util.isSuccess(bookd, this)) {
-            tv_1.setText("收货人：" + bookd.getData().getUsername());
-            tv_2.setText("电话：" + bookd.getData().getLinkTel());
-            tv_3.setText("收货地址：" + bookd.getData().getLinkAddress());
-            tv_4.setText(bookd.getData().getGoodsName());
-//            tv_5.setText(bookd.getData().getColor() + "," + bookd.getData().getSize() + "," + bookd.getData().getAcount() + "件");
-            tv_6.setText("¥" + bookd.getData().getPrice());
-            tv_7.setText("¥" + bookd.getData().getTotalPrice());
-            tv_8.setText("订单编号：" + bookd.getData().getOrderId() + "\n交易单号：" + "\n成交时间：" + bookd.getData().getGmtCreate() + "\n支付方式：" + gettype(bookd.getData().getPayType()) + "\n发货时间：");
+//            tv_1.setText("收货人：" + bookd.getData().getUsername());
+//            tv_2.setText("电话：" + bookd.getData().getLinkTel());
+//            tv_3.setText("收货地址：" + bookd.getData().getLinkAddress());
+//            tv_4.setText(bookd.getData().getGoodsName());
+////            tv_5.setText(bookd.getData().getColor() + "," + bookd.getData().getSize() + "," + bookd.getData().getAcount() + "件");
+//            tv_6.setText("¥" + bookd.getData().getPrice());
+//            tv_7.setText("¥" + bookd.getData().getTotalPrice());
+//            tv_8.setText("订单编号：" + bookd.getData().getOrderId() + "\n交易单号：" + "\n成交时间：" + bookd.getData().getGmtCreate() + "\n支付方式：" + gettype(bookd.getData().getPayType()) + "\n发货时间：");
 //            getstata(bookd.getData().getOrderStatus());
 
-            btn_1.setOnClickListener(v -> {
-                dialog_count = 0;
-                showDialog("删除订单", "确定要删除本条订单吗");
-            });
-            btn_2.setOnClickListener(v -> {
-                switch (bookd.getData().getOrderStatus()) {
-                    case 5:
-
-                        dialog_count = 0;
-                        showDialog("删除订单", "确定要删除本条订单吗");
-                        break;
-                    case 2:
-                        dialog_count = 1;
-
-                        showDialog("申请退款", "确定要申请退款吗");
-                        break;
-                    case 1:
-                        dialog_count = 1;
-
-                        showDialog("申请退款", "确定要申请退款吗");
-                        break;
-                    case 3:
-                        dialog_count = 1;
-
-                        showDialog("申请退款", "确定要申请退款吗");
-                        break;
-                    case 4:
-
-                        startActivity(new Intent(Bookdetial.this, Evaluation.class)
-                                .putExtra("id", data.getExt().getOrderId())
-                        );
-                        break;
-                }
-            });
+//            btn_1.setOnClickListener(v -> {
+//                dialog_count = 0;
+//                showDialog("删除订单", "确定要删除本条订单吗");
+//            });
+//            btn_2.setOnClickListener(v -> {
+//                switch (bookd.getData().getOrderStatus()) {
+//                    case 5:
+//
+//                        dialog_count = 0;
+//                        showDialog("删除订单", "确定要删除本条订单吗");
+//                        break;
+//                    case 2:
+//                        dialog_count = 1;
+//
+//                        showDialog("申请退款", "确定要申请退款吗");
+//                        break;
+//                    case 1:
+//                        dialog_count = 1;
+//
+//                        showDialog("申请退款", "确定要申请退款吗");
+//                        break;
+//                    case 3:
+//                        dialog_count = 1;
+//
+//                        showDialog("申请退款", "确定要申请退款吗");
+//                        break;
+//                    case 4:
+//
+//                        startActivity(new Intent(Bookdetial.this, Evaluation.class)
+//                                .putExtra("id", data.getExt().getOrderId())
+//                        );
+//                        break;
+//                }
+//            });
+//        }
         }
     }
 
