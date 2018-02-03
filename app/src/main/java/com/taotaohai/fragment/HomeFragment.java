@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -166,6 +167,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                     badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                     badgeView.show();// 将角标显示出来
 
+                }else {
+                    badgeView.hide();
                 }
                 break;
         }
@@ -316,6 +319,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
         swipe.setOnRefreshListener(() -> inithttp());
 
+
         view.findViewById(R.id.tv_search).setOnClickListener(this);
         view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
         view.findViewById(R.id.rela_message).setOnClickListener(this);
@@ -330,8 +334,78 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
         mygridview = (MyGridView) view.findViewById(R.id.mygridview);
+        swipeTouch();
+
+    }
+
+    int lastX,lastY;
 
 
+    private void swipeTouch() {
+
+        swipe.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                banner.getParent().requestDisallowInterceptTouchEvent(true);
+                horizonlist.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
+
+        banner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                banner.getParent().requestDisallowInterceptTouchEvent(true);
+                int x = (int) event.getRawX();
+                int y = (int) event.getRawY();
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = x;
+                        lastY = y;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int deltaY = y - lastY;
+                        int deltaX = x - lastX;
+                        if (Math.abs(deltaX) < Math.abs(deltaY)) {
+                            banner.getParent().requestDisallowInterceptTouchEvent(false);
+                        } else {
+                            banner.getParent().requestDisallowInterceptTouchEvent(true);
+                        }
+                    default:
+                        break;
+                }
+                return false;
+
+            }
+        });
+
+        horizonlist.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                horizonlist.getParent().requestDisallowInterceptTouchEvent(false);
+                int x = (int) event.getRawX();
+                int y = (int) event.getRawY();
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        lastX = x;
+                        lastY = y;
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        int deltaY = y - lastY;
+                        int deltaX = x - lastX;
+                        if (Math.abs(deltaX) < Math.abs(deltaY)) {
+                            horizonlist.getParent().requestDisallowInterceptTouchEvent(false);
+                        } else {
+                            horizonlist.getParent().requestDisallowInterceptTouchEvent(true);
+                        }
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -561,5 +635,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         get("/api/shopCar/shop_car_num",20);
     }
 
-    
+
 }

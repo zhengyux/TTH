@@ -51,7 +51,15 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_name;
     private ImageView mine_car_image;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout re21;
+    private RelativeLayout re22;
+    private RelativeLayout re23;
+    private RelativeLayout re24;
     BadgeView badgeView ;
+    BadgeView badgeView1 ;
+    BadgeView badgeView2 ;
+    BadgeView badgeView3 ;
+    BadgeView badgeView4 ;
 
     private static MineFragment fragment;
 
@@ -79,6 +87,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         loginBean = null;
 //        inithttp();
         badgeView = new BadgeView(getActivity(),rela_shopcar);
+        badgeView1 = new BadgeView(getActivity(),re21);
+        badgeView2 = new BadgeView(getActivity(),re22);
+        badgeView3 = new BadgeView(getActivity(),re23);
+        badgeView4 = new BadgeView(getActivity(),re24);
         return view;
     }
 
@@ -98,6 +110,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void inithttp() {
         super.inithttp();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/goodsorder/listAcount/1",101);
+        get("/api/goodsorder/listAcount/2",102);
+        get("/api/goodsorder/listAcount/3",103);
+        get("/api/goodsorder/listAcount/4",104);
         has.put("username", (String) SPUtils.get(getActivity(), "username", ""));
         has.put("password", (String) SPUtils.get(getActivity(), "password", ""));
         has.put("loginType", "1");
@@ -117,6 +133,60 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
+            }else {
+                badgeView.hide();
+            }
+
+        }
+        if(postcode==101){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(!"0".equals(shopCarNum.getData())){
+                badgeView1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView1.setTextSize(9);// 设置文本大小
+                badgeView1.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView1.show();// 将角标显示出来
+            }else {
+                badgeView1.hide();
+            }
+
+        }if(postcode==102){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(9);// 设置文本大小
+                badgeView2.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
+            }
+
+        }if(postcode==103){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView3.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView3.setTextSize(9);// 设置文本大小
+                badgeView3.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView3.show();// 将角标显示出来
+            }else {
+                badgeView3.hide();
+            }
+
+        }
+        if(postcode==104){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView4.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView4.setTextSize(9);// 设置文本大小
+                badgeView4.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView4.show();// 将角标显示出来
+            }else {
+                badgeView4.hide();
             }
 
         }
@@ -163,10 +233,14 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         view.findViewById(R.id.rela4).setOnClickListener(this);
         view.findViewById(R.id.rela5).setOnClickListener(this);
         view.findViewById(R.id.rela6).setOnClickListener(this);
-        view.findViewById(R.id.rela21).setOnClickListener(this);
-        view.findViewById(R.id.rela22).setOnClickListener(this);
-        view.findViewById(R.id.rela23).setOnClickListener(this);
-        view.findViewById(R.id.rela24).setOnClickListener(this);
+        re21= (RelativeLayout) view.findViewById(R.id.rela21);
+        re21.setOnClickListener(this);
+        re22= (RelativeLayout) view.findViewById(R.id.rela22);
+        re22.setOnClickListener(this);
+        re23= (RelativeLayout) view.findViewById(R.id.rela23);
+                re23.setOnClickListener(this);
+        re24= (RelativeLayout) view.findViewById(R.id.rela24);
+                re24.setOnClickListener(this);
         view.findViewById(R.id.rela25).setOnClickListener(this);
         tv_login = view.findViewById(R.id.tv_login);
         tv_login.setOnClickListener(this);
@@ -319,6 +393,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
         get("/api/shopCar/shop_car_num",20);
+        //4种状态下订单的(1 未支付 2 待发货 3 待收货 4 待评价 )
+        get("/api/goodsorder/listAcount/1",101);
+        get("/api/goodsorder/listAcount/2",102);
+        get("/api/goodsorder/listAcount/3",103);
+        get("/api/goodsorder/listAcount/4",104);
     }
 
     private void showShare() {
@@ -354,5 +433,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
+        //4种状态下订单的(1 未支付 2 待发货 3 待收货 4 待评价 )
+        get("/api/goodsorder/listAcount/1",101);
+        get("/api/goodsorder/listAcount/2",102);
+        get("/api/goodsorder/listAcount/3",103);
+        get("/api/goodsorder/listAcount/4",104);
     }
 }

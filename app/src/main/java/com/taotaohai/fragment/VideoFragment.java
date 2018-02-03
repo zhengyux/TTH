@@ -117,6 +117,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
+            }else {
+                badgeView.hide();
             }
 
         }
