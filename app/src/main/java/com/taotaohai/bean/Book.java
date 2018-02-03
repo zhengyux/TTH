@@ -112,7 +112,26 @@ public class Book implements Serializable {
         private int totalPrice;
         @SerializedName("unit")
         private String unit;
+        @SerializedName("refundAudit")
+        private String refundAudit;
+        @SerializedName("adminRefundAudit")
+        private String adminRefundAudit;
 
+        public String getRefundAudit() {
+            return refundAudit;
+        }
+
+        public void setRefundAudit(String refundAudit) {
+            this.refundAudit = refundAudit;
+        }
+
+        public String getAdminRefundAudit() {
+            return adminRefundAudit;
+        }
+
+        public void setAdminRefundAudit(String adminRefundAudit) {
+            this.adminRefundAudit = adminRefundAudit;
+        }
 
         public String getDealId() {
             return dealId;
