@@ -22,4 +22,12 @@ public class bannerr extends BaseActivity {
         mWebView.loadUrl(getintent("url"));
 
     }
+
+
+    @Override
+    protected void onDestroy() {
+        mWebView.destroy();
+        mWebView = null;
+        super.onDestroy();
+    }
 }
