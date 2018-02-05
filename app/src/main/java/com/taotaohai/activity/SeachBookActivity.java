@@ -241,6 +241,14 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
 ////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 ////                btn_2.setBackgroundResource(R.drawable.button_r22);
 //                return "关闭";
+                case 6:
+
+
+                    return "交易完成";
+
+                case 7:
+
+                    return "退款完成";
                 case 99:
                     btn_1.setVisibility(View.GONE);
                     btn_2.setText("删除");

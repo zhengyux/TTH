@@ -157,7 +157,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     @Override
     public void onListFragmentButton2(Book.Data item) {//第2个按钮
-        if (item.getCount() == 99) {
+        if (item.getCount() == 99||item.getCount()==6||item.getCount()==7) {
             this.itemBookFragment = mFragments.get(0);
 
         } else {
@@ -183,6 +183,18 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                         .putExtra("id", item.getExt().getOrderId())
                 );
                 break;
+
+            case 6:
+
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
+                break;
+            case 7:
+
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
+                break;
+
             case 99://删除
                 isdelect = true;
                 showDialog2("删除后不能恢复", "订单删除");
@@ -217,7 +229,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             case 4://再次购买
                 JsonObject object = new JsonObject();
                 object.addProperty("goodsId", item.getGoodsId());
-                object.addProperty("count", "1");
+                object.addProperty("count", item.getExt().getAcount());
                 Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
 //                startActivity(new Intent(MyBook.this, Refund.class));
                 break;

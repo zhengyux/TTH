@@ -49,7 +49,7 @@ public class OpinionActivity extends BaseActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
-                tv_num.setText(s.length() + "/200");
+                tv_num.setText(s.length() + "/150");
             }
         });
     }

@@ -63,6 +63,8 @@ public class SetActivity extends BaseActivity {
     }
 
     public void onFive(View v) {
+        startActivity(new Intent(this, AboutUs.class));
+
     }
 
     public void onLogout(View v) {

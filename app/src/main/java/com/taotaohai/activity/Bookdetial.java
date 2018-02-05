@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
@@ -415,6 +414,19 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_1.setVisibility(View.GONE);
                 btn_2.setVisibility(View.GONE);
                 return "退款";
+            case 6:
+
+                btn_1.setText("售后/退款");
+
+
+                return "交易完成";
+
+            case 7:
+
+                btn_1.setText("售后/退款");
+
+
+                return "退款完成";
             default:
                 btn_1.setVisibility(View.GONE);
                 btn_2.setVisibility(View.GONE);
@@ -452,6 +464,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
 
                 break;
 
+
         }
     }
 
@@ -464,15 +477,26 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 3:
-                Log.e("tag", "conlick1: "+data.getExt().getTotalPrice() +data.getTotalPrice());
+
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
                 break;
             case 4://再次购买
                 JsonObject object = new JsonObject();
                 object.addProperty("goodsId", data.getGoodsId());
-                object.addProperty("count", "1");
+                object.addProperty("count", data.getExt().getAcount());
                 Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
 //                startActivity(new Intent(MyBook.this, Refund.class));
+                break;
+
+            case 6:
+
+                startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
+                break;
+
+            case 7:
+
+                startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
+
                 break;
 
         }
@@ -489,6 +513,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         OptionsPickerView pvOptions = new OptionsPickerView.Builder(this, new OptionsPickerView.OnOptionsSelectListener() {
             @Override
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
+
                 //返回的分别是三个级别的选中位置
                 Http(HttpMethod.PUT, "api/goodsorder/cancel/" + data.getId(), 11);//取消订单
             }

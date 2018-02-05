@@ -3,7 +3,8 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-
+    <string name="vis">当前版本 1.0</string>
+    <string name="taotaohai">厦门淘淘海网络科技有限公司</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 

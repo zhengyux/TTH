@@ -427,6 +427,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
 // 启动分享GUI
         oks.show(getActivity());
+
     }
 
     @Override

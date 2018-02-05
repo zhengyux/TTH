@@ -305,6 +305,10 @@
         <item name="android:windowNoTitle">true</item>
     </style>
 
+    <style name="CustomRadioBtn">
+        <item name="android:button">@drawable/radiobuttonstyles</item>
+    </style>
+
     <!--TextView黑色字体-->
 
 </resources>

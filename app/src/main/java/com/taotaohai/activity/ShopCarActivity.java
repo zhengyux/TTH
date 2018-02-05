@@ -207,6 +207,7 @@ public class ShopCarActivity extends BaseActivity {
             });
             convertView.findViewById(R.id.tv_add).setOnClickListener(v -> {
                 if (car.getData().getData().get(position).getCount() < 100) {
+
                     car.getData().getData().get(position).setCount(car.getData().getData().get(position).getCount() + 1);
                     tv_count.setText(String.valueOf("x" + car.getData().getData().get(position).getCount()));
                     tv_count1.setText(String.valueOf(car.getData().getData().get(position).getCount()));

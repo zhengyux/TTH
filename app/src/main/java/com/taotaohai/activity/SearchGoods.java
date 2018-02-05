@@ -202,4 +202,10 @@ public class SearchGoods extends BaseActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        finish();
+        startActivity(new Intent(this,SearchGoods.class));
+        super.onRestart();
+    }
 }

@@ -96,6 +96,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
         badgeView = new BadgeView(getActivity(),rela_shopcar);
         ExpandableListViewClick();
+        tv_all_goods.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
         return view;
     }
 
@@ -104,6 +105,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         tv_all_goods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tv_all_goods.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
+
                 id="-1";
                 gohttp();
                 for (int i = 0; i < myexplistAdapter.getGroupCount(); i++) {
@@ -116,6 +119,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long l) {
+                tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id = classPage.getData().get(groupPosition).getChildren().get(childPosition).getId();
                 gohttp();
 
@@ -126,6 +130,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id=classPage.getData().get(i).getId();
                 gohttp();
 
@@ -526,6 +531,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
 
             childViewHolder.tv_c.setText(classPage.getData().get(groupPosition).getChildren().get(childPosition).getClassName());
+
+
 
 
             return convertView;

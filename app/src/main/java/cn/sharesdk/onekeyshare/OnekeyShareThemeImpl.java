@@ -375,7 +375,7 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 				// 成功
 				int resId = ResHelper.getStringRes(context, "ssdk_oks_share_completed");
 				if (resId > 0) {
-					toast(context.getString(resId));
+		//			toast(context.getString(resId));
 				}
 			} break;
 			case 2: {
@@ -401,12 +401,12 @@ public abstract class OnekeyShareThemeImpl implements PlatformActionListener, Ca
 				} else if("FacebookMessengerClientNotExistException".equals(expName)){
 					toast("ssdk_facebookmessenger_client_inavailable");
 				} else {
-					toast("ssdk_oks_share_failed");
+			//		toast("ssdk_oks_share_failed");
 				}
 			} break;
 			case 3: {
 				// 取消
-				toast("ssdk_oks_share_canceled");
+		//		toast("ssdk_oks_share_canceled");
 			} break;
 		}
 		return false;

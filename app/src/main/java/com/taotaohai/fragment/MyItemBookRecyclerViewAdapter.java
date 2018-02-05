@@ -176,11 +176,21 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
 ////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 ////                btn_2.setBackgroundResource(R.drawable.button_r22);
 //                return "关闭";
+            case 6:
+
+                btn_1.setVisibility(View.GONE);
+                btn_2.setText("删除");
+                return "交易完成";
+
+            case 7:
+
+                btn_1.setVisibility(View.GONE);
+                btn_2.setText("删除");
+
+                return "退款完成";
             case 99:
                 btn_1.setVisibility(View.GONE);
                 btn_2.setText("删除");
-//                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
-//                btn_2.setBackgroundResource(R.drawable.button_r22);
                 return "交易关闭";
         }
         return "";
