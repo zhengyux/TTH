@@ -433,7 +433,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 get("api/user/",999);
                 break;
             case R.id.rela_1:
-                if(null!=hotclass.getData().get(0).getClassId()){
+                if(null!=hotclass){
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(0).getClassId())
                     );
@@ -442,7 +442,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_2:
-                if(null!=hotclass.getData().get(1).getClassId()){
+                if(null!=hotclass){
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(1).getClassId())
                     );
@@ -451,7 +451,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_3:
-                if(null!=hotclass.getData().get(2).getClassId()){
+                if(null!=hotclass){
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(2).getClassId())
                     );
@@ -460,7 +460,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_4:
-                if(null!=hotclass.getData().get(3).getClassId()){
+                if(null!=hotclass){
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(3).getClassId())
                     );

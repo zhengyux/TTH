@@ -76,6 +76,16 @@ public class Car implements Serializable{
         private String unit;
         @SerializedName("userId")
         private String userId;
+        @SerializedName("goodsInfo")
+        private GoodsInfo goodsInfo;
+
+        public GoodsInfo getGoodsInfo() {
+            return goodsInfo;
+        }
+
+        public void setGoodsInfo(GoodsInfo goodsInfo) {
+            this.goodsInfo = goodsInfo;
+        }
 
         public int getCount() {
             return count;
@@ -163,6 +173,29 @@ public class Car implements Serializable{
 
         public void setUserId(String userId) {
             this.userId = userId;
+        }
+    }
+
+    public static class GoodsInfo implements Serializable{
+        @SerializedName("stock")
+        private int stock;
+        @SerializedName("unitMin")
+        private int unitMin;
+
+        public int getUnitMin() {
+            return unitMin;
+        }
+
+        public void setUnitMin(int unitMin) {
+            this.unitMin = unitMin;
+        }
+
+        public int getStock() {
+            return stock;
+        }
+
+        public void setStock(int stock) {
+            this.stock = stock;
         }
     }
 

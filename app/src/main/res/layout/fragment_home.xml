@@ -174,7 +174,7 @@
                             android:layout_width="match_parent"
                             android:gravity="center"
                             android:maxLines="1"
-                            android:text="生鲜龙虾"
+                            android:text=""
                             android:textColor="#ff5216"
                             tools:ignore="HardcodedText" />
 
@@ -188,7 +188,6 @@
                             android:layout_below="@+id/tv_11"
                             android:layout_marginBottom="10px"
                             android:layout_marginTop="10px"
-                            android:text="生鲜龙虾"
                             tools:ignore="HardcodedText" />
 
 
@@ -197,7 +196,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_below="@+id/tv_12"
-                            android:src="@mipmap/ic_bac"
                             tools:ignore="ContentDescription" />
                     </RelativeLayout>
 
@@ -229,7 +227,7 @@
                                 android:layout_toStartOf="@+id/tv_23"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:text="野野生鲤鱼"
+                                android:text=""
                                 android:textColor="#ff9f16"
                                 tools:ignore="HardcodedText" />
 
@@ -243,7 +241,6 @@
                                 android:layout_toStartOf="@+id/tv_23"
                                 android:gravity="center"
                                 android:maxLength="10"
-                                android:text="特色海鲜来挑"
                                 tools:ignore="HardcodedText" />
 
                             <ImageView
@@ -252,7 +249,6 @@
                                 android:layout_marginRight="10px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -278,7 +274,7 @@
                                 android:layout_toStartOf="@+id/tv_33"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:text="野生鲤鱼"
+                                android:text=""
                                 android:textColor="#c234fd"
                                 tools:ignore="HardcodedText" />
 
@@ -302,7 +298,6 @@
                                 android:layout_alignParentEnd="true"
                                 android:layout_alignParentTop="true"
                                 android:layout_marginRight="10px"
-                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -328,7 +323,7 @@
                                 android:layout_toStartOf="@+id/tv_43"
                                 android:gravity="center"
                                 android:maxLines="1"
-                                android:text="野生鲤鱼"
+                                android:text=""
                                 android:textColor="@color/them"
                                 tools:ignore="HardcodedText" />
 
@@ -351,7 +346,6 @@
                                 android:layout_height="match_parent"
                                 android:layout_marginRight="10px"
                                 android:layout_alignParentRight="true"
-                                android:src="@mipmap/ic_bac"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 

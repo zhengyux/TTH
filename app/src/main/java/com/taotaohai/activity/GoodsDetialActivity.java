@@ -471,7 +471,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             return;
         }
 
-        if (goods.getData().getUnitMin() > goods.getData().getStock()) {
+        if (count > goods.getData().getStock()) {
             showToast("库存不足,无法购买");
             return;
         }
