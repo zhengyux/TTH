@@ -50,6 +50,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private LinearLayout lin_1;
     private Shopclass shopclass;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
 
     @Override
     protected void inithttp() {
@@ -59,6 +60,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         get("api/shop/follow/" + getintent("id") + "/1", 2);
         get("api/shop/" + getintent("id") + "/class", 3);
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
     @Override
@@ -150,6 +153,30 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }
 
@@ -272,6 +299,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     }
 
     private void initview() {
+        rela_message = (RelativeLayout) findViewById(R.id.rela_message);
         rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
         lin_1 = (LinearLayout) findViewById(R.id.lin_1);
         mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);

@@ -17,10 +17,17 @@ import com.taotaohai.util.util;
 public class MessageActivity extends BaseActivity implements EaseConversationListFragment.EaseConversationListItemClickListener {
 
     private RelativeLayout rela_shopcar;
-
+    private RelativeLayout imageView25;//系统消息
+    private RelativeLayout imageView26;//通知消息
+    BadgeView badgeView;
+    BadgeView badgeView25;
+    BadgeView badgeView26;
     @Override
     protected void inithttp() {
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
+
     }
 
     @Override
@@ -29,11 +36,40 @@ public class MessageActivity extends BaseActivity implements EaseConversationLis
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
+                badgeView = new BadgeView(getApplicationContext(),rela_shopcar);
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
+            }else {
+                badgeView.hide();
+            }
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView25 = new BadgeView(getApplicationContext(),imageView25);
+                badgeView25.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView25.setTextSize(6);// 设置文本大小
+                badgeView25.setText(""); // 设置要显示的文本
+                badgeView25.show();// 将角标显示出来
+            }else {
+                badgeView25.hide();
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView26 = new BadgeView(getApplicationContext(),imageView26);
+                badgeView26.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView26.setTextSize(6);// 设置文本大小
+                badgeView26.setText(""); // 设置要显示的文本
+                badgeView26.show();// 将角标显示出来
+            }else {
+                badgeView26.hide();
             }
 
         }
@@ -44,6 +80,8 @@ public class MessageActivity extends BaseActivity implements EaseConversationLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_message);
+        imageView25 = (RelativeLayout) findViewById(R.id.imageView25);
+        imageView26 = (RelativeLayout) findViewById(R.id.imageView26);
         EaseConversationListFragment easeConversationListFragment = new EaseConversationListFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.fragment, easeConversationListFragment).commit();
         easeConversationListFragment.setConversationListItemClickListener(this);
@@ -68,5 +106,11 @@ public class MessageActivity extends BaseActivity implements EaseConversationLis
 
     public void onBack(View view) {
         finish();
+    }
+
+    @Override
+    protected void onResume() {
+        inithttp();
+        super.onResume();
     }
 }

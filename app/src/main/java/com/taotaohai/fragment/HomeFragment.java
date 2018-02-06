@@ -70,7 +70,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private static HomeFragment fragment;
     private ImageView home_shopcar_image;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
     BadgeView badgeView ;
+    BadgeView badgeView2 ;
     private TextView down_load;//加载更多
     int pageSize = 10;
     int pageIndex = 0;//第多少个
@@ -107,6 +109,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         inithttp();
         initview();
         badgeView = new BadgeView(getActivity(),rela_shopcar);
+        badgeView2 = new BadgeView(getActivity(),rela_message);
         return view;
     }
 
@@ -119,6 +122,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
         get("/api/shopCar/shop_car_num",20);//购物车数量
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         initHotGoods();
     }
 
@@ -170,6 +175,35 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 }else {
                     badgeView.hide();
                 }
+                break;
+            case 50:
+                ShopCarNum shopCarNum2 = new ShopCarNum();
+                shopCarNum2 = util.getgson(data,ShopCarNum.class);
+                if(shopCarNum2.getData()!="0"){
+
+                    badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                    badgeView2.setTextSize(6);// 设置文本大小
+                    badgeView2.setText(""); // 设置要显示的文本
+                    badgeView2.show();// 将角标显示出来
+                }else {
+                    badgeView2.hide();
+                }
+                break;
+
+            case 51:
+
+                ShopCarNum shopCarNum3 = new ShopCarNum();
+                shopCarNum3 = util.getgson(data,ShopCarNum.class);
+                if(shopCarNum3.getData()!="0"){
+
+                    badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                    badgeView2.setTextSize(6);// 设置文本大小
+                    badgeView2.setText(""); // 设置要显示的文本
+                    badgeView2.show();// 将角标显示出来
+                }else {
+                    badgeView2.hide();
+                }
+
                 break;
         }
 
@@ -300,6 +334,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         down_load.setOnClickListener(this);
         home_shopcar_image = (ImageView) view.findViewById(R.id.home_shopcar_image);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
+        rela_message=(RelativeLayout) view.findViewById(R.id.rela_message);
         text = Arrays.asList(
                 view.findViewById(R.id.tv_11),
                 view.findViewById(R.id.tv_12),
@@ -321,8 +356,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
 
         view.findViewById(R.id.tv_search).setOnClickListener(this);
-        view.findViewById(R.id.rela_shopcar).setOnClickListener(this);
-        view.findViewById(R.id.rela_message).setOnClickListener(this);
+        rela_shopcar.setOnClickListener(this);
+        rela_message.setOnClickListener(this);
         view.findViewById(R.id.rela_1).setOnClickListener(this);
         view.findViewById(R.id.rela_2).setOnClickListener(this);
         view.findViewById(R.id.rela_3).setOnClickListener(this);
@@ -626,6 +661,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onHiddenChanged(boolean hidden) {
 
         get("/api/shopCar/shop_car_num",20);//购物车数量
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         super.onHiddenChanged(hidden);
     }
 
@@ -633,6 +670,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     public void onResume() {
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
 

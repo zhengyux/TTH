@@ -65,7 +65,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private String id = "-1";
     private ImageView class_car_image;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
     BadgeView badgeView;
+    BadgeView badgeView2;
     private ExpandableListView expandableListView ;
     private TextView tv_all_goods;
     private MyexplistAdapter myexplistAdapter;
@@ -95,6 +97,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
 
         badgeView = new BadgeView(getActivity(),rela_shopcar);
+        badgeView2 = new BadgeView(getActivity(),rela_message);
         ExpandableListViewClick();
         tv_all_goods.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
         return view;
@@ -159,6 +162,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         mMsvLayout.loading();
         get("api/goods/class", 0);
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         gohttp();
     }
 
@@ -239,6 +244,33 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
 
         }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
+            }
+
+        }
 
         if (postcode == 0) {
 
@@ -275,8 +307,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         class_car_image = (ImageView) view.findViewById(R.id.class_car_image);
         mMsvLayout = (MultipleStatusView) view.findViewById(R.id.msv_layout);
 
-        view.findViewById(R.id.rela_message).setOnClickListener(this);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
+        rela_message = (RelativeLayout) view.findViewById(R.id.rela_message);
+        rela_message.setOnClickListener(this);
         rela_shopcar.setOnClickListener(this);
         imag_photo2 = (ImageView) view.findViewById(R.id.imag_photo2);
         View v1 = view.findViewById(R.id.rela1);
@@ -442,6 +475,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     @Override
     public void onHiddenChanged(boolean hidden) {
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         super.onHiddenChanged(hidden);
     }
 
@@ -449,6 +484,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     public void onResume() {
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
+
     }
 
 

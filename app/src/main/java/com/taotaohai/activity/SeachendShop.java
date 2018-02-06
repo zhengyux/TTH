@@ -100,6 +100,8 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     @Override
     protected void inithttp() {
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         get("/api/shopCar/shop_car_num",20);
         if (getintent("name").length() != 0) {
             name = getintent("name");
@@ -181,6 +183,30 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }
 

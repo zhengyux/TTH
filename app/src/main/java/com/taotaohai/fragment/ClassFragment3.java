@@ -67,7 +67,9 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     private int pageSize = 100;
     private String id = "-1";
     private RelativeLayout relativeLayout2;//购物车
+    private RelativeLayout relativeLayout3;
     BadgeView badgeView ;
+    BadgeView badgeView2 ;
 
 
     private static ClassFragment3 fragment;
@@ -90,6 +92,7 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
         inithttp();
         initview();
         badgeView = new BadgeView(getActivity(),relativeLayout2);
+        badgeView2 = new BadgeView(getActivity(),relativeLayout3);
         return view;
     }
 
@@ -97,6 +100,8 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
     public void inithttp() {
         super.inithttp();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
 //        get("api/goods/class", 0);
         gohttp();
     }
@@ -131,6 +136,30 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
             }
 
         }
@@ -203,7 +232,8 @@ public class ClassFragment3 extends BaseFragment implements View.OnClickListener
         view.findViewById(R.id.back).setOnClickListener(this);
         relativeLayout2 = (RelativeLayout) view.findViewById(R.id.relativeLayout2);
         relativeLayout2.setOnClickListener(this);
-        view.findViewById(R.id.relativeLayout3).setOnClickListener(this);
+        relativeLayout3 = (RelativeLayout) view.findViewById(R.id.relativeLayout3);
+        relativeLayout3.setOnClickListener(this);
 
         TextView tv1 = (TextView) view.findViewById(R.id.tv_1);
         TextView tv2 = (TextView) view.findViewById(R.id.tv_2);

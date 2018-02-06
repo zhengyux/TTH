@@ -51,6 +51,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private TextView tv_name;
     private ImageView mine_car_image;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
     private RelativeLayout re21;
     private RelativeLayout re22;
     private RelativeLayout re23;
@@ -60,6 +61,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     BadgeView badgeView2 ;
     BadgeView badgeView3 ;
     BadgeView badgeView4 ;
+    BadgeView badgeView50 ;
 
     private static MineFragment fragment;
 
@@ -91,6 +93,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         badgeView2 = new BadgeView(getActivity(),re22);
         badgeView3 = new BadgeView(getActivity(),re23);
         badgeView4 = new BadgeView(getActivity(),re24);
+        badgeView50 = new BadgeView(getActivity(),rela_message);
         return view;
     }
 
@@ -109,6 +112,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         get("/api/shopCar/shop_car_num",20);
         get("/api/goodsorder/listAcount/1",101);
         get("/api/goodsorder/listAcount/2",102);
@@ -123,6 +128,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView50.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView50.setTextSize(6);// 设置文本大小
+                badgeView50.setText(""); // 设置要显示的文本
+                badgeView50.show();// 将角标显示出来
+            }else {
+                badgeView50.hide();
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView50.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView50.setTextSize(6);// 设置文本大小
+                badgeView50.setText(""); // 设置要显示的文本
+                badgeView50.show();// 将角标显示出来
+            }else {
+                badgeView50.hide();
+            }
+
+        }
 
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
@@ -227,6 +260,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tv_name = (TextView) view.findViewById(R.id.tv_name);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
         rela_shopcar.setOnClickListener(this);
+        rela_message = (RelativeLayout) view.findViewById(R.id.rela_message);
+        rela_message.setOnClickListener(this);
         view.findViewById(R.id.rela1).setOnClickListener(this);
         view.findViewById(R.id.rela2).setOnClickListener(this);
         view.findViewById(R.id.rela3).setOnClickListener(this);
@@ -247,8 +282,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         tv_regist = view.findViewById(R.id.tv_regist);
         tv_regist.setOnClickListener(this);
         image_photo.setOnClickListener(this);
-        view.findViewById(R.id.rela_message).setOnClickListener(this);
-
         view.findViewById(R.id.allbooks).setOnClickListener(this);
     }
 
@@ -398,6 +431,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         get("/api/goodsorder/listAcount/2",102);
         get("/api/goodsorder/listAcount/3",103);
         get("/api/goodsorder/listAcount/4",104);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
     private void showShare() {
@@ -439,5 +474,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         get("/api/goodsorder/listAcount/2",102);
         get("/api/goodsorder/listAcount/3",103);
         get("/api/goodsorder/listAcount/4",104);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 }

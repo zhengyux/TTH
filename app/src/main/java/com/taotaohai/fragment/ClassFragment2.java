@@ -65,6 +65,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
     private String id = "-1";
     String ordertype = "0";
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
 
     private static ClassFragment2 fragment;
     private EditText edit_search;
@@ -93,6 +94,8 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
     public void inithttp() {
         super.inithttp();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         gohttp();
     }
 
@@ -153,6 +156,30 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
             }
 
         }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getActivity(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
 
         if (postcode == 1) {
             seach = util.getgson(data, Seach.class);
@@ -189,7 +216,9 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         v2.setOnClickListener(this);
         v3.setOnClickListener(this);
 
-        view.findViewById(R.id.rela_message).setOnClickListener(this);
+
+        rela_message = (RelativeLayout) view.findViewById(R.id.rela_message);
+        rela_message.setOnClickListener(this);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
         rela_shopcar.setOnClickListener(this);
         view.findViewById(R.id.back).setOnClickListener(this);

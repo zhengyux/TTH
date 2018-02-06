@@ -32,6 +32,7 @@ public class ShopCarActivity extends BaseActivity {
     private Car car;
     private Car car_buy;
     private TextView tv_all, tv_settlment;
+    private RelativeLayout rela_message;
 
     @Override
     protected void inithttp() {
@@ -75,11 +76,12 @@ public class ShopCarActivity extends BaseActivity {
 
         inithttp();
         initview();
-
+        get("/api/message/notReadList/{type}",50);
 
     }
 
     private void initview() {
+        rela_message = (RelativeLayout) findViewById(R.id.rela_message);
         TextView tv_settlement = (TextView) findViewById(R.id.tv_settlement);
         tv_settlement.setOnClickListener(v -> {
             if (car_buy.getData().getData().size() == 0) {
@@ -215,7 +217,7 @@ public class ShopCarActivity extends BaseActivity {
             });
             convertView.findViewById(R.id.tv_add).setOnClickListener(v -> {
 
-                if(car.getData().getData().get(position).getGoodsInfo().getStock()<car.getData().getData().get(position).getCount()){
+                if(car.getData().getData().get(position).getGoodsInfo().getStock()<=car.getData().getData().get(position).getCount()){
                     showToast("购买量大于库存");
                 }else {
 

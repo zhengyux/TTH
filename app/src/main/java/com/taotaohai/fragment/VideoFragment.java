@@ -54,6 +54,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     private XListView xListView;
     CallBackValue callBackValue;
     BadgeView badgeView ;
+    BadgeView badgeView2 ;
     int pageSize = 10;
     int pageIndex = 0;//第多少个
 
@@ -81,6 +82,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     public void inithttp() {
         super.inithttp();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
         inithttpdata();
     }
 
@@ -119,6 +122,33 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(data,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
             }
 
         }
@@ -196,6 +226,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         inithttp();
         callBackValue.SendMessageValue(1);
         badgeView = new BadgeView(getActivity(),screlativeLayout);
+        badgeView2 = new BadgeView(getActivity(),msrelativeLayout);
         return view;
     }
 
@@ -377,20 +408,20 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
             // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
             oks.setTitle("淘淘海视频分享");
             // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-            oks.setTitleUrl(video.getData().getData().get(i).getVideoAbsUrl());
+            oks.setTitleUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
             // text是分享文本，所有平台都需要这个字段
             oks.setText(video.getData().getData().get(i).getDescribe());
             // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
           //  oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
             oks.setImageUrl(video.getData().getData().get(i).getImageAbsUrl());
             // url仅在微信（包括好友和朋友圈）中使用
-            oks.setUrl(video.getData().getData().get(i).getVideoAbsUrl());
+            oks.setUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
             // comment是我对这条分享的评论，仅在人人网和QQ空间使用
             oks.setComment("淘淘海");
             // site是分享此内容的网站名称，仅在QQ空间使用
             oks.setSite("淘淘海");
             // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-            oks.setSiteUrl(video.getData().getData().get(i).getVideoAbsUrl());
+            oks.setSiteUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
             // 启动分享GUI
             oks.show(getActivity());
         }
@@ -405,5 +436,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     public void onResume() {
         super.onResume();
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 }

@@ -77,18 +77,33 @@
             android:padding="@dimen/gap"
             tools:ignore="OnClick">
 
-            <ImageView
-                android:id="@+id/imageView25"
-                android:layout_width="64px"
-                android:layout_height="64px"
-                android:src="@mipmap/system" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                style="@style/text34"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/gap"
-                android:layout_toEndOf="@+id/imageView25"
-                android:text="系统消息" />
+                <RelativeLayout
+                    android:gravity="center"
+                    android:id="@+id/imageView25"
+                    android:layout_width="94px"
+                    android:layout_height="84px">
+
+                    <ImageView
+                        android:layout_width="64px"
+                        android:layout_height="64px"
+                        android:src="@mipmap/system" />
+
+                </RelativeLayout>
+                    <TextView
+                        style="@style/text34"
+                        android:layout_gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:layout_toEndOf="@+id/imageView25"
+                        android:text="系统消息" />
+
+
+            </LinearLayout>
+
 
             <ImageView
                 android:layout_width="20px"
@@ -109,18 +124,36 @@
             android:padding="@dimen/gap"
             tools:ignore="OnClick">
 
-            <ImageView
-                android:id="@+id/imageView26"
-                android:layout_width="64px"
-                android:layout_height="64px"
-                android:src="@mipmap/tongzhi" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
-            <TextView
-                style="@style/text34"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/gap"
-                android:layout_toEndOf="@+id/imageView26"
-                android:text="通知消息" />
+                <RelativeLayout
+                    android:id="@+id/imageView26"
+                    android:gravity="center"
+                    android:layout_width="94px"
+                    android:layout_height="84px">
+
+                    <ImageView
+                        android:layout_width="64px"
+                        android:layout_height="64px"
+                        android:src="@mipmap/tongzhi" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/text34"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_toEndOf="@+id/imageView26"
+                    android:text="通知消息" />
+
+            </LinearLayout>
+
+
+
+
+
 
             <ImageView
                 android:layout_width="20px"

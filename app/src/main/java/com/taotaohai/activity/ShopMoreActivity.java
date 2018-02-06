@@ -45,6 +45,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     private CommonAdapter adapter;
     private String locationProvider;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
     private TextView tv_distance;
     private TextView tv_ar;
     private TextView tv_score;
@@ -54,6 +55,8 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     protected void inithttp() {
         get("api/shop");
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
     @Override
@@ -96,6 +99,28 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }
         }
@@ -157,7 +182,8 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
     }
 
     private void initview() {
-        findViewById(R.id.rela_message).setOnClickListener(v ->
+        rela_message= (RelativeLayout) findViewById(R.id.rela_message);
+        rela_message.setOnClickListener(v ->
                 get("api/user/",999)
                 );
         rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);

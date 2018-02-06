@@ -59,10 +59,13 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     private Dialog dialog;
     private ViewPager vp;
     private RelativeLayout mrelativeLayout2;//购物车
+    private RelativeLayout mrelativeLayout3;
 
     @Override
     protected void inithttp() {
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
     @Override
@@ -93,7 +96,8 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         }
         mrelativeLayout2 = (RelativeLayout) findViewById(R.id.mrelativeLayout2);
         mrelativeLayout2.setOnClickListener(this);
-        findViewById(R.id.mrelativeLayout3).setOnClickListener(this);
+        mrelativeLayout3  = (RelativeLayout) findViewById(R.id.mrelativeLayout3);
+        mrelativeLayout3.setOnClickListener(this);
         findViewById(R.id.msearch_).setOnClickListener(this);
         findViewById(R.id.back).setOnClickListener(this);
         View decorView = getWindow().getDecorView();
@@ -391,6 +395,30 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),mrelativeLayout3);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),mrelativeLayout3);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }
 

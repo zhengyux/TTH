@@ -22,11 +22,14 @@ public class ReFundListActivity extends BaseActivity {
 
     private Book book;
     private RelativeLayout rela_shopcar;
+    private RelativeLayout rela_message;
 
     @Override
     protected void inithttp() {
         get("api/goodsorder/list/5");
         get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
     }
 
     @Override
@@ -48,13 +51,38 @@ public class ReFundListActivity extends BaseActivity {
             }
 
         }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(6);// 设置文本大小
+                badgeView.setText(""); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }
+
+        }
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_re_fund_list);
-        findViewById(R.id.rela_message).setOnClickListener((l) -> startActivity(new Intent(this, MessageActivity.class)));
+        rela_message = (RelativeLayout) findViewById(R.id.rela_message);
+        rela_message.setOnClickListener((l) -> startActivity(new Intent(this, MessageActivity.class)));
         rela_shopcar = (RelativeLayout) findViewById(R.id.rela_shopcar);
         rela_shopcar.setOnClickListener((l) -> startActivity(new Intent(this, ShopCarActivity.class)));
         findViewById(R.id.back).setOnClickListener((l) -> finish());
