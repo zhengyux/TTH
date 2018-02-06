@@ -262,7 +262,13 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
                 //返回的分别是三个级别的选中位置
 
-                Http(HttpMethod.PUT, "api/goodsorder/cancel/" + item.getId(), 10);//取消订单
+                try {
+                    Http(HttpMethod.PUT, "api/goodsorder/cancel/" + item.getId()+"/"+URLEncoder.encode(options1Items.get(options1),"utf-8"), 10);//取消订单
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
             }
         })
                 .setSubCalSize(15)//确定和取消文字大小

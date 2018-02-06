@@ -515,7 +515,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             public void onOptionsSelect(int options1, int option2, int options3, View v) {
 
                 //返回的分别是三个级别的选中位置
-                Http(HttpMethod.PUT, "api/goodsorder/cancel/" + data.getId(), 11);//取消订单
+                try {
+                    Http(HttpMethod.PUT, "api/goodsorder/cancel/" + data.getId()+"/"+URLEncoder.encode(options1Items.get(options1),"utf-8"), 10);//取消订单
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
             }
         })
                 .setSubCalSize(15)//确定和取消文字大小
