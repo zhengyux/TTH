@@ -11,6 +11,8 @@
         android:textSize="26px"
         android:gravity="center"
         android:text=""
-        android:textColor="#3f3f3f" />
+        android:textColor="@drawable/explist"
+
+       />
 
 </LinearLayout>

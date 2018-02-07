@@ -71,7 +71,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private ExpandableListView expandableListView ;
     private TextView tv_all_goods;
     private MyexplistAdapter myexplistAdapter;
-
+    int pos[];
 
     private MultipleStatusView mMsvLayout;
 
@@ -103,6 +103,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         return view;
     }
 
+
+
+
+
     private void ExpandableListViewClick(){
 
         tv_all_goods.setOnClickListener(new View.OnClickListener() {
@@ -119,11 +123,24 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
         });
 
+
+
+
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long l) {
                 tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id = classPage.getData().get(groupPosition).getChildren().get(childPosition).getId();
+
+                if(pos[groupPosition]!=childPosition){
+                    if(pos[groupPosition]!=-1){
+                        classPage.getData().get(groupPosition).getChildren().get(pos[groupPosition]).setSelect(false);
+                    }
+                    classPage.getData().get(groupPosition).getChildren().get(childPosition).setSelect(true);
+                    pos[groupPosition]=childPosition;
+                }
+
+                myexplistAdapter.notifyDataSetChanged();
                 gohttp();
 
                 return true;
@@ -135,6 +152,14 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
                 tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id=classPage.getData().get(i).getId();
+                if(classPage.getData().get(i).getChildren().size()>0){
+                    if(pos[i]!=-1){
+                        classPage.getData().get(i).getChildren().get(pos[i]).setSelect(false);
+                    }
+                }
+
+                myexplistAdapter.notifyDataSetChanged();
+                pos[i]=-1;
                 gohttp();
 
                 return false;
@@ -153,6 +178,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
             }
         });
+
 
     }
 
@@ -275,6 +301,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         if (postcode == 0) {
 
             classPage = util.getgson(data, ClassPage.class);
+            pos=new int[classPage.getData().size()];
+            for (int i=0;i<pos.length;i++){
+                pos[i]=-1;
+            }
             if (classPage.getSuccess()) {
                 myexplistAdapter = new MyexplistAdapter();
                 expandableListView.setAdapter(myexplistAdapter);
@@ -545,6 +575,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     groupViewHolder.tv_g.setText(classPage.getData().get(groupPosition).getClassName());
 
 
+
+
             if(b){
                 groupViewHolder.tv_g.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
             }else {
@@ -567,6 +599,14 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }else {
                 childViewHolder = (ChildViewHolder) convertView.getTag();
             }
+
+
+
+
+
+
+            childViewHolder.tv_c.setSelected(classPage.getData().get(groupPosition).getChildren().get(childPosition).isSelect());
+
 
             childViewHolder.tv_c.setText(classPage.getData().get(groupPosition).getChildren().get(childPosition).getClassName());
 

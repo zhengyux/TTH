@@ -65,6 +65,16 @@ public class ClassPage {
         @SerializedName("parentId")
         private String parentId;
 
+        private boolean select;
+
+        public boolean isSelect() {
+            return select;
+        }
+
+        public void setSelect(boolean select) {
+            this.select = select;
+        }
+
         public String getClassName() {
             return className;
         }

@@ -2,7 +2,6 @@ package com.taotaohai.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,7 +38,7 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
 
     @Override
     public void onSuccess(String result, int postcode) {
-        Log.e("tag", "onSuccess: "+result );
+
                 book= util.getgson(result,Book.class);
 
                 adapter.notifyDataSetChanged();
@@ -170,7 +169,7 @@ public class SeachBookActivity extends BaseActivity implements View.OnClickListe
             viewHolder.text_stata.setText(getstata(book.getData2().getData().get(i).getOrderStatus(), viewHolder.btn_1, viewHolder.btn_2, viewHolder.btn_3));
             viewHolder.tv_sigalmoney.setText("¥ " + book.getData2().getData().get(i).getExt().getPrice());
             viewHolder.tv_all.setText("¥ " + book.getData2().getData().get(i).getTotalPrice());
-            viewHolder.tv_guige.setText(book.getData2().getData().get(i).getRemarks());
+            viewHolder.tv_guige.setText(book.getData2().getData().get(i).getExt().getRemark());
             viewHolder.tv_count.setText("x" + book.getData2().getData().get(i).getExt().getAcount());
             book.getData2().getData().get(i).setCount(book.getData2().getData().get(i).getOrderStatus());
             Glide.with(getApplicationContext()).load(book.getData2().getData().get(i).getExt().getImgId()).error(R.mipmap.ic_bac).into(viewHolder.image_photo);

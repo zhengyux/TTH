@@ -444,6 +444,10 @@ public class Refund extends BaseActivity {
             showToast("请选择退款原因");
             return;
         }
+        if(null==editText.getText()||"".equals(editText.getText().toString().trim())){
+            showToast("请输入退款详情");
+            return;
+        }
         HashMap<String, String> has = new HashMap<>();
 
         StringBuilder sb = new StringBuilder();

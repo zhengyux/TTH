@@ -576,7 +576,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 viewholder.tv_remorke.setText(data.getRemark());
                 viewholder.tv_people.setText("已有" + data.getSaleVolume() + "人购买");
             }
-            viewholder.tv_money.setText("￥：" + data.getPrice());
+            viewholder.tv_money.setText("￥ " + data.getPrice());
             viewholder.tv_unit.setText("/" + data.getUnit());
             return convertView;
         }

@@ -107,6 +107,7 @@
                 android:layout_toEndOf="@+id/tv_sigalmoney"
                 android:text="/箱"
                 android:textSize="30px"
+                android:textColor="@color/text_black"
                 tools:ignore="HardcodedText,PxUsage" />
 
             <TextView
@@ -138,6 +139,7 @@
                 android:layout_above="@+id/tv_sigalmoney"
                 android:layout_marginBottom="10px"
                 android:layout_toEndOf="@+id/image_photo"
+                android:textColor="@color/glay_text"
                 android:text="净重20kg 毛重20kg"
                 android:textSize="28px"
                 tools:ignore="HardcodedText,PxUsage" />

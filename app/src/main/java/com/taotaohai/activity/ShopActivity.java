@@ -251,7 +251,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
                 holder.setText(R.id.tv_1, data.getTitle());
                 holder.setText(R.id.tv_2, data.getRemark());
-                holder.setText(R.id.tv_3, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_3, "￥ " + data.getPrice());
                 holder.setText(R.id.tv_4, "/" + data.getUnit());
                 holder.setText(R.id.tv_5, "已有" + data.getSaleVolume() + "人购买");
                 holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(ShopActivity.this, GoodsDetialActivity.class)
@@ -379,7 +379,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 }
                 holder.setText(R.id.tv_1, data.getTitle());
                 holder.setText(R.id.tv_2, data.getRemark());
-                holder.setText(R.id.tv_3, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_3, "￥ " + data.getPrice());
                 holder.setText(R.id.tv_4, "/" + data.getUnit());
                 holder.setText(R.id.tv_5, "已有" + data.getSaleVolume() + "人购买");
                 holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(ShopActivity.this, GoodsDetialActivity.class)
