@@ -445,7 +445,8 @@ public class NiceVideoPlayer extends FrameLayout
             // 从上次的保存位置播放
             if (continueFromLastPosition) {
                 long savedPlayPosition = NiceUtil.getSavedPlayPosition(mContext, mUrl);
-                mp.seekTo(savedPlayPosition);
+               // mp.seekTo(savedPlayPosition);
+                mp.seekTo(0);
             }
             // 跳到指定位置播放
             if (skipToPosition != 0) {

@@ -305,14 +305,16 @@ public class OrderSureActivity extends BaseActivity {
                      */
                     String resultInfo = payResult.getResult();// 同步返回需要验证的信息
                     String resultStatus = payResult.getResultStatus();
-                    startActivity(new Intent(OrderSureActivity.this, MyBook.class));
+
 
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-
+                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata",2));
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         showToast("支付失败");
+                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata",1));
+                        finish();
                     }
                     break;
                 }
@@ -347,12 +349,20 @@ public class OrderSureActivity extends BaseActivity {
         textView.setText(st);
         dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
         dialog.findViewById(R.id.sure).setOnClickListener(v -> {
-            dialog.dismiss();
-            if (paytype == 1) {
-                get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
-            } else {
-                get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+            for (int i = 0; i < car.getData().getData().size(); i++) {
+                if(car.getData().getData().get(i).getGoodsInfo().getStock()<=car.getData().getData().get(i).getCount()){
+                    showToast("购买量大于库存");
+                }else {
+                    dialog.dismiss();
+                    if (paytype == 1) {
+                        get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
+                    } else {
+                        get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+                    }
+                }
             }
+
+
         });
         dialog.setOnDismissListener(dialog1 -> backgroundAlpha(1f));
         Window dialogWindow = dialog.getWindow();

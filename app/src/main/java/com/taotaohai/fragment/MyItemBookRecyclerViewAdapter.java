@@ -142,6 +142,7 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
 */
         btn_1.setVisibility(View.VISIBLE);
         btn_2.setVisibility(View.VISIBLE);
+        btn_3.setVisibility(View.GONE);
         switch (i) {
             case 1:
                 btn_1.setText("取消订单");
@@ -162,11 +163,13 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
             case 4:
                 btn_1.setText("再次购买");
                 btn_2.setText("评价");
+                btn_3.setVisibility(View.GONE);
                 return "待评价";
             case 5:
 //                btn_2.setText("退款xiangqi");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
+                btn_3.setVisibility(View.GONE);
 //                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
 //                btn_2.setBackgroundResource(R.drawable.button_r22);
                 return "退款";
@@ -179,17 +182,20 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
             case 6:
 
                 btn_1.setVisibility(View.GONE);
+                btn_3.setVisibility(View.GONE);
                 btn_2.setText("删除");
                 return "交易完成";
 
             case 7:
 
                 btn_1.setVisibility(View.GONE);
+                btn_3.setVisibility(View.GONE);
                 btn_2.setText("删除");
 
                 return "退款完成";
             case 99:
                 btn_1.setVisibility(View.GONE);
+                btn_3.setVisibility(View.GONE);
                 btn_2.setText("删除");
                 return "交易关闭";
         }

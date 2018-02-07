@@ -375,6 +375,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
                 viewHolder = (ViewHolder) view.getTag();
             }
+            viewHolder.tv_play.setOnClickListener((l)->{
+                viewHolder.niceVideoPlayer.start();
+                get("api/video/player/" + video.getData().getData().get(i).getId(), 15);
+            });
             viewHolder.niceVideoPlayer.setPlayerType(NiceVideoPlayer.TYPE_IJK); // or NiceVideoPlayer.TYPE_NATIVE
             viewHolder.niceVideoPlayer.setUp(video.getData().getData().get(i).getVideoAbsUrl(), null);
             TxVideoPlayerController controller = new TxVideoPlayerController(getActivity());

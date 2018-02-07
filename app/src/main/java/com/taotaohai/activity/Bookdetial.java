@@ -141,7 +141,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             buffer.append("\n付款时间：" + data.getExt().getDealTime());
         }
 
-        if (99==data.getExt().getOrderStatus() && null!=data.getExt().getGmtModify()){
+        if (99==data.getExt().getOrderStatus() && null!=data.getExt().getGmtModify()||data.getExt().getOrderStatus()==4){
             buffer.append("\n确认收货时间：" +data.getExt().getGmtModify());
         }
 
@@ -416,15 +416,15 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 return "退款";
             case 6:
 
-                btn_1.setText("售后/退款");
-
+                btn_1.setVisibility(View.GONE);
+                btn_2.setVisibility(View.GONE);
 
                 return "交易完成";
 
             case 7:
 
-                btn_1.setText("售后/退款");
-
+                btn_1.setVisibility(View.GONE);
+                btn_2.setVisibility(View.GONE);
 
                 return "退款完成";
             default:

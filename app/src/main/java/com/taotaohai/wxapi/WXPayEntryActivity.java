@@ -48,20 +48,20 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
 
 //                        pay.getdata("1");
                         Toast.makeText(getApplicationContext(),"支付成功",Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
+                        startActivity(new Intent(WXPayEntryActivity.this, MyBook.class).putExtra("stata",2));
                         finish();
 
                     break;
                 case BaseResp.ErrCode.ERR_USER_CANCEL:
 
                     Toast.makeText(getApplicationContext(),"取消支付",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
+                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class).putExtra("stata",1));
                     finish();
                     break;
                 case BaseResp.ErrCode.ERR_COMM:
 
                     Toast.makeText(getApplicationContext(),"支付失败",Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class));
+                    startActivity(new Intent(WXPayEntryActivity.this, MyBook.class).putExtra("stata",1));
                     finish();
                     break;
             }

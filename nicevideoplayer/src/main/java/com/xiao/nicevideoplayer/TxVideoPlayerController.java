@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -357,6 +356,7 @@ public class TxVideoPlayerController
         if (v == mCenterStart) {
             if (mNiceVideoPlayer.isIdle()) {
                 mNiceVideoPlayer.start();
+
             }
         } else if (v == mBack) {
             if (mNiceVideoPlayer.isFullScreen()) {

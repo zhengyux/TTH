@@ -450,7 +450,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                     image_photo = holder.getView(R.id.image_car);
                     JsonObject object = new JsonObject();
                     object.addProperty("goodsId", data.getId());
-                    object.addProperty("count", "1");
+                    object.addProperty("count", data.getUnitMin());
                     Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
 
                 });
