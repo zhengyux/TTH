@@ -28,6 +28,7 @@
 
 
         </RelativeLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -64,54 +65,50 @@
                 tools:ignore="ContentDescription" />
 
         </RelativeLayout>
-<LinearLayout
-    android:id="@+id/L1"
-    android:layout_alignParentRight="true"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:gravity="right">
 
-    <RelativeLayout
-        android:id="@+id/rela_message"
-        android:layout_width="64px"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="@dimen/gap"
-        android:layout_toStartOf="@+id/rela_shopcar"
-        tools:ignore="RtlHardcoded,UselessParent">
+        <LinearLayout
+            android:id="@+id/L1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="right">
 
-        <ImageView
-            android:layout_width="44px"
-            android:layout_height="44px"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/message"
-            tools:ignore="ContentDescription" />
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/rela_message"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/rela_shopcar"
+                tools:ignore="RtlHardcoded,UselessParent">
 
-    <RelativeLayout
-        android:id="@+id/rela_shopcar"
-        android:layout_width="64px"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="@dimen/gap"
-        tools:ignore="RtlHardcoded,UselessParent">
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/message"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
 
-        <ImageView
-            android:id="@+id/home_shopcar_image"
-            android:layout_width="44px"
-            android:layout_height="44px"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/shopcart"
-            tools:ignore="ContentDescription" />
-    </RelativeLayout>
-</LinearLayout>
+            <RelativeLayout
+                android:id="@+id/rela_shopcar"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
 
-
-
-
-
+                <ImageView
+                    android:id="@+id/home_shopcar_image"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </LinearLayout>
 
 
         <ImageView
@@ -181,13 +178,13 @@
                         <TextView
                             android:id="@+id/tv_12"
                             style="@style/text24"
-                            android:visibility="gone"
-                            android:gravity="center"
                             android:layout_width="match_parent"
                             android:layout_alignParentStart="true"
                             android:layout_below="@+id/tv_11"
                             android:layout_marginBottom="10px"
                             android:layout_marginTop="10px"
+                            android:gravity="center"
+                            android:visibility="gone"
                             tools:ignore="HardcodedText" />
 
 
@@ -234,21 +231,21 @@
                             <TextView
                                 android:id="@+id/tv_22"
                                 style="@style/text24"
-                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
                                 android:layout_toStartOf="@+id/tv_23"
                                 android:gravity="center"
                                 android:maxLength="10"
+                                android:visibility="gone"
                                 tools:ignore="HardcodedText" />
 
                             <ImageView
                                 android:id="@+id/tv_23"
                                 android:layout_width="130px"
-                                android:layout_marginRight="10px"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentRight="true"
+                                android:layout_marginRight="10px"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -281,7 +278,6 @@
                             <TextView
                                 android:id="@+id/tv_32"
                                 style="@style/text24"
-                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
@@ -289,6 +285,7 @@
                                 android:gravity="center"
                                 android:maxLength="10"
                                 android:text="特色海鲜来挑"
+                                android:visibility="gone"
                                 tools:ignore="HardcodedText" />
 
                             <ImageView
@@ -330,7 +327,6 @@
                             <TextView
                                 android:id="@+id/tv_42"
                                 style="@style/text24"
-                                android:visibility="gone"
                                 android:layout_alignParentBottom="true"
                                 android:layout_alignParentStart="true"
                                 android:layout_marginBottom="10px"
@@ -338,14 +334,15 @@
                                 android:gravity="center"
                                 android:maxLength="10"
                                 android:text="特色海鲜来挑"
+                                android:visibility="gone"
                                 tools:ignore="HardcodedText" />
 
                             <ImageView
                                 android:id="@+id/tv_43"
                                 android:layout_width="130px"
                                 android:layout_height="match_parent"
-                                android:layout_marginRight="10px"
                                 android:layout_alignParentRight="true"
+                                android:layout_marginRight="10px"
                                 tools:ignore="ContentDescription,RtlHardcoded" />
                         </RelativeLayout>
 
@@ -406,12 +403,14 @@
                             tools:ignore="HardcodedText,RtlHardcoded" />
                     </RelativeLayout>
 
-                    <com.taotaohai.myview.HorizontalListView
-                        android:id="@+id/horizonlist"
-
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_recyclelistview"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="110px"></com.taotaohai.myview.HorizontalListView>
+                        android:layout_marginTop="110px">
+
+                    </android.support.v7.widget.RecyclerView>
+
                 </RelativeLayout>
 
                 <TextView style="@style/textgap" />
@@ -449,30 +448,26 @@
                         android:text="特色海鲜等" />
 
 
+                    <com.taotaohai.myview.MyGridView
+                        android:id="@+id/mygridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="110px"
+                        android:background="@color/white"
+                        android:horizontalSpacing="@dimen/gap"
+                        android:numColumns="2"
+                        android:paddingLeft="@dimen/gap"
+                        android:paddingRight="@dimen/gap"
+                        android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
 
-
-
-                        <com.taotaohai.myview.MyGridView
-                            android:id="@+id/mygridview"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_marginTop="110px"
-                            android:background="@color/white"
-                            android:horizontalSpacing="@dimen/gap"
-                            android:numColumns="2"
-                            android:paddingLeft="@dimen/gap"
-                            android:paddingRight="@dimen/gap"
-                            android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
-
-                        <TextView
-                            android:gravity="center"
-                            android:id="@+id/down_load"
-                            android:layout_below="@+id/mygridview"
-                            android:layout_width="match_parent"
-                            android:layout_height="50px"
-                            android:text="点击加载更多"
-                            style="@style/textgap"
-                            />
+                    <TextView
+                        android:id="@+id/down_load"
+                        style="@style/textgap"
+                        android:layout_width="match_parent"
+                        android:layout_height="50px"
+                        android:layout_below="@+id/mygridview"
+                        android:gravity="center"
+                        android:text="点击加载更多" />
 
                 </RelativeLayout>
             </LinearLayout>

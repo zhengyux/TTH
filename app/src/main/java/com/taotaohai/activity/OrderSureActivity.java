@@ -153,8 +153,8 @@ public class OrderSureActivity extends BaseActivity {
                     jsonaray2.add(list.get(6));
                     json.add("goodsIds", jsonaray2);
                     json.add("counts", jsonaray);
-                    if(null!=osedit.getText()||!"".equals(osedit.getText().toString().trim())){
-                        json.addProperty("editRemark",osedit.getText().toString().trim());
+                    if (null != osedit.getText() || !"".equals(osedit.getText().toString().trim())) {
+                        json.addProperty("editRemark", osedit.getText().toString().trim());
                     }
                     if (defult == null || defult.getData() == null) {
                         showToast("请添加收货地址");
@@ -178,8 +178,8 @@ public class OrderSureActivity extends BaseActivity {
                         return;
                     }
                     json.addProperty("addressId", defult.getData().getId());
-                    if(null!=osedit.getText()||!"".equals(osedit.getText().toString().trim())){
-                        json.addProperty("editRemark",osedit.getText().toString().trim());
+                    if (null != osedit.getText() || !"".equals(osedit.getText().toString().trim())) {
+                        json.addProperty("editRemark", osedit.getText().toString().trim());
                     }
 
                     Http(HttpMethod.POST, "api/goodsorder/buy_now/", json.toString(), 15);
@@ -253,7 +253,7 @@ public class OrderSureActivity extends BaseActivity {
 
 // 将该app注册到微信
             WXpay wXpay = util.getgson(result, WXpay.class);
-           // msgApi.registerApp(wXpay.getData().getAppid());
+            // msgApi.registerApp(wXpay.getData().getAppid());
 
             PayReq request = new PayReq();
             request.appId = wXpay.getData().getAppid();
@@ -272,8 +272,8 @@ public class OrderSureActivity extends BaseActivity {
     @Override
     public void onError(Throwable ex, int postcode) {
         super.onError(ex, postcode);
-        if (postcode==15){
-            Log.e("tag", "onError: "+ex.toString() );
+        if (postcode == 15) {
+            Log.e("tag", "onError: " + ex.toString());
         }
     }
 
@@ -309,11 +309,11 @@ public class OrderSureActivity extends BaseActivity {
 
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata",2));
+                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata", 2));
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         showToast("支付失败");
-                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata",1));
+                        startActivity(new Intent(OrderSureActivity.this, MyBook.class).putExtra("stata", 1));
                         finish();
                     }
                     break;
@@ -349,17 +349,27 @@ public class OrderSureActivity extends BaseActivity {
         textView.setText(st);
         dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
         dialog.findViewById(R.id.sure).setOnClickListener(v -> {
-            for (int i = 0; i < car.getData().getData().size(); i++) {
-                if(car.getData().getData().get(i).getGoodsInfo().getStock()<=car.getData().getData().get(i).getCount()){
-                    showToast("购买量大于库存");
-                }else {
-                    dialog.dismiss();
-                    if (paytype == 1) {
-                        get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
+
+            if (car != null) {
+                for (int i = 0; i < car.getData().getData().size(); i++) {
+                    if (car.getData().getData().get(i).getGoodsInfo().getStock() <= car.getData().getData().get(i).getCount()) {
+                        showToast("购买量大于库存");
                     } else {
-                        get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+                        if (paytype == 1) {
+                            get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
+                        } else {
+                            get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+                        }
+                        dialog.dismiss();
                     }
                 }
+            }else {
+                if (paytype == 1) {
+                    get("pay/getOrderInfo?payId=1&transactionType=APP&orderId=" + orderid, 21);//1支付宝 2微信
+                } else {
+                    get("pay/getOrderInfo?payId=2&transactionType=APP&orderId=" + orderid, 22);//1支付宝 2微信
+                }
+                dialog.dismiss();
             }
 
 

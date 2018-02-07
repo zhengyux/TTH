@@ -7,8 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -40,7 +42,6 @@ import com.taotaohai.bean.HotShopmore;
 import com.taotaohai.bean.Ratation;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
-import com.taotaohai.myview.HorizontalListView;
 import com.taotaohai.myview.MyGridView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
@@ -61,16 +62,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private Banner banner;
     private SwipeRefreshLayout swipe;
     List<View> text;
-    private HorizontalListView horizonlist;
     private HotShop hotshop;
     private HotClass hotclass;
-    private MyListAdapter myListAdapter;
     private HotShopmore hotshop2;
     private MyGridView mygridview;
     private static HomeFragment fragment;
     private ImageView home_shopcar_image;
     private RelativeLayout rela_shopcar;
     private RelativeLayout rela_message;
+    private RecyclerView home_recyclelistview;
+    private MyRecyclerAdapter myRecyclerAdapter;
     BadgeView badgeView ;
     BadgeView badgeView2 ;
     private TextView down_load;//加载更多
@@ -261,8 +262,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void inithotshop(String data) {
         hotshop = util.getgson(data, HotShop.class);
         if (hotshop.getSuccess()) {
-            myListAdapter = new MyListAdapter();
-            horizonlist.setAdapter(myListAdapter);
+            myRecyclerAdapter = new MyRecyclerAdapter();
+            home_recyclelistview.setAdapter(myRecyclerAdapter);
         }
 
     }
@@ -330,6 +331,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initview() {
+        home_recyclelistview = (RecyclerView) view.findViewById(R.id.home_recyclelistview);
+        //设置布局管理器
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        home_recyclelistview.setLayoutManager(linearLayoutManager);
         down_load= (TextView) view.findViewById(R.id.down_load);
         down_load.setOnClickListener(this);
         home_shopcar_image = (ImageView) view.findViewById(R.id.home_shopcar_image);
@@ -365,7 +371,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         banner = (Banner) view.findViewById(R.id.banner);
         //设置图片加载器
 
-        horizonlist = (HorizontalListView) view.findViewById(R.id.horizonlist);
 
 
         mygridview = (MyGridView) view.findViewById(R.id.mygridview);
@@ -378,69 +383,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private void swipeTouch() {
 
-        swipe.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                banner.getParent().requestDisallowInterceptTouchEvent(true);
-                horizonlist.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
-
-        banner.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                banner.getParent().requestDisallowInterceptTouchEvent(true);
-                int x = (int) event.getRawX();
-                int y = (int) event.getRawY();
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = x;
-                        lastY = y;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        int deltaY = y - lastY;
-                        int deltaX = x - lastX;
-                        if (Math.abs(deltaX) < Math.abs(deltaY)) {
-                            banner.getParent().requestDisallowInterceptTouchEvent(false);
-                        } else {
-                            banner.getParent().requestDisallowInterceptTouchEvent(true);
-                        }
-                    default:
-                        break;
-                }
-                return false;
-
-            }
-        });
-
-        horizonlist.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent event) {
-                horizonlist.getParent().requestDisallowInterceptTouchEvent(false);
-                int x = (int) event.getRawX();
-                int y = (int) event.getRawY();
-
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_DOWN:
-                        lastX = x;
-                        lastY = y;
-                        break;
-                    case MotionEvent.ACTION_MOVE:
-                        int deltaY = y - lastY;
-                        int deltaX = x - lastX;
-                        if (Math.abs(deltaX) < Math.abs(deltaY)) {
-                            horizonlist.getParent().requestDisallowInterceptTouchEvent(false);
-                        } else {
-                            horizonlist.getParent().requestDisallowInterceptTouchEvent(true);
-                        }
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
     }
 
     @Override
@@ -448,12 +390,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.down_load:
 
-
-
                 initHotGoods();
-
-
-
 
                 break;
 
@@ -592,48 +529,72 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         TextView tv_people;
     }
 
-    private class MyListAdapter extends BaseAdapter {
-        @Override
-        public int getCount() {
-            return hotshop.getData().size();
-        }
+
+
+    public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyHolder>{
+
 
         @Override
-        public Object getItem(int position) {
-            return null;
-        }
+        public MyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        @Override
-        public long getItemId(int position) {
-            return 0;
-        }
-
-        @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
             View view = getActivity().getLayoutInflater().inflate(R.layout.item_hor, null);
-            ImageView image = (ImageView) view.findViewById(R.id.image);
-            TextView tv_title = (TextView) view.findViewById(R.id.tv_title);
-            TextView tv_scor = (TextView) view.findViewById(R.id.tv_scor);
-            TextView tv_juli = (TextView) view.findViewById(R.id.tv_juli);
-            LinearLayout lin_1 = (LinearLayout) view.findViewById(R.id.lin_1);
-            for (int i = 0; i < 3 && i < hotshop.getData().get(position).getShopIdentifies().size(); i++) {
+            MyHolder holder = new MyHolder(view);
+
+            return holder;
+        }
+
+        @Override
+        public void onBindViewHolder(MyHolder holder, int position) {
+
+            for (int i = 0; i<3 && i < hotshop.getData().get(position).getShopIdentifies().size(); i++) {
                 TextView textView = (TextView) getActivity().getLayoutInflater().inflate(R.layout.shop_textview, null);
                 textView.setText(hotshop.getData().get(position).getShopIdentifies().get(i).getName());
-                lin_1.addView(textView);
+                holder.lin_1.addView(textView);
+                Log.e("tag", "onBindViewHolder() returned: " +i);
             }
-            GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), image);
-            tv_title.setText(hotshop.getData().get(position).getName());
-            tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
-            tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
-            view.findViewById(R.id.rela_all).setOnClickListener((l) -> {
+            Log.e("tag", "onBindViewHolder() returned: " +  hotshop.getData().size());
+            GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), holder.image);
+            holder.tv_title.setText(hotshop.getData().get(position).getName());
+            holder.tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
+            holder.tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
+            holder.lin_2.setOnClickListener((l) -> {
 
                 startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
             });
 
 
-            return view;
+        }
+
+        @Override
+        public int getItemCount() {
+            return hotshop.getData().size();
+        }
+
+
+
+
+        class MyHolder extends RecyclerView.ViewHolder{
+
+            ImageView image;
+            TextView tv_title;
+            TextView tv_scor;
+            TextView tv_juli;
+            LinearLayout lin_1;
+            LinearLayout lin_2;
+
+            public MyHolder(View itemView) {
+                super(itemView);
+                 image = (ImageView) itemView.findViewById(R.id.image);
+                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+                 tv_scor = (TextView) itemView.findViewById(R.id.tv_scor);
+                 tv_juli = (TextView) itemView.findViewById(R.id.tv_juli);
+                 lin_1 = (LinearLayout) itemView.findViewById(R.id.lin_1);
+                 lin_2 = (LinearLayout) itemView.findViewById(R.id.rela_all);
+            }
         }
     }
+
+
 
     public class MyLocationListener implements BDLocationListener {
 
@@ -642,7 +603,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //            GlobalParams.latitude = location.getLatitude();
 //            GlobalParams.longitude = location.getLongitude();
             if (hotshop != null) {
-                myListAdapter.notifyDataSetChanged();
+                myRecyclerAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -673,6 +634,5 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         get("/api/message/notReadList/0",50);
         get("/api/message/notReadList/1",51);
     }
-
 
 }
