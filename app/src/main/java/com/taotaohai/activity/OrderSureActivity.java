@@ -406,4 +406,16 @@ public class OrderSureActivity extends BaseActivity {
             }
         }
     }
+
+    @Override
+    protected void onDestroy() {
+
+        AddressManeger.LinkName="";
+        AddressManeger.LinkTel="";
+        AddressManeger.Address="";
+        AddressManeger.ID="";
+        AddressManeger.TYPE="";
+
+        super.onDestroy();
+    }
 }
