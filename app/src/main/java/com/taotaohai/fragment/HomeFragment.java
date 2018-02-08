@@ -9,7 +9,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,14 +71,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private RelativeLayout rela_message;
     private RecyclerView home_recyclelistview;
     private MyRecyclerAdapter myRecyclerAdapter;
-    BadgeView badgeView ;
-    BadgeView badgeView2 ;
+    BadgeView badgeView;
+    BadgeView badgeView2;
     private TextView down_load;//加载更多
     int pageSize = 10;
     int pageIndex = 0;//第多少个
     private HashMap<String, String> has = new HashMap<>();
     MyGridviewAdapter myGridviewAdapter = new MyGridviewAdapter();
-
 
 
     public static HomeFragment newInstance() {
@@ -109,22 +107,23 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //注册监听函数
         inithttp();
         initview();
-        badgeView = new BadgeView(getActivity(),rela_shopcar);
-        badgeView2 = new BadgeView(getActivity(),rela_message);
+        badgeView = new BadgeView(getActivity(), rela_shopcar);
+        badgeView2 = new BadgeView(getActivity(), rela_message);
+
         return view;
     }
 
     @Override
     public void inithttp() {
         super.inithttp();
-         pageSize = 10;
-         pageIndex = 0;
+        pageSize = 10;
+        pageIndex = 0;
         get("api/home/rotation", 0);//轮播图
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
-        get("/api/shopCar/shop_car_num",20);//购物车数量
-        get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/shopCar/shop_car_num", 20);//购物车数量
+        get("/api/message/notReadList/0", 50);
+        get("/api/message/notReadList/1", 51);
         initHotGoods();
     }
 
@@ -132,9 +131,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         has.clear();
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
-        get("api/goods/hot_goods/"+pageIndex+"/"+pageSize, 3);//热门商品
+        get("api/goods/hot_goods/" + pageIndex + "/" + pageSize, 3);//热门商品
 
-    //    Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
+        //    Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
 
 
     }
@@ -164,29 +163,29 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case 20:
                 ShopCarNum shopCarNum = new ShopCarNum();
-                shopCarNum = util.getgson(data,ShopCarNum.class);
+                shopCarNum = util.getgson(data, ShopCarNum.class);
 
-                if(shopCarNum.getData()!="0"){
+                if (shopCarNum.getData() != "0") {
 
                     badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView.setTextSize(9);// 设置文本大小
                     badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                     badgeView.show();// 将角标显示出来
 
-                }else {
+                } else {
                     badgeView.hide();
                 }
                 break;
             case 50:
                 ShopCarNum shopCarNum2 = new ShopCarNum();
-                shopCarNum2 = util.getgson(data,ShopCarNum.class);
-                if(shopCarNum2.getData()!="0"){
+                shopCarNum2 = util.getgson(data, ShopCarNum.class);
+                if (shopCarNum2.getData() != "0") {
 
                     badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView2.setTextSize(6);// 设置文本大小
                     badgeView2.setText(""); // 设置要显示的文本
                     badgeView2.show();// 将角标显示出来
-                }else {
+                } else {
                     badgeView2.hide();
                 }
                 break;
@@ -194,14 +193,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 51:
 
                 ShopCarNum shopCarNum3 = new ShopCarNum();
-                shopCarNum3 = util.getgson(data,ShopCarNum.class);
-                if(shopCarNum3.getData()!="0"){
+                shopCarNum3 = util.getgson(data, ShopCarNum.class);
+                if (shopCarNum3.getData() != "0") {
 
                     badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView2.setTextSize(6);// 设置文本大小
                     badgeView2.setText(""); // 设置要显示的文本
                     badgeView2.show();// 将角标显示出来
-                }else {
+                } else {
                     badgeView2.hide();
                 }
 
@@ -213,7 +212,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        if(postcode==999||postcode==998) {
+        if (postcode == 999 || postcode == 998) {
             String[] st = ex.toString().split("result:");
             if (st.length > 1) {
                 util.isSuccess(util.getgson(st[1], BaseBean.class));
@@ -239,22 +238,21 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void inithotshopmore(String data) {
 
 
+        if (pageIndex != 0) {
+            HotShopmore hotshop3 = util.getgson(data, HotShopmore.class);
+            for (int i = 0; i < hotshop3.getData().size(); i++) {
+                hotshop2.getData().add(hotshop3.getData().get(i));
 
-         if(pageIndex!=0){
-             HotShopmore hotshop3 = util.getgson(data, HotShopmore.class);
-             for (int i=0;i<hotshop3.getData().size();i++){
-                 hotshop2.getData().add(hotshop3.getData().get(i));
-
-             }
-         }else {
-             hotshop2 = util.getgson(data, HotShopmore.class);
-         }
+            }
+        } else {
+            hotshop2 = util.getgson(data, HotShopmore.class);
+        }
 
 
         if (hotshop2.getSuccess()) {
             mygridview.setAdapter(myGridviewAdapter);
             myGridviewAdapter.notifyDataSetChanged();
-            pageIndex+=1;
+            pageIndex += 1;
         }
 
     }
@@ -262,7 +260,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private void inithotshop(String data) {
         hotshop = util.getgson(data, HotShop.class);
         if (hotshop.getSuccess()) {
-            myRecyclerAdapter = new MyRecyclerAdapter();
+
             home_recyclelistview.setAdapter(myRecyclerAdapter);
         }
 
@@ -331,16 +329,17 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
     private void initview() {
+        myRecyclerAdapter = new MyRecyclerAdapter();
         home_recyclelistview = (RecyclerView) view.findViewById(R.id.home_recyclelistview);
         //设置布局管理器
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
         linearLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         home_recyclelistview.setLayoutManager(linearLayoutManager);
-        down_load= (TextView) view.findViewById(R.id.down_load);
+        down_load = (TextView) view.findViewById(R.id.down_load);
         down_load.setOnClickListener(this);
         home_shopcar_image = (ImageView) view.findViewById(R.id.home_shopcar_image);
         rela_shopcar = (RelativeLayout) view.findViewById(R.id.rela_shopcar);
-        rela_message=(RelativeLayout) view.findViewById(R.id.rela_message);
+        rela_message = (RelativeLayout) view.findViewById(R.id.rela_message);
         text = Arrays.asList(
                 view.findViewById(R.id.tv_11),
                 view.findViewById(R.id.tv_12),
@@ -372,13 +371,12 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         //设置图片加载器
 
 
-
         mygridview = (MyGridView) view.findViewById(R.id.mygridview);
         swipeTouch();
 
     }
 
-    int lastX,lastY;
+    int lastX, lastY;
 
 
     private void swipeTouch() {
@@ -398,14 +396,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 startActivityForResult(new Intent(getActivity(), SearchGoods.class), 1);
                 break;
             case R.id.rela_shopcar:
-                get("api/user/",998);
+                get("api/user/", 998);
 
                 break;
             case R.id.rela_message:
-                get("api/user/",999);
+                get("api/user/", 999);
                 break;
             case R.id.rela_1:
-                if(null!=hotclass){
+                if (null != hotclass) {
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(0).getClassId())
                     );
@@ -414,7 +412,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_2:
-                if(null!=hotclass){
+                if (null != hotclass) {
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(1).getClassId())
                     );
@@ -423,7 +421,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_3:
-                if(null!=hotclass){
+                if (null != hotclass) {
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(2).getClassId())
                     );
@@ -432,7 +430,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 //                ((Home) getActivity()).initview2();
                 break;
             case R.id.rela_4:
-                if(null!=hotclass){
+                if (null != hotclass) {
                     startActivity(new Intent(getActivity(), ClassActivity.class)
                             .putExtra("id", hotclass.getData().get(3).getClassId())
                     );
@@ -481,7 +479,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         public View getView(int position, View convertView, ViewGroup parent) {
             viewholder viewholder = null;
             if (convertView == null) {
-                viewholder=new viewholder();
+                viewholder = new viewholder();
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.item_hor_gride, null);
                 viewholder.su = convertView.findViewById(R.id.su);
                 viewholder.imageView = (ImageView) convertView.findViewById(R.id.image_photo);
@@ -530,8 +528,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
 
 
-
-    public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyHolder>{
+    public class MyRecyclerAdapter extends RecyclerView.Adapter<MyRecyclerAdapter.MyHolder> {
 
 
         @Override
@@ -546,13 +543,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         @Override
         public void onBindViewHolder(MyHolder holder, int position) {
 
-            for (int i = 0; i<3 && i < hotshop.getData().get(position).getShopIdentifies().size(); i++) {
+            holder.lin_1.removeAllViews();
+            for (int i = 0; i < 3 && i < hotshop.getData().get(position).getShopIdentifies().size(); i++) {
                 TextView textView = (TextView) getActivity().getLayoutInflater().inflate(R.layout.shop_textview, null);
                 textView.setText(hotshop.getData().get(position).getShopIdentifies().get(i).getName());
                 holder.lin_1.addView(textView);
-                Log.e("tag", "onBindViewHolder() returned: " +i);
+
             }
-            Log.e("tag", "onBindViewHolder() returned: " +  hotshop.getData().size());
+
             GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), holder.image);
             holder.tv_title.setText(hotshop.getData().get(position).getName());
             holder.tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
@@ -571,9 +569,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
 
 
-
-
-        class MyHolder extends RecyclerView.ViewHolder{
+        class MyHolder extends RecyclerView.ViewHolder {
 
             ImageView image;
             TextView tv_title;
@@ -584,16 +580,15 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             public MyHolder(View itemView) {
                 super(itemView);
-                 image = (ImageView) itemView.findViewById(R.id.image);
-                 tv_title = (TextView) itemView.findViewById(R.id.tv_title);
-                 tv_scor = (TextView) itemView.findViewById(R.id.tv_scor);
-                 tv_juli = (TextView) itemView.findViewById(R.id.tv_juli);
-                 lin_1 = (LinearLayout) itemView.findViewById(R.id.lin_1);
-                 lin_2 = (LinearLayout) itemView.findViewById(R.id.rela_all);
+                image = (ImageView) itemView.findViewById(R.id.image);
+                tv_title = (TextView) itemView.findViewById(R.id.tv_title);
+                tv_scor = (TextView) itemView.findViewById(R.id.tv_scor);
+                tv_juli = (TextView) itemView.findViewById(R.id.tv_juli);
+                lin_1 = (LinearLayout) itemView.findViewById(R.id.lin_1);
+                lin_2 = (LinearLayout) itemView.findViewById(R.id.rela_all);
             }
         }
     }
-
 
 
     public class MyLocationListener implements BDLocationListener {
@@ -621,18 +616,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
 
-        get("/api/shopCar/shop_car_num",20);//购物车数量
-        get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/shopCar/shop_car_num", 20);//购物车数量
+        get("/api/message/notReadList/0", 50);
+        get("/api/message/notReadList/1", 51);
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        get("/api/shopCar/shop_car_num",20);
-        get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/shopCar/shop_car_num", 20);
+        get("/api/message/notReadList/0", 50);
+        get("/api/message/notReadList/1", 51);
     }
 
 }

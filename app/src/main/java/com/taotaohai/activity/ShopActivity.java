@@ -195,23 +195,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         if (postcode == 0) {
             shopGoods = util.getgson(result, ShopGoods.class);
             initdata();//初始化数据
-            for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
-                TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
-                textView.setText(shop.getData().getShopIdentifies().get(i).getName());
 
-                lin_1.addView(textView);
-            }
         }
         if (postcode == 1) {
             shop = util.getgson(result, Shop.class);
             initdata();//初始化数据
             count = Integer.valueOf(shop.getData().getTotalLike());
-            for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
-                TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
-                textView.setText(shop.getData().getShopIdentifies().get(i).getName());
 
-                lin_1.addView(textView);
-            }
         }
         if (postcode == 2) {
             Focus focus = util.getgson(result, Focus.class);
@@ -268,6 +258,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shop);
+
         initview();
         inithttp();
     }
@@ -344,13 +335,13 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         tv_count.setText(shop.getData().getTotalLike());
 
 
+        lin_1.removeAllViews();
+        for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
+            TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
+            textView.setText(shop.getData().getShopIdentifies().get(i).getName());
 
-//        for (int i = 0; i < 3 && i<shop.getData().getShopIdentifies().size(); i++) {
-//            TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
-//            textView.setText(shop.getData().getShopIdentifies().get(i).getName());
-//
-//            lin_1.addView(textView);
-//        }
+            lin_1.addView(textView);
+        }
         line_class.removeAllViews();
         for (int i = 0; i < shopclass.getData().size(); i++) {
             View v = getLayoutInflater().inflate(R.layout.item_line, null);
@@ -388,11 +379,6 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         };
 
-        recyclerView.setAdapter(adapter);
-//        recyclerviewAdapter.setCustomLoadMoreView(new XRefreshViewFooter(this));
-//		xRefreshView1.setPullLoadEnable(false);
-        //设置静默加载时提前加载的item个数
-//        xrefreshview.setPreLoadCount(4);
         xrefreshview.setXRefreshViewListener(new XRefreshView.SimpleXRefreshListener() {
             @Override
             public void onRefresh(boolean isPullDown) {
@@ -418,22 +404,18 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
             }
         });
 
-
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
 
-
-
             case R.id.back:
                 finish();
                 break;
             case R.id.rela_focus:
                 get("api/user/",997);
-
-
 
                 break;
             case R.id.relaclick_1:
