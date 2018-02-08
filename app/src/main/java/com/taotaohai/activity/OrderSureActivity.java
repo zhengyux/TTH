@@ -79,7 +79,10 @@ public class OrderSureActivity extends BaseActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        getaddress();
+
+            getaddress();
+
+
     }
 
     private void initview() {
@@ -190,7 +193,7 @@ public class OrderSureActivity extends BaseActivity {
     }
 
     public void onaddress(View view) {
-        startActivity(new Intent(this, AddressManeger.class));
+        startActivity(new Intent(this, AddressManeger.class).putExtra("type","a"));
     }
 
     @Override
@@ -198,13 +201,23 @@ public class OrderSureActivity extends BaseActivity {
         super.onSuccess(result, postcode);
         if (postcode == 0) {
             defult = util.getgson(result, Defult.class);
-            if (defult.getSuccess()) {
-                if (defult.getData() != null) {
-                    tv_name.setText("收货人: " + defult.getData().getLinkName());
-                    tv_phone.setText("电话: " + defult.getData().getLinkTel());
-                    tv_address.setText(defult.getData().getLinkProvince() + defult.getData().getLinkCity() + defult.getData().getLinkArea() + defult.getData().getLinkAddress());
+
+            if("address".equals(AddressManeger.TYPE)){
+                tv_name.setText("收货人: " + AddressManeger.LinkName);
+                tv_phone.setText("电话: " + AddressManeger.LinkTel);
+                tv_address.setText(AddressManeger.Address);
+                defult.getData().setId(AddressManeger.ID);
+            }else {
+                if (defult.getSuccess()) {
+                    if (defult.getData() != null) {
+                        tv_name.setText("收货人: " + defult.getData().getLinkName());
+                        tv_phone.setText("电话: " + defult.getData().getLinkTel());
+                        tv_address.setText(defult.getData().getLinkProvince() + defult.getData().getLinkCity() + defult.getData().getLinkArea() + defult.getData().getLinkAddress());
+                    }
                 }
             }
+
+
         }
         if (postcode == 15) {
             OrderInfo orderInfo = util.getgson(result, OrderInfo.class);

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
@@ -22,6 +23,11 @@ public class AddressManeger extends BaseActivity {
     private ListView listView;
     private Address address;
     private MyAdapter myadapter;
+    static String LinkName;
+    static String LinkTel;
+    static String Address;
+    static String ID;
+    static String TYPE;
 
     @Override
     protected void inithttp() {
@@ -79,6 +85,27 @@ public class AddressManeger extends BaseActivity {
 
     private void initview() {
         listView = (ListView) findViewById(R.id.listview);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+
+                if("a"==getintent("type")||"a".equals(getintent("type"))){
+
+                    LinkName = address.getData().getData().get(i).getLinkName();
+                    LinkTel = address.getData().getData().get(i).getLinkName();
+                    Address = address.getData().getData().get(i).getLinkProvince()+address.getData().getData().get(i).getLinkCity()+address.getData().getData().get(i).getLinkAddress();
+                    ID = address.getData().getData().get(i).getId();
+                    TYPE = "address";
+
+
+                    finish();
+
+                }
+
+
+            }
+        });
 
 
     }
@@ -125,8 +152,7 @@ public class AddressManeger extends BaseActivity {
                 checkBox.setFocusable(false);
             } else {
                 checkBox.setChecked(false);
-                checkBox.setFocusable(true);
-
+                checkBox.setFocusable(false);
 
             }
             checkBox.setOnClickListener(new View.OnClickListener() {
