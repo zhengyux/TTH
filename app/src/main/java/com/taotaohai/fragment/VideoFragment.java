@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
@@ -93,10 +94,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         has.put("pageSize", String.valueOf(pageSize));
         has.put("pageIndex", String.valueOf(pageIndex));
         if (key.length() == 0) {
-            Http(HttpMethod.GET, "api/video", has, 0);
+            Http(HttpMethod.GET, ConstantValue.URL_VIDEO, has, 0);
         } else {
             has.put("k", key);
-            Http(HttpMethod.GET, "api/search/video", has, 0);
+            Http(HttpMethod.GET, ConstantValue.URL_SEARCH_VIDEO, has, 0);
         }
 
     }
@@ -413,20 +414,20 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
             // title标题，印象笔记、邮箱、信息、微信、人人网和QQ空间使用
             oks.setTitle("淘淘海视频分享");
             // titleUrl是标题的网络链接，仅在人人网和QQ空间使用
-            oks.setTitleUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
+            oks.setTitleUrl(ConstantValue.VIDEOSHARE+video.getData().getData().get(i).getId()+".html");
             // text是分享文本，所有平台都需要这个字段
             oks.setText(video.getData().getData().get(i).getDescribe());
             // imagePath是图片的本地路径，Linked-In以外的平台都支持此参数
           //  oks.setImagePath("/sdcard/test.jpg");//确保SDcard下面存在此张图片
             oks.setImageUrl(video.getData().getData().get(i).getImageAbsUrl());
             // url仅在微信（包括好友和朋友圈）中使用
-            oks.setUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
+            oks.setUrl(ConstantValue.VIDEOSHARE+video.getData().getData().get(i).getId()+".html");
             // comment是我对这条分享的评论，仅在人人网和QQ空间使用
             oks.setComment("淘淘海");
             // site是分享此内容的网站名称，仅在QQ空间使用
             oks.setSite("淘淘海");
             // siteUrl是分享此内容的网站地址，仅在QQ空间使用
-            oks.setSiteUrl("http://www.taotaohai.com/video/share/"+video.getData().getData().get(i).getId()+".html");
+            oks.setSiteUrl(ConstantValue.VIDEOSHARE+video.getData().getData().get(i).getId()+".html");
             // 启动分享GUI
             oks.show(getActivity());
         }

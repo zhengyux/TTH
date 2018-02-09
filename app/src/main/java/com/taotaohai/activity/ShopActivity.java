@@ -199,6 +199,12 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         }
         if (postcode == 1) {
             shop = util.getgson(result, Shop.class);
+            if("shopin".equals(getintent("id2"))){
+                startActivity(new Intent(this, ShopIntroducActivity.class)
+                        .putExtra("data", shop));
+                finish();
+
+            }
             initdata();//初始化数据
             count = Integer.valueOf(shop.getData().getTotalLike());
 
@@ -423,8 +429,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.relaclick_2:
                 startActivity(new Intent(this, ShopIntroducActivity.class)
-                        .putExtra("data", shop)
-                );
+                        .putExtra("data", shop));
                 break;
             case R.id.relaclick_3:
                 if (rela_class.isShown()) {

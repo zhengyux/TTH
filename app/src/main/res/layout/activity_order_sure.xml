@@ -143,14 +143,14 @@
                     android:layout_marginRight="60px"
                     android:text="快递配送" />
 
-                <ImageView
-                    android:layout_width="24px"
-                    android:layout_height="44px"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/gap"
-                    android:src="@mipmap/right"
-                    android:textColor="@color/text_black" />
+                <!--<ImageView-->
+                    <!--android:layout_width="24px"-->
+                    <!--android:layout_height="44px"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:layout_marginRight="@dimen/gap"-->
+                    <!--android:src="@mipmap/right"-->
+                    <!--android:textColor="@color/text_black" />-->
 
             </RelativeLayout>
 

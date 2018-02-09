@@ -22,7 +22,7 @@
         style="@style/text28"
         android:layout_width="wrap_content"
         android:layout_marginTop="5px"
-        android:text="泉州港万隆商家"
+        android:text=""
         android:textColor="#3f3f3f"
         tools:ignore="HardcodedText" />
 
@@ -53,7 +53,7 @@
             android:id="@+id/tv_juli"
             style="@style/text18"
             android:layout_alignParentRight="true"
-            android:text="12.0km"
+            android:text=""
             tools:ignore="HardcodedText" />
 
     </RelativeLayout>

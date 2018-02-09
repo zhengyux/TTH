@@ -507,9 +507,11 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 stata = 3;
                 setdefult();
                 break;
-            case R.id.tv_gotoshop:
+            case R.id.tv_gotoshop://查看店铺
                 startActivity(new Intent(this, ShopActivity.class)
-                        .putExtra("id", goods.getData().getShopId()));
+                        .putExtra("id", goods.getData().getShopId())
+                        .putExtra("id2","shopin")
+                );
                 break;
             case R.id.left_images:
                 finish();
@@ -523,7 +525,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                         .putExtra("data", goods.getData().getMeasure())
                 );
                 break;
-            case R.id.tv_allgoods:
+            case R.id.tv_allgoods: //全部商品
                 startActivity(new Intent(this, ShopActivity.class)
                         .putExtra("id", goods.getData().getShopId()));
                 break;

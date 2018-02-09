@@ -19,7 +19,6 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -220,7 +219,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 }
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
-                holder.setText(R.id.tv_3, util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
+                holder.setText(R.id.tv_3, util.getdouboletwo(Home.LA, Home.LO, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
                 holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(ShopMoreActivity.this, ShopActivity.class)
                         .putExtra("id", data.getId())
                 ));

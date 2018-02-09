@@ -6,6 +6,10 @@ import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
+import com.baidu.location.LocationClientOption;
 import com.heima.tabview.library.TabView;
 import com.heima.tabview.library.TabViewChild;
 import com.taotaohai.R;
@@ -25,6 +29,8 @@ public class Home extends BaseActivity implements VideoFragment.CallBackValue{
 
     private List<TabViewChild> tabViewChildList;
     private TabView tabView;
+    public static Double LA=0.0;
+    public static Double LO=0.0;
 
     @Override
     protected void inithttp() {
@@ -68,6 +74,7 @@ public class Home extends BaseActivity implements VideoFragment.CallBackValue{
         setContentView(R.layout.activity_home);
         initview();
         inithttp();
+        getLoc();
     }
 
 
@@ -81,6 +88,44 @@ public class Home extends BaseActivity implements VideoFragment.CallBackValue{
 
 
     }
+
+
+    public LocationClient mLocationClient = null;
+
+
+    //定位
+    public void getLoc() {
+
+        mLocationClient = new LocationClient(getApplicationContext());
+        //声明LocationClient类
+        mLocationClient.registerLocationListener(new Home.MyLocationListener());
+        //注册监听函数
+        LocationClientOption option = new LocationClientOption();
+
+        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+
+        option.setCoorType("bd09ll");
+
+
+        option.setScanSpan(0);
+
+
+        option.setOpenGps(true);
+
+
+        option.setLocationNotify(true);
+
+        option.setIgnoreKillProcess(false);
+
+
+        option.SetIgnoreCacheException(false);
+
+
+        mLocationClient.setLocOption(option);
+
+        mLocationClient.start();
+    }
+
 
     private long mExitTime;
 
@@ -129,5 +174,17 @@ public class Home extends BaseActivity implements VideoFragment.CallBackValue{
     @Override
     public void SendMessageValue(int intValue) {
             fragment=intValue;
+    }
+
+    class MyLocationListener implements BDLocationListener {
+
+        @Override
+        public void onReceiveLocation(BDLocation bdLocation) {
+
+            LA = bdLocation.getLatitude();
+            LO = bdLocation.getLongitude();
+
+
+        }
     }
 }

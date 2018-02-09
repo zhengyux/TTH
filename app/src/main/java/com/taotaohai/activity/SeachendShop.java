@@ -18,7 +18,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.andview.refreshview.XRefreshView;
-import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -138,13 +137,15 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         has.clear();
         has.put("pageSize", "100");
         has.put("pageIndex", "0");
-        has.put("lat", String.valueOf(GlobalParams.latitude));
-        has.put("lng", String.valueOf(GlobalParams.longitude));
+        has.put("lat", String.valueOf(Home.LA));
+        has.put("lng", String.valueOf(Home.LO));
         has.put("distance", distance);
         has.put("type", requesttype);
         Http(HttpMethod.GET, "api/search/rotation", has, 10);
 
     }
+
+
 
     @Override
     public void onError(Throwable ex, int postcode) {
@@ -320,7 +321,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
-                holder.setText(R.id.tv_3, util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
+                holder.setText(R.id.tv_3, util.getdouboletwo(Home.LA, Home.LO, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
                 holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(SeachendShop.this, ShopActivity.class)
                         .putExtra("id", data.getId())
                 ));
@@ -378,5 +379,6 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
     public void onClick(View v) {
         finish();
     }
+
 }
 

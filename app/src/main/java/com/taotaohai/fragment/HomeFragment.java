@@ -23,10 +23,10 @@ import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.taotaohai.GlobalParams;
 import com.taotaohai.R;
 import com.taotaohai.activity.ClassActivity;
 import com.taotaohai.activity.GoodsDetialActivity;
+import com.taotaohai.activity.Home;
 import com.taotaohai.activity.Login;
 import com.taotaohai.activity.MessageActivity;
 import com.taotaohai.activity.SearchGoods;
@@ -554,7 +554,9 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), holder.image);
             holder.tv_title.setText(hotshop.getData().get(position).getName());
             holder.tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
-            holder.tv_juli.setText(util.getdouboletwo(GlobalParams.latitude, GlobalParams.longitude, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
+            if(Home.LA!=0.0){
+                holder.tv_juli.setText(util.getdouboletwo(Home.LA, Home.LO, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
+            }
             holder.lin_2.setOnClickListener((l) -> {
 
                 startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
