@@ -133,7 +133,7 @@
         <activity android:name=".activity.ForgetPassword" />
         <activity android:name=".activity.LocationActivity" />
 
-        <service android:name="com.amap.api.location.APSService" />
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

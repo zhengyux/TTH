@@ -2,6 +2,7 @@ package com.taotaohai.activity;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -9,6 +10,7 @@ import com.google.gson.JsonObject;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.KuaiDi;
+import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 
 import org.xutils.http.HttpMethod;
@@ -19,6 +21,7 @@ private KuaiDi kuaiDi;
 private TextView textView32;//承运来源
 private TextView textView33;//运单编号
     private TextView text30;//配送状态
+    private ImageView imageView18; //图片
 
 
     @Override
@@ -53,13 +56,18 @@ private TextView textView33;//运单编号
     }
 
     private void initview() {
+
+        imageView18 = (ImageView) findViewById(R.id.imageView18);
+        GlideUtil.loadImg(getintent("IMAGE"), imageView18);
         textView32 = (TextView) findViewById(R.id.textView32);
         textView32.setText("承运来源："+kuaiDi.getData().getCom());
         textView33 = (TextView) findViewById(R.id.textView33);
         textView33.setText("快递单号："+kuaiDi.getData().getNu());
         text30 = (TextView) findViewById(R.id.text30);
 
-        switch (kuaiDi.getData().getState()){
+
+
+        switch (kuaiDi.getData().getStatus()){
             case "1":
                 text30.setText("已揽件");
                 break;

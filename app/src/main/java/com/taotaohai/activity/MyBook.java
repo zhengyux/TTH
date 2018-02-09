@@ -155,7 +155,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         this.item = mItem;
         this.itemBookFragment = mFragments.get(mItem.getCount());
         //查看物流
-        startActivity(new Intent(this, LogisActivity.class).putExtra("OrderExpressCompany",mItem.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",mItem.getExt().getOrderExpressNo()));
+        startActivity(new Intent(this, LogisActivity.class)
+                .putExtra("IMAGE",mItem.getExt().getImgId())
+                .putExtra("OrderExpressCompany",mItem.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",mItem.getExt().getOrderExpressNo()));
     }
 
 

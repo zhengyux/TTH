@@ -74,7 +74,7 @@
                     style="@style/text30"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="111111"
+                    android:text="派送中"
                     android:layout_alignParentTop="true"
                     android:layout_toRightOf="@+id/textView31"
                     android:textColor="#00d496" />

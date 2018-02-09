@@ -598,10 +598,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             View view = null;
             if (stata == 1) {
                 view = getLayoutInflater().inflate(R.layout.item_cpxq, null);
-
                 LinearLayout lin_1 = (LinearLayout) view.findViewById(R.id.lin_1);
-                TextView tv_content = (TextView) view.findViewById(R.id.tv_content);
-                tv_content.setText(goods.getData().getContentText());
+
                 if (goods.getData().getDescribe() != null && goods.getData().getDescribe().length() > 0) {
                     List<Gson_string> list = jsonToArrayList(goods.getData().getDescribe(), Gson_string.class);
                     for (int i = 0; i < list.size(); i++) {
@@ -613,6 +611,16 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                         ((TextView) view2.findViewById(R.id.value)).setText(list.get(i).getValue().toString());
                         lin_1.addView(view2);
                     }
+                }
+                if(null!=goods.getData().getContentText()&&goods.getData().getContentText().length() > 0){
+                    TextView textView = new TextView(getApplicationContext());
+                    textView.setTextColor(getResources().getColor(R.color.black_half99));
+                    textView.setTextSize(15);
+                    textView.setText(goods.getData().getContentText());
+                    lin_1.addView(textView);
+
+
+
                 }
                 if (goods.getData().getContentImgsUrl() != null) {
                     for (int i = 0; i < goods.getData().getContentImgsUrl().size(); i++) {

@@ -439,7 +439,9 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
 
     public void conlick3() {//第3个按钮
 
-        startActivity(new Intent(this, LogisActivity.class).putExtra("OrderExpressCompany",data.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",data.getExt().getOrderExpressNo()));//查看物流
+        startActivity(new Intent(this, LogisActivity.class)
+                .putExtra("IMAGE",data.getExt().getImgId())
+                .putExtra("OrderExpressCompany",data.getExt().getOrderExpressCompany()).putExtra("OrderExpressNo",data.getExt().getOrderExpressNo()));//查看物流
     }
 
     public void conlick2() {//第2个按钮
