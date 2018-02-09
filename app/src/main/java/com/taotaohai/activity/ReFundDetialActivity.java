@@ -71,10 +71,6 @@ public class ReFundDetialActivity extends BaseActivity {
         tv_14.setText(Html.fromHtml(buffer.toString()));
 
 
-
-//        String st = "退款原因：" + data.getExt().getRefundReason() + "<br />退款金额：<font color=#fa8d00>" + data.getTotalPrice() + "</font><br />申请时间：" + data.getGmtRefund() + "<br />退款编号：" + data.getId()+ "<br />审核意见：" + data.getExt().getRefundAudit()+ "<br />平台审核意见：" + data.getExt().getAdminRefundAudit();
-//        tv_14.setText(Html.fromHtml(st));
-
         if (data.getRefundStatus() ==1) {
             remainTime = data.getGmtRemaining();
             tv_time.post(new Runnable() {
