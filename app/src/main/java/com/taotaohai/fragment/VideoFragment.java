@@ -162,7 +162,6 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
                     xListView.setAdapter(myadapter);
                     totle = video.getData().getTotal();
                 }
-                pageIndex += 1;//第多少个
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {
@@ -330,7 +329,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onLoadMore() {
-        pageIndex = video.getData().getData().size();//第多少个
+        pageIndex +=1;//第多少个
         inithttpdata();
         xListView.stopLoadMore();
     }

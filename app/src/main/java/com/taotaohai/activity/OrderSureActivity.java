@@ -360,7 +360,17 @@ public class OrderSureActivity extends BaseActivity {
         });
 
         textView.setText(st);
-        dialog.findViewById(R.id.cancel).setOnClickListener(v -> dialog.dismiss());
+        dialog.findViewById(R.id.cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), MyBook.class)
+                        .putExtra("stata", 1));
+                finish();
+            }
+        });
+
+
+
         dialog.findViewById(R.id.sure).setOnClickListener(v -> {
 
             if (car != null) {
