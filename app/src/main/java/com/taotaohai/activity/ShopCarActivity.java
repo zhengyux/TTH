@@ -60,6 +60,11 @@ public class ShopCarActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void onError(Throwable ex, int postcode) {
+
+    }
+
     public void finish(View v){
         finish();
     }

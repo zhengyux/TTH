@@ -53,14 +53,14 @@ public class ReFundDetialActivity extends BaseActivity {
         buffer.append("退款原因：" + data.getExt().getRefundReason() + "<br />退款金额：<font color=#fa8d00>" + data.getTotalPrice() + "</font><br />申请时间：" + data.getGmtRefund() + "<br />退款编号：" + data.getId());
 
 
-        if (null!=data.getExt().getRefundAudit()||!"".equals(data.getExt().getRefundAudit().trim())){
+        if (null!=data.getExt().getRefundAudit()&&data.getExt().getRefundAudit().trim().length()>0){
             buffer.append("<br />审核意见：" + data.getExt().getRefundAudit());
 
 
         }
 
 
-        if (null!=data.getExt().getAdminRefundAudit()||!"".equals(data.getExt().getAdminRefundAudit().trim())){
+        if (null!=data.getExt().getAdminRefundAudit()&&data.getExt().getAdminRefundAudit().trim().length()>0){
 
             buffer.append("<br />平台审核意见：" + data.getExt().getAdminRefundAudit());
 

@@ -15,35 +15,71 @@
             android:layout_height="match_parent"
             tools:ignore="PxUsage" />
 
-
-
-        <ImageView
-            android:id="@+id/left_images"
-            android:layout_width="66px"
-            android:layout_height="66px"
-            android:layout_marginLeft="@dimen/gap"
+        <LinearLayout
+            android:gravity="center_vertical"
             android:layout_marginTop="60px"
-            android:src="@mipmap/detial1" />
+            android:layout_width="match_parent"
+            android:layout_height="96px">
 
-        <ImageView
-            android:id="@+id/message"
-            android:layout_width="66px"
-            android:layout_height="66px"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/gap"
-            android:layout_marginRight="106px"
-            android:layout_marginTop="60px"
-            android:src="@mipmap/detial3" />
+            <ImageView
+                android:id="@+id/left_images"
+                android:layout_width="66px"
+                android:layout_height="66px"
+                android:layout_marginLeft="@dimen/gap"
+                android:src="@mipmap/detial1" />
 
-        <ImageView
-            android:id="@+id/shopcar"
-            android:layout_width="66px"
-            android:layout_height="66px"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/gap"
-            android:layout_marginRight="@dimen/gap"
-            android:layout_marginTop="60px"
-            android:src="@mipmap/detial2" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="right|center_vertical"
+                >
+
+
+
+                <RelativeLayout
+                    android:id="@+id/message"
+                    android:gravity="center"
+                    android:layout_width="76px"
+                    android:layout_height="96px">
+
+
+                    <ImageView
+                        android:layout_width="66px"
+                        android:layout_height="66px"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/detial3" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/shopcar"
+                    android:gravity="center"
+                    android:layout_width="76px"
+                    android:layout_height="96px"
+                    android:layout_marginRight="10px"
+                    >
+
+                    <ImageView
+                        android:layout_width="66px"
+                        android:layout_height="66px"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/detial2" />
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+
+
+
+        </LinearLayout>
+
+
+
+
+
+
     </RelativeLayout>
 
     <TextView

@@ -20,6 +20,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -34,6 +35,8 @@ import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Comment;
 import com.taotaohai.bean.Focus2;
 import com.taotaohai.bean.Goods;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
@@ -82,7 +85,10 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private TextView tv_count_all;
     private Focus2 focus2;
     private LinearLayout lin_10;
-    private ImageView shopcar;
+    private RelativeLayout shopcar;
+    private RelativeLayout msg;
+    BadgeView badgeView ;
+    BadgeView badgeView2 ;
 
     @Override
     protected void inithttp() {
@@ -98,7 +104,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         get("api/goods/" + getintent("id"));
         get("api/comment/goods/" + getintent("id"), 1);
         get("api/follow/" + getintent("id") + "/check/goods", NONOTICELOGIN);
- //       get("/api/shopCar/shop_car_num",20);
+        get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
 
     }
 
@@ -161,6 +169,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 return;
             }
             rela_buy.setVisibility(View.VISIBLE);
+
         }
         if(postcode==995){
             get("api/follow/" + getintent("id") + "/goods", 999);
@@ -175,18 +184,45 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             startActivity(new Intent(this, MessageActivity.class));
         }
 
-//        if(postcode==20){
-//            ShopCarNum shopCarNum = new ShopCarNum();
-//            shopCarNum = util.getgson(result,ShopCarNum.class);
-//            if(shopCarNum.getData()!="0"){
-//                BadgeView badgeView = new BadgeView(getApplicationContext(),shopcar);
-//                badgeView.setBadgePosition(BadgeView.POSITION_CENTER);// 设置在右上角
-//                badgeView.setTextSize(9);// 设置文本大小
-//                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
-//                badgeView.show();// 将角标显示出来
-//            }
-//
-//        }
+        if(postcode==20){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView.setTextSize(9);// 设置文本大小
+                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.show();// 将角标显示出来
+            }else {
+                badgeView.hide();
+            }
+
+        }
+        if(postcode==50){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();
+            }else {
+                badgeView2.hide();
+            }
+
+        }
+        if(postcode==51){
+            ShopCarNum shopCarNum = new ShopCarNum();
+            shopCarNum = util.getgson(result,ShopCarNum.class);
+            if(shopCarNum.getData()!="0"){
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
+            }
+
+        }
 
         if (postcode == 999) {
             if (isLike) {
@@ -215,20 +251,12 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                         1.0f, 0.2f);
                 ObjectAnimator anim5 = ObjectAnimator.ofFloat(image_3, "scaleY",
                         1.0f, 0.2f);
-//        ObjectAnimator anim3 = ObjectAnimator.ofFloat(image_photo,
-//                "x", cx, 0f);
-//        ObjectAnimator anim4 = ObjectAnimator.ofFloat(image_photo,
-//                "x", cx);
 
-                /**
-                 * anim1，anim2,anim3同时执行
-                 * anim4接着执行
-                 */
                 AnimatorSet animSet = new AnimatorSet();
                 animSet.play(anim1).with(anim2).with(anim3).with(anim4).with(anim5);
                 animSet.setDuration(1000);
                 animSet.start();
-
+                get("/api/shopCar/shop_car_num",20);
             } else {
                 showToast("加入商品失败，商品数量不足");
             }
@@ -339,6 +367,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         mMsvLayout = (MultipleStatusView) findViewById(R.id.msv_layout);
         listview = (ListView) findViewById(R.id.listview);
 
+
         View headview = getLayoutInflater().inflate(R.layout.detial_head, null);
 
         image_like = (ImageView) findViewById(R.id.image_like);
@@ -388,10 +417,13 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         rela_click_2.setOnClickListener(this);
         headview.findViewById(R.id.rela_click_3).setOnClickListener(this);
         headview.findViewById(R.id.left_images).setOnClickListener(this);
-        shopcar = (ImageView) headview.findViewById(R.id.shopcar);
+        shopcar = (RelativeLayout) headview.findViewById(R.id.shopcar);
         shopcar.setOnClickListener(this);
-        headview.findViewById(R.id.message).setOnClickListener(this);
+        msg = (RelativeLayout) headview.findViewById(R.id.message);
+        msg.setOnClickListener(this);
 
+        badgeView = new BadgeView(getApplicationContext(),shopcar);
+        badgeView2 = new BadgeView(getApplicationContext(),msg);
         listview.addHeaderView(headview);
 
     }
@@ -718,6 +750,14 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         super.onStop();
         // 在onStop时释放掉播放器
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+    }
+
+    @Override
+    protected void onRestart() {
+        get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",51);
+        super.onRestart();
     }
 
     class Gson_string {
