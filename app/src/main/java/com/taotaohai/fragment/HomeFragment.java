@@ -509,7 +509,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
             if (data.getShopInfo() != null) {
                 viewholder.tv_remorke.setText(data.getRemark());
-                viewholder.tv_people.setText("已售" + data.getSaleVolume()+"件");
+                viewholder.tv_people.setText("已购买" + data.getSaleVolume()+"件");
             }
             viewholder.tv_money.setText("￥ " + data.getPrice());
             viewholder.tv_unit.setText("/" + data.getUnit());
