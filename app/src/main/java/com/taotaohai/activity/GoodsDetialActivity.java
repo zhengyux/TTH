@@ -298,7 +298,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_count.setText("￥" + goods.getData().getPrice());
                 tv_util.setText("/" + goods.getData().getUnit());
                 tv_dis.setText(goods.getData().getRemark());
-                tv_dis2.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起批");
+                tv_dis2.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起售");
                 tv_name.setText(goods.getData().getShopInfo().getName());
                 tv_num.setText("已有" + goods.getData().getSaleVolume() + "人" + "购买");
                 tv_scor.setText(goods.getData().getTotalCommonLevel() + "分");
@@ -307,7 +307,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
                 tv_people.setText(goods.getData().getShopInfo().getTotalLike());
                 tv_1.setText("￥" + goods.getData().getPrice());
                 tv_2.setText("/" + goods.getData().getUnit());
-                tv_3.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起批," + goods.getData().getRemark());
+                tv_3.setText(goods.getData().getUnitMin() + goods.getData().getUnit() + "起售," + goods.getData().getRemark());
                 tv_count_all.setText("请选择购买数量  库存" + goods.getData().getStock());
                 stock = goods.getData().getStock();
                 tv_num2.setText(String.valueOf(goods.getData().getUnitMin()));
@@ -508,7 +508,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             return;
         }
         if(count<goods.getData().getUnitMin()){
-            showToast("购买数低于最低起批量");
+            showToast("购买数低于最低起售量");
             return;
         }
         String image = "";

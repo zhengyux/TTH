@@ -13,6 +13,8 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Message_all;
 import com.taotaohai.util.util;
 
+import org.xutils.http.HttpMethod;
+
 public class message_all extends BaseActivity {
 
     private ListView list;
@@ -53,6 +55,7 @@ public class message_all extends BaseActivity {
                     tv_1.setText(message_all.getData().getData().get(position).getTitle());
                     tv_2.setText(message_all.getData().getData().get(position).getContent());
                     view.setOnClickListener((l) -> {
+                        Http(HttpMethod.PUT,"updateMsg/"+message_all.getData().getData().get(position).getId(),0);
                                 if (message_all.getData().getData().get(position).getTargetType() == 0) {
                                     if(null==message_all.getData().getData().get(position).getTarget()||message_all.getData().getData().get(position).getTarget().length()<=0){
                                         showToast("商品下架啦！");
