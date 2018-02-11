@@ -54,8 +54,13 @@ public class message_all extends BaseActivity {
                     tv_2.setText(message_all.getData().getData().get(position).getContent());
                     view.setOnClickListener((l) -> {
                                 if (message_all.getData().getData().get(position).getTargetType() == 0) {
-                                    startActivity(new Intent(message_all.this, GoodsDetialActivity.class)
-                                            .putExtra("id", message_all.getData().getData().get(position).getTarget()));
+                                    if(null==message_all.getData().getData().get(position).getTarget()||message_all.getData().getData().get(position).getTarget().length()<=0){
+                                        showToast("商品下架啦！");
+                                    }else {
+                                        startActivity(new Intent(message_all.this, GoodsDetialActivity.class)
+                                                .putExtra("id", message_all.getData().getData().get(position).getTarget()));
+                                    }
+
                                 }else{
                                     startActivity(new Intent(message_all.this, Message_detialActivity.class)
                                             .putExtra("data", message_all.getData().getData().get(position)));

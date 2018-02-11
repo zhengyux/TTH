@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="0592-3714000"
+            android:text=""
             android:textColor="@color/text_black"
             android:textSize="36px"
             tools:ignore="HardcodedText" />

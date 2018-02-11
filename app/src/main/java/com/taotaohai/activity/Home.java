@@ -3,6 +3,7 @@ package com.taotaohai.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
 
@@ -183,6 +184,7 @@ public class Home extends BaseActivity implements VideoFragment.CallBackValue{
 
             LA = bdLocation.getLatitude();
             LO = bdLocation.getLongitude();
+            Log.e("", "经纬度: "+ LO+"----"+LA);
 
 
         }

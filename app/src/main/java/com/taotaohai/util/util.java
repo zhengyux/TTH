@@ -85,5 +85,8 @@ public class util {
         DecimalFormat df = new DecimalFormat("#####0.0");
         return df.format(getDistance(longt1, lat1, longt2, lat2) / 1000);
     }
+
+
+
 }
 

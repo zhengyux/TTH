@@ -321,7 +321,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
                 holder.setText(R.id.tv_1, data.getName());
                 holder.setText(R.id.tv_2, data.getTotalCommonLevel() + "分");
-                holder.setText(R.id.tv_3, util.getdouboletwo(Home.LA, Home.LO, Double.valueOf(data.getLatitude()), Double.valueOf(data.getLongitude())) + "km");
+                holder.setText(R.id.tv_3, util.getdouboletwo(Home.LO, Home.LA, Double.valueOf(data.getLongitude()), Double.valueOf(data.getLatitude())) + "km");
                 holder.setOnClickListener(R.id.rela_all, v -> startActivity(new Intent(SeachendShop.this, ShopActivity.class)
                         .putExtra("id", data.getId())
                 ));

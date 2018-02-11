@@ -374,7 +374,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
 
     @Override
     public void onError(Throwable ex, int postcode) {
-        super.onError(ex, postcode);
+
     }
 
     @Override

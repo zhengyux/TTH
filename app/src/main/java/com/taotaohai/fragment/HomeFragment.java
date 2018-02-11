@@ -509,7 +509,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             }
             if (data.getShopInfo() != null) {
                 viewholder.tv_remorke.setText(data.getRemark());
-                viewholder.tv_people.setText("已有" + data.getSaleVolume() + "人购买");
+                viewholder.tv_people.setText("已售" + data.getSaleVolume()+"件");
             }
             viewholder.tv_money.setText("￥ " + data.getPrice());
             viewholder.tv_unit.setText("/" + data.getUnit());
@@ -551,13 +551,16 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
             }
 
+
             GlideUtil.loadImg(hotshop.getData().get(position).getLogoIdAbsUrl(), holder.image);
             holder.tv_title.setText(hotshop.getData().get(position).getName());
             holder.tv_scor.setText(hotshop.getData().get(position).getTotalCommonLevel() + "分");
             if(Home.LA!=0.0){
-                holder.tv_juli.setText(util.getdouboletwo(Home.LA, Home.LO, Double.valueOf(hotshop.getData().get(position).getLatitude()), Double.valueOf(hotshop.getData().get(position).getLongitude())) + "km");
+
+                holder.tv_juli.setText(util.getdouboletwo(Home.LO, Home.LA, Double.valueOf(hotshop.getData().get(position).getLongitude()), Double.valueOf(hotshop.getData().get(position).getLatitude())) + "km");
             }
             holder.lin_2.setOnClickListener((l) -> {
+
 
                 startActivity(new Intent(getActivity(), ShopActivity.class).putExtra("id", hotshop.getData().get(position).getId()));
             });

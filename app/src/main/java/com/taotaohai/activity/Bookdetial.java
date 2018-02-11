@@ -248,15 +248,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             request.nonceStr = wXpay.getData().getNoncestr();
             request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
             request.sign = wXpay.getData().getSign();
-//            msgApi.registerApp("wxd930ea5d5a258f4f");
-//            PayReq request = new PayReq();
-//            request.appId = "wxd930ea5d5a258f4f";
-//            request.partnerId = "1900000109";
-//            request.prepayId= "1101000000140415649af9fc314aa427";
-//            request.packageValue = "Sign=WXPay";
-//            request.nonceStr= "1101000000140429eb40476f8896f4c9";
-//            request.timeStamp= "1398746574";
-//            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
+
             msgApi.sendReq(request);
             return;
         }
@@ -266,51 +258,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         }
         bookd = util.getgson(result, BookDet.class);
         if (util.isSuccess(bookd, this)) {
-//            tv_1.setText("收货人：" + bookd.getData().getUsername());
-//            tv_2.setText("电话：" + bookd.getData().getLinkTel());
-//            tv_3.setText("收货地址：" + bookd.getData().getLinkAddress());
-//            tv_4.setText(bookd.getData().getGoodsName());
-////            tv_5.setText(bookd.getData().getColor() + "," + bookd.getData().getSize() + "," + bookd.getData().getAcount() + "件");
-//            tv_6.setText("¥" + bookd.getData().getPrice());
-//            tv_7.setText("¥" + bookd.getData().getTotalPrice());
-//            tv_8.setText("订单编号：" + bookd.getData().getOrderId() + "\n交易单号：" + "\n成交时间：" + bookd.getData().getGmtCreate() + "\n支付方式：" + gettype(bookd.getData().getPayType()) + "\n发货时间：");
-//            getstata(bookd.getData().getOrderStatus());
 
-//            btn_1.setOnClickListener(v -> {
-//                dialog_count = 0;
-//                showDialog("删除订单", "确定要删除本条订单吗");
-//            });
-//            btn_2.setOnClickListener(v -> {
-//                switch (bookd.getData().getOrderStatus()) {
-//                    case 5:
-//
-//                        dialog_count = 0;
-//                        showDialog("删除订单", "确定要删除本条订单吗");
-//                        break;
-//                    case 2:
-//                        dialog_count = 1;
-//
-//                        showDialog("申请退款", "确定要申请退款吗");
-//                        break;
-//                    case 1:
-//                        dialog_count = 1;
-//
-//                        showDialog("申请退款", "确定要申请退款吗");
-//                        break;
-//                    case 3:
-//                        dialog_count = 1;
-//
-//                        showDialog("申请退款", "确定要申请退款吗");
-//                        break;
-//                    case 4:
-//
-//                        startActivity(new Intent(Bookdetial.this, Evaluation.class)
-//                                .putExtra("id", data.getExt().getOrderId())
-//                        );
-//                        break;
-//                }
-//            });
-//        }
         }
     }
 
@@ -477,10 +425,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 break;
             case 2:
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
+                finish();
                 break;
             case 3:
 
                 startActivity(new Intent(Bookdetial.this, Refund.class).putExtra("data", data));
+                finish();
                 break;
             case 4://再次购买
                 JsonObject object = new JsonObject();

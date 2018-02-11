@@ -71,7 +71,7 @@ public class ReFundDetialActivity extends BaseActivity {
         tv_14.setText(Html.fromHtml(buffer.toString()));
 
 
-        if (data.getRefundStatus() ==1) {
+        if (data.getRefundStatus() ==1&&data.getExt().getRefundType()==0) {
             remainTime = data.getGmtRemaining();
             tv_time.post(new Runnable() {
                 @Override
