@@ -6,11 +6,8 @@ public interface ConstantValue {
     public String ENCONDING = "utf-8";
     public static final int SDKAPP_ID=1400060989;
     public static final String APP_ID = "wxbcaaaa2dfcb79995";//微信支付APP_ID
-    public static final String VIDEOSHARE = "http://www.taotaohai.com/video/share/"; //视频分享
     public static final String APP_Secret="b8c0c72e27e0e10fa18ea90ded199620";//微信APP_Secret
-    public static final String APP_SECRET = "a0d6a7d5b32d360d868d75f402ccfd23";
-    public static final String APP_KEY = "U6FaRdjDsOHE3UO6Co0pI0tP";
-    public static String version_number = "1.0.0";
+
     public static int LOGINCODE = 10086;
 
 
@@ -27,6 +24,7 @@ public interface ConstantValue {
     public String URL = "http://www.taotaohai.com/";//域名
     public String URL_VIDEO= "api/video";//视频列表
     public String URL_SEARCH_VIDEO= "api/search/video";//视频搜索列表
+    public static final String VIDEOSHARE = "http://www.taotaohai.com/video/share/"; //视频分享
 
 
     /**
