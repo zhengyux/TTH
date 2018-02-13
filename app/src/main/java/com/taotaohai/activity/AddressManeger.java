@@ -93,7 +93,7 @@ public class AddressManeger extends BaseActivity {
                 if("a"==getintent("type")||"a".equals(getintent("type"))){
 
                     LinkName = address.getData().getData().get(i).getLinkName();
-                    LinkTel = address.getData().getData().get(i).getLinkName();
+                    LinkTel = address.getData().getData().get(i).getLinkTel();
                     Address = address.getData().getData().get(i).getLinkProvince()+address.getData().getData().get(i).getLinkCity()+address.getData().getData().get(i).getLinkArea()+address.getData().getData().get(i).getLinkAddress();
                     ID = address.getData().getData().get(i).getId();
                     TYPE = "address";

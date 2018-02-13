@@ -322,6 +322,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onRefresh() {
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
         pageIndex = 0;//第多少个
         xListView.setRefreshTime(new SimpleDateFormat("yyyy年MM月dd日 HH:mm:ss ").format(new Date(System.currentTimeMillis()) ));
         inithttpdata();
@@ -329,6 +330,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void onLoadMore() {
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
         pageIndex +=1;//第多少个
         inithttpdata();
         xListView.stopLoadMore();

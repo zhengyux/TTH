@@ -21,12 +21,13 @@ public class message_all extends BaseActivity {
 
     @Override
     protected void inithttp() {
-        get("api/message/" + getintent("type"));
+        get("api/message/" + getintent("type"),1);
     }
 
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+        if(postcode==1){
         Message_all message_all = util.getgson(result, Message_all.class);
         if (message_all.getSuccess()) {
             list.setAdapter(new BaseAdapter() {
@@ -55,7 +56,7 @@ public class message_all extends BaseActivity {
                     tv_1.setText(message_all.getData().getData().get(position).getTitle());
                     tv_2.setText(message_all.getData().getData().get(position).getContent());
                     view.setOnClickListener((l) -> {
-                        Http(HttpMethod.PUT,"updateMsg/"+message_all.getData().getData().get(position).getId(),0);
+                        Http(HttpMethod.PUT,"api/message/updateMsg/"+message_all.getData().getData().get(position).getId(),0);
                                 if (message_all.getData().getData().get(position).getTargetType() == 0) {
                                     if(null==message_all.getData().getData().get(position).getTarget()||message_all.getData().getData().get(position).getTarget().length()<=0){
                                         showToast("商品下架啦！");
@@ -76,6 +77,14 @@ public class message_all extends BaseActivity {
                 }
             });
         }
+
+
+        }
+    }
+
+    @Override
+    public void onError(Throwable ex, int postcode) {
+
     }
 
     @Override

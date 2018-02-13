@@ -550,8 +550,13 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
+                        showToast("支付成功");
+                        itemBookFragment.refresh();
+                    } else if(TextUtils.equals(resultStatus, "8000")){
 
-                    } else {
+                        showToast("支付结果确认中");
+
+                    }else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
                         showToast("支付失败");
                     }

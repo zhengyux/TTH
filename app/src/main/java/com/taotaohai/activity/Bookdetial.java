@@ -130,7 +130,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             buffer.append("订单编号: " + data.getExt().getOrderId() + "\n创建时间：" + data.getGmtCreate());
         }
 
-        if (null!=data.getExt().getDealId()){
+        if (null!=data.getExt().getDealId()&&data.getExt().getDealId().length()>0){
             buffer.append("\n支付交易号：" + data.getExt().getDealId());
         }
         if(null!=data.getExt().getGmtDelivery()){
@@ -141,8 +141,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             buffer.append("\n付款时间：" + data.getExt().getDealTime());
         }
 
-        if (99==data.getExt().getOrderStatus() && null!=data.getExt().getGmtModify()||data.getExt().getOrderStatus()==4){
+        if (null!=data.getExt().getGmtModify()&&data.getOrderStatus()==6||data.getOrderStatus()==4){
             buffer.append("\n确认收货时间：" +data.getExt().getGmtModify());
+        }
+
+        if(99==data.getOrderStatus() && null!=data.getExt().getGmtModify()){
+            buffer.append("\n关闭时间：" +data.getExt().getGmtModify());
         }
 
         tv_14.setText(buffer.toString());
@@ -294,6 +298,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                     String resultStatus = payResult.getResultStatus();
                     // 判断resultStatus 为9000则代表支付成功
                     if (TextUtils.equals(resultStatus, "9000")) {
+
+                        showToast("支付成功");
+                        finish();
+                    }else if(TextUtils.equals(resultStatus, "8000")){
+
+                        showToast("支付结果确认中");
 
                     } else {
                         // 该笔订单真实的支付结果，需要依赖服务端的异步通知。
