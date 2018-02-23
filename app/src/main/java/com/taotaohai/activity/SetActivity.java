@@ -16,6 +16,7 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Contact;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
+import com.tencent.imsdk.TIMManager;
 
 
 public class SetActivity extends BaseActivity {
@@ -102,6 +103,7 @@ public class SetActivity extends BaseActivity {
                 }
                 startActivity(intent);
                 dialog.dismiss();
+
             }
         });
         dialog.show();
@@ -116,6 +118,7 @@ public class SetActivity extends BaseActivity {
                 SPUtils.remove(this, "password");
                 SPUtils.remove(this, "hxid");
                 removeAllActivity();
+                TIMManager.getInstance().logout(null);//登出
                 startActivity(new Intent(this, Login.class));
             }
             return;

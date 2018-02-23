@@ -15,6 +15,8 @@ import com.taotaohai.bean.LoginBean;
 import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
+import com.tencent.imsdk.TIMCallBack;
+import com.tencent.imsdk.TIMManager;
 
 public class Login extends BaseActivity {
 
@@ -27,24 +29,7 @@ public class Login extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-//        EMClient.getInstance().login("ylll", "111", new EMCallBack() {//回调
-//            @Override
-//            public void onSuccess() {
-//                EMClient.getInstance().groupManager().loadAllGroups();
-//                EMClient.getInstance().chatManager().loadAllConversations();
-//                Log.d("main", "登录聊天服务器成功！");
-//            }
-//
-//            @Override
-//            public void onProgress(int progress, String status) {
-//
-//            }
-//
-//            @Override
-//            public void onError(int code, String message) {
-//                Log.d("main", "登录聊天服务器失败！");
-//            }
-//        });
+
 
         intitview();
     }
@@ -59,10 +44,7 @@ public class Login extends BaseActivity {
     }
 
     public void onLogin(View v) {
-//        if (!util.isMobileNO(phone.getText().toString().trim())) {
-//            showToast("请输入正确手机号码");
-//            return;
-//        }
+
         if (password.getText().toString().length() == 0) {
             showToast("请输入密码");
             return;
@@ -84,32 +66,24 @@ public class Login extends BaseActivity {
             SPUtils.put(this, "username", phone.getText().toString().trim());
             SPUtils.put(this, "password", password.getText().toString().trim());
             SPUtils.put(this, "hxid", loginBean.getData().getId());
-            if (EMClient.getInstance().isConnected()) {
-                startActivity(new Intent(Login.this, Home.class));
-//                        .putExtra("login", loginBean));
-                finish();
-                return;
-            }
-            EMClient.getInstance().login(loginBean.getData().getId(), MD5Utils.md5Password(password.getText().toString().trim()), new EMCallBack() {
+            //登入
+            TIMManager.getInstance().login(loginBean.getData().getId(), MD5Utils.md5Password(password.getText().toString().trim()), new TIMCallBack() {
+                @Override
+                public void onError(int code, String desc) {
+                    //错误码code和错误描述desc，可用于定位请求失败原因
+                    //错误码code列表请参见错误码表
+                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登录聊天服务器失败", Toast.LENGTH_SHORT).show());
+                }
+
                 @Override
                 public void onSuccess() {
-                    startActivity(new Intent(Login.this, Home.class)
-//                            .putExtra("login", loginBean)
-                    );
-                    finish();
-                }
 
-                @Override
-                public void onProgress(int progress, String status) {
-
-                }
-
-                @SuppressLint("WrongConstant")
-                @Override
-                public void onError(int code, String error) {
-                    runOnUiThread(() -> Toast.makeText(getApplicationContext(), "login failed", 0).show());
                 }
             });
+            startActivity(new Intent(Login.this, Home.class));
+            finish();
+
+
         }
     }
 
