@@ -1,8 +1,9 @@
 package com.taotaohai.ui;
 
 
-import com.tencent.imsdk.TIMMessage;
-import com.tencent.imsdk.ext.message.TIMMessageDraft;
+import com.tencent.TIMMessage;
+import com.tencent.TIMMessageDraft;
+
 
 import java.util.List;
 
@@ -109,6 +110,7 @@ public interface ChatView extends MvpView {
      *
      */
     void showDraft(TIMMessageDraft draft);
+
 
 
 }

@@ -87,8 +87,7 @@ dependencies {
     compile project(path: ':easeui')
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
     implementation files('libs/ShareSDK-QZone-3.1.2.jar')
-//    implementation project(':presentation')
-//    implementation project(':ui')
+
 }
 allprojects {
     repositories {

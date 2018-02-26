@@ -104,6 +104,7 @@
             android:screenOrientation="behind"
             android:windowSoftInputMode="adjustResize|stateHidden" />
         <activity android:name=".activity.MyBook" />
+        <activity android:name=".activity.ImageViewActivity" />
         <activity android:name=".activity.Search" />
         <activity android:name=".activity.SearchGoods" />
         <activity android:name=".activity.Regist" />

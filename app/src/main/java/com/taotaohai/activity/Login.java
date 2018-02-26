@@ -15,8 +15,9 @@ import com.taotaohai.bean.LoginBean;
 import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
-import com.tencent.imsdk.TIMCallBack;
-import com.tencent.imsdk.TIMManager;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMManager;
+
 
 public class Login extends BaseActivity {
 

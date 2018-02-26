@@ -29,7 +29,7 @@ public class TemplateTitle extends RelativeLayout {
 
     public TemplateTitle(Context context, AttributeSet attrs) {
         super(context, attrs);
-        LayoutInflater.from(context).inflate(R.layout.title, this);
+        LayoutInflater.from(context).inflate(R.layout.title2, this);
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TemplateTitle, 0, 0);
         try {
             titleText = ta.getString(R.styleable.TemplateTitle_titleText);

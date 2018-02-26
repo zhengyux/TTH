@@ -16,7 +16,7 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Contact;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
-import com.tencent.imsdk.TIMManager;
+import com.tencent.TIMManager;
 
 
 public class SetActivity extends BaseActivity {

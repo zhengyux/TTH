@@ -1,1 +1,1 @@
-include ':app', ':photoSelector', ':nicevideoplayer', ':easeui', ':sdk', ':presentation', ':ui', ':tlslibrary'
+include ':app', ':photoSelector', ':nicevideoplayer', ':easeui'
