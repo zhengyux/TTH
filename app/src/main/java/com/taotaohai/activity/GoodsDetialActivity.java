@@ -40,6 +40,7 @@ import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.TIMConversationType;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -175,7 +176,9 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             get("api/follow/" + getintent("id") + "/goods", 999);
         }
         if(postcode==996){
-            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
+            ChatActivity.navToChat(this,"test1", TIMConversationType.C2C);
+       //     ChatActivity.navToChat(this,goods.getData().getShopId(), TIMConversationType.C2C);
+     //       startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
         }
         if(postcode==998){
             startActivity(new Intent(this, ShopCarActivity.class));

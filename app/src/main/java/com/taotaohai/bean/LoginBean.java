@@ -72,6 +72,16 @@ public class LoginBean implements Serializable{
         private String shopId;
         @SerializedName("userId")
         private String userId;
+        @SerializedName("userSig")
+        private String userSig;
+
+        public String getUserSig() {
+            return userSig;
+        }
+
+        public void setUserSig(String userSig) {
+            this.userSig = userSig;
+        }
 
         public int getAge() {
             return age;

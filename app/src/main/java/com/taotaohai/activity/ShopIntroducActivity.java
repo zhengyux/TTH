@@ -15,6 +15,7 @@ import com.taotaohai.bean.BaseBean;
 import com.taotaohai.bean.Shop;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversationType;
 
 import static com.taotaohai.GlobalParams.NONOTICELOGIN;
 
@@ -142,7 +143,8 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         super.onSuccess(result, postcode);
 
         if(postcode==994){
-            startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+            ChatActivity.navToChat(this,shop.getData().getUser().getU_id(), TIMConversationType.C2C);
+         //   startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
         }
 
         if(postcode==995){

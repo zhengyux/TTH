@@ -68,7 +68,7 @@ public class Login extends BaseActivity {
             SPUtils.put(this, "password", password.getText().toString().trim());
             SPUtils.put(this, "hxid", loginBean.getData().getId());
             //登入
-            TIMManager.getInstance().login(loginBean.getData().getId(), MD5Utils.md5Password(password.getText().toString().trim()), new TIMCallBack() {
+            TIMManager.getInstance().login(phone.getText().toString().trim(),loginBean.getData().getExt().getUserSig(),new TIMCallBack() {
                 @Override
                 public void onError(int code, String desc) {
                     //错误码code和错误描述desc，可用于定位请求失败原因
@@ -78,6 +78,8 @@ public class Login extends BaseActivity {
 
                 @Override
                 public void onSuccess() {
+
+                    showToast("登入聊天服务器成功");
 
                 }
             });

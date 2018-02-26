@@ -13,6 +13,7 @@ import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversationType;
 
 public class MessageActivity extends BaseActivity implements EaseConversationListFragment.EaseConversationListItemClickListener {
 
@@ -93,7 +94,8 @@ public class MessageActivity extends BaseActivity implements EaseConversationLis
 
     @Override
     public void onListItemClicked(EMConversation conversation) {
-        startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
+        ChatActivity.navToChat(this,conversation.conversationId(), TIMConversationType.C2C);
+   //     startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, conversation.conversationId()));
     }
 
     public void onNotice(View view) {

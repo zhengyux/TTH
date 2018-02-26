@@ -28,6 +28,7 @@ import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.TIMConversationType;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -130,8 +131,8 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
         if(postcode==998){
-
-            startActivity(new Intent(ShopActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
+            ChatActivity.navToChat(this,shop.getData().getUser().getU_id(), TIMConversationType.C2C);
+       //     startActivity(new Intent(ShopActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
 
         }
         if(postcode==997){

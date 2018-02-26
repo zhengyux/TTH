@@ -124,7 +124,7 @@ public class ChatActivity extends FragmentActivity implements ChatView {
         });
         registerForContextMenu(listView);
         TemplateTitle title = (TemplateTitle) findViewById(R.id.chat_title);
-        title.setTitleText("测试");
+        title.setTitleText(identify);
 //        switch (type) {
 //            case C2C:
 //                title.setMoreImg(R.drawable.btn_person);

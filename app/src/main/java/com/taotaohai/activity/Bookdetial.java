@@ -29,6 +29,7 @@ import com.taotaohai.bean.PayResult;
 import com.taotaohai.bean.WXpay;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversationType;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -577,9 +578,11 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
 
     public void onChat(View view) {
         if (data.getGoodsInfo() != null) {
-            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getGoodsInfo().getUserId()));
+            ChatActivity.navToChat(this,data.getGoodsInfo().getUserId(), TIMConversationType.C2C);
+        //    startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getGoodsInfo().getUserId()));
         } else {
-            startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getUserId()));
+            ChatActivity.navToChat(this,data.getUserId(), TIMConversationType.C2C);
+        //    startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getUserId()));
         }
 
     }
