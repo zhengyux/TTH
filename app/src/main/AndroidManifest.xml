@@ -133,6 +133,7 @@
         <activity android:name=".activity.MessageActivity" />
         <activity android:name=".activity.ForgetPassword" />
         <activity android:name=".activity.LocationActivity" />
+        <activity android:name=".activity.ImagePreviewActivity" />
 
 
         <service

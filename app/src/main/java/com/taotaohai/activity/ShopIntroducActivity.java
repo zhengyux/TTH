@@ -143,7 +143,7 @@ public class ShopIntroducActivity extends BaseActivity implements View.OnClickLi
         super.onSuccess(result, postcode);
 
         if(postcode==994){
-            ChatActivity.navToChat(this,shop.getData().getUser().getU_id(), TIMConversationType.C2C);
+            ChatActivity.navToChat(this,shop.getData().getUser().getUsername(), TIMConversationType.C2C);
          //   startActivity(new Intent(ShopIntroducActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
         }
 

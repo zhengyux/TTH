@@ -3,6 +3,7 @@ package com.taotaohai.activity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -20,6 +21,8 @@ import com.tencent.TIMManager;
 
 
 public class Login extends BaseActivity {
+
+    String Sig = "eJxlj11rgzAARd-9FZLXjjV*JF0GexJbHXNYqjD6Is6kLq3VTJPqHPvva21hgd3Xcy6X*22YpgmSl819XhSNqmUmvwQD5qMJILj7g0JwmuUyc1r6D7JB8JZl*U6ydoIWQsiGUHc4ZbXkO34zJOukpeGOHrJp49p3z2UMyQPRFV5OMPJTL1x7uRq4qBa9r-bBrJyfKq8P4Lyo3tQnc3GIm82QlHHwTsY*LJ-HDhKRLit-htmHtTr2i1URJSNdb9V2GcTo1dtHaYysQ-mkTUp*ZLdDFsGOTRxXoyfWdrypJ8GGZ8V24CXA*DF*AWAMXXs_";
 
     @Override
     protected void inithttp() {
@@ -66,7 +69,7 @@ public class Login extends BaseActivity {
             showToast("登录成功");
             SPUtils.put(this, "username", phone.getText().toString().trim());
             SPUtils.put(this, "password", password.getText().toString().trim());
-            SPUtils.put(this, "hxid", loginBean.getData().getId());
+            SPUtils.put(this, "hxid", loginBean.getData().getExt().getUserSig());
             //登入
             TIMManager.getInstance().login(phone.getText().toString().trim(),loginBean.getData().getExt().getUserSig(),new TIMCallBack() {
                 @Override
@@ -74,6 +77,7 @@ public class Login extends BaseActivity {
                     //错误码code和错误描述desc，可用于定位请求失败原因
                     //错误码code列表请参见错误码表
                     runOnUiThread(() -> Toast.makeText(getApplicationContext(), "登录聊天服务器失败", Toast.LENGTH_SHORT).show());
+                    Log.e("tag", "onError: "+code+"------"+desc);
                 }
 
                 @Override

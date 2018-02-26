@@ -176,9 +176,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             get("api/follow/" + getintent("id") + "/goods", 999);
         }
         if(postcode==996){
-            ChatActivity.navToChat(this,"test1", TIMConversationType.C2C);
-       //     ChatActivity.navToChat(this,goods.getData().getShopId(), TIMConversationType.C2C);
-     //       startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, goods.getData().getShopId()));
+            ChatActivity.navToChat(this,goods.getData().getShopInfo().getUser().getUsername(), TIMConversationType.C2C);
         }
         if(postcode==998){
             startActivity(new Intent(this, ShopCarActivity.class));

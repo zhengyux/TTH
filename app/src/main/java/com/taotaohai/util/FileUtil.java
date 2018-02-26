@@ -55,7 +55,7 @@ public class FileUtil {
     /**
      * 获取缓存文件地址
      */
-    public  String getCacheFilePath(String fileName){
+    public static String getCacheFilePath(String fileName){
         File cacheDir= !isExternalStorageWritable()? MyApplication.getContext().getFilesDir(): MyApplication.getContext().getExternalCacheDir();
 
         return cacheDir.getAbsolutePath()+pathDiv+fileName;
@@ -65,8 +65,8 @@ public class FileUtil {
     /**
      * 判断缓存文件是否存在
      */
-    public  boolean isCacheFileExist(String fileName){
-        File file = new File(getCacheFilePath(fileName));
+    public static   boolean isCacheFileExist(String fileName){
+        File file = new File(fileName);
         return file.exists();
     }
 
@@ -76,10 +76,9 @@ public class FileUtil {
      *
      * @param bitmap 图片
      */
-    public  String createFile(Bitmap bitmap, String filename){
-        File cacheDir= !isExternalStorageWritable()? MyApplication.getContext().getFilesDir(): MyApplication.getContext().getExternalCacheDir();
+    public static String createFile(Bitmap bitmap, String filename){
 
-        File f = new File(cacheDir, filename);
+        File f = new File(filename);
         try{
             if (f.createNewFile()){
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -104,10 +103,10 @@ public class FileUtil {
      *
      * @param data 数据
      */
-    public  void createFile(byte[] data,String filename){
-        File cacheDir= !isExternalStorageWritable()? MyApplication.getContext().getFilesDir(): MyApplication.getContext().getExternalCacheDir();
+    public static void createFile(byte[] data,String filename){
 
-        File f = new File(cacheDir, filename);
+
+        File f = new File(filename);
         try{
             if (f.createNewFile()){
                 FileOutputStream fos = new FileOutputStream(f);

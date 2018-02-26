@@ -131,7 +131,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
 
 
         if(postcode==998){
-            ChatActivity.navToChat(this,shop.getData().getUser().getU_id(), TIMConversationType.C2C);
+            ChatActivity.navToChat(this,shop.getData().getUser().getUsername(), TIMConversationType.C2C);
        //     startActivity(new Intent(ShopActivity.this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, shop.getData().getUser().getU_id()));
 
         }

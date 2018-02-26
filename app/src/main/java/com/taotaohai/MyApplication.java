@@ -6,10 +6,14 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Environment;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.taotaohai.activity.Home;
+import com.taotaohai.util.SPUtils;
+import com.tencent.TIMCallBack;
 import com.tencent.TIMConnListener;
 import com.tencent.TIMConversation;
 import com.tencent.TIMGroupReceiveMessageOpt;
@@ -167,21 +171,36 @@ public class MyApplication extends Application {
                 }
             });
         }
-//
-//        //初始化SDK基本配置                   "sdkAppId"
-//        TIMSdkConfig config = new TIMSdkConfig(ConstantValue.SDKAPP_ID)
-//                .enableCrashReport(false)
-//                .enableLogPrint(true)
-//                .setLogLevel(TIMLogLevel.DEBUG)
-//                .setLogPath(Environment.getExternalStorageDirectory().getPath() + "/justfortest/");
-//
+
 //初始化SDK
         TIMManager.getInstance().init(getApplicationContext(), ConstantValue.SDKAPP_ID);
+
+        if(SPUtils.contains(getApplicationContext(),"hxid")){
+
+            if(SPUtils.get(getApplicationContext(),"hxid","")!=null){
+
+                TIMManager.getInstance().login(SPUtils.get(getApplicationContext(),"username","").toString(),SPUtils.get(getApplicationContext(),"hxid","").toString(),new TIMCallBack() {
+                    @Override
+                    public void onError(int code, String desc) {
+                        //错误码code和错误描述desc，可用于定位请求失败原因
+                        //错误码code列表请参见错误码表
+                       Toast.makeText(getApplicationContext(), "登录聊天服务器失败", Toast.LENGTH_SHORT).show();
+                        Log.e("tag", "onError: "+code+"------"+desc);
+                    }
+
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "登入聊天服务器成功", Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+
+            }
+
+        }
+
     }
 
-    private void setUserConfig(){
-
-    }
 
 
 

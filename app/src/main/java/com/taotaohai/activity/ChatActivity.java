@@ -492,10 +492,10 @@ public class ChatActivity extends FragmentActivity implements ChatView {
 
 
     private void showImagePreview(String path){
-//        if (path == null) return;
-//        Intent intent = new Intent(this, ImagePreviewActivity.class);
-//        intent.putExtra("path", path);
-//        startActivityForResult(intent, IMAGE_PREVIEW);
+        if (path == null) return;
+        Intent intent = new Intent(this, ImagePreviewActivity.class);
+        intent.putExtra("path", path);
+        startActivityForResult(intent, IMAGE_PREVIEW);
     }
 
     private void sendFile(String path){

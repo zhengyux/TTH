@@ -35,7 +35,7 @@ public class ImageMessage extends Message {
 
     private static final String TAG = "ImageMessage";
     private boolean isDownloading;
-    FileUtil fileUtil = new FileUtil();
+
 
     public ImageMessage(TIMMessage message){
         this.message = message;
@@ -81,7 +81,7 @@ public class ImageMessage extends Message {
                     if (image.getType() == TIMImageType.Thumb){
                         final String uuid = image.getUuid();
 
-                        if (fileUtil.isCacheFileExist(uuid)){
+                        if (FileUtil.isCacheFileExist(uuid)){
                             showThumb(viewHolder,uuid);
                         }else{
                             image.getImage(new TIMValueCallBack<byte[]>() {
@@ -94,7 +94,7 @@ public class ImageMessage extends Message {
 
                                 @Override
                                 public void onSuccess(byte[] data) {//成功，参数为图片数据
-                                    fileUtil.createFile(data, uuid);
+                                    FileUtil.createFile(data, uuid);
                                     showThumb(viewHolder,uuid);
                                 }
                             });
@@ -202,7 +202,7 @@ public class ImageMessage extends Message {
     }
 
     private void showThumb(final ChatAdapter.ViewHolder viewHolder,String filename){
-        Bitmap bitmap = BitmapFactory.decodeFile(fileUtil.getCacheFilePath(filename));
+        Bitmap bitmap = BitmapFactory.decodeFile(FileUtil.getCacheFilePath(filename));
         ImageView imageView = new ImageView(MyApplication.getContext());
         imageView.setImageBitmap(bitmap);
         getBubbleView(viewHolder).addView(imageView);
@@ -220,14 +220,14 @@ public class ImageMessage extends Message {
     }
 
     private void navToImageview(final TIMImage image, final Context context){
-        if (fileUtil.isCacheFileExist(image.getUuid())){
+        if (FileUtil.isCacheFileExist(image.getUuid())){
             Intent intent = new Intent(context, ImageViewActivity.class);
             intent.putExtra("filename", image.getUuid());
             context.startActivity(intent);
         }else{
             if (!isDownloading){
                 isDownloading = true;
-                image.getImage(fileUtil.getCacheFilePath(image.getUuid()), new TIMCallBack() {
+                image.getImage(FileUtil.getCacheFilePath(image.getUuid()), new TIMCallBack() {
                     @Override
                     public void onError(int i, String s) {
                         //错误码code和错误描述desc，可用于定位请求失败原因
