@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "/Users/2panda/Desktop/TaoTaoHai/easeui/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
+            "outputFile": "/Users/2panda/Desktop/TTH/TaoTaoHai/easeui/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values-h720dp-v13/values-h720dp-v13.xml",
             "map": [
                 {
-                    "source": "/Users/2panda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/b2d19b0b69bd3d246c8f227091bd6138/res/values-h720dp-v13/values-h720dp-v13.xml",
+                    "source": "/Users/2panda/.gradle/caches/transforms-1/files-1.1/appcompat-v7-25.3.1.aar/c1f536dfac8ff9a3234b8e4fa19de22d/res/values-h720dp-v13/values-h720dp-v13.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

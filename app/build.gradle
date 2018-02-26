@@ -6,7 +6,7 @@ android {
             keyAlias 'keytth'
             keyPassword '123456'
             storePassword '123456'
-            storeFile file('/Users/2panda/Desktop/TaoTaoHai/Untitled')
+            storeFile file('/Users/2panda/Desktop/TTH/TaoTaoHai/Untitled')
         }
     }
 
@@ -87,6 +87,8 @@ dependencies {
     compile project(path: ':easeui')
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
     implementation files('libs/ShareSDK-QZone-3.1.2.jar')
+//    implementation project(':presentation')
+//    implementation project(':ui')
 }
 allprojects {
     repositories {

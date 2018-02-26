@@ -1,61 +1,61 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:1-29:12
 	package
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:3:5-32
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:3:5-32
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
 	android:versionName
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:5:5-32
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:5:5-32
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
 	xmlns:android
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:11-69
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:2:11-69
 	android:versionCode
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:4:5-29
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:4:5-29
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
 uses-sdk
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
-INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
+INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:7:5-9:41
 	android:targetSdkVersion
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:9:9-38
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:9:9-38
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
 	android:minSdkVersion
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:8:9-35
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
-		INJECTED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:8:9-35
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
+		INJECTED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml
 uses-permission#android.permission.INTERNET
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:12:5-67
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:12:5-67
 	android:name
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:12:22-64
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:12:22-64
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:14:5-81
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:14:5-81
 	android:name
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:14:22-78
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:14:22-78
 application
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:16:5-27:19
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:16:5-27:19
 	android:allowBackup
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:17:9-35
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:17:9-35
 activity#com.photoselector.ui.PhotoSelectorActivity
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:19:9-21:45
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:19:9-21:45
 	android:label
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:21:13-33
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:21:13-33
 	android:name
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:20:13-70
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:20:13-70
 activity#com.photoselector.ui.PhotoPreviewActivity
-ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:23:9-25:45
+ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:23:9-25:45
 	android:label
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:25:13-33
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:25:13-33
 	android:name
-		ADDED from /Users/2panda/Desktop/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:24:13-69
+		ADDED from /Users/2panda/Desktop/TTH/TaoTaoHai/photoSelector/src/main/AndroidManifest.xml:24:13-69
