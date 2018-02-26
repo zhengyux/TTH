@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.taotaohai.activity.MessageActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title"
+            android:background="@color/them" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="118px"
+            android:background="@color/them"
+            android:paddingTop="30px"
+            tools:ignore="PxUsage,UselessParent">
+
+            <RelativeLayout
+                android:id="@+id/rela_shopcar"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <TextView
+                style="@style/text36"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="@dimen/gap"
+                android:text="消息"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="25px"
+                android:layout_height="40px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="30px"
+                android:layout_marginLeft="30px"
+                app:srcCompat="@mipmap/left"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+
+            <RelativeLayout
+                android:onClick="onBack"
+                android:id="@+id/back"
+                android:layout_width="100px"
+                android:layout_height="100px"
+                tools:ignore="OnClick"></RelativeLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="124px"
+            android:layout_alignParentStart="true"
+            android:onClick="onSystem"
+            android:padding="@dimen/gap"
+            tools:ignore="OnClick">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:gravity="center"
+                    android:id="@+id/imageView25"
+                    android:layout_width="94px"
+                    android:layout_height="84px">
+
+                    <ImageView
+                        android:layout_width="64px"
+                        android:layout_height="64px"
+                        android:src="@mipmap/system" />
+
+                </RelativeLayout>
+                    <TextView
+                        style="@style/text34"
+                        android:layout_gravity="center"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20px"
+                        android:layout_toEndOf="@+id/imageView25"
+                        android:text="系统消息" />
+
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="34px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right2" />
+
+        </RelativeLayout>
+
+        <TextView style="@style/textgap1" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="124px"
+            android:layout_alignParentStart="true"
+            android:onClick="onNotice"
+            android:padding="@dimen/gap"
+            tools:ignore="OnClick">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/imageView26"
+                    android:gravity="center"
+                    android:layout_width="94px"
+                    android:layout_height="84px">
+
+                    <ImageView
+                        android:layout_width="64px"
+                        android:layout_height="64px"
+                        android:src="@mipmap/tongzhi" />
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/text34"
+                    android:layout_gravity="center"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="20px"
+                    android:layout_toEndOf="@+id/imageView26"
+                    android:text="通知消息" />
+
+            </LinearLayout>
+
+
+
+
+
+
+            <ImageView
+                android:layout_width="20px"
+                android:layout_height="34px"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/right2" />
+
+        </RelativeLayout>
+
+        <TextView style="@style/textgap1" />
+
+        <FrameLayout
+            android:id="@+id/fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+
+</RelativeLayout>

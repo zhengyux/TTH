@@ -1,0 +1,479 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="com.taotaohai.fragment.HomeFragment">
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:layout_below="@+id/textView4"
+        android:background="@color/them"
+        android:paddingTop="30px"
+        tools:ignore="PxUsage">
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout4"
+            android:layout_width="40px"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_toEndOf="@+id/relativeLayout4"
+            android:layout_toStartOf="@+id/L1"
+            tools:ignore="RtlHardcoded,UselessParent">
+
+
+            <TextView
+                android:id="@+id/tv_search"
+                android:layout_width="match_parent"
+                android:layout_height="56px"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="100px"
+                android:background="@drawable/searchbac"
+                android:gravity="left|center"
+                android:paddingLeft="100px"
+                android:text="请输入关键词搜索"
+                android:textSize="28px"
+                tools:ignore="HardcodedText,RtlSymmetry" />
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="26px"
+                android:layout_height="26px"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="120px"
+                android:src="@mipmap/search"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/L1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:gravity="right">
+
+            <RelativeLayout
+                android:id="@+id/rela_message"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/rela_shopcar"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/message"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/rela_shopcar"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:id="@+id/home_shopcar_image"
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <ImageView
+            android:layout_width="107px"
+            android:layout_height="60px"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginLeft="@dimen/gap"
+            android:src="@mipmap/logo_home2"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/relativeLayout">
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:ignore="UselessParent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:ignore="ScrollViewSize">
+
+
+                <com.youth.banner.Banner
+                    android:id="@+id/banner"
+                    android:layout_width="match_parent"
+                    android:layout_height="375px"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
+                    tools:ignore="PxUsage" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/textgap" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="360px"
+                    android:orientation="horizontal"
+                    tools:ignore="PxUsage">
+
+                    <RelativeLayout
+                        android:id="@+id/rela_1"
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:padding="@dimen/gap">
+
+                        <TextView
+                            android:id="@+id/tv_11"
+                            style="@style/text30"
+                            android:layout_width="match_parent"
+                            android:gravity="center"
+                            android:maxLines="1"
+                            android:text=""
+                            android:textColor="#ff5216"
+                            tools:ignore="HardcodedText" />
+
+                        <TextView
+                            android:id="@+id/tv_12"
+                            style="@style/text24"
+                            android:layout_width="match_parent"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/tv_11"
+                            android:layout_marginBottom="10px"
+                            android:layout_marginTop="10px"
+                            android:gravity="center"
+                            android:visibility="gone"
+                            tools:ignore="HardcodedText" />
+
+
+                        <ImageView
+                            android:id="@+id/tv_13"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_below="@+id/tv_12"
+                            tools:ignore="ContentDescription" />
+                    </RelativeLayout>
+
+                    <TextView style="@style/textgap2" />
+
+                    <LinearLayout
+                        android:layout_width="0px"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <RelativeLayout
+                            android:id="@+id/rela_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="NestedWeights,RtlHardcoded">
+
+                            <TextView
+                                android:id="@+id/tv_21"
+                                style="@style/text30"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginTop="10px"
+                                android:layout_toStartOf="@+id/tv_23"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="#ff9f16"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tv_22"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_23"
+                                android:gravity="center"
+                                android:maxLength="10"
+                                android:visibility="gone"
+                                tools:ignore="HardcodedText" />
+
+                            <ImageView
+                                android:id="@+id/tv_23"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10px"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </RelativeLayout>
+
+                        <TextView style="@style/textgap1" />
+
+                        <RelativeLayout
+                            android:id="@+id/rela_3"
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="RtlHardcoded">
+
+                            <TextView
+                                android:id="@+id/tv_31"
+                                style="@style/text30"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginTop="10px"
+                                android:layout_toStartOf="@+id/tv_33"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="#c234fd"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tv_32"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_33"
+                                android:gravity="center"
+                                android:maxLength="10"
+                                android:text="特色海鲜来挑"
+                                android:visibility="gone"
+                                tools:ignore="HardcodedText" />
+
+                            <ImageView
+                                android:id="@+id/tv_33"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentTop="true"
+                                android:layout_marginRight="10px"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </RelativeLayout>
+
+                        <TextView style="@style/textgap1" />
+
+                        <RelativeLayout
+                            android:id="@+id/rela_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="0px"
+                            android:layout_weight="1"
+                            android:paddingBottom="10px"
+                            android:paddingLeft="10px"
+                            android:paddingRight="20px"
+                            android:paddingTop="10px"
+                            tools:ignore="RtlHardcoded">
+
+                            <TextView
+                                android:id="@+id/tv_41"
+                                style="@style/text30"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginTop="10px"
+                                android:layout_toStartOf="@+id/tv_43"
+                                android:gravity="center"
+                                android:maxLines="1"
+                                android:text=""
+                                android:textColor="@color/them"
+                                tools:ignore="HardcodedText" />
+
+                            <TextView
+                                android:id="@+id/tv_42"
+                                style="@style/text24"
+                                android:layout_alignParentBottom="true"
+                                android:layout_alignParentStart="true"
+                                android:layout_marginBottom="10px"
+                                android:layout_toStartOf="@+id/tv_43"
+                                android:gravity="center"
+                                android:maxLength="10"
+                                android:text="特色海鲜来挑"
+                                android:visibility="gone"
+                                tools:ignore="HardcodedText" />
+
+                            <ImageView
+                                android:id="@+id/tv_43"
+                                android:layout_width="130px"
+                                android:layout_height="match_parent"
+                                android:layout_alignParentRight="true"
+                                android:layout_marginRight="10px"
+                                tools:ignore="ContentDescription,RtlHardcoded" />
+                        </RelativeLayout>
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView style="@style/textgap" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="400px"
+                    tools:ignore="PxUsage">
+
+                    <TextView
+                        android:id="@+id/textView6"
+                        android:layout_width="4px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_marginTop="30px"
+                        android:background="#0090ff"
+
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:id="@+id/textView7"
+                        style="@style/text34"
+                        android:layout_alignTop="@+id/textView6"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView6"
+                        android:text="放心商家"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
+
+                    <RelativeLayout
+                        android:id="@+id/rela_more"
+                        android:layout_width="200px"
+                        android:layout_height="100px"
+                        android:layout_alignParentRight="true"
+                        android:paddingBottom="30px"
+                        android:paddingRight="@dimen/gap"
+                        tools:ignore="RtlHardcoded,RtlSymmetry">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="12px"
+                            android:layout_height="24px"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentRight="true"
+                            android:background="@mipmap/right"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            style="@style/text24"
+                            android:layout_alignTop="@+id/imageView2"
+                            android:layout_marginRight="10px"
+                            android:layout_toStartOf="@+id/imageView2"
+                            android:text="更多商家"
+                            tools:ignore="HardcodedText,RtlHardcoded" />
+                    </RelativeLayout>
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/home_recyclelistview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="110px">
+
+                    </android.support.v7.widget.RecyclerView>
+
+                </RelativeLayout>
+
+                <TextView style="@style/textgap" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="PxUsage">
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        android:layout_width="4px"
+                        android:layout_height="40px"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_marginTop="30px"
+                        android:background="@color/them"
+
+                        tools:ignore="RtlHardcoded" />
+
+                    <TextView
+                        android:id="@+id/textView17"
+                        style="@style/text34"
+                        android:layout_alignTop="@+id/textView16"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView16"
+                        android:text="热销商品"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
+
+                    <TextView
+                        style="@style/text24"
+                        android:layout_alignBaseline="@+id/textView16"
+                        android:layout_alignBottom="@+id/textView16"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_toEndOf="@+id/textView17"
+                        android:text="特色海鲜等" />
+
+
+                    <com.taotaohai.myview.MyGridView
+                        android:id="@+id/mygridview"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="110px"
+                        android:background="@color/white"
+                        android:horizontalSpacing="@dimen/gap"
+                        android:numColumns="2"
+                        android:paddingLeft="@dimen/gap"
+                        android:paddingRight="@dimen/gap"
+                        android:verticalSpacing="@dimen/gap"></com.taotaohai.myview.MyGridView>
+
+                    <TextView
+                        android:id="@+id/down_load"
+                        style="@style/textgap"
+                        android:layout_width="match_parent"
+                        android:layout_height="50px"
+                        android:layout_below="@+id/mygridview"
+                        android:gravity="center"
+                        android:text="点击加载更多" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+        </ScrollView>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+</RelativeLayout>

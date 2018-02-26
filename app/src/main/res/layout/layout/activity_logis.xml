@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.LogisActivity">
+
+    <include layout="@layout/title" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/gap">
+
+                <ImageView
+                    android:id="@+id/imageView18"
+                    android:layout_width="160px"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/textView30"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="10px"
+                    android:src="@color/junhuang" />
+
+                <TextView
+                    android:id="@+id/textView30"
+                    style="@style/text24"
+                    android:layout_alignStart="@+id/textView33"
+                    android:layout_below="@+id/textView33"
+                    android:layout_marginTop="10px"
+                    />
+
+                <TextView
+                    android:id="@+id/textView33"
+                    style="@style/text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView32"
+                    android:layout_below="@+id/textView32"
+                    android:layout_marginTop="10px"
+                   />
+
+                <TextView
+                    android:id="@+id/textView32"
+                    style="@style/text24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignStart="@+id/textView31"
+                    android:layout_below="@+id/textView31"
+                    android:layout_marginTop="10px"
+                     />
+
+                <TextView
+                    android:id="@+id/textView31"
+                    style="@style/text30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/imageView18"
+                    android:text="配送状态:" />
+
+                <TextView
+                    android:id="@+id/text30"
+                    style="@style/text30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="派送中"
+                    android:layout_alignParentTop="true"
+                    android:layout_toRightOf="@+id/textView31"
+                    android:textColor="#00d496" />
+            </RelativeLayout>
+
+            <TextView style="@style/textgap" />
+
+            <!--<RelativeLayout-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:padding="@dimen/gap">-->
+
+                <!--<ImageView-->
+                    <!--android:id="@+id/imageView19"-->
+                    <!--android:layout_width="70px"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignBottom="@+id/textView35"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_marginRight="10px"-->
+                    <!--android:src="@color/junhuang" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/textView35"-->
+                    <!--style="@style/text28"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignStart="@+id/textView39"-->
+                    <!--android:layout_below="@+id/textView39"-->
+                    <!--android:layout_marginTop="10px"-->
+                    <!--android:text="棒槌子"-->
+                    <!--android:textColor="@color/text_black" />-->
+
+                <!--<TextView-->
+                    <!--android:id="@+id/textView39"-->
+                    <!--style="@style/text24"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_alignParentTop="true"-->
+                    <!--android:layout_toEndOf="@+id/imageView19"-->
+                    <!--android:text="配送人" />-->
+
+                <!--<ImageView-->
+                    <!--android:layout_width="30px"-->
+                    <!--android:layout_height="50px"-->
+                    <!--android:layout_alignParentRight="true"-->
+                    <!--android:layout_centerVertical="true"-->
+                    <!--android:src="@mipmap/right" />-->
+
+            <!--</RelativeLayout>-->
+
+            <TextView style="@style/textgap" />
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="0px"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:id="@+id/lin_add"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+
+                </LinearLayout>
+
+            </ScrollView>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

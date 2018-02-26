@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+        <TextView
+            android:id="@+id/tv_edit"
+            style="@style/text30"
+            android:layout_width="120px"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="编辑" />
+
+        <ImageView
+            android:id="@+id/image_title"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="@dimen/gap"
+            android:src="@mipmap/shop"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_toEndOf="@+id/image_title"
+            android:gravity="center"
+            android:text="泉州商家"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/textgap1"
+            android:layout_below="@+id/text_title"
+            android:background="#e2e2e2" />
+
+        <ImageView
+            android:id="@+id/image_title2"
+            android:layout_width="24px"
+            android:layout_height="44px"
+            android:layout_alignTop="@+id/image_title"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_toEndOf="@+id/text_title"
+            android:src="@mipmap/right"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="158px"
+            android:layout_below="@+id/textView27">
+
+            <ImageView
+                android:id="@+id/image_photo"
+                android:layout_width="118px"
+                android:layout_height="118px"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="100px"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="@dimen/gap"
+                app:srcCompat="@color/junhuang"
+                tools:ignore="ContentDescription,PxUsage" />
+
+            <RadioButton
+                style="@style/CustomRadioBtn"
+                android:id="@+id/radio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/gap"
+                android:shadowColor="@color/text_gray" />
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/image_photo"
+                android:layout_toEndOf="@+id/image_photo"
+                android:maxLines="1"
+                android:text=""
+                android:textColor="@color/text_black"
+                android:textSize="26px"
+                tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />
+
+            <TextView
+                android:id="@+id/tv_guige"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/image_photo"
+                android:text="净重20kg 毛重20kg"
+                android:textSize="18px"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/tv_price"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="11dp"
+                android:layout_marginRight="@dimen/gap"
+                android:text="x2"
+                android:textSize="18px"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image_photo"
+                android:layout_toEndOf="@+id/image_photo"
+                android:text="￥188.00"
+                android:textColor="@color/them"
+                android:textSize="26px"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_util"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_price"
+                android:layout_alignBottom="@+id/tv_price"
+                android:layout_toEndOf="@+id/tv_price"
+                android:text="/箱"
+                android:textColor="@color/text_black"
+                android:textSize="20px"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <RelativeLayout
+                android:id="@+id/rela_edit"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toEndOf="@+id/image_photo"
+                android:background="@color/white"
+                android:visibility="gone"
+
+                >
+
+
+                <TextView
+                    android:id="@+id/tv_delect"
+                    android:layout_width="120px"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentRight="true"
+                    android:background="@color/junhuang"
+                    android:gravity="center"
+                    android:text="删除"
+                    android:textColor="@color/white"
+                    android:textSize="30px" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="160px">
+
+                    <ImageView
+                        android:id="@+id/tv_reduct"
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:layout_marginTop="40px"
+                        android:padding="10px"
+                        android:src="@mipmap/reduc" />
+
+                    <ImageView
+                        android:id="@+id/tv_add"
+                        android:layout_width="60px"
+                        android:layout_height="60px"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="40px"
+                        android:padding="10px"
+                        android:src="@mipmap/add" />
+
+                    <TextView
+                        android:id="@+id/tv_count1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60px"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="40px"
+                        android:gravity="center"
+                        android:text="1"
+                        android:textColor="@color/black_161212"
+                        android:textSize="40px" />
+
+                    <TextView
+                        android:id="@+id/text_content1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginBottom="@dimen/gap"
+                        android:text=""
+                        android:textColor="@color/text_black"
+                        android:textSize="26px"
+                        tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

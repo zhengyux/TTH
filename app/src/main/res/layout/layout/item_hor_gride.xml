@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:id="@+id/rela_all"
+    tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_photo"
+            android:layout_width="332px"
+            android:layout_height="166px"
+            android:scaleType="fitXY"
+
+            android:src="@mipmap/ic_bac"
+            tools:ignore="ContentDescription" />
+
+        <ImageView
+            android:id="@+id/su"
+            android:layout_width="64px"
+            android:layout_height="32px"
+            android:src="@mipmap/suo"
+            tools:ignore="ContentDescription" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tv_tite"
+        style="@style/text28"
+        android:layout_marginTop="10px"
+        android:maxLength="10"
+        android:text="泉州港万隆商sasasasa"
+        android:textColor="#3f3f3f"
+        tools:ignore="HardcodedText" />
+
+    <TextView
+        android:id="@+id/tv_remorke"
+        style="@style/text20"
+        android:layout_marginTop="10px"
+        android:text="净重20kg 毛重22kg"
+        tools:ignore="HardcodedText" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10px">
+
+        <TextView
+            android:id="@+id/tv_money"
+            style="@style/text28"
+            android:text="￥：300 "
+            android:textColor="#0090ff"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_unit"
+            style="@style/text24"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/tv_money"
+            android:text="/箱"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_people"
+            style="@style/text20"
+            android:layout_alignBottom="@+id/tv_unit"
+            android:layout_alignParentEnd="true"
+            android:text="已有10人购买"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_marginTop="@dimen/gap" />
+</LinearLayout>

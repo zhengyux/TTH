@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/toast_bac">
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="72px"
+        android:layout_height="54px"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30px"
+        android:src="@mipmap/tianjiachenggong" />
+
+    <TextView
+        style="@style/text22"
+        android:layout_below="@+id/imageView3"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="30px"
+        android:text="成功加入购物车，快去结算吧..."
+        android:textColor="@color/white" />
+</RelativeLayout>

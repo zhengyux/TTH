@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/tv_scor"
+        style="@style/text22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/tv_name"
+        android:layout_marginLeft="10px"
+        android:layout_toEndOf="@+id/tv_name"
+        android:text="4.6分"
+        android:textColor="@color/junhuang" />
+
+    <ImageView
+        android:id="@+id/image_photo"
+        android:layout_width="78px"
+        android:layout_height="78px"
+        android:layout_margin="@dimen/gap"
+        android:src="@color/colorA" />
+
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/text30"
+        android:layout_alignTop="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
+        android:text="厦岗渔业" />
+
+    <ImageView
+        android:id="@+id/image_more"
+        android:layout_width="74px"
+        android:layout_height="118px"
+        android:layout_alignParentRight="true"
+        android:padding="@dimen/gap"
+        android:src="@mipmap/more" />
+
+    <TextView
+        android:id="@+id/tv_cancle"
+        android:layout_width="wrap_content"
+        android:layout_height="118px"
+        android:layout_alignParentRight="true"
+        android:background="@color/junhuang"
+        android:gravity="center"
+        android:padding="10px"
+        android:src="@mipmap/more"
+        android:text="取消关注"
+        android:textColor="@color/white"
+        android:textSize="24px"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/lin_1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_photo"
+        android:layout_toEndOf="@+id/image_photo"
+        android:divider="@drawable/shop_div"
+        android:orientation="horizontal"
+        android:showDividers="middle">
+
+        >
+    </LinearLayout>
+</RelativeLayout>

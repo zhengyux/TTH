@@ -310,5 +310,8 @@
     </style>
 
     <!--TextView黑色字体-->
+    <style name="maskDialog" parent="@android:style/Theme.Black.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@color/colorMask</item>
+    </style>
 
 </resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="100px"
+    android:orientation="vertical"
+    android:padding="@dimen/gap">
+
+
+    <TextView
+        android:id="@+id/key"
+        style="@style/text28"
+        android:layout_centerVertical="true"
+        android:text="保鲜"
+
+        android:textColor="@color/text_black" />
+
+    <TextView
+        android:id="@+id/value"
+        style="@style/text28"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="50px"
+        android:gravity="right"
+        android:text="保鲜保鲜保鲜保鲜保鲜保鲜保鲜"
+        android:textColor="@color/text_black"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="@dimen/gap"
+        android:layout_toEndOf="@+id/key" />
+</RelativeLayout>

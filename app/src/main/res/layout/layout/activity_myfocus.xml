@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.MyBook">
+
+    <include layout="@layout/title"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="88px"
+            android:background="@color/white"
+            tl:tl_divider_color="@color/white"
+            tl:tl_indicator_color="@color/them"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_padding="0dp"
+            tl:tl_textSelectColor="@color/them"
+            tl:tl_textUnselectColor="@color/text_black"
+            tl:tl_textsize="15sp"
+            tl:tl_underline_color="@color/white"
+            tl:tl_underline_height="1dp" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab">
+
+        </android.support.v4.view.ViewPager>
+
+        <com.taotaohai.widgets.MultipleStatusView
+            android:id="@+id/msv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"></com.taotaohai.widgets.MultipleStatusView>
+    </RelativeLayout>
+</LinearLayout>

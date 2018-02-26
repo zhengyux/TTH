@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/gap">
+
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/text30"
+            android:text=""
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_phone"
+            style="@style/text30"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:text=""
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_address"
+            style="@style/text24"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/tv_name"
+            android:layout_marginTop="@dimen/gap"
+            android:text=""
+            android:textColor="@color/text_black"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <TextView style="@style/textgap1" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <CheckBox
+            android:id="@+id/checkbox"
+            style="@style/text26"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:text="设置默认地址"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+
+        <RelativeLayout
+
+            android:id="@+id/rela_delect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/gap"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/textView22"
+                style="@style/text26"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView13"
+                android:text="删除"
+                android:textColor="@color/text_black"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="32px"
+                android:layout_height="36px"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10px"
+                android:src="@mipmap/delect"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rela_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="@dimen/gap"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_toStartOf="@+id/rela_delect"
+            tools:ignore="RtlHardcoded">
+
+            <TextView
+                android:id="@+id/textView25"
+                style="@style/text26"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/imageView15"
+                android:text="编辑"
+                android:textColor="@color/text_black"
+                tools:ignore="HardcodedText" />
+
+            <ImageView
+                android:id="@+id/imageView15"
+                android:layout_width="32px"
+                android:layout_height="36px"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10px"
+                android:src="@mipmap/edit"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.taotaohai.activity.Search">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/title"
+            android:background="@color/them" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/them">
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="130px"
+
+                tools:ignore="PxUsage,UselessParent">
+
+                <EditText
+                    android:id="@+id/edit_search"
+                    style="@style/text28"
+                    android:layout_width="match_parent"
+                    android:layout_height="56px"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginBottom="@dimen/gap"
+                    android:layout_marginLeft="@dimen/gap"
+                    android:layout_toStartOf="@+id/tv_cancle"
+                    android:background="@drawable/searchbac"
+                    android:gravity="center|left"
+                    android:hint="输入关键字搜索"
+                    android:paddingLeft="150px"
+                    android:singleLine="true"
+                    android:textColor="@color/text_black"
+                    android:textColorHint="#dadada"
+                    tools:ignore="Deprecated,HardcodedText,RtlHardcoded,RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tv_cancle"
+                    style="@style/text30"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginBottom="10px"
+                    android:gravity="center"
+                    android:padding="@dimen/gap"
+                    android:paddingLeft="@dimen/gap"
+                    android:text="取消"
+                    android:textColor="@color/white"
+                    tools:ignore="HardcodedText,RtlHardcoded,RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/tv_search"
+                    style="@style/text28"
+                    android:layout_alignBottom="@+id/edit_search"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/edit_search"
+                    android:layout_marginStart="50px"
+                    android:drawableEnd="@mipmap/unclickbuttom"
+                    android:drawablePadding="10px"
+                    android:gravity="center"
+                    android:text="商品"
+                    android:textColor="@color/text_black" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/text28"
+            android:layout_margin="@dimen/gap"
+            android:text="搜索历史"
+            android:textColor="@color/text_black" />
+
+        <com.taotaohai.myview.WordWrapView
+            android:id="@+id/wordwarp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/gap"></com.taotaohai.myview.WordWrapView>
+
+
+        <TextView
+            style="@style/text28"
+            android:layout_margin="@dimen/gap"
+            android:text="距离"
+            android:textColor="@color/text_black" />
+
+        <com.taotaohai.myview.WordWrapView
+            android:id="@+id/wordwarp3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/gap"></com.taotaohai.myview.WordWrapView>
+
+        <TextView
+            style="@style/text28"
+            android:layout_margin="@dimen/gap"
+            android:text="城市"
+            android:textColor="@color/text_black" />
+
+        <com.taotaohai.myview.WordWrapView
+            android:id="@+id/wordwarp2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/gap"></com.taotaohai.myview.WordWrapView>
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/chooseClick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="130px"
+            android:layout_height="150px"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_marginTop="140px"
+            android:background="@drawable/line"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/goodsClick"
+                style="@style/text30"
+                android:layout_width="match_parent"
+                android:layout_height="75px"
+                android:gravity="center"
+                android:text="商品" />
+
+            <TextView
+                android:id="@+id/shopClick"
+                style="@style/text30"
+                android:layout_width="match_parent"
+                android:layout_height="75px"
+                android:gravity="center"
+                android:text="店家" />
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.ReFundListActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="130px"
+        android:background="@color/them"
+        android:paddingTop="30px"
+        tools:ignore="PxUsage,UselessParent">
+
+        <RelativeLayout
+            android:id="@+id/rela_message"
+            android:onClick="mesg"
+            android:layout_width="64px"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/gap"
+            tools:ignore="RtlHardcoded,UselessParent">
+
+            <ImageView
+                android:layout_width="44px"
+                android:layout_height="44px"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@mipmap/message"
+                tools:ignore="ContentDescription" />
+
+        </RelativeLayout>
+
+        <TextView
+            style="@style/text36"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:text="购物车"
+            tools:ignore="HardcodedText" />
+
+        <ImageView
+            android:id="@+id/imageView24"
+            android:layout_width="25px"
+            android:layout_height="40px"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginBottom="30px"
+            android:layout_marginLeft="30px"
+            app:srcCompat="@mipmap/left"
+            tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:onClick="finish"
+            android:layout_width="100px"
+            android:layout_height="100px"></RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="0px"
+        android:layout_above="@+id/relativeLayout8"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_weight="1"
+        android:divider="@color/common"
+        android:dividerHeight="@dimen/gap">
+
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout8"
+        android:layout_width="match_parent"
+        android:layout_height="88px"
+        android:layout_alignParentBottom="true">
+
+        <RadioButton
+            style="@style/CustomRadioBtn"
+            android:id="@+id/radioall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:text="全部"
+            android:textColor="@color/text_black"
+            android:textSize="28px" />
+
+        <TextView
+            android:id="@+id/tv_settlement"
+            style="@style/text30"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="@color/them"
+            android:gravity="center"
+            android:paddingLeft="50px"
+            android:paddingRight="50px"
+            android:text="结算"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_all"
+            style="@style/text30"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="@dimen/gap"
+            android:layout_toStartOf="@+id/tv_settlement"
+            android:gravity="center"
+            android:text="￥0"
+            android:textColor="@color/them" />
+
+        <TextView
+            android:id="@+id/textView46"
+            style="@style/text30"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/tv_all"
+            android:gravity="center"
+            android:text="合计 ：" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

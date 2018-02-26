@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.JiLiangActivity">
+
+    <include layout="@layout/title" />
+
+    <TextView
+        android:id="@+id/text1"
+        style="@style/text30"
+        android:text="
+1.含冰块    重量约15斤   单价为25元
+2.去冰块    重量约12斤   单价为28元" />
+</LinearLayout>

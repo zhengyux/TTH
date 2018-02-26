@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rela_all"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:minWidth="332px"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/gap"
+    tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="match_parent"
+        android:layout_height="166px"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_bac"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_title"
+        style="@style/text28"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="5px"
+        android:text=""
+        android:textColor="#3f3f3f"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/lin_1"
+        android:layout_width="match_parent"
+        android:layout_height="22px"
+        android:layout_marginTop="5px"
+        android:divider="@drawable/shop_div"
+        android:showDividers="middle"
+        android:orientation="horizontal">
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5px"
+        android:paddingTop="10px">
+
+        <TextView
+            android:id="@+id/tv_scor"
+            style="@style/text18"
+            android:text="4.6分"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_juli"
+            style="@style/text18"
+            android:layout_alignParentRight="true"
+            android:text=""
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+</LinearLayout>

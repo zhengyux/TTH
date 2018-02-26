@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/common"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.ShopIntroducActivity">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/title" />
+
+
+    <RelativeLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/lin_10"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            tools:ignore="UselessParent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="118px"
+                android:layout_marginBottom="@dimen/gap"
+                android:layout_marginTop="@dimen/gap"
+                android:background="@color/white"
+                tools:ignore="PxUsage">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="118px"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    tools:ignore="UselessParent">
+
+                    <RelativeLayout
+                        android:id="@+id/rela_focus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="@dimen/gap"
+                        android:layout_marginRight="@dimen/gap"
+                        android:background="@drawable/button_r2"
+                        android:gravity="center"
+                        android:padding="@dimen/gap"
+                        tools:ignore="RtlHardcoded">
+
+                        <ImageView
+                            android:id="@+id/image_focus"
+                            android:layout_width="24px"
+                            android:layout_height="24px"
+                            android:layout_alignParentStart="true"
+                            android:layout_centerVertical="true"
+                            android:src="@mipmap/guanzhu"
+                            tools:ignore="ContentDescription" />
+
+                        <TextView
+                            android:id="@+id/tv_focus"
+                            style="@style/text26"
+                            android:layout_alignTop="@+id/image_focus"
+                            android:layout_marginLeft="5px"
+                            android:layout_toEndOf="@+id/image_focus"
+                            android:text="关注"
+                            android:textColor="@color/white"
+                            tools:ignore="HardcodedText" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tv_scor"
+                        style="@style/text22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/tv_name"
+                        android:layout_marginLeft="10px"
+                        android:layout_toEndOf="@+id/tv_name"
+                        android:text="4.6分"
+                        android:textColor="@color/junhuang"
+                        tools:ignore="HardcodedText,RtlHardcoded" />
+
+                    <ImageView
+                        android:id="@+id/image_photo"
+                        android:layout_width="78px"
+                        android:layout_height="78px"
+                        android:layout_margin="@dimen/gap"
+                        android:src="@color/colorA"
+                        tools:ignore="ContentDescription" />
+
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/text30"
+                        android:layout_alignTop="@+id/image_photo"
+                        android:layout_toEndOf="@+id/image_photo"
+                        android:text="厦岗渔业"
+                        tools:ignore="HardcodedText" />
+
+
+                    <LinearLayout
+                        android:id="@+id/lin_1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/image_photo"
+                        android:layout_toEndOf="@+id/image_photo"
+                        android:divider="@drawable/shop_div"
+                        android:orientation="horizontal"
+                        android:showDividers="middle">
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_count"
+                        style="@style/text30"
+                        android:layout_alignStart="@+id/textView26"
+                        android:layout_alignTop="@+id/rela_focus"
+                        android:layout_toStartOf="@+id/rela_focus"
+                        android:gravity="center"
+                        android:text="188"
+                        tools:ignore="HardcodedText" />
+
+                    <TextView
+                        android:id="@+id/textView26"
+                        style="@style/text22"
+                        android:layout_alignBottom="@+id/rela_focus"
+                        android:layout_toStartOf="@+id/rela_focus"
+                        android:text="粉丝数"
+                        android:textColor="#929292"
+                        tools:ignore="HardcodedText" />
+                </RelativeLayout>
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:layout_marginTop="@dimen/gap"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/gap"
+                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+                <TextView
+                    style="@style/text26"
+                    android:layout_centerVertical="true"
+                    android:text="厂家名称"
+                    android:textColor="#929292"
+                    tools:ignore="HardcodedText" />
+
+                <TextView
+                    android:id="@+id/tv_title20"
+                    style="@style/text30"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="150px"
+                    android:text=""
+                    tools:ignore="HardcodedText" />
+            </RelativeLayout>
+
+            <TextView style="@style/textgap1" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/gap"
+                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+                <TextView
+                    style="@style/text26"
+                    android:layout_centerVertical="true"
+                    android:text="联系商家"
+                    android:textColor="#929292"
+                    tools:ignore="HardcodedText" />
+
+                <ImageView
+                    android:layout_width="84px"
+                    android:layout_height="84px"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:onClick="onChat"
+                    android:padding="@dimen/gap"
+
+                    android:src="@mipmap/lianxi" />
+            </RelativeLayout>
+
+            <TextView style="@style/textgap1" />
+
+            <RelativeLayout
+                android:id="@+id/licence"
+                android:layout_width="match_parent"
+                android:layout_height="88px"
+                android:background="@color/white"
+                android:paddingLeft="@dimen/gap"
+                tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+                <TextView
+                    style="@style/text26"
+                    android:layout_centerVertical="true"
+                    android:text="营业执照/其他资质"
+                    android:textColor="#929292"
+                    tools:ignore="HardcodedText" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</LinearLayout>

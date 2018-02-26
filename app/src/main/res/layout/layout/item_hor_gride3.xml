@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rela_all"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/gap"
+    tools:ignore="PxUsage,RtlHardcoded,RtlSymmetry">
+
+    <ImageView
+        android:id="@id/image_photo"
+        android:layout_width="match_parent"
+        android:layout_height="220px"
+        android:scaleType="fitXY"
+        android:src="@mipmap/ic_bac"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/tv_1"
+        style="@style/text28"
+        android:text="泉州港万隆商家"
+        android:textColor="#3f3f3f"
+        tools:ignore="HardcodedText" />
+
+    <LinearLayout
+        android:id="@+id/lin_1"
+        android:showDividers="middle"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:divider="@drawable/shop_div"
+        android:layout_height="22px">
+
+
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10px">
+
+        <TextView
+            android:id="@+id/tv_2"
+            style="@style/text18"
+            android:text="4.6分"
+            tools:ignore="HardcodedText" />
+
+        <TextView
+            android:id="@+id/tv_3"
+            style="@style/text18"
+            android:layout_alignParentRight="true"
+            android:text="12.0km"
+            tools:ignore="HardcodedText" />
+
+    </RelativeLayout>
+
+    <TextView
+        style="@style/textgap1"
+        android:layout_marginTop="@dimen/gap" />
+</LinearLayout>

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="640px"
+    android:layout_height="wrap_content"
+    android:background="@drawable/dialog_bg"
+    android:orientation="vertical"
+    tools:ignore="PxUsage">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="110px">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="确认退款"
+            android:textColor="@color/text_black"
+            android:textSize="40px"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/gray_line" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40px">
+
+        <TextView
+            android:id="@+id/information"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="12345\n646"
+            android:textColor="@color/text_black"
+            android:textSize="36px"
+            tools:ignore="HardcodedText" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="40px">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="270px"
+            android:layout_height="70px"
+            android:background="@drawable/button_r3"
+            android:text="取消"
+            android:textColor="@color/them"
+            tools:ignore="HardcodedText" />
+
+        <Button
+            android:id="@+id/sure"
+            android:layout_width="270px"
+            android:layout_height="70px"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="20px"
+            android:layout_toEndOf="@+id/cancel"
+            android:background="@drawable/button_r2"
+            android:text="确定"
+            android:textColor="@color/white"
+            tools:ignore="HardcodedText,RtlHardcoded" />
+    </RelativeLayout>
+</LinearLayout>

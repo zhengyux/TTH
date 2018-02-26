@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tl="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.taotaohai.activity.MyBook">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/title"
+        android:background="@color/them" />
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="118px"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/them"
+        android:paddingTop="30px"
+        tools:ignore="PxUsage,UselessParent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right"
+            >
+
+            <RelativeLayout
+
+                android:id="@+id/msearch_"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/mrelativeLayout3"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/search_"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/mrelativeLayout3"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="@dimen/gap"
+                android:layout_toStartOf="@+id/mrelativeLayout2"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/message"
+                    tools:ignore="ContentDescription" />
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/mrelativeLayout2"
+                android:layout_width="64px"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="@dimen/gap"
+                tools:ignore="RtlHardcoded,UselessParent">
+
+                <ImageView
+                    android:layout_width="44px"
+                    android:layout_height="44px"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:src="@mipmap/shopcart"
+                    tools:ignore="ContentDescription" />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+
+        <TextView
+            style="@style/text36"
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/gap"
+            android:text="我的订单"
+            tools:ignore="HardcodedText" />
+
+
+
+
+
+        <RelativeLayout
+            android:id="@+id/back"
+            android:layout_width="100px"
+            android:layout_height="100px">
+            <ImageView
+                android:id="@+id/imageView24"
+                android:layout_width="25px"
+                android:layout_height="40px"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:layout_marginBottom="30px"
+                android:layout_marginLeft="30px"
+                app:srcCompat="@mipmap/left"
+                tools:ignore="ContentDescription,PxUsage,RtlHardcoded" />
+
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <com.flyco.tablayout.SlidingTabLayout
+            android:id="@+id/tab"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/white"
+            tl:tl_divider_color="@color/white"
+            tl:tl_indicator_color="@color/them"
+            tl:tl_indicator_width_equal_title="true"
+            tl:tl_tab_padding="0dp"
+            tl:tl_tab_width="70dp"
+            tl:tl_textSelectColor="@color/them"
+            tl:tl_textUnselectColor="@color/text_black"
+            tl:tl_textsize="15sp"
+            tl:tl_underline_color="@color/white"
+            tl:tl_underline_height="1dp" />
+
+        <TextView style="@style/textgap" />
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tab"
+            android:background="@color/white"></android.support.v4.view.ViewPager>
+
+        <com.taotaohai.widgets.MultipleStatusView
+            android:id="@+id/msv_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.taotaohai.widgets.MultipleStatusView>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_title"
+            android:layout_width="44px"
+            android:layout_height="44px"
+            android:layout_marginLeft="30px"
+            android:layout_marginTop="@dimen/gap"
+            android:src="@mipmap/shop"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/text_title"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_toEndOf="@+id/image_title"
+            android:gravity="center"
+            android:text="泉州商家"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/textView27"
+            style="@style/textgap1"
+            android:layout_below="@+id/text_title"
+            android:background="#e2e2e2" />
+
+        <ImageView
+            android:id="@+id/image_title2"
+            android:layout_width="24px"
+            android:layout_height="44px"
+            android:layout_alignTop="@+id/image_title"
+            android:layout_marginLeft="@dimen/gap"
+            android:layout_toEndOf="@+id/text_title"
+            android:src="@mipmap/right"
+            android:textColor="@color/text_black"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/text_stata"
+            android:layout_width="wrap_content"
+            android:layout_height="80px"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="30px"
+            android:gravity="center"
+            android:text="已完成"
+            android:textColor="@color/junhuang"
+            android:textSize="28px"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView27"
+            android:layout_marginBottom="@dimen/gap"
+            android:layout_marginTop="@dimen/gap"
+            android:background="@color/common"
+            android:paddingBottom="@dimen/gap">
+
+            <ImageView
+                android:id="@+id/image_photo"
+                android:layout_width="130px"
+                android:layout_height="130px"
+                android:layout_alignParentStart="true"
+                android:layout_marginLeft="@dimen/gap"
+                android:layout_marginRight="30px"
+                android:layout_marginTop="@dimen/gap"
+                app:srcCompat="@mipmap/ic_bac"
+                tools:ignore="ContentDescription,PxUsage" />
+
+            <TextView
+                android:id="@+id/text_content"
+                android:layout_width="wrap_content"
+                android:maxLines="1"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/image_photo"
+                android:layout_toEndOf="@+id/image_photo"
+                android:text=""
+                android:textColor="@color/text_black"
+                android:textSize="30px"
+                tools:ignore="HardcodedText,PxUsage,UnknownIdInLayout" />
+
+            <TextView
+                android:id="@+id/tv_28"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@+id/tv_sigalmoney"
+                android:layout_alignBottom="@+id/tv_sigalmoney"
+                android:layout_toEndOf="@+id/tv_sigalmoney"
+                android:text="/箱"
+                android:textSize="30px"
+                android:textColor="@color/text_black"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_count"
+                style="@style/text20"
+                android:layout_alignBaseline="@+id/tv_28"
+                android:layout_alignBottom="@+id/tv_28"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="@dimen/gap"
+                android:text="x2"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_sigalmoney"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/image_photo"
+
+                android:layout_toEndOf="@+id/image_photo"
+                android:text="￥22.00"
+                android:textColor="#0090ff"
+                android:textSize="30px"
+                tools:ignore="HardcodedText,PxUsage" />
+
+            <TextView
+                android:id="@+id/tv_guige"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/tv_sigalmoney"
+                android:layout_marginBottom="10px"
+                android:layout_toEndOf="@+id/image_photo"
+                android:textColor="@color/glay_text"
+                android:text="净重20kg 毛重20kg"
+                android:textSize="28px"
+                tools:ignore="HardcodedText,PxUsage" />
+        </RelativeLayout>
+
+
+        <TextView
+            android:id="@+id/textView49"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignStart="@+id/relativeLayout"
+            android:layout_below="@+id/relativeLayout"
+            android:layout_marginTop="80px"
+            android:background="@color/text_gray"
+            tools:ignore="PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/btn_1"
+            android:layout_width="wrap_content"
+            android:layout_height="48px"
+            android:layout_alignBottom="@+id/btn_2"
+            android:layout_alignTop="@+id/btn_2"
+            android:layout_marginLeft="20px"
+            android:layout_toStartOf="@+id/btn_2"
+            android:background="@drawable/bac_class_glay"
+            android:gravity="center"
+            android:paddingLeft="@dimen/gap"
+            android:paddingRight="30px"
+            android:text="删除"
+            android:textColor="@color/text_black"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:id="@+id/btn_3"
+            android:layout_width="wrap_content"
+            android:layout_height="48px"
+            android:layout_alignBottom="@+id/btn_1"
+            android:layout_alignTop="@+id/btn_1"
+            android:layout_marginLeft="20px"
+            android:layout_toStartOf="@+id/btn_1"
+            android:background="@drawable/bac_class_glay"
+            android:gravity="center"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            android:text="删除"
+            android:textColor="@color/text_black"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/btn_2"
+            android:layout_width="wrap_content"
+            android:layout_height="48px"
+            android:layout_alignEnd="@+id/textView49"
+            android:layout_below="@+id/textView49"
+            android:layout_marginBottom="20px"
+            android:layout_marginLeft="20px"
+            android:layout_marginTop="30px"
+            android:layout_marginRight="@dimen/gap"
+            android:background="@drawable/bac_class_glay"
+            android:gravity="center"
+            android:paddingLeft="30px"
+            android:paddingRight="30px"
+            android:text="退款"
+            android:textColor="@color/text_black"
+            tools:ignore="HardcodedText,PxUsage,RtlHardcoded" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="20px"
+            android:layout_below="@+id/btn_2"
+            android:background="@color/common"
+            tools:ignore="PxUsage" />
+
+        <TextView
+            android:id="@+id/tv_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btn_2"
+            android:layout_alignEnd="@+id/textView49"
+            android:layout_marginBottom="30px"
+            android:layout_marginRight="@dimen/gap"
+            android:text="共两件商品 小计：￥1000"
+            android:textSize="30px"
+            tools:ignore="HardcodedText,PxUsage" />
+
+        <!--<ImageView-->
+            <!--android:id="@+id/imageView17"-->
+            <!--android:layout_width="44px"-->
+            <!--android:layout_height="44px"-->
+            <!--android:layout_alignBottom="@+id/btn_1"-->
+            <!--android:layout_alignParentStart="true"-->
+            <!--android:layout_marginBottom="10px"-->
+            <!--android:layout_marginLeft="@dimen/gap"-->
+            <!--android:src="@mipmap/lianxi" />-->
+    </RelativeLayout>
+</RelativeLayout>
