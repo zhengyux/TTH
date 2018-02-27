@@ -162,6 +162,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
         if(postcode==993){
+            paytype=1;
             rela_buy.setVisibility(View.VISIBLE);
         }
         if(postcode==994){

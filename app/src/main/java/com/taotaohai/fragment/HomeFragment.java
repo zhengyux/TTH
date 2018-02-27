@@ -312,9 +312,14 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             .putExtra("url", ratation.getData().get(position).getTarget())
                     );
                 } else {
-                    startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
-                            .putExtra("id", ratation.getData().get(position).getTarget())
-                    );
+                    if(ratation.getData().get(position).getStatus()==0){
+                        startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                                .putExtra("id", ratation.getData().get(position).getTarget())
+                        );
+                    }else {
+                        showToast("商品不见啦");
+                    }
+
                 }
 
             });

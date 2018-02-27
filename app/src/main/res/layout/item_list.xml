@@ -59,11 +59,11 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:maxLines="2"
+        android:maxLines="3"
         android:paddingBottom="@dimen/gap"
         android:text="干虾的制造方法"
         android:textColor="@color/black_161212"
-        android:textSize="40px" />
+        android:textSize="30px" />
 
     <TextView
         android:id="@+id/tv_updata"

@@ -6,7 +6,7 @@ android {
             keyAlias 'keytth'
             keyPassword '123456'
             storePassword '123456'
-            storeFile file('/Users/2panda/Desktop/TTH/TaoTaoHai/Untitled')
+            storeFile file('/Users/2panda/Desktop/TaoTaoHai/Untitled')
         }
     }
 
