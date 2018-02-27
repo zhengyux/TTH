@@ -40,10 +40,10 @@ public class FileUtil {
      *
      * @param type 文件类型
      */
-    public File getTempFile(FileType type){
+    public static File getTempFile(FileType type){
         try{
-            File cacheDir= !isExternalStorageWritable()? MyApplication.getContext().getFilesDir(): MyApplication.getContext().getExternalCacheDir();
-            File file = File.createTempFile(type.toString(), null, cacheDir);
+         //   File cacheDir= !isExternalStorageWritable()? MyApplication.getContext().getFilesDir(): MyApplication.getContext().getExternalCacheDir();
+            File file = File.createTempFile(type.toString(), null);
             file.deleteOnExit();
             return file;
         }catch (IOException e){

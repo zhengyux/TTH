@@ -510,6 +510,16 @@ public class Goods {
         private List<String> contentImgsUrl;
         @SerializedName("contentText")
         private String contentText;
+        @SerializedName("status")
+        private int status;
+
+        public int getStatus() {
+            return status;
+        }
+
+        public void setStatus(int status) {
+            this.status = status;
+        }
 
         public List<String> getImageIds() {
             return imageIds;

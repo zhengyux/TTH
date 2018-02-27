@@ -34,8 +34,7 @@ public class ImageViewActivity extends Activity {
         });
         String file = getIntent().getStringExtra("filename");
         ImageView imageView = (ImageView) findViewById(R.id.image);
-        FileUtil fileUtil = new FileUtil();
-        Bitmap bitmap = getImage(fileUtil.getCacheFilePath(file));
+        Bitmap bitmap = getImage(FileUtil.getCacheFilePath(file));
         if (bitmap != null){
             imageView.setImageBitmap(bitmap);
         }

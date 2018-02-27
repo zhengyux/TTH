@@ -26,6 +26,7 @@ import com.taotaohai.bean.Book;
 import com.taotaohai.bean.BookDet;
 import com.taotaohai.bean.Goods;
 import com.taotaohai.bean.PayResult;
+import com.taotaohai.bean.Shop;
 import com.taotaohai.bean.WXpay;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
@@ -162,6 +163,13 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==112){
+
+           Shop shop = util.getgson(result, Shop.class);
+           ChatActivity.navToChat(this,shop.getData().getUser().getUsername(), TIMConversationType.C2C);
+           return;
+        }
 
         if (postcode == 23) {
 
@@ -577,12 +585,15 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     }
 
     public void onChat(View view) {
-        if (data.getGoodsInfo() != null) {
-            ChatActivity.navToChat(this,data.getGoodsInfo().getUserId(), TIMConversationType.C2C);
-        //    startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getGoodsInfo().getUserId()));
+        if (data.getShopId() != null) {
+
+
+            get("api/shop/" + data.getShopId(), 112);
+
+
         } else {
-            ChatActivity.navToChat(this,data.getUserId(), TIMConversationType.C2C);
-        //    startActivity(new Intent(this, ChatActivity.class).putExtra(EaseConstant.EXTRA_USER_ID, data.getUserId()));
+            showToast("店家不见啦！");
+
         }
 
     }
