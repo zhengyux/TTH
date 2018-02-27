@@ -92,12 +92,9 @@ public class ImageMessage extends Message {
 
                                 @Override
                                 public void onSuccess(byte[] data) {//成功，参数为图片数据
-                                    ImageView imageView = new ImageView(MyApplication.getContext());
-                                    imageView.setImageBitmap(getThumb(e.getPath()));
-                                    clearView(viewHolder);
-                                    getBubbleView(viewHolder).addView(imageView);
                                     FileUtil.createFile(data, uuid);
-                                    showThumb(viewHolder,uuid);
+                                    showThumb2(viewHolder,getThumb(e.getPath()));
+
                                 }
                             });
                         }
@@ -209,6 +206,14 @@ public class ImageMessage extends Message {
         imageView.setImageBitmap(bitmap);
         getBubbleView(viewHolder).addView(imageView);
     }
+
+    private void showThumb2(final ChatAdapter.ViewHolder viewHolder,Bitmap bitmap){
+
+        ImageView imageView = new ImageView(MyApplication.getContext());
+        imageView.setImageBitmap(bitmap);
+        getBubbleView(viewHolder).addView(imageView);
+    }
+
 
     private void setImageEvent(final ChatAdapter.ViewHolder viewHolder, final String fileName, final Context context){
         getBubbleView(viewHolder).setOnClickListener(new View.OnClickListener() {

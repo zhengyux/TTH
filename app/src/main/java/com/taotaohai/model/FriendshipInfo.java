@@ -6,7 +6,7 @@ import android.util.Log;
 import com.tencent.TIMFriendGroup;
 import com.tencent.TIMFriendshipProxy;
 import com.tencent.TIMUserProfile;
-import com.tencent.imcore.FriendProfile;
+
 
 
 import java.util.ArrayList;
@@ -130,11 +130,11 @@ public class FriendshipInfo extends Observable implements Observer {
      * @param identify 好友id
      */
     public FriendProfile getProfile(String identify){
-//        for (String key : friends.keySet()){
-//            for (FriendProfile profile : friends.get(key)){
-//                if (identify.equals(profile.getIdentify())) return profile;
-//            }
-//        }
+        for (String key : friends.keySet()){
+            for (FriendProfile profile : friends.get(key)){
+                if (identify.equals(profile.getIdentify())) return profile;
+            }
+        }
         return null;
     }
 

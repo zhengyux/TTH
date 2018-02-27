@@ -1,5 +1,6 @@
 package com.taotaohai.activity;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -46,7 +47,9 @@ import com.tencent.TIMMessageStatus;
 
 
 import java.io.File;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ChatActivity extends FragmentActivity implements ChatView {
@@ -315,15 +318,23 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     @Override
     public void sendPhoto() {
         Intent intent_photo = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        if (intent_photo.resolveActivity(getPackageManager()) != null) {
+//        if (intent_photo.resolveActivity(getPackageManager()) != null) {
+//            File tempFile = FileUtil.getTempFile(FileUtil.FileType.IMG);
+//            if (tempFile != null) {
+//                fileUri = Uri.fromFile(tempFile);
+//            }
+//            intent_photo.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+//            startActivityForResult(intent_photo, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+//        }
 
-            File tempFile = FileUtil.getTempFile(FileUtil.FileType.IMG);
-            if (tempFile != null) {
-                fileUri = Uri.fromFile(tempFile);
-            }
-            intent_photo.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
-            startActivityForResult(intent_photo, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-        }
+        ContentValues values = new ContentValues();
+        SimpleDateFormat timeStampFormat = new SimpleDateFormat("yyyy_MM_dd_HH_mm_ss");
+        String filename = timeStampFormat.format(new Date());
+        values.put(MediaStore.Video.Media.TITLE, filename);
+        fileUri = getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+        intent_photo.putExtra(MediaStore.EXTRA_OUTPUT, fileUri);
+        startActivityForResult(intent_photo, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
+
     }
 
     /**
@@ -458,9 +469,9 @@ public class ChatActivity extends FragmentActivity implements ChatView {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
-            if (resultCode == RESULT_OK && fileUri != null) {
-                showImagePreview(fileUri.getPath());
-            }
+
+            showImagePreview(FileUtil.getFilePath(this, fileUri));
+
         } else if (requestCode == IMAGE_STORE) {
             if (resultCode == RESULT_OK && data != null) {
                 showImagePreview(FileUtil.getFilePath(this, data.getData()));
