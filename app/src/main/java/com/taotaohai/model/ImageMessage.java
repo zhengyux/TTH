@@ -70,7 +70,6 @@ public class ImageMessage extends Message {
         TIMImageElem e = (TIMImageElem) message.getElement(0);
         switch (message.status()){
             case Sending:
-
                 ImageView imageView = new ImageView(MyApplication.getContext());
                 imageView.setImageBitmap(getThumb(e.getPath()));
                 clearView(viewHolder);
@@ -80,7 +79,6 @@ public class ImageMessage extends Message {
                 for(final TIMImage image : e.getImageList()) {
                     if (image.getType() == TIMImageType.Thumb){
                         final String uuid = image.getUuid();
-
                         if (FileUtil.isCacheFileExist(uuid)){
                             showThumb(viewHolder,uuid);
                         }else{
@@ -94,6 +92,10 @@ public class ImageMessage extends Message {
 
                                 @Override
                                 public void onSuccess(byte[] data) {//成功，参数为图片数据
+                                    ImageView imageView = new ImageView(MyApplication.getContext());
+                                    imageView.setImageBitmap(getThumb(e.getPath()));
+                                    clearView(viewHolder);
+                                    getBubbleView(viewHolder).addView(imageView);
                                     FileUtil.createFile(data, uuid);
                                     showThumb(viewHolder,uuid);
                                 }
@@ -102,7 +104,7 @@ public class ImageMessage extends Message {
                     }
                     if (image.getType() == TIMImageType.Original){
                         final String uuid = image.getUuid();
-//                        setImageEvent(viewHolder, uuid,context);
+                        setImageEvent(viewHolder, uuid,context);
                         getBubbleView(viewHolder).setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
