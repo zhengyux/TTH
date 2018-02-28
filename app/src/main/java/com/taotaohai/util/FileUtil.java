@@ -105,7 +105,6 @@ public class FileUtil {
      */
     public static void createFile(byte[] data,String filename){
 
-
         File f = new File(filename);
         try{
             if (f.createNewFile()){

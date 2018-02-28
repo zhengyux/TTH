@@ -112,7 +112,7 @@ public class MessageActivity extends BaseActivity implements ConversationView {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                conversationList.get(position).navToDetail(getApplicationContext());
+                conversationList.get(position).navToDetail(MessageActivity.this);
 
 
             }

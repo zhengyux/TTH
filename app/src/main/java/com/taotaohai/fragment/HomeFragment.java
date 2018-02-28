@@ -35,6 +35,7 @@ import com.taotaohai.activity.ShopCarActivity;
 import com.taotaohai.activity.ShopMoreActivity;
 import com.taotaohai.activity.base.BaseFragment;
 import com.taotaohai.bean.BaseBean;
+import com.taotaohai.bean.Goods;
 import com.taotaohai.bean.HotClass;
 import com.taotaohai.bean.HotShop;
 import com.taotaohai.bean.HotShopmore;
@@ -73,6 +74,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     private MyRecyclerAdapter myRecyclerAdapter;
     BadgeView badgeView;
     BadgeView badgeView2;
+    int pos = 0;
     private TextView down_load;//加载更多
     int pageSize = 10;
     int pageIndex = 0;//第多少个
@@ -145,6 +147,18 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         switch (postcode) {
             case 0:
                 initrato(data);
+                break;
+            case 22:
+                 Goods goods = util.getgson(data, Goods.class);
+
+                if(goods.getData().getStatus()==0){
+                    startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
+                            .putExtra("id", ratation.getData().get(pos).getTarget())
+                    );
+                }else {
+                    showToast("该商品已下架啦");
+                }
+
                 break;
             case 1:
                 inithot(data);
@@ -293,8 +307,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         }
     }
 
+
+    Ratation ratation;
+
     private void initrato(String data) {
-        Ratation ratation = util.getgson(data, Ratation.class);
+        ratation = util.getgson(data, Ratation.class);
         if (ratation.getSuccess()) {
             banner.setImageLoader(new
                     GlideImageLoader());
@@ -312,13 +329,10 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                             .putExtra("url", ratation.getData().get(position).getTarget())
                     );
                 } else {
-                    if(ratation.getData().get(position).getStatus()==0){
-                        startActivity(new Intent(getActivity(), GoodsDetialActivity.class)
-                                .putExtra("id", ratation.getData().get(position).getTarget())
-                        );
-                    }else {
-                        showToast("商品不见啦");
-                    }
+
+                    get("api/goods/"+ratation.getData().get(position).getTarget(),22);
+                    pos=position;
+
 
                 }
 

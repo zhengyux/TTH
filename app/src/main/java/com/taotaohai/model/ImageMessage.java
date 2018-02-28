@@ -18,6 +18,7 @@ import com.taotaohai.R;
 import com.taotaohai.activity.ImageViewActivity;
 import com.taotaohai.adapter.ChatAdapter;
 import com.taotaohai.util.FileUtil;
+import com.taotaohai.util.GlideUtil;
 import com.tencent.TIMCallBack;
 import com.tencent.TIMImage;
 import com.tencent.TIMImageElem;
@@ -26,6 +27,10 @@ import com.tencent.TIMMessage;
 import com.tencent.TIMValueCallBack;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 
 /**
@@ -72,6 +77,7 @@ public class ImageMessage extends Message {
             case Sending:
                 ImageView imageView = new ImageView(MyApplication.getContext());
                 imageView.setImageBitmap(getThumb(e.getPath()));
+            //    GlideUtil.loadImg(e.getPath(),imageView);
                 clearView(viewHolder);
                 getBubbleView(viewHolder).addView(imageView);
                 break;
@@ -93,7 +99,7 @@ public class ImageMessage extends Message {
                                 @Override
                                 public void onSuccess(byte[] data) {//成功，参数为图片数据
                                     FileUtil.createFile(data, uuid);
-                                    showThumb2(viewHolder,getThumb(e.getPath()));
+                                    showThumb2(viewHolder,data);
 
                                 }
                             });
@@ -200,6 +206,31 @@ public class ImageMessage extends Message {
         }
     }
 
+    private Bitmap getThumb2(String path){
+        URL fileUrl = null;
+        Bitmap bitmap = null;
+
+        try {
+            fileUrl = new URL(path);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpURLConnection conn = (HttpURLConnection) fileUrl
+                    .openConnection();
+            conn.setDoInput(true);
+            conn.connect();
+            InputStream is = conn.getInputStream();
+            bitmap = BitmapFactory.decodeStream(is);
+            is.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return bitmap;
+
+    }
+
     private void showThumb(final ChatAdapter.ViewHolder viewHolder,String filename){
         Bitmap bitmap = BitmapFactory.decodeFile(FileUtil.getCacheFilePath(filename));
         ImageView imageView = new ImageView(MyApplication.getContext());
@@ -207,8 +238,8 @@ public class ImageMessage extends Message {
         getBubbleView(viewHolder).addView(imageView);
     }
 
-    private void showThumb2(final ChatAdapter.ViewHolder viewHolder,Bitmap bitmap){
-
+    private void showThumb2(final ChatAdapter.ViewHolder viewHolder,byte[] data){
+        Bitmap bitmap = BitmapFactory.decodeByteArray(data,0,data.length);
         ImageView imageView = new ImageView(MyApplication.getContext());
         imageView.setImageBitmap(bitmap);
         getBubbleView(viewHolder).addView(imageView);

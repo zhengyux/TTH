@@ -35,7 +35,7 @@ public final class GlideUtil {
 //                .diskCacheStrategy(DiskCacheStrategy.SOURCE)
                 .centerCrop()
                 .dontAnimate()
-                .placeholder(R.mipmap.ic_bac)
+                .placeholder(R.mipmap.touxiang)
                 .diskCacheStrategy(DiskCacheStrategy.RESULT)
                 .into(imageView);
     }
