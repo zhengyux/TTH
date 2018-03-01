@@ -212,6 +212,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
                 ImageView imageView = holder.getView(R.id.image_photo);
                 GlideUtil.loadImg(data.getLogoIdAbsUrl(), imageView);
                 LinearLayout lin_1 = holder.getView(R.id.lin_1);
+                lin_1.removeAllViews();
                 for (int i = 0; i < 3 && i < data.getShopIdentifies().size(); i++) {
                     TextView textView = (TextView) getLayoutInflater().inflate(R.layout.shop_textview, null);
                     textView.setText(data.getShopIdentifies().get(i).getName());

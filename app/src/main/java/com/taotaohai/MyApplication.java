@@ -174,31 +174,32 @@ public class MyApplication extends Application {
 
 //初始化SDK
         TIMManager.getInstance().init(getApplicationContext(), ConstantValue.SDKAPP_ID);
-
-
         if(SPUtils.contains(getApplicationContext(),"hxid")){
 
-            if(SPUtils.get(getApplicationContext(),"hxid","")!=null){
+            if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getApplicationContext(),"username",""))){
 
                 TIMManager.getInstance().login(SPUtils.get(getApplicationContext(),"username","").toString(),SPUtils.get(getApplicationContext(),"hxid","").toString(),new TIMCallBack() {
                     @Override
                     public void onError(int code, String desc) {
                         //错误码code和错误描述desc，可用于定位请求失败原因
                         //错误码code列表请参见错误码表
-                       Toast.makeText(getApplicationContext(), "登录聊天服务器失败", Toast.LENGTH_SHORT).show();
+
+                        Log.e("tag", "登入聊天失败: "+code+"------"+desc );
                     }
 
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(getApplicationContext(), "登入聊天服务器成功", Toast.LENGTH_SHORT).show();
+
+                        Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getApplicationContext(),"username","")) );
 
                     }
                 });
 
+
             }
 
-        }
 
+        }
     }
 
 

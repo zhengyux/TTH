@@ -7,6 +7,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,6 +38,8 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMManager;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
 
@@ -228,23 +231,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         loginBean = util.getgson(data, LoginBean.class);
         if (loginBean.getSuccess()) {
             initdata();
-            EMClient.getInstance().login(loginBean.getData().getId(), MD5Utils.md5Password((String) SPUtils.get(getActivity(), "password", null)), new EMCallBack() {
 
-                @Override
-                public void onSuccess() {
-
-                }
-
-                @Override
-                public void onProgress(int progress, String status) {
-
-                }
-
-                @SuppressLint("WrongConstant")
-                @Override
-                public void onError(int code, String error) {
-                }
-            });
         }
 
     }
@@ -381,6 +368,34 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 );
                 break;
             case R.id.rela_message:
+
+                if(SPUtils.contains(getActivity(),"hxid")){
+
+                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
+
+                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
+                            @Override
+                            public void onError(int code, String desc) {
+                                //错误码code和错误描述desc，可用于定位请求失败原因
+                                //错误码code列表请参见错误码表
+
+                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
+                            }
+
+                            @Override
+                            public void onSuccess() {
+
+                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
+
+                            }
+                        });
+
+
+                    }
+
+
+                }
+
                 startActivity(new Intent(getActivity(), MessageActivity.class));
                 break;
             case R.id.rela_shopcar:

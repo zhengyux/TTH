@@ -151,6 +151,7 @@ public abstract class BaseActivity extends AutoLayoutActivity implements OnHttpL
         ((MyApplication) getApplication()).addActivity(this);
 
 
+
     }
 
     @Override

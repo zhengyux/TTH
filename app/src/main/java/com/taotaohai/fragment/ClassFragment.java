@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +32,11 @@ import com.taotaohai.bean.ClassPage;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.TIMCallBack;
+import com.tencent.TIMManager;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -378,6 +382,34 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             break;
 
             case R.id.rela_message:
+
+                if(SPUtils.contains(getActivity(),"hxid")){
+
+                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
+
+                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
+                            @Override
+                            public void onError(int code, String desc) {
+                                //错误码code和错误描述desc，可用于定位请求失败原因
+                                //错误码code列表请参见错误码表
+
+                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
+                            }
+
+                            @Override
+                            public void onSuccess() {
+
+                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
+
+                            }
+                        });
+
+
+                    }
+
+
+                }
+
                 get("api/user/",998);
 
             case R.id.rela1:
