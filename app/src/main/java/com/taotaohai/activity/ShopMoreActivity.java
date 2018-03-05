@@ -200,7 +200,7 @@ public class ShopMoreActivity extends BaseActivity implements View.OnClickListen
         recyclerView = (RecyclerView) findViewById(R.id.recycleview);
         xrefreshview.setPullLoadEnable(true);
         recyclerView.setHasFixedSize(true);//item改变的时候recycleview不会重新计算高度
-        tv_ar.setTextColor(getResources().getColor(R.color.btn_blue_normal));
+        tv_ar.setTextColor(getResources().getColor(R.color.btn_blue_hover));
 
     }
 

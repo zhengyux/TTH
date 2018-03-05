@@ -97,10 +97,17 @@ public class message_all extends BaseActivity {
 
             }
         }
+        if(postcode==0){
+            Log.e("tag", "onSuccess: 消息已读" );
+        }
     }
 
     @Override
     public void onError(Throwable ex, int postcode) {
+        if(postcode==0){
+            Log.e("tag", "onSuccess: 消息未读" );
+        }
+
 
     }
 

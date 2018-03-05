@@ -84,10 +84,8 @@ dependencies {
     compile 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:multidex:1.0.1'
-    compile project(path: ':easeui')
     implementation files('libs/bugly_2.4.0_imsdk_release.jar')
     implementation files('libs/ShareSDK-QZone-3.1.2.jar')
-
 }
 allprojects {
     repositories {

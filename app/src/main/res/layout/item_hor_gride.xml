@@ -13,8 +13,8 @@
 
         <ImageView
             android:id="@+id/image_photo"
-            android:layout_width="332px"
-            android:layout_height="166px"
+            android:layout_width="333px"
+            android:layout_height="222px"
             android:scaleType="fitXY"
 
             android:src="@mipmap/ic_bac"

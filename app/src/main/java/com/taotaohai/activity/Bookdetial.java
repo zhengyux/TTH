@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.alipay.sdk.app.PayTask;
 import com.bigkoo.pickerview.OptionsPickerView;
 import com.google.gson.JsonObject;
-import com.hyphenate.easeui.EaseConstant;
+
 import com.taotaohai.ConstantValue;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;

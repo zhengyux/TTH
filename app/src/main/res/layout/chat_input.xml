@@ -190,7 +190,7 @@
         android:layout_height="200dp"
         android:visibility="gone"
         android:orientation="vertical"
-        android:background="@color/background_gray1">
+        android:background="@color/colorH">
 
     </LinearLayout>
 

@@ -424,32 +424,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rela_message:
 
-                if(SPUtils.contains(getActivity(),"hxid")){
-
-                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
-
-                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
-                            @Override
-                            public void onError(int code, String desc) {
-                                //错误码code和错误描述desc，可用于定位请求失败原因
-                                //错误码code列表请参见错误码表
-
-                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
-                            }
-
-                            @Override
-                            public void onSuccess() {
-
-                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
-
-                            }
-                        });
-
-
-                    }
-
-
-                }
+//                if(SPUtils.contains(getActivity(),"hxid")){
+//
+//                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
+//
+//                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
+//                            @Override
+//                            public void onError(int code, String desc) {
+//                                //错误码code和错误描述desc，可用于定位请求失败原因
+//                                //错误码code列表请参见错误码表
+//
+//                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
+//                            }
+//
+//                            @Override
+//                            public void onSuccess() {
+//
+//                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
+//
+//                            }
+//                        });
+//
+//
+//                    }
+//
+//
+//                }
 
                 get("api/user/", 999);
                 break;

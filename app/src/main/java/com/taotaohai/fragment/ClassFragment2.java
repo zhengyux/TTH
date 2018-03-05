@@ -67,6 +67,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
     private RelativeLayout rela_shopcar;
     private RelativeLayout rela_message;
 
+    BadgeView badgeView;
     private static ClassFragment2 fragment;
     private EditText edit_search;
 
@@ -87,6 +88,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         view = inflater.inflate(R.layout.fragment_class2, container, false);
         initview();
         inithttp();
+        badgeView = new BadgeView(getActivity(),rela_shopcar);
         return view;
     }
 
@@ -148,11 +150,13 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
             if(shopCarNum.getData()!="0"){
-                BadgeView badgeView = new BadgeView(getActivity(),rela_shopcar);
+
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
                 badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
+            }else {
+                badgeView.hide();
             }
 
         }
@@ -189,8 +193,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         }
         if (postcode == 99) {
             if (util.isSuccess(data)) {
-//                View view = getActivity().getLayoutInflater().inflate(R.layout.toast, null);
-//                CustomToast.showDiverseToast(getActivity(), view, Gravity.TOP);
+                get("/api/shopCar/shop_car_num",20);
                 addtocar(image_photo, imag_photo2);
             } else {
                 showToast("加入商品失败，商品数量不足");
@@ -414,7 +417,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
                     object.addProperty("count", "1");
                     Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
                 });
-                holder.setText(R.id.tv_money, "￥：" + data.getPrice());
+                holder.setText(R.id.tv_money, "￥" + data.getPrice());
                 holder.setText(R.id.tv_name, data.getTitle());
                 holder.setText(R.id.tv_unit, "/" + data.getUnit());
                 holder.setText(R.id.tv_remaker, data.getRemark());

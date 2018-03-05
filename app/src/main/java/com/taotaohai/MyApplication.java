@@ -9,7 +9,6 @@ import android.os.Environment;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.hyphenate.easeui.EaseUI;
 import com.mob.MobSDK;
 import com.taotaohai.activity.Home;
 import com.taotaohai.util.SPUtils;
@@ -18,7 +17,10 @@ import com.tencent.TIMConnListener;
 import com.tencent.TIMConversation;
 import com.tencent.TIMGroupReceiveMessageOpt;
 import com.tencent.TIMLogLevel;
+import com.tencent.TIMLogListener;
 import com.tencent.TIMManager;
+import com.tencent.TIMMessage;
+import com.tencent.TIMMessageListener;
 import com.tencent.TIMOfflinePushListener;
 import com.tencent.TIMOfflinePushNotification;
 import com.tencent.TIMRefreshListener;
@@ -55,8 +57,12 @@ public class MyApplication extends Application {
         wxApi = WXAPIFactory.createWXAPI(this, ConstantValue.APP_ID, true);
         wxApi.registerApp(ConstantValue.APP_ID);
 
-        EaseUI.getInstance().init(this,null);
-        initTecentIM();
+
+        if(MsfSdkUtils.isMainProcess(this)){
+            initTecentIM();
+        }
+
+
     }
 
 
@@ -159,7 +165,6 @@ public class MyApplication extends Application {
         }
     }
     private void initTecentIM(){
-
         if(MsfSdkUtils.isMainProcess(this)) {
             TIMManager.getInstance().setOfflinePushListener(new TIMOfflinePushListener() {
                 @Override
@@ -189,17 +194,47 @@ public class MyApplication extends Application {
 
                     @Override
                     public void onSuccess() {
+                        TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
+                            @Override
+                            public boolean onNewMessages(List<TIMMessage> list) {
 
-                        Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getApplicationContext(),"username","")) );
+                                return false;
+                            }
+                        });
 
                     }
                 });
+            }
+        }
 
+        TIMManager.getInstance().setLogListener(new TIMLogListener() {
+            @Override
+            public void log(int level, String tag, String msg) {
+                //可以通过此回调将sdk的log输出到自己的日志系统中
+                Log.e("tim", "log: "+tag+"-------"+msg );
+            }
+        });
 
+        //设置网络连接监听器，连接建立／断开时回调
+        TIMManager.getInstance().setConnectionListener(new TIMConnListener() {//连接监听器
+            @Override
+            public void onConnected() {//连接建立
+                Log.e("tag", "connected");
             }
 
+            @Override
+            public void onDisconnected(int code, String desc) {//连接断开
+                //接口返回了错误码code和错误描述desc，可用于定位连接断开原因
+                //错误码code含义请参见错误码表
+                Log.e("tag", "disconnected-------"+code+"----"+desc);
+            }
 
-        }
+            @Override
+            public void onWifiNeedAuth(String s) {
+
+            }
+        });
+
     }
 
 

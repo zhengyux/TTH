@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyphenate.easeui.EaseConstant;
+
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;

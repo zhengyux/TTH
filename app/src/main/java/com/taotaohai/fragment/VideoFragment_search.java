@@ -79,7 +79,7 @@ public class VideoFragment_search extends BaseFragment {
             } else {
                 Video video2 = util.getgson(data, Video.class);
                 if (video2.getData().getData().size() > 0) {
-                    video.getData().getData().addAll(video2.getData().getData());
+                    video=video2;
                     adapter.notifyDataSetChanged();
                     xrefreshview.stopLoadMore();
                 } else {

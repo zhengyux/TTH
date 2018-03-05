@@ -1,5 +1,7 @@
 package com.taotaohai.ui;
 
+import android.util.Log;
+
 import com.tencent.TIMManager;
 import com.tencent.TIMMessage;
 import com.tencent.TIMMessageListener;
@@ -33,6 +35,7 @@ public class MessageEvent extends Observable implements TIMMessageListener {
 
     @Override
     public boolean onNewMessages(List<TIMMessage> list) {
+        Log.e("tag", "进程: "+android.os.Process.myPid());
         for (TIMMessage item:list){
             setChanged();
             notifyObservers(item);

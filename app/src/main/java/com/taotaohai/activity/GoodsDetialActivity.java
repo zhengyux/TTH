@@ -28,7 +28,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import com.google.gson.reflect.TypeToken;
 import com.hedgehog.ratingbar.RatingBar;
-import com.hyphenate.easeui.EaseConstant;
+
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;

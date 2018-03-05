@@ -6,8 +6,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.widget.Toast;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 import com.taotaohai.ConstantValue;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.BaseBean;
@@ -168,23 +166,7 @@ public class Http implements IHttp {
                             p.addBodyParameter("username", (String) SPUtils.get((BaseActivity) mOnloginListener, "username", null));
                             p.addBodyParameter("password", (String) SPUtils.get((BaseActivity) mOnloginListener, "password", null));
                             Post(p, 0);
-                            EMClient.getInstance().login((String) SPUtils.get((BaseActivity) mOnloginListener, "username", null), MD5Utils.md5Password((String) SPUtils.get((BaseActivity) mOnloginListener, "password", null)), new EMCallBack() {
 
-                                @Override
-                                public void onSuccess() {
-
-                                }
-
-                                @Override
-                                public void onProgress(int progress, String status) {
-
-                                }
-
-                                @SuppressLint("WrongConstant")
-                                @Override
-                                public void onError(int code, String error) {
-                                }
-                            });
 
                         }
 

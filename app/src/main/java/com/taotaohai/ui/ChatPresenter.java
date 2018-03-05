@@ -75,18 +75,20 @@ public class ChatPresenter implements Observer {
                 //错误码code和错误描述desc，可用于定位请求失败原因
                 //错误码code含义请参见错误码表
                 view.onSendMessageFail(code, desc, message);
-                Log.e(TAG, "onError: "+code +"--------"+desc );
+
             }
 
             @Override
             public void onSuccess(TIMMessage msg) {
                 //发送消息成功,消息状态已在sdk中修改，此时只需更新界面
+
                 MessageEvent.getInstance().onNewMessage(null);
-                Log.e(TAG, "onSuccess: " );
+
             }
         });
         //message对象为发送中状态
         MessageEvent.getInstance().onNewMessage(message);
+
     }
 
 

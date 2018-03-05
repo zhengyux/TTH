@@ -7,9 +7,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.easeui.EaseConstant;
-import com.hyphenate.easeui.ui.EaseConversationListFragment;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.adapter.ConversationAdapter;

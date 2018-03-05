@@ -6,7 +6,7 @@
     android:paddingTop="8dp"
     android:paddingLeft="10dp">
     <com.taotaohai.ui.CircleImageView
-        android:id="@id/avatar"
+        android:id="@+id/avatar"
         android:layout_width="45dp"
         android:layout_height="45dp" />
     <LinearLayout

@@ -8,8 +8,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.LoginBean;
@@ -22,7 +20,6 @@ import com.tencent.TIMManager;
 
 public class Login extends BaseActivity {
 
-    String Sig = "eJxlj11rgzAARd-9FZLXjjV*JF0GexJbHXNYqjD6Is6kLq3VTJPqHPvva21hgd3Xcy6X*22YpgmSl819XhSNqmUmvwQD5qMJILj7g0JwmuUyc1r6D7JB8JZl*U6ydoIWQsiGUHc4ZbXkO34zJOukpeGOHrJp49p3z2UMyQPRFV5OMPJTL1x7uRq4qBa9r-bBrJyfKq8P4Lyo3tQnc3GIm82QlHHwTsY*LJ-HDhKRLit-htmHtTr2i1URJSNdb9V2GcTo1dtHaYysQ-mkTUp*ZLdDFsGOTRxXoyfWdrypJ8GGZ8V24CXA*DF*AWAMXXs_";
 
     @Override
     protected void inithttp() {
@@ -87,7 +84,7 @@ public class Login extends BaseActivity {
 
                 }
             });
-            startActivity(new Intent(Login.this, Home.class));
+       //     startActivity(new Intent(Login.this, Home.class));
             finish();
 
 

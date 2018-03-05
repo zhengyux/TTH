@@ -15,8 +15,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.hyphenate.EMCallBack;
-import com.hyphenate.chat.EMClient;
 import com.taotaohai.R;
 import com.taotaohai.activity.AddressManeger;
 import com.taotaohai.activity.Login;

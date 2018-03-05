@@ -1,6 +1,7 @@
 package com.taotaohai.activity;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.fragment.VideoFragment_search;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 
 public class Search extends BaseActivity {
 
@@ -39,6 +41,12 @@ public class Search extends BaseActivity {
             key = editText.getText().toString();
             f2.gotosearch();
 
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+        return super.onKeyDown(keyCode, event);
     }
 
     private void hintKbTwo() {
