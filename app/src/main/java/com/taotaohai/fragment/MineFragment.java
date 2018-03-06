@@ -37,6 +37,8 @@ import com.taotaohai.util.MD5Utils;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.tencent.TIMCallBack;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
 import com.tencent.TIMManager;
 
 import cn.sharesdk.onekeyshare.OnekeyShare;
@@ -63,8 +65,16 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     BadgeView badgeView3 ;
     BadgeView badgeView4 ;
     BadgeView badgeView50 ;
+    TIMConversation conversation;
+    int msg=0;
 
     private static MineFragment fragment;
+
+    private void unreadMsg(){
+
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
+        msg+=conversation.getUnreadMessageNum();
+    }
 
     public static MineFragment newInstance() {
         if (fragment == null) {
@@ -113,6 +123,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
+        unreadMsg();
         get("/api/message/notReadList/0",50);
         get("/api/message/notReadList/1",51);
         get("/api/shopCar/shop_car_num",20);
@@ -133,8 +144,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
-
+            msg+=shopCarNum.getData();
+            if (msg!=0) {
                 badgeView50.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView50.setTextSize(6);// 设置文本大小
                 badgeView50.setText(""); // 设置要显示的文本
@@ -147,7 +158,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView50.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView50.setTextSize(6);// 设置文本大小
                 badgeView50.setText(""); // 设置要显示的文本
@@ -161,11 +172,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
-                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
@@ -187,7 +198,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }if(postcode==102){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(9);// 设置文本大小
@@ -200,7 +211,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }if(postcode==103){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView3.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView3.setTextSize(9);// 设置文本大小
@@ -214,7 +225,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if(postcode==104){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView4.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView4.setTextSize(9);// 设置文本大小
                 badgeView4.setText(shopCarNum.getData()); // 设置要显示的文本
@@ -438,6 +449,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         //4种状态下订单的(1 未支付 2 待发货 3 待收货 4 待评价 )
         get("/api/goodsorder/listAcount/1",101);
@@ -445,7 +458,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         get("/api/goodsorder/listAcount/3",103);
         get("/api/goodsorder/listAcount/4",104);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
     }
 
     private void showShare() {
@@ -481,6 +494,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         //4种状态下订单的(1 未支付 2 待发货 3 待收货 4 待评价 )
         get("/api/goodsorder/listAcount/1",101);
@@ -488,6 +503,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         get("/api/goodsorder/listAcount/3",103);
         get("/api/goodsorder/listAcount/4",104);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
     }
 }

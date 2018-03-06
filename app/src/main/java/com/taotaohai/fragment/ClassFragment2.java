@@ -149,11 +149,11 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
-                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
@@ -163,7 +163,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 BadgeView badgeView = new BadgeView(getActivity(),rela_message);
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(6);// 设置文本大小
@@ -175,7 +175,7 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 BadgeView badgeView = new BadgeView(getActivity(),rela_message);
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(6);// 设置文本大小

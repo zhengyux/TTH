@@ -35,6 +35,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 
+import javax.security.auth.login.LoginException;
+
 /**
  * Created by Administrator on 2017/5/9.
  */
@@ -171,7 +173,7 @@ public class MyApplication extends Application {
                 public void handleNotification(TIMOfflinePushNotification notification) {
                     if (notification.getGroupReceiveMsgOpt() == TIMGroupReceiveMessageOpt.ReceiveAndNotify){
                         //消息被设置为需要提醒
-                        notification.doNotify(getApplicationContext(), R.mipmap.ic_launcher);
+                     //   notification.doNotify(getApplicationContext(), R.mipmap.ic_launcher);
                     }
                 }
             });
@@ -194,18 +196,13 @@ public class MyApplication extends Application {
 
                     @Override
                     public void onSuccess() {
-                        TIMManager.getInstance().addMessageListener(new TIMMessageListener() {
-                            @Override
-                            public boolean onNewMessages(List<TIMMessage> list) {
 
-                                return false;
-                            }
-                        });
 
                     }
                 });
             }
         }
+        TIMManager.getInstance().setLogLevel(TIMLogLevel.DEBUG);
 
         TIMManager.getInstance().setLogListener(new TIMLogListener() {
             @Override
@@ -234,7 +231,7 @@ public class MyApplication extends Application {
 
             }
         });
-
+        Log.e("tag", "initTecentIM: "+TIMManager.getInstance().getIsLogPrintEnabled() );
     }
 
 

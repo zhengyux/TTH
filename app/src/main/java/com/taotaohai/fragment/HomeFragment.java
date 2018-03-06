@@ -48,6 +48,8 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.tencent.TIMCallBack;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
 import com.tencent.TIMManager;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -79,12 +81,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     BadgeView badgeView;
     BadgeView badgeView2;
     int pos = 0;
+    int msg=0;
     private TextView down_load;//加载更多
     int pageSize = 10;
     int pageIndex = 0;//第多少个
     private HashMap<String, String> has = new HashMap<>();
     MyGridviewAdapter myGridviewAdapter = new MyGridviewAdapter();
-
+    TIMConversation conversation;
 
     public static HomeFragment newInstance() {
         if (fragment == null) {
@@ -118,18 +121,27 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
         return view;
     }
+    private void unreadMsg(){
+
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
+
+        msg+=conversation.getUnreadMessageNum();
+        Log.e("tag", "unreadMsg: "+conversation.getUnreadMessageNum() );
+    }
 
     @Override
     public void inithttp() {
         super.inithttp();
         pageSize = 10;
         pageIndex = 0;
+        unreadMsg();
         get("api/home/rotation", 0);//轮播图
         get("api/goods/hot_class_goods", 1);//热门小分类
         get("api/goods/hot_shop", 2);//热门商店
         get("/api/shopCar/shop_car_num", 20);//购物车数量
         get("/api/message/notReadList/0", 50);
-        get("/api/message/notReadList/1", 51);
+        get("/api/message/notReadList/1", 50);
+
         initHotGoods();
     }
 
@@ -139,15 +151,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         has.put("pageIndex", String.valueOf(pageIndex));
         get("api/goods/hot_goods/" + pageIndex + "/" + pageSize, 3);//热门商品
 
-        //    Http(HttpMethod.GET, "api/goods/hot_goods", has, 3);
-
-
     }
 
 
     @Override
     public void onSuccess(String data, int postcode) {
         super.onSuccess(data, postcode);
+
         switch (postcode) {
             case 0:
                 initrato(data);
@@ -183,11 +193,11 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 ShopCarNum shopCarNum = new ShopCarNum();
                 shopCarNum = util.getgson(data, ShopCarNum.class);
 
-                if (shopCarNum.getData() != "0") {
+                if (shopCarNum.getData() != 0) {
 
                     badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView.setTextSize(9);// 设置文本大小
-                    badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                    badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                     badgeView.show();// 将角标显示出来
 
                 } else {
@@ -197,30 +207,31 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
             case 50:
                 ShopCarNum shopCarNum2 = new ShopCarNum();
                 shopCarNum2 = util.getgson(data, ShopCarNum.class);
-                if (shopCarNum2.getData() != "0") {
+                msg+=shopCarNum2.getData();
+                if (msg!=0) {
 
                     badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                     badgeView2.setTextSize(6);// 设置文本大小
                     badgeView2.setText(""); // 设置要显示的文本
                     badgeView2.show();// 将角标显示出来
-                } else {
+                }else {
                     badgeView2.hide();
                 }
                 break;
 
             case 51:
 
-                ShopCarNum shopCarNum3 = new ShopCarNum();
-                shopCarNum3 = util.getgson(data, ShopCarNum.class);
-                if (shopCarNum3.getData() != "0") {
-
-                    badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                    badgeView2.setTextSize(6);// 设置文本大小
-                    badgeView2.setText(""); // 设置要显示的文本
-                    badgeView2.show();// 将角标显示出来
-                } else {
-                    badgeView2.hide();
-                }
+//                ShopCarNum shopCarNum3 = new ShopCarNum();
+//                shopCarNum3 = util.getgson(data, ShopCarNum.class);
+//                if (shopCarNum3.getData() != "0") {
+//
+//                    badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+//                    badgeView2.setTextSize(6);// 设置文本大小
+//                    badgeView2.setText(""); // 设置要显示的文本
+//                    badgeView2.show();// 将角标显示出来
+//                }else {
+//                    badgeView2.hide();
+//                }
 
                 break;
         }
@@ -424,32 +435,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 break;
             case R.id.rela_message:
 
-//                if(SPUtils.contains(getActivity(),"hxid")){
-//
-//                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
-//
-//                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
-//                            @Override
-//                            public void onError(int code, String desc) {
-//                                //错误码code和错误描述desc，可用于定位请求失败原因
-//                                //错误码code列表请参见错误码表
-//
-//                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
-//                            }
-//
-//                            @Override
-//                            public void onSuccess() {
-//
-//                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
-//
-//                            }
-//                        });
-//
-//
-//                    }
-//
-//
-//                }
+                if(SPUtils.contains(getActivity(),"hxid")){
+
+                    if(!TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username",""))){
+
+                        TIMManager.getInstance().login(SPUtils.get(getActivity(),"username","").toString(),SPUtils.get(getActivity(),"hxid","").toString(),new TIMCallBack() {
+                            @Override
+                            public void onError(int code, String desc) {
+                                //错误码code和错误描述desc，可用于定位请求失败原因
+                                //错误码code列表请参见错误码表
+
+                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
+                            }
+
+                            @Override
+                            public void onSuccess() {
+
+                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
+
+                            }
+                        });
+
+
+                    }
+
+
+                }
 
                 get("api/user/", 999);
                 break;
@@ -671,19 +682,22 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     @Override
     public void onHiddenChanged(boolean hidden) {
-
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num", 20);//购物车数量
         get("/api/message/notReadList/0", 50);
-        get("/api/message/notReadList/1", 51);
+        get("/api/message/notReadList/1", 50);
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num", 20);
         get("/api/message/notReadList/0", 50);
-        get("/api/message/notReadList/1", 51);
+        get("/api/message/notReadList/1", 50);
     }
 
 }

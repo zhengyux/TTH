@@ -32,6 +32,8 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.tencent.TIMCallBack;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
 import com.tencent.TIMManager;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
@@ -62,9 +64,19 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     BadgeView badgeView2 ;
     int pageSize = 10;
     int pageIndex = 0;//第多少个
+    TIMConversation conversation;
+    int msg=0;
 
 
     private static VideoFragment fragment;
+
+
+    private void unreadMsg(){
+
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
+        msg+=conversation.getUnreadMessageNum();
+    }
+
 
     public static VideoFragment newInstance() {
         if (fragment == null) {
@@ -86,6 +98,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void inithttp() {
         super.inithttp();
+
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
         get("/api/message/notReadList/1",51);
@@ -119,11 +133,11 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
-                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
@@ -133,8 +147,8 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
-
+            msg+=shopCarNum.getData();
+            if (msg!=0) {
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
@@ -147,7 +161,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
@@ -265,8 +279,12 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
 
         callBackValue.SendMessageValue(1);
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
-        get("/api/shopCar/shop_car_num",20);
 
+        msg=0;
+        unreadMsg();
+        get("/api/shopCar/shop_car_num",20);
+        get("/api/message/notReadList/0",50);
+        get("/api/message/notReadList/1",50);
     }
 
     @Override
@@ -473,8 +491,10 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
     }
 }

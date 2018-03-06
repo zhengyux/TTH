@@ -36,6 +36,8 @@ import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
 import com.tencent.TIMCallBack;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
 import com.tencent.TIMManager;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -76,6 +78,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private TextView tv_all_goods;
     private MyexplistAdapter myexplistAdapter;
     int pos[];
+    TIMConversation conversation;
+    int msg=0;
 
     private MultipleStatusView mMsvLayout;
 
@@ -87,6 +91,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     public ClassFragment() {
         // Required empty public constructor
+    }
+
+    private void unreadMsg(){
+
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
+        msg+=conversation.getUnreadMessageNum();
     }
 
 
@@ -190,10 +200,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     public void inithttp() {
         super.inithttp();
         mMsvLayout.loading();
+        unreadMsg();
         get("api/goods/class", 0);
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
+
         gohttp();
     }
 
@@ -263,11 +275,11 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
 
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
-                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
@@ -277,8 +289,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
-
+            msg+=shopCarNum.getData();
+            if (msg!=0) {
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
@@ -291,7 +303,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
@@ -393,13 +405,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                                 //错误码code和错误描述desc，可用于定位请求失败原因
                                 //错误码code列表请参见错误码表
 
-                                Log.e("tag", "登入聊天失败: "+code+"------"+desc );
+
                             }
 
                             @Override
                             public void onSuccess() {
 
-                                Log.e("tag", "onSuccess: "+TIMManager.getInstance().getLoginUser().equals(SPUtils.get(getActivity(),"username","")) );
 
                             }
                         });
@@ -536,18 +547,22 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     @Override
     public void onHiddenChanged(boolean hidden) {
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
         super.onHiddenChanged(hidden);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
 
     }
 

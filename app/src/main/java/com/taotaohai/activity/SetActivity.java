@@ -18,9 +18,9 @@ import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.tencent.TIMManager;
 
+//设置
 
 public class SetActivity extends BaseActivity {
-
 
     private Contact contact;
 
@@ -119,7 +119,7 @@ public class SetActivity extends BaseActivity {
                 SPUtils.remove(this, "hxid");
                 removeAllActivity();
                 TIMManager.getInstance().logout(null);//登出
-                startActivity(new Intent(this, Login.class));
+                startActivity(new Intent(this, Home.class));
             }
             return;
         }

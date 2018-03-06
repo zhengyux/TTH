@@ -38,9 +38,12 @@ import com.taotaohai.bean.Goods;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
+import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
 import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
@@ -90,6 +93,14 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     private RelativeLayout msg;
     BadgeView badgeView ;
     BadgeView badgeView2 ;
+    TIMConversation conversation;
+    int msgN=0;
+
+    private void unreadMsg(){
+
+        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C, SPUtils.get(getApplicationContext(),"username","").toString());
+        msgN+=conversation.getUnreadMessageNum();
+    }
 
     @Override
     protected void inithttp() {
@@ -102,12 +113,13 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         setContentView(R.layout.activity_goods_detial);
         initview();
         mMsvLayout.loading();
+        unreadMsg();
         get("api/goods/" + getintent("id"));
         get("api/comment/goods/" + getintent("id"), 1);
         get("api/follow/" + getintent("id") + "/check/goods", NONOTICELOGIN);
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
 
     }
 
@@ -189,10 +201,10 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         if(postcode==20){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView.setTextSize(9);// 设置文本大小
-                badgeView.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView.show();// 将角标显示出来
             }else {
                 badgeView.hide();
@@ -202,11 +214,13 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            msgN+=shopCarNum.getData();
+            if (msgN!=0) {
+
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
-                badgeView2.show();
+                badgeView2.show();// 将角标显示出来
             }else {
                 badgeView2.hide();
             }
@@ -215,7 +229,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
         if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!="0"){
+            if(shopCarNum.getData()!=0){
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(6);// 设置文本大小
                 badgeView2.setText(""); // 设置要显示的文本
@@ -497,13 +511,8 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     }
 
     public void onOK(View view) {
-        if (paytype == 0) {
-            JsonObject object = new JsonObject();
-            object.addProperty("goodsId", goods.getData().getId());
-            object.addProperty("count", count);
-            Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
-            return;
-        }
+
+        count = Integer.parseInt(tv_num2.getText().toString().trim());
 
         if (count > goods.getData().getStock()) {
             showToast("库存不足,无法购买");
@@ -513,6 +522,17 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             showToast("购买数低于最低起售量");
             return;
         }
+
+
+        if (paytype == 0) {
+            JsonObject object = new JsonObject();
+            object.addProperty("goodsId", goods.getData().getId());
+            object.addProperty("count", count);
+            Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
+            return;
+        }
+
+
         String image = "";
         if (goods.getData().getImagesUrl().size() > 0) {
             image = goods.getData().getImagesUrl().get(0);
@@ -756,9 +776,11 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
 
     @Override
     protected void onRestart() {
+        msgN=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
         super.onRestart();
     }
 

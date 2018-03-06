@@ -202,8 +202,8 @@ public class ShopCarActivity extends BaseActivity {
             });
             convertView.findViewById(R.id.tv_reduct).setOnClickListener(v -> {
 
-                if(car.getData().getData().get(position).getGoodsInfo().getUnitMin()>car.getData().getData().get(position).getCount()){
-                    showToast("购买数不能小于最少起售量");
+                if(car.getData().getData().get(position).getGoodsInfo().getUnitMin()>=car.getData().getData().get(position).getCount()){
+                 //   showToast("购买数不能小于最少起售量");
                 }else {
 
                     if (car.getData().getData().get(position).getCount() > 1) {

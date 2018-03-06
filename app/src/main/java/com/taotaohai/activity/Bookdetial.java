@@ -427,10 +427,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 dialog_count = 3;
                 showDialog2("您确定已收到货？", "确定收货");
                 break;
-            case 4://再次购买
+            case 4://评价
 
-                startActivity(new Intent(Bookdetial.this, Evaluation.class));
-
+                startActivity(new Intent(Bookdetial.this, Evaluation.class).putExtra("id", data.getExt().getOrderId()));
+                finish();
                 break;
 
 

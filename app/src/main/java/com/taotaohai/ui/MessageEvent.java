@@ -35,7 +35,7 @@ public class MessageEvent extends Observable implements TIMMessageListener {
 
     @Override
     public boolean onNewMessages(List<TIMMessage> list) {
-        Log.e("tag", "进程: "+android.os.Process.myPid());
+        Log.e("tag", "进程: "+android.os.Process.myPid()+"线程："+android.os.Process.myTid()+"Uid："+android.os.Process.myUid());
         for (TIMMessage item:list){
             setChanged();
             notifyObservers(item);
