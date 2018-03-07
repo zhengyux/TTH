@@ -35,6 +35,9 @@ import com.taotaohai.fragment.ItemBookFragment;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.ViewFindUtils;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
@@ -60,12 +63,40 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     private ViewPager vp;
     private RelativeLayout mrelativeLayout2;//购物车
     private RelativeLayout mrelativeLayout3;
+    TIMConversation conversation;
+    int msg=0;
+    BadgeView badgeView2;
 
     @Override
     protected void inithttp() {
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
+    }
+
+    private void unreadMsg(){
+
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        inithttp();
+        super.onResume();
     }
 
     @Override
@@ -74,6 +105,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         setContentView(R.layout.activity_my_book);
         initview();
         inithttp();
+        badgeView2 = new BadgeView(getApplicationContext(),mrelativeLayout3);
     }
 
     @Override
@@ -410,24 +442,15 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),mrelativeLayout3);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
-            }
+            msg+=shopCarNum.getData();
+            if(msg!=0){
 
-        }
-        if(postcode==51){
-            ShopCarNum shopCarNum = new ShopCarNum();
-            shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),mrelativeLayout3);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
             }
 
         }

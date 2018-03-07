@@ -36,6 +36,9 @@ import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -66,10 +69,29 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
     String ordertype = "0";
     private RelativeLayout rela_shopcar;
     private RelativeLayout rela_message;
-
     BadgeView badgeView;
     private static ClassFragment2 fragment;
     private EditText edit_search;
+    TIMConversation conversation;
+    int msg=0;
+    BadgeView badgeView2;
+
+    private void unreadMsg(){
+
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
+    }
 
     public static ClassFragment2 newInstance() {
         return new ClassFragment2();
@@ -89,15 +111,18 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
         initview();
         inithttp();
         badgeView = new BadgeView(getActivity(),rela_shopcar);
+        badgeView2 = new BadgeView(getActivity(),rela_message);
         return view;
     }
 
     @Override
     public void inithttp() {
         super.inithttp();
+        msg=0;
+        unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
         gohttp();
     }
 
@@ -161,26 +186,18 @@ public class ClassFragment2 extends BaseFragment implements View.OnClickListener
 
         }
         if(postcode==50){
-            ShopCarNum shopCarNum = new ShopCarNum();
-            shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getActivity(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
-            }
 
-        }
-        if(postcode==51){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getActivity(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
+            msg+=shopCarNum.getData();
+            if (msg!=0) {
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
             }
 
         }

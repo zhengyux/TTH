@@ -14,8 +14,13 @@ import android.widget.TextView;
 import com.taotaohai.R;
 import com.taotaohai.activity.base.BaseActivity;
 import com.taotaohai.bean.Car;
+import com.taotaohai.bean.ShopCarNum;
+import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 
 import org.xutils.http.HttpMethod;
 
@@ -33,10 +38,33 @@ public class ShopCarActivity extends BaseActivity {
     private Car car_buy;
     private TextView tv_all, tv_settlment;
     private RelativeLayout rela_message;
+    TIMConversation conversation;
+    int msg=0;
+    BadgeView badgeView ;
 
     @Override
     protected void inithttp() {
+        msg=0;
+        unreadMsg();
         get("api/shopCar", 0);
+        get("/api/message/notReadList/1",50);
+        get("/api/message/notReadList/0",50);
+    }
+    private void unreadMsg(){
+
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
     }
 
     @Override
@@ -53,6 +81,23 @@ public class ShopCarActivity extends BaseActivity {
                     }
                     listView.setAdapter(adapter);
                 }
+
+                break;
+            case 50:
+
+                ShopCarNum shopCarNum = new ShopCarNum();
+                shopCarNum = util.getgson(result,ShopCarNum.class);
+                msg+=shopCarNum.getData();
+                if (msg!=0) {
+                    badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                    badgeView.setTextSize(6);// 设置文本大小
+                    badgeView.setText(""); // 设置要显示的文本
+                    badgeView.show();// 将角标显示出来
+                }else {
+                    badgeView.hide();
+                }
+
+
 
                 break;
         }
@@ -79,14 +124,15 @@ public class ShopCarActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopcar);
 
-        inithttp();
+
         initview();
-        get("/api/message/notReadList/{type}",50);
+        inithttp();
 
     }
 
     private void initview() {
         rela_message = (RelativeLayout) findViewById(R.id.rela_message);
+        badgeView = new BadgeView(getApplicationContext(),rela_message);
         TextView tv_settlement = (TextView) findViewById(R.id.tv_settlement);
         tv_settlement.setOnClickListener(v -> {
             if (car_buy.getData().getData().size() == 0) {
@@ -287,4 +333,9 @@ public class ShopCarActivity extends BaseActivity {
         isall = true;
     }
 
+    @Override
+    protected void onResume() {
+        inithttp();
+        super.onResume();
+    }
 }

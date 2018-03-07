@@ -94,9 +94,19 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     }
 
     private void unreadMsg(){
+        long cnt = TIMManager.getInstance().getConversationCount();
 
-        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
-        msg+=conversation.getUnreadMessageNum();
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
     }
 
 

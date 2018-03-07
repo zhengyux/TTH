@@ -97,9 +97,19 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
     int msgN=0;
 
     private void unreadMsg(){
+        long cnt = TIMManager.getInstance().getConversationCount();
 
-        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C, SPUtils.get(getApplicationContext(),"username","").toString());
-        msgN+=conversation.getUnreadMessageNum();
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msgN+=conversation.getUnreadMessageNum();
+
+
+        }
     }
 
     @Override

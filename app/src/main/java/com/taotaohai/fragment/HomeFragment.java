@@ -123,15 +123,32 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     }
     private void unreadMsg(){
 
-        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
 
-        msg+=conversation.getUnreadMessageNum();
-        Log.e("tag", "unreadMsg: "+conversation.getUnreadMessageNum() );
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
+
+
+
+
+
+
     }
 
     @Override
     public void inithttp() {
         super.inithttp();
+        msg=0;
         pageSize = 10;
         pageIndex = 0;
         unreadMsg();

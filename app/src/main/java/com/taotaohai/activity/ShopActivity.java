@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,7 +28,9 @@ import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
+import com.tencent.TIMConversation;
 import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -51,17 +54,39 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
     private Shopclass shopclass;
     private RelativeLayout rela_shopcar;
     private RelativeLayout rela_message;
+    TIMConversation conversation;
+    int msg=0;
+    BadgeView badgeView2;
 
     @Override
     protected void inithttp() {
         mMsvLayout.loading();
+        msg=0;
+        unreadMsg();
         get("api/shop/" + getintent("id") + "/goods",0);
         get("api/shop/" + getintent("id"), 1);
         get("api/shop/follow/" + getintent("id") + "/1", 2);
         get("api/shop/" + getintent("id") + "/class", 3);
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
+    }
+
+    private void unreadMsg(){
+
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
     }
 
     @Override
@@ -160,24 +185,16 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
-            }
+            msg+=shopCarNum.getData();
 
-        }
-        if(postcode==51){
-            ShopCarNum shopCarNum = new ShopCarNum();
-            shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
+            if(msg!=0){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
             }
 
         }
@@ -266,6 +283,7 @@ public class ShopActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_shop);
 
         initview();
+        badgeView2 = new BadgeView(getApplicationContext(),rela_message);
         inithttp();
     }
 

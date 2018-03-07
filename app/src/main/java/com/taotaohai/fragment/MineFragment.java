@@ -72,8 +72,19 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     private void unreadMsg(){
 
-        conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,SPUtils.get(getActivity(),"username","").toString());
-        msg+=conversation.getUnreadMessageNum();
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
     }
 
     public static MineFragment newInstance() {
@@ -186,10 +197,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         if(postcode==101){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(!"0".equals(shopCarNum.getData())){
+            if(shopCarNum.getData()!=0){
                 badgeView1.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView1.setTextSize(9);// 设置文本大小
-                badgeView1.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView1.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView1.show();// 将角标显示出来
             }else {
                 badgeView1.hide();
@@ -202,7 +213,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView2.setTextSize(9);// 设置文本大小
-                badgeView2.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView2.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView2.show();// 将角标显示出来
             }else {
                 badgeView2.hide();
@@ -215,7 +226,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
                 badgeView3.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView3.setTextSize(9);// 设置文本大小
-                badgeView3.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView3.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView3.show();// 将角标显示出来
             }else {
                 badgeView3.hide();
@@ -228,7 +239,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             if(shopCarNum.getData()!=0){
                 badgeView4.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView4.setTextSize(9);// 设置文本大小
-                badgeView4.setText(shopCarNum.getData()); // 设置要显示的文本
+                badgeView4.setText(shopCarNum.getData()+""); // 设置要显示的文本
                 badgeView4.show();// 将角标显示出来
             }else {
                 badgeView4.hide();

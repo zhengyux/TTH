@@ -27,6 +27,9 @@ import com.taotaohai.bean.ShopListSearch;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
+import com.tencent.TIMConversation;
+import com.tencent.TIMConversationType;
+import com.tencent.TIMManager;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
 
@@ -45,6 +48,9 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
     private RecyclerView recyclerView;
     private RelativeLayout rela_shopcar;
     private RelativeLayout rela_message;
+    TIMConversation conversation;
+    int msg=0;
+    BadgeView badgeView2;
 
     String requesttype = "0";
     List<ShopList.Data> shoplist;
@@ -97,10 +103,29 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
     }
 
+    private void unreadMsg(){
+
+        long cnt = TIMManager.getInstance().getConversationCount();
+
+        //遍历会话列表
+        for(long i = 0; i < cnt; ++i) {
+            //根据索引获取会话
+            conversation =TIMManager.getInstance().getConversationByIndex(i);
+
+            conversation = TIMManager.getInstance().getConversation(TIMConversationType.C2C,conversation.getPeer());
+
+            msg+=conversation.getUnreadMessageNum();
+
+
+        }
+    }
+
     @Override
     protected void inithttp() {
+        msg=0;
+        unreadMsg();
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
         get("/api/shopCar/shop_car_num",20);
         if (getintent("name").length() != 0) {
             name = getintent("name");
@@ -191,27 +216,19 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         if(postcode==50){
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
+            msg+=shopCarNum.getData();
+            if(msg!=0){
+
+                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
+                badgeView2.setTextSize(6);// 设置文本大小
+                badgeView2.setText(""); // 设置要显示的文本
+                badgeView2.show();// 将角标显示出来
+            }else {
+                badgeView2.hide();
             }
 
         }
-        if(postcode==51){
-            ShopCarNum shopCarNum = new ShopCarNum();
-            shopCarNum = util.getgson(result,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                BadgeView badgeView = new BadgeView(getApplicationContext(),rela_message);
-                badgeView.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView.setTextSize(6);// 设置文本大小
-                badgeView.setText(""); // 设置要显示的文本
-                badgeView.show();// 将角标显示出来
-            }
 
-        }
 
         if (postcode == 999) {
             startActivity(new Intent(SeachendShop.this, MessageActivity.class));
@@ -243,7 +260,7 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
         x.view().inject(this);//注解绑定
         inithttp();
         initview();
-
+        badgeView2= new BadgeView(getApplicationContext(),rela_message);
     }
 
     private void initview() {
