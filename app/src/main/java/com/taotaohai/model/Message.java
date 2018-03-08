@@ -123,7 +123,7 @@ public abstract class Message {
      */
     public void remove(){
         if (message != null){
-  //          message.remove();
+            message.remove();
 
         }
     }

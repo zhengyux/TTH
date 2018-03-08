@@ -265,11 +265,10 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                         .putExtra("data", item));
                 break;
             case 4://再次购买
-                JsonObject object = new JsonObject();
-                object.addProperty("goodsId", item.getGoodsId());
-                object.addProperty("count", item.getExt().getAcount());
-                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
-//                startActivity(new Intent(MyBook.this, Refund.class));
+
+                get("api/goods/" + item.getGoodsId(), 222);
+
+
                 break;
 //            case 5://退款
 //                startActivity(new Intent(MyBook.this, ReFundDetialActivity.class)
@@ -412,6 +411,18 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
     @Override
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
+
+        if(postcode==222){
+            Goods goods = util.getgson(result, Goods.class);
+            if (goods.getData().getStatus() == 1) {
+                showToast("商品下架啦！");
+            } else {
+                JsonObject object = new JsonObject();
+                object.addProperty("goodsId", item.getGoodsId());
+                object.addProperty("count", item.getExt().getAcount());
+                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
+            }
+        }
 
         if(postcode==23){
 

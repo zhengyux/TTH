@@ -2,6 +2,7 @@ package com.taotaohai.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -144,7 +145,9 @@ public class MessageActivity extends BaseActivity implements ConversationView {
     @Override
     protected void onResume() {
         inithttp();
+
         super.onResume();
+
     }
 
     @Override

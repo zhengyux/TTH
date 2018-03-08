@@ -30,6 +30,7 @@ import com.taotaohai.myview.BadgeView;
 import com.taotaohai.myview.XListView;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.SPUtils;
+import com.taotaohai.util.ScreenListener;
 import com.taotaohai.util.util;
 import com.tencent.TIMCallBack;
 import com.tencent.TIMConversation;
@@ -50,6 +51,9 @@ import cn.sharesdk.onekeyshare.OnekeyShare;
  * A simple {@link Fragment} subclass.
  */
 public class VideoFragment extends BaseFragment implements View.OnClickListener,XListView.IXListViewListener {
+
+
+    private ScreenListener screenListener ;
     String key = "";
 
     private Video video;
@@ -256,8 +260,34 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         callBackValue.SendMessageValue(1);
         badgeView = new BadgeView(getActivity(),screlativeLayout);
         badgeView2 = new BadgeView(getActivity(),msrelativeLayout);
+        screen();
+
         return view;
     }
+
+
+    private void screen(){
+
+        screenListener = new ScreenListener(getActivity()) ;
+        screenListener.begin(new ScreenListener.ScreenStateListener() {
+            @Override
+            public void onScreenOn() {
+
+            }
+
+            @Override
+            public void onScreenOff() {
+                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
+            }
+
+            @Override
+            public void onUserPresent() {
+
+            }
+        });
+
+    }
+
 
 
     private void initview(View view) {

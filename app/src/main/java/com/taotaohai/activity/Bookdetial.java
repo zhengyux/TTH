@@ -164,6 +164,19 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     public void onSuccess(String result, int postcode) {
         super.onSuccess(result, postcode);
 
+        if(postcode==222){
+            Goods goods = util.getgson(result, Goods.class);
+            if (goods.getData().getStatus() == 1) {
+                showToast("商品下架啦！");
+            } else {
+                JsonObject object = new JsonObject();
+                object.addProperty("goodsId", data.getGoodsId());
+                object.addProperty("count", data.getExt().getAcount());
+                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
+            }
+        }
+
+
         if(postcode==112){
 
            Shop shop = util.getgson(result, Shop.class);
@@ -452,11 +465,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 finish();
                 break;
             case 4://再次购买
-                JsonObject object = new JsonObject();
-                object.addProperty("goodsId", data.getGoodsId());
-                object.addProperty("count", data.getExt().getAcount());
-                Http(HttpMethod.POST, "api/shopCar", object.toString(), 99);
-//                startActivity(new Intent(MyBook.this, Refund.class));
+
+                get("api/goods/" + data.getGoodsId(), 222);
+
+
                 break;
 
             case 6:
