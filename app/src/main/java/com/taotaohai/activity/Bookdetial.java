@@ -180,7 +180,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         if(postcode==112){
 
            Shop shop = util.getgson(result, Shop.class);
-           ChatActivity.navToChat(this,shop.getData().getUser().getUsername(), TIMConversationType.C2C);
+           ChatActivity.navToChat(this,shop.getData().getService().getUsername(), TIMConversationType.C2C);
            return;
         }
 

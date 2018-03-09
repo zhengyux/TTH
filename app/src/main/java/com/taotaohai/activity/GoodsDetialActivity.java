@@ -199,7 +199,7 @@ public class GoodsDetialActivity extends BaseActivity implements View.OnClickLis
             get("api/follow/" + getintent("id") + "/goods", 999);
         }
         if(postcode==996){
-            ChatActivity.navToChat(this,goods.getData().getShopInfo().getUser().getUsername(), TIMConversationType.C2C);
+            ChatActivity.navToChat(this,goods.getData().getShopInfo().getService().getUsername(), TIMConversationType.C2C);
         }
         if(postcode==998){
             startActivity(new Intent(this, ShopCarActivity.class));

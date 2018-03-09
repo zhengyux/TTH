@@ -156,6 +156,38 @@ public class Goods {
             this.username = username;
         }
     }
+    public static class Service {
+        @SerializedName("u_id")
+        private String u_id;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("username")
+        private String username;
+
+        public String getU_id() {
+            return u_id;
+        }
+
+        public void setU_id(String u_id) {
+            this.u_id = u_id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+    }
 
     public static class ShopInfo {
         @SerializedName("address")
@@ -216,7 +248,16 @@ public class Goods {
         private String totalSourceGoods;
         @SerializedName("user")
         private User user;
+        @SerializedName("service")
+        private Service service;
 
+        public Service getService() {
+            return service;
+        }
+
+        public void setService(Service service) {
+            this.service = service;
+        }
 
         public List<ShopIdentifies> getShopIdentifies() {
             return shopIdentifies;

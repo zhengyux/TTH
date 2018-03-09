@@ -177,6 +177,49 @@ public class Shop implements Serializable{
         }
     }
 
+    public static class Service implements Serializable{
+        @SerializedName("u_id")
+        private String u_id;
+        @SerializedName("avatarId")
+        private String avatarId;
+        @SerializedName("name")
+        private String name;
+        @SerializedName("username")
+        private String username;
+
+        public String getU_id() {
+            return u_id;
+        }
+
+        public void setU_id(String u_id) {
+            this.u_id = u_id;
+        }
+
+        public String getAvatarId() {
+            return avatarId;
+        }
+
+        public void setAvatarId(String avatarId) {
+            this.avatarId = avatarId;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public void setUsername(String username) {
+            this.username = username;
+        }
+    }
+
     public static class Data implements Serializable{
         @SerializedName("address")
         private String address;
@@ -240,6 +283,17 @@ public class Shop implements Serializable{
         private String totalSourceGoods;
         @SerializedName("user")
         private User user;
+
+        @SerializedName("service")
+        private Service service;
+
+        public Service getService() {
+            return service;
+        }
+
+        public void setService(Service service) {
+            this.service = service;
+        }
 
         public String getAddress() {
             return address;
@@ -488,5 +542,7 @@ public class Shop implements Serializable{
         public void setUser(User user) {
             this.user = user;
         }
+
+
     }
 }

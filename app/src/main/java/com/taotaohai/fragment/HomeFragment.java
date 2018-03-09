@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -109,6 +110,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_home, container, false);
         scrollView = (ScrollView) view.findViewById(R.id.scrollView);
+
         mLocationClient = new LocationClient(getActivity().getApplicationContext());
         mLocationClient.registerLocationListener(new MyLocationListener());
         InitLocation();
@@ -118,6 +120,8 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         initview();
         badgeView = new BadgeView(getActivity(), rela_shopcar);
         badgeView2 = new BadgeView(getActivity(), rela_message);
+
+
 
         return view;
     }
@@ -148,6 +152,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void inithttp() {
         super.inithttp();
+
         msg=0;
         pageSize = 10;
         pageIndex = 0;
@@ -710,6 +715,13 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
+        scrollView.post(new Runnable() {
+            @Override
+            public void run() {
+                scrollView.scrollTo(0, 10);
+            }
+        });
+
         msg=0;
         unreadMsg();
         get("/api/shopCar/shop_car_num", 20);
