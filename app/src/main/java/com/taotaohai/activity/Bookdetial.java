@@ -405,7 +405,9 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             case 6:
 
                 btn_1.setVisibility(View.GONE);
-                btn_2.setVisibility(View.GONE);
+                btn_2.setTextColor(getResources().getColor(R.color.black));
+                btn_2.setBackgroundResource(R.drawable.bac_class_glay);
+                btn_2.setText("删除");
 
                 return "交易完成";
 
@@ -419,6 +421,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_1.setVisibility(View.GONE);
                 btn_3.setVisibility(View.GONE);
                 btn_2.setTextColor(getResources().getColor(R.color.black));
+                btn_2.setBackgroundResource(R.drawable.bac_class_glay);
                 btn_2.setText("删除");
                 return "交易关闭";
             default:
