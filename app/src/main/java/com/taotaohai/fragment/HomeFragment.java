@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -45,6 +46,7 @@ import com.taotaohai.bean.Ratation;
 import com.taotaohai.bean.ShopCarNum;
 import com.taotaohai.myview.BadgeView;
 import com.taotaohai.myview.MyGridView;
+import com.taotaohai.myview.VpSwipeRefreshLayout;
 import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.SPUtils;
 import com.taotaohai.util.util;
@@ -67,7 +69,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
 
     private View view;
     private Banner banner;
-    private SwipeRefreshLayout swipe;
+    private VpSwipeRefreshLayout swipe;
     List<View> text;
     private HotShop hotshop;
     private HotClass hotclass;
@@ -241,21 +243,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
                 }
                 break;
 
-            case 51:
-
-//                ShopCarNum shopCarNum3 = new ShopCarNum();
-//                shopCarNum3 = util.getgson(data, ShopCarNum.class);
-//                if (shopCarNum3.getData() != "0") {
-//
-//                    badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-//                    badgeView2.setTextSize(6);// 设置文本大小
-//                    badgeView2.setText(""); // 设置要显示的文本
-//                    badgeView2.show();// 将角标显示出来
-//                }else {
-//                    badgeView2.hide();
-//                }
-
-                break;
         }
 
 
@@ -412,7 +399,7 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
         );
         view.findViewById(R.id.rela_more).setOnClickListener(this);
 
-        swipe = (SwipeRefreshLayout) view.findViewById(R.id.swipe);
+        swipe = (VpSwipeRefreshLayout) view.findViewById(R.id.swipe);
         swipe.setOnRefreshListener(() -> inithttp());
 
 
@@ -715,12 +702,6 @@ public class HomeFragment extends BaseFragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        scrollView.post(new Runnable() {
-            @Override
-            public void run() {
-                scrollView.scrollTo(0, 10);
-            }
-        });
 
         msg=0;
         unreadMsg();
