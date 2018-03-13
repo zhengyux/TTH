@@ -133,13 +133,6 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
     }
 
     String getstata(int i, TextView btn_1, TextView btn_2, TextView btn_3) {
-        /*1 未支付
-2 待发货
-3 待收货
-4.	待评价
-5.	退款
-6.	99 关闭
-*/
         btn_1.setVisibility(View.VISIBLE);
         btn_2.setVisibility(View.VISIBLE);
         btn_3.setVisibility(View.GONE);
@@ -166,19 +159,12 @@ public class MyItemBookRecyclerViewAdapter extends RecyclerView.Adapter<MyItemBo
                 btn_3.setVisibility(View.GONE);
                 return "待评价";
             case 5:
-//                btn_2.setText("退款xiangqi");
                 btn_1.setVisibility(View.INVISIBLE);
                 btn_2.setVisibility(View.INVISIBLE);
                 btn_3.setVisibility(View.GONE);
-//                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
-//                btn_2.setBackgroundResource(R.drawable.button_r22);
+
                 return "退款";
-//            case 6:
-//                btn_1.setVisibility(View.GONE);
-//                btn_2.setText("删除");
-////                btn_2.setTextColor(mcontent.getResources().getColor(R.color.cross_them));
-////                btn_2.setBackgroundResource(R.drawable.button_r22);
-//                return "关闭";
+
             case 6:
 
                 btn_1.setVisibility(View.GONE);

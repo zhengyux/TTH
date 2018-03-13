@@ -161,16 +161,16 @@ public class SearchGoods extends BaseActivity {
         for (int i = 0; i < 4; i++) {
             TextView text = (TextView) getLayoutInflater().inflate(R.layout.textview, null);
             if (i == 0) {
-                text.setText("0~100km");
+                text.setText("100km以内");
             }
             if (i == 1) {
-                text.setText("100~300km");
+                text.setText("300km以内");
             }
             if (i == 2) {
-                text.setText("300~500km");
+                text.setText("500km以内");
             }
             if (i == 3) {
-                text.setText("500km以上");
+                text.setText("不限");
             }
             int finalI = i;
             text.setOnClickListener((l) -> {

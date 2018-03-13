@@ -18,6 +18,7 @@ import com.taotaohai.util.GlideUtil;
 import com.taotaohai.util.util;
 import com.taotaohai.widgets.MultipleStatusView;
 import com.xiao.nicevideoplayer.NiceVideoPlayer;
+import com.xiao.nicevideoplayer.NiceVideoPlayerManager;
 import com.xiao.nicevideoplayer.TxVideoPlayerController;
 import com.zhy.adapter.recyclerview.CommonAdapter;
 import com.zhy.adapter.recyclerview.base.ViewHolder;
@@ -183,13 +184,16 @@ public class VideoFragment_search extends BaseFragment {
             @Override
             public void onRefresh(boolean isPullDown) {
                 super.onRefresh(isPullDown);
+                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
                 pageIndex = 0;//第多少个
                 inithttpdata();
+
             }
 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
+                NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
                 if (pageIndex >= totle) {
                     xrefreshview.setLoadComplete(true);
                     return;

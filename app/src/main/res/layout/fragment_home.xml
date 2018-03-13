@@ -127,11 +127,14 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout">
 
-        <ScrollView
+    </android.support.v4.widget.SwipeRefreshLayout>
+
+
+    <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+        android:layout_below="@+id/relativeLayout"
             tools:ignore="UselessParent">
 
             <LinearLayout
@@ -475,6 +478,5 @@
 
         </ScrollView>
 
-    </android.support.v4.widget.SwipeRefreshLayout>
 
 </RelativeLayout>

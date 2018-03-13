@@ -69,7 +69,7 @@ public class MessageActivity extends BaseActivity implements ConversationView {
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
             if(shopCarNum.getData()!=0){
-                badgeView25 = new BadgeView(getApplicationContext(),imageView25);
+
                 badgeView25.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView25.setTextSize(6);// 设置文本大小
                 badgeView25.setText(""); // 设置要显示的文本
@@ -83,7 +83,7 @@ public class MessageActivity extends BaseActivity implements ConversationView {
             ShopCarNum shopCarNum = new ShopCarNum();
             shopCarNum = util.getgson(result,ShopCarNum.class);
             if(shopCarNum.getData()!=0){
-                badgeView26 = new BadgeView(getApplicationContext(),imageView26);
+
                 badgeView26.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
                 badgeView26.setTextSize(6);// 设置文本大小
                 badgeView26.setText(""); // 设置要显示的文本
@@ -123,7 +123,8 @@ public class MessageActivity extends BaseActivity implements ConversationView {
         presenter.getConversation();
 
         adapter.notifyDataSetChanged();
-
+        badgeView25 = new BadgeView(getApplicationContext(),imageView25);
+        badgeView26 = new BadgeView(getApplicationContext(),imageView26);
         inithttp();
 
 

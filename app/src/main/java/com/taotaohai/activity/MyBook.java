@@ -228,7 +228,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
                 showDialog2("删除后不能恢复", "订单删除");
                 break;
             case 7:
-
                 isdelect = true;
                 showDialog2("删除后不能恢复", "订单删除");
                 break;
@@ -429,7 +428,7 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             Goods goods = new Goods();
             goods= util.getgson(result,Goods.class);
 
-            if(goods.getData().getStock()<item.getCount()){
+            if(goods.getData().getStock()<item.getExt().getAcount()){
                 showToast("库存不足无法购买");
                 return;
             }else {
@@ -467,7 +466,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
         }
 
         if(postcode ==99){
-
             startActivity(new Intent(MyBook.this,ShopCarActivity.class));
             finish();
             return;
@@ -530,15 +528,6 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             request.nonceStr = wXpay.getData().getNoncestr();
             request.timeStamp = String.valueOf(wXpay.getData().getTimestamp());
             request.sign = wXpay.getData().getSign();
-//            msgApi.registerApp("wxd930ea5d5a258f4f");
-//            PayReq request = new PayReq();
-//            request.appId = "wxd930ea5d5a258f4f";
-//            request.partnerId = "1900000109";
-//            request.prepayId= "1101000000140415649af9fc314aa427";
-//            request.packageValue = "Sign=WXPay";
-//            request.nonceStr= "1101000000140429eb40476f8896f4c9";
-//            request.timeStamp= "1398746574";
-//            request.sign= "7FFECB600D7157C5AA49810D2D8F28BC2811827B";
             msgApi.sendReq(request);
         }
         if (postcode == 10) {

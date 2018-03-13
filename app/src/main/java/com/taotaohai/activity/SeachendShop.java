@@ -274,16 +274,16 @@ public class SeachendShop extends BaseActivity implements View.OnClickListener {
 
             switch (getIntent().getStringExtra("distance")) {
                 case "0":
-                    edit_search.setText("0~100km");
+                    edit_search.setText("100km以内");
                     break;
                 case "1":
-                    edit_search.setText("100~300km");
+                    edit_search.setText("300km以内");
                     break;
                 case "2":
-                    edit_search.setText("300~500km");
+                    edit_search.setText("500km以内");
                     break;
                 case "3":
-                    edit_search.setText("500km以上");
+                    edit_search.setText("不限");
                     break;
             }
 

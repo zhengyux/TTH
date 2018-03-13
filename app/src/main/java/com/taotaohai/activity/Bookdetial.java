@@ -51,7 +51,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
     private BookDet bookd;
     Book.Data data;
     private Dialog dialog;
-
+    boolean isdelect = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -197,7 +197,11 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             }
 
         }
-
+        if (postcode == 999) {
+            showToast("删除成功");
+            finish();
+            return;
+        }
 
         if (postcode == 111) {
             showToast("提醒成功");
@@ -354,6 +358,10 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
         if (dialog_count == 3) {
             Http(HttpMethod.PUT, "api/goodsorder/received/" + data.getId(), has, 15);
         }
+        if (isdelect) {
+            Http(HttpMethod.DELETE, "api/goodsorder/" + data.getId(), 999);
+            isdelect = false;
+        }
 
     }
 
@@ -407,6 +415,12 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 btn_2.setVisibility(View.GONE);
 
                 return "退款完成";
+            case 99:
+                btn_1.setVisibility(View.GONE);
+                btn_3.setVisibility(View.GONE);
+                btn_2.setTextColor(getResources().getColor(R.color.black));
+                btn_2.setText("删除");
+                return "交易关闭";
             default:
                 btn_1.setVisibility(View.GONE);
                 btn_2.setVisibility(View.GONE);
@@ -445,7 +459,19 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
                 startActivity(new Intent(Bookdetial.this, Evaluation.class).putExtra("id", data.getExt().getOrderId()));
                 finish();
                 break;
+            case 6:
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
+                break;
+            case 7:
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
+                break;
 
+            case 99://删除
+                isdelect = true;
+                showDialog2("删除后不能恢复", "订单删除");
+                break;
 
         }
     }
