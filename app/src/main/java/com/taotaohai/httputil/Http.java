@@ -88,8 +88,7 @@ public class Http implements IHttp {
         if (max_height <= imgMax) {
             inSimpleSize = inSimpleSize * Math.max(max_height, imgMax) / Math.min(max_height, imgMax);
         }
-//        params.addBodyParameter("username", "18750222148");
-//        params.addBodyParameter("password", MD5Utils.md5Password("123456"));
+
         params.addBodyParameter(fileName,
                 FileSizeUtil.compressBitmap(context,
                         data,

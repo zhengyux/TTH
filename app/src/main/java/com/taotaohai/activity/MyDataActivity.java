@@ -187,8 +187,7 @@ public class MyDataActivity extends BaseActivity {
                 .into(new MyBitmapImageViewTarget(imag_photo));//图片不变形
         HashMap<String, String> has = new HashMap<>();
         has.put("name", "file");
-//        has.put("username", "18750222148");
-//        has.put("password", MD5Utils.md5Password("123456"));
+
         String imageurl = new PhotoModel(CommonUtils.query(this, mPhotoUri)).getOriginalPath();
         sendImage("api/user/avatar", has, 0, imageurl, getApplicationContext(), 200, 200, "file");
     }
