@@ -139,6 +139,15 @@ public class ShopCarActivity extends BaseActivity {
                 showToast("请选择您要结算的商品");
                 return;
             }
+            for (int i=0 ; i<car.getData().getData().size() ; i++){
+                if(car.getData().getData().get(i).getGoodsInfo().getStock()<=car.getData().getData().get(i).getCount()){
+                    showToast(car.getData().getData().get(i).getGoodsName()+"库存不足");
+                    return;
+                }
+
+            }
+
+
 
             startActivity(new Intent(ShopCarActivity.this, OrderSureActivity.class)
                     .putExtra("car", car_buy)
