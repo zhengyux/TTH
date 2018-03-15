@@ -189,7 +189,7 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             Goods goods = new Goods();
             goods = util.getgson(result, Goods.class);
 
-            if (goods.getData().getStock() < data.getCount()) {
+            if (goods.getData().getStock() < data.getExt().getAcount()) {
                 showToast("库存不足无法购买");
                 return;
             } else {
