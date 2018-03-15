@@ -415,7 +415,9 @@ public class MyBook extends BaseActivity implements OnTabSelectListener, View.On
             Goods goods = util.getgson(result, Goods.class);
             if (goods.getData().getStatus() == 1) {
                 showToast("商品下架啦！");
-            } else {
+            }else if (goods.getData().getStock()<item.getExt().getAcount()){
+                showToast("库存不足无法购买");
+            }else {
                 JsonObject object = new JsonObject();
                 object.addProperty("goodsId", item.getGoodsId());
                 object.addProperty("count", item.getExt().getAcount());

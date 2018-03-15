@@ -168,6 +168,8 @@ public class Bookdetial extends BaseActivity implements View.OnClickListener {
             Goods goods = util.getgson(result, Goods.class);
             if (goods.getData().getStatus() == 1) {
                 showToast("商品下架啦！");
+            }else if (goods.getData().getStock()<data.getExt().getAcount()){
+                showToast("库存不足无法购买");
             } else {
                 JsonObject object = new JsonObject();
                 object.addProperty("goodsId", data.getGoodsId());
