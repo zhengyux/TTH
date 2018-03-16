@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.Surface;
 import android.view.TextureView;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -599,6 +600,7 @@ public class NiceVideoPlayer extends FrameLayout
             this.addView(mContainer, params);
             mCurrentMode = MODE_NORMAL;
             mController.onPlayModeChanged(mCurrentMode);
+            NiceUtil.showActionBar(mContext);
 
 
             LogUtil.d("MODE_NORMAL");
