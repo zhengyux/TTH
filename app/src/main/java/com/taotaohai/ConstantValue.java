@@ -19,9 +19,11 @@ public interface ConstantValue {
     /**
      * 服务器端
      */
-  //  public String URL = "http://taotaohai.lmlm.cn/";//测试域名
+//    public String URL = "192.168.199.22:8080/";//测试域名
 
     public String URL = "http://www.taotaohai.com/";//域名
+
+
     public String URL_VIDEO= "api/video";//视频列表
     public String URL_SEARCH_VIDEO= "api/search/video";//视频搜索列表
     public static final String VIDEOSHARE = "http://www.taotaohai.com/video/share/"; //视频分享

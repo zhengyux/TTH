@@ -66,4 +66,6 @@
         android:layout_alignStart="@+id/image_photo"
         android:layout_below="@+id/image_photo"
         android:layout_marginTop="@dimen/gap" />
+
+
 </RelativeLayout>

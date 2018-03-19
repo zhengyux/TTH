@@ -45,6 +45,7 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import org.xutils.http.HttpMethod;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -64,10 +65,8 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private ClassPage classPage;
     private ClassGoods classGoods;
     private CommonAdapter adapter;
-    private String ordertype = "gmt_create";
-    private String ordertype2 = "desc";
     private int pageIndex = 0;
-    private int pageSize = 100;
+    private int pageSize = 20;
     private String id = "-1";
     private ImageView class_car_image;
     private RelativeLayout rela_shopcar;
@@ -239,11 +238,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     void gohttp() {
         has.clear();
-        has.put("sorts[0].name", ordertype);
-        has.put("sorts[0].order", ordertype2);
-        has.put("paging", "0");
-//        has.put("pageIndex", String.valueOf(pageIndex));
-//        has.put("pageSize", String.valueOf(pageSize));
+
+        has.put("pageIndex", String.valueOf(pageIndex));
+        has.put("pageSize", String.valueOf(pageSize));
+
         Http(HttpMethod.GET, "api/goods/type/" + id, has, 1);
     }
 
@@ -337,8 +335,17 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
         }
         if (postcode == 1) {
-            classGoods = util.getgson(data, ClassGoods.class);
+            if(pageSize!=0){
+                ClassGoods classGoods2 = util.getgson(data, ClassGoods.class);
+                for (int i = 0; i < classGoods2.getData2().getData().size(); i++){
+                    classGoods.getData2().getData().add(classGoods2.getData2().getData().get(i));
+                }
+            }else {
+                classGoods = util.getgson(data, ClassGoods.class);
+            }
+
             if (classGoods.getSuccess()) {
+                pageIndex+=1;
                 initdata();
             }
         }
@@ -438,7 +445,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 views.get(0).setBackgroundResource(R.drawable.bac_class_left);
                 texts.get(0).setTextColor(getResources().getColor(R.color.white));
                 position = -1;
-                ordertype = "gmt_create";
+
                 gohttp();
                 break;
             case R.id.rela2:
@@ -447,14 +454,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 if (position == 1) {
                     images.get(1).setImageResource(R.mipmap.clickbutton);
                     position = -1;
-                    ordertype2 = "desc";
-                    ordertype = "price";
 
                 } else {
                     images.get(0).setImageResource(R.mipmap.clickup);
                     position = 1;
-                    ordertype = "price";
-                    ordertype2 = "asc";
                 }
                 gohttp();
                 break;
@@ -464,13 +467,9 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 if (position == 2) {
                     images.get(3).setImageResource(R.mipmap.clickbutton);
                     position = -1;
-                    ordertype2 = "desc";
-                    ordertype = "sale_volume";
                 } else {
                     images.get(2).setImageResource(R.mipmap.clickup);
                     position = 2;
-                    ordertype2 = "asc";
-                    ordertype = "sale_volume";
                 }
                 gohttp();
                 break;
@@ -545,6 +544,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
+
                 new Handler().postDelayed(() -> {
 //                        xrefreshview.setLoadComplete(true);//已无更多数据
                     xrefreshview.stopLoadMore();//还有数据
