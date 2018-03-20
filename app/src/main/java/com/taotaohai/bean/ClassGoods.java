@@ -19,6 +19,7 @@ public class ClassGoods {
     @SerializedName("success")
     private boolean success;
 
+
     public int getCode() {
         return code;
     }
@@ -493,6 +494,7 @@ public class ClassGoods {
         private String unit;
         @SerializedName("unitMin")
         private int unitMin;
+
 
         public String getClassId() {
             return classId;

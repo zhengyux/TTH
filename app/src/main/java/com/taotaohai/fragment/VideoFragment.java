@@ -117,7 +117,7 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
         unreadMsg();
         get("/api/shopCar/shop_car_num",20);
         get("/api/message/notReadList/0",50);
-        get("/api/message/notReadList/1",51);
+        get("/api/message/notReadList/1",50);
         inithttpdata();
     }
 
@@ -173,41 +173,23 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
             }
 
         }
-        if(postcode==51){
-            ShopCarNum shopCarNum = new ShopCarNum();
-            shopCarNum = util.getgson(data,ShopCarNum.class);
-            if(shopCarNum.getData()!=0){
-                badgeView2.setBadgePosition(BadgeView.POSITION_TOP_RIGHT);// 设置在右上角
-                badgeView2.setTextSize(6);// 设置文本大小
-                badgeView2.setText(""); // 设置要显示的文本
-                badgeView2.show();// 将角标显示出来
-            }else {
-                badgeView2.hide();
-            }
-
-        }
 
         if (postcode == 0) {
             if (pageIndex == 0) {
                 video = util.getgson(data, Video.class);
                 if (video.getSuccess()) {
-  //                  initdata();
                     xListView.setAdapter(myadapter);
                     totle = video.getData().getTotal();
                 }
             } else {
                 Video video2 = util.getgson(data, Video.class);
-                if (video2.getData().getData().size() > 0) {
-         //           video.getData().getData().addAll(video2.getData().getData());
-                    video=video2;
-                    myadapter.notifyDataSetChanged();
+                for(int i=0; i<video2.getData().getData().size();i++){
+                    video.getData().getData().add(video2.getData().getData().get(i));
                     xListView.stopLoadMore();
                     xListView.stopRefresh();
-                } else {
                     myadapter.notifyDataSetChanged();
-                    xListView.stopLoadMore();
-                    xListView.stopRefresh();
                 }
+
             }
         }
     }
@@ -421,9 +403,32 @@ public class VideoFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public void onLoadMore() {
         NiceVideoPlayerManager.instance().releaseNiceVideoPlayer();
-        pageIndex +=1;//第多少个
-        inithttpdata();
-        xListView.stopLoadMore();
+
+        int index2 = 0;
+        int index = 0;
+        if(totle>=pageSize){
+            index2 = totle/pageSize;
+            index = totle%pageSize;
+            if(index>0){
+                index2+=1;
+            }
+
+            if (pageIndex!=0&&pageIndex+1>=index2){
+                showToast("没有更多数据");
+                xListView.stopLoadMore();
+            }else {
+                pageIndex+=1;
+                inithttpdata();
+
+            }
+
+        }else {
+            index2=1;
+            showToast("没有更多数据");
+            xListView.stopLoadMore();
+        }
+
+
     }
 
 

@@ -45,7 +45,6 @@ import com.zhy.adapter.recyclerview.base.ViewHolder;
 import org.xutils.http.HttpMethod;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -65,8 +64,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     private ClassPage classPage;
     private ClassGoods classGoods;
     private CommonAdapter adapter;
+    private String ordertype = "gmt_create";
+    private String ordertype2 = "desc";
     private int pageIndex = 0;
-    private int pageSize = 20;
+    private int pageSize = 10;
     private String id = "-1";
     private ImageView class_car_image;
     private RelativeLayout rela_shopcar;
@@ -132,9 +133,11 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     private void ExpandableListViewClick(){
 
+
         tv_all_goods.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                pageIndex=0;
                 tv_all_goods.setBackgroundColor(getResources().getColor(R.color.top_bar_normal_bg));
 
                 id="-1";
@@ -152,6 +155,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
             @Override
             public boolean onChildClick(ExpandableListView parent, View view, int groupPosition, int childPosition, long l) {
+                pageIndex=0;
                 tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id = classPage.getData().get(groupPosition).getChildren().get(childPosition).getId();
 
@@ -173,6 +177,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView.setOnGroupClickListener(new ExpandableListView.OnGroupClickListener() {
             @Override
             public boolean onGroupClick(ExpandableListView expandableListView, View view, int i, long l) {
+                pageIndex=0;
                 tv_all_goods.setBackgroundColor(getResources().getColor(R.color.class_bac));
                 id=classPage.getData().get(i).getId();
                 if(classPage.getData().get(i).getChildren().size()>0){
@@ -192,6 +197,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         expandableListView.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int groupPosition) {
+                pageIndex=0;
 
                 for (int i = 0; i < myexplistAdapter.getGroupCount(); i++) {
                     if (groupPosition != i) {
@@ -238,10 +244,10 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
 
     void gohttp() {
         has.clear();
-
+        has.put("sorts[0].name", ordertype);
+        has.put("sorts[0].order", ordertype2);
         has.put("pageIndex", String.valueOf(pageIndex));
         has.put("pageSize", String.valueOf(pageSize));
-
         Http(HttpMethod.GET, "api/goods/type/" + id, has, 1);
     }
 
@@ -335,19 +341,17 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
         }
         if (postcode == 1) {
-            if(pageSize!=0){
+            if(pageIndex==0){
+                classGoods = util.getgson(data, ClassGoods.class);
+                initdata();
+            }else {
                 ClassGoods classGoods2 = util.getgson(data, ClassGoods.class);
-                for (int i = 0; i < classGoods2.getData2().getData().size(); i++){
+                for(int i = 0; i < classGoods2.getData2().getData().size(); i++){
                     classGoods.getData2().getData().add(classGoods2.getData2().getData().get(i));
                 }
-            }else {
-                classGoods = util.getgson(data, ClassGoods.class);
+                adapter.notifyDataSetChanged();
             }
 
-            if (classGoods.getSuccess()) {
-                pageIndex+=1;
-                initdata();
-            }
         }
         if (postcode == 99) {
             if (util.isSuccess(data)) {
@@ -408,7 +412,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
         switch (v.getId()) {
             case R.id.rela_shopcar:
                 get("api/user/",999);
-            break;
+                break;
 
             case R.id.rela_message:
 
@@ -441,35 +445,45 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
                 get("api/user/",998);
 
             case R.id.rela1:
-
+                pageIndex=0;
                 views.get(0).setBackgroundResource(R.drawable.bac_class_left);
                 texts.get(0).setTextColor(getResources().getColor(R.color.white));
                 position = -1;
-
+                ordertype = "gmt_create";
                 gohttp();
                 break;
             case R.id.rela2:
+                pageIndex=0;
                 views.get(1).setBackgroundColor(getResources().getColor(R.color.them));
                 texts.get(1).setTextColor(getResources().getColor(R.color.white));
                 if (position == 1) {
                     images.get(1).setImageResource(R.mipmap.clickbutton);
                     position = -1;
+                    ordertype2 = "desc";
+                    ordertype = "price";
 
                 } else {
                     images.get(0).setImageResource(R.mipmap.clickup);
                     position = 1;
+                    ordertype = "price";
+                    ordertype2 = "asc";
                 }
                 gohttp();
                 break;
             case R.id.rela3:
+                pageIndex=0;
                 views.get(2).setBackgroundResource(R.drawable.bac_class_right);
                 texts.get(2).setTextColor(getResources().getColor(R.color.white));
                 if (position == 2) {
                     images.get(3).setImageResource(R.mipmap.clickbutton);
                     position = -1;
+                    ordertype2 = "desc";
+                    ordertype = "sale_volume";
                 } else {
                     images.get(2).setImageResource(R.mipmap.clickup);
                     position = 2;
+                    ordertype2 = "asc";
+                    ordertype = "sale_volume";
                 }
                 gohttp();
                 break;
@@ -494,10 +508,12 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
     ImageView image_photo;
     ImageView imag_photo2;
 
+    ClassGoods.Data data2;
     private void initdata() {
         adapter = new CommonAdapter<ClassGoods.Data>(getActivity(), R.layout.item_class_recycle, classGoods.getData2().getData()) {
             @Override
             protected void convert(ViewHolder holder, final ClassGoods.Data data, int position) {
+                data2=data;
                 holder.setOnClickListener(R.id.image_car, v -> {
                     image_photo = holder.getView(R.id.image_car);
                     JsonObject object = new JsonObject();
@@ -544,6 +560,33 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             @Override
             public void onLoadMore(boolean isSilence) {
                 super.onLoadMore(isSilence);
+
+                int index2 = 0;
+                int index = 0;
+                if(classGoods.getData2().getTotal()>=pageSize){
+                    index2 = classGoods.getData2().getTotal()/pageSize;
+                    index = classGoods.getData2().getTotal()%pageSize;
+                    if(index>0){
+                        index2+=1;
+                    }
+
+                    if (pageIndex!=0&&pageIndex+1>=index2){
+                        showToast("没有更多数据");
+                    }else {
+                        pageIndex+=1;
+                        gohttp();
+
+                    }
+
+                }else {
+                    index2=1;
+                    showToast("没有更多数据");
+
+                }
+
+
+
+
 
                 new Handler().postDelayed(() -> {
 //                        xrefreshview.setLoadComplete(true);//已无更多数据
@@ -629,7 +672,7 @@ public class ClassFragment extends BaseFragment implements View.OnClickListener 
             }
 
 
-                    groupViewHolder.tv_g.setText(classPage.getData().get(groupPosition).getClassName());
+            groupViewHolder.tv_g.setText(classPage.getData().get(groupPosition).getClassName());
 
 
 
