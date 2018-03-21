@@ -140,7 +140,7 @@ public class ShopCarActivity extends BaseActivity {
                 return;
             }
             for (int i=0 ; i<car_buy.getData().getData().size() ; i++){
-                if(car_buy.getData().getData().get(i).getGoodsInfo().getStock()<=car_buy.getData().getData().get(i).getCount()){
+                if(car_buy.getData().getData().get(i).getGoodsInfo().getStock()<car_buy.getData().getData().get(i).getCount()){
                     showToast(car_buy.getData().getData().get(i).getGoodsName()+"库存不足");
                     return;
                 }
